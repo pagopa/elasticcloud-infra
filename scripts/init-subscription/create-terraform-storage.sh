@@ -11,7 +11,7 @@ SUBSCRIPTION=$1
 STORAGE_TYPE=$2
 
 # Disabled because in italynorth not supported
-#ENABLE_ADVANCED_THREAT_PROTECTION=$3
+ENABLE_ADVANCED_THREAT_PROTECTION=$3
 
 if [ -z "${SUBSCRIPTION}" ]; then
     printf "\e[1;31mYou must provide a subscription as first argument.\n"
@@ -91,8 +91,8 @@ az storage account update \
   --allow-shared-key-access true
 
 # Disabled because in italynorth not supported
-# az security atp storage update --is-enabled "${ENABLE_ADVANCED_THREAT_PROTECTION}" \
-#   --storage-account "${STORAGE_ACCOUNT_NAME}" \
-#   --resource-group "${RESOURCE_GROUP_NAME}" \
-#   --subscription "${SUBSCRIPTION}"
-# echo "[INFO] security advanced threat protection storage updated"
+ az security atp storage update --is-enabled "${ENABLE_ADVANCED_THREAT_PROTECTION}" \
+   --storage-account "${STORAGE_ACCOUNT_NAME}" \
+   --resource-group "${RESOURCE_GROUP_NAME}" \
+   --subscription "${SUBSCRIPTION}"
+ echo "[INFO] security advanced threat protection storage updated"

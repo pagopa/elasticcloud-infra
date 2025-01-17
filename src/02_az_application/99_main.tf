@@ -8,6 +8,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 4.16"
     }
+    ec = {
+      source  = "elastic/ec"
+      version = "~> 0.12.2"
+    }
   }
 
   backend "azurerm" {}

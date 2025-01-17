@@ -8,6 +8,7 @@
 |------|---------|
 | <a name="requirement_azuread"></a> [azuread](#requirement\_azuread) | ~> 3.1 |
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 4.16 |
+| <a name="requirement_ec"></a> [ec](#requirement\_ec) | ~> 0.12.2 |
 
 ## Providers
 
