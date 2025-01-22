@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 4.16"
     }
+    azuread = {
+      source  = "hashicorp/azuread"
+      version = "~> 3.1"
+    }
     ec = {
       source  = "elastic/ec"
       version = "~> 0.12"
@@ -21,3 +25,9 @@ provider "azurerm" {
     }
   }
 }
+
+data "azurerm_subscription" "current" {}
+
+data "azurerm_client_config" "current" {}
+
+

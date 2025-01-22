@@ -17,8 +17,3 @@ resource "ec_organization" "elastic_cloud_organization" {
     }
   }
 }
-
-moved {
-  from = ec_organization.pagopa_ec_org
-  to   = ec_organization.elastic_cloud_organization
-}

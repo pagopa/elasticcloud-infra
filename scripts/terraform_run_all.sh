@@ -15,8 +15,8 @@ pids=()
 ACTION="$1"
 
 array=(
-    #'.identity::dev'
-    #'src/01_networking::itn-dev'
+    '01_elasti::dev'
+    'src/01_networking::itn-dev'
 
 )
 
