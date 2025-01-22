@@ -12,10 +12,6 @@ terraform {
       source  = "elastic/ec"
       version = "~> 0.12.2"
     }
-    null = {
-      source  = "hashicorp/null"
-      version = "~> 3.2"
-    }
     elasticstack = {
       source  = "elastic/elasticstack"
       version = "~> 0.11"

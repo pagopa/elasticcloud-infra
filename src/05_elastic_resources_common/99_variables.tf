@@ -1,3 +1,13 @@
+variable "prefix" {
+  type = string
+  validation {
+    condition = (
+      length(var.prefix) <= 6
+    )
+    error_message = "Max length is 6 chars."
+  }
+}
+
 variable "env" {
   type = string
 }
@@ -12,53 +22,23 @@ variable "env_short" {
   }
 }
 
-
-variable "location" {
-  type        = string
-  description = "One of westeurope, northeurope"
-}
-
-variable "location_short" {
-  type = string
-  validation {
-    condition = (
-      length(var.location_short) == 3
-    )
-    error_message = "Length must be 3 chars."
-  }
-  description = "One of wue, neu"
-}
-
-variable "tags" {
-  type = map(any)
-  default = {
-    CreatedBy = "Terraform"
-  }
-}
-
 variable "ec_deployment_id" {
   type = string
   description = "(Required) identifier of EC deployment"
 }
 
-variable "lifecycle_policy_wait_for_snapshot" {
-  type = bool
-  description = "(Optional) True if the index lifecycle policy has to wait for snapshots before deletion"
-  default = true
-}
-
-variable "shared_env" {
-  type = list(string)
-  description = ""
+variable "snapshot_lifecycle_default" {
+  description = "(Required) Identifier for the default snapshot lifecycle policy of the EC deployment."
+  type = object({
+    expire_after = string
+  })
+  default = {
+    expire_after = "30d"
+  }
 }
 
 variable "default_ilm" {
-  type = any #TODO Rivedere struttura
-  description = ""
-  default = {
-    hot = optional({
-      minAge = optional(string, null)
-      maxAge =
-    })
-  }
+  type = any
+  description = "Defines the default Index Lifecycle Management (ILM) policy stages for an Elasticsearch deployment."
+  default = {}
 }

@@ -1,4 +1,14 @@
 locals {
+  prefix_env_short = "${var.prefix}-${var.env_short}"
+
+  tags = {
+    CreatedBy   = "Terraform"
+    Environment = upper(var.env)
+    Owner       = "PAY-MONITORING"
+    Source      = "https://github.com/pagopa/elasticcloud-infra"
+    CostCenter  = "TS310 - PAGAMENTI & SERVIZI"
+  }
+
   admins_email = [
     "marco.mari@pagopa.it",
     "matteo.alongi@pagopa.it",
@@ -28,7 +38,7 @@ locals {
     "delete" = {
       "minAge"                   = "7d",
       "deleteSearchableSnapshot" = true,
-      "waitForSnapshot"          = var.lifecycle_policy_wait_for_snapshot
+      "waitForSnapshot"          = true
     }
   }
 }

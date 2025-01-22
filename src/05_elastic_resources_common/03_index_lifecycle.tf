@@ -58,14 +58,11 @@ locals {
 
 
 resource "elasticstack_elasticsearch_index_lifecycle" "index_lifecycle" {
-  for_each = toset(var.shared_env)
-
-  name = "${each.key}-${var.env_short}-default-ilm"
+  name = "${local.prefix_env_short}-default-ilm"
 
   hot {
     min_age = lookup(
-      lookup(var.default_ilm, "hot", local.default_ilm.hot),
-    "minAge", local.default_ilm.hot.minAge)
+      lookup(var.default_ilm, "hot", local.default_ilm.hot), "minAge", local.default_ilm.hot.minAge)
     rollover {
       max_age                = lookup(lookup(lookup(var.default_ilm, "hot", local.default_ilm.hot), "rollover", local.default_ilm.hot.rollover), "maxAge", local.default_ilm.hot.rollover.maxAge)
       max_primary_shard_size = lookup(lookup(lookup(var.default_ilm, "hot", local.default_ilm.hot), "rollover", local.default_ilm.hot.rollover), "maxPrimarySize", local.default_ilm.hot.rollover.maxPrimarySize)
@@ -92,15 +89,13 @@ resource "elasticstack_elasticsearch_index_lifecycle" "index_lifecycle" {
     dynamic "wait_for_snapshot" {
       for_each = lookup(lookup(var.default_ilm, "delete", local.default_ilm.delete), "waitForSnapshot", local.default_ilm.delete.waitForSnapshot) ? [1] : []
       content {
-        policy = var.default_snapshot_policy_name
+        policy = lookup(lookup(var.default_ilm, "delete", local.default_ilm.delete),"deleteSearchableSnapshot", local.default_ilm.delete.deleteSearchableSnapshot)
       }
     }
     delete {
-      delete_searchable_snapshot = lookup(lookup(var.default_ilm, "delete", local.default_ilm.delete), "deleteSearchableSnapshot", local.default_ilm.delete.deleteSearchableSnapshot)
+      delete_searchable_snapshot = lookup(lookup(var.default_ilm, "delete", local.default_ilm.delete), "waitForSnapshot", local.default_ilm.delete.waitForSnapshot)
     }
   }
 
-  metadata = jsonencode({
-    "managedBy" = "Terraform"
-  })
+  metadata = jsonencode(local.tags)
 }
