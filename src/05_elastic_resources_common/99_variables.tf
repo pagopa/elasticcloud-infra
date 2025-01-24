@@ -23,7 +23,7 @@ variable "env_short" {
 }
 
 variable "ec_deployment_id" {
-  type = string
+  type        = string
   description = "(Required) identifier of EC deployment"
 }
 
@@ -38,7 +38,7 @@ variable "snapshot_lifecycle_default" {
 }
 
 variable "default_ilm" {
-  type = any
+  type        = any
   description = "Defines the default Index Lifecycle Management (ILM) policy stages for an Elasticsearch deployment."
-  default = {}
+  default     = {}
 }

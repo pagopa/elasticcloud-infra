@@ -15,7 +15,7 @@ terraform {
   }
 
   #backend "azurerm" {}
-    backend "local" {
+  backend "local" {
     path = "terraform.tfstate"
   }
 }

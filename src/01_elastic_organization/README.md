@@ -43,7 +43,7 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [ec_organization.elastic_cloud_organization](https://registry.terraform.io/providers/elastic/ec/latest/docs/resources/organization) | resource |
+| [ec_organization.admin_elastic_cloud_organization](https://registry.terraform.io/providers/elastic/ec/latest/docs/resources/organization) | resource |
 
 ## Inputs
 

@@ -62,7 +62,7 @@ resource "elasticstack_elasticsearch_index_lifecycle" "index_lifecycle" {
 
   hot {
     min_age = lookup(
-      lookup(var.default_ilm, "hot", local.default_ilm.hot), "minAge", local.default_ilm.hot.minAge)
+    lookup(var.default_ilm, "hot", local.default_ilm.hot), "minAge", local.default_ilm.hot.minAge)
     rollover {
       max_age                = lookup(lookup(lookup(var.default_ilm, "hot", local.default_ilm.hot), "rollover", local.default_ilm.hot.rollover), "maxAge", local.default_ilm.hot.rollover.maxAge)
       max_primary_shard_size = lookup(lookup(lookup(var.default_ilm, "hot", local.default_ilm.hot), "rollover", local.default_ilm.hot.rollover), "maxPrimarySize", local.default_ilm.hot.rollover.maxPrimarySize)
@@ -89,7 +89,7 @@ resource "elasticstack_elasticsearch_index_lifecycle" "index_lifecycle" {
     dynamic "wait_for_snapshot" {
       for_each = lookup(lookup(var.default_ilm, "delete", local.default_ilm.delete), "waitForSnapshot", local.default_ilm.delete.waitForSnapshot) ? [1] : []
       content {
-        policy = lookup(lookup(var.default_ilm, "delete", local.default_ilm.delete),"deleteSearchableSnapshot", local.default_ilm.delete.deleteSearchableSnapshot)
+        policy = lookup(lookup(var.default_ilm, "delete", local.default_ilm.delete), "deleteSearchableSnapshot", local.default_ilm.delete.deleteSearchableSnapshot)
       }
     }
     delete {

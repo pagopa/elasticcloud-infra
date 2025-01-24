@@ -1,5 +1,5 @@
 resource "elasticstack_elasticsearch_snapshot_repository" "snapshot_repository" {
-  name     = "${local.prefix_env_short}-default-snapshot-backup"
+  name = "${local.prefix_env_short}-default-snapshot-backup"
 
   azure {
     container  = "snapshotblob"

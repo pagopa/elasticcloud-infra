@@ -23,19 +23,19 @@ variable "env_short" {
 }
 
 variable "ec_deployment_id" {
-  type = string
+  type        = string
   description = "(Required) identifier of EC deployment"
 }
 
 variable "default_snapshot_policy_name" {
-  type = string
+  type        = string
   description = "(Required) default snapshot policy name"
-  default = "default-nightly-snapshots"
+  default     = "default-nightly-snapshots"
 }
 
 variable "lifecycle_policy_wait_for_snapshot" {
-  type = bool
+  type        = bool
   description = "(Optional) True if the index lifecycle policy has to wait for snapshots before deletion"
-  default = true
+  default     = true
 }
 
