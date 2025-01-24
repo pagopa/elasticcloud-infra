@@ -10,3 +10,6 @@ tags = {
 }
 
 targets = ["pagopa", "arc", "p4pa"]
+
+# TODO Potrebbe avere senso strutturare gli env in questo modo al posto di targets
+# target_deployment = ["pagopa", "arp4pa"]

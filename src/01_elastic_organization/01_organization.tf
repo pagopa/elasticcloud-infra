@@ -1,4 +1,4 @@
-resource "ec_organization" "elastic_cloud_organization" {
+resource "ec_organization" "admin_elastic_cloud_organization" {
   members = {
     "marco.mari@pagopa.it" = {
       organization_role = "organization-admin"
