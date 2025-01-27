@@ -12,7 +12,7 @@ locals {
   default_snapshot_container_name = "snapshotblob"
 
   shared_env_application_id = {
-    for e in var.shared_env : e => data.azuread_application.ec_application[e].application_id
+    for e in var.shared_env : e => data.azuread_application.ec_application[e].client_id
   }
 }
 

@@ -1,7 +1,7 @@
 resource "azurerm_storage_account" "state_storage" {
   for_each = toset(var.targets)
 
-  name                            = replace("${each.key}-${var.env_short}-ec-state", "-", "")
+  name                            = replace("${each.key}-${var.env}-ec-state", "-", "")
   resource_group_name             = local.terraform_state_rg
   location                        = local.location
   account_tier                    = "Standard"

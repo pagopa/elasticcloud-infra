@@ -8,19 +8,22 @@ shared_env = ["pagopa-dev", "pagopa-uat"]
 
 # TODO riguardare insieme ai ragazzi
 hot_config = {
-  size       = "100g"
+  size       = "4g"
   zone_count = 2
 }
 
-warm_config = {
-  size       = "100g"
-  zone_count = 2
-}
+warm_config = null
+cold_config = null
 
-cold_config = {
-  size       = "100g"
-  zone_count = 2
-}
+#warm_config = {
+#  size       = null
+#  zone_count = null
+#}
+#
+#cold_config = {
+#  size       = null
+#  zone_count = null
+#}
 
 elk_snapshot_sa = {
   blob_versioning_enabled    = false
