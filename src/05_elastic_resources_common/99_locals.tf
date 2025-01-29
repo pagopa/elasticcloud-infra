@@ -1,4 +1,5 @@
 locals {
+  prefix_env       = "${var.prefix}-${var.env}"
   prefix_env_short = "${var.prefix}-${var.env_short}"
 
   tags = {
@@ -13,7 +14,6 @@ locals {
     "marco.mari@pagopa.it",
     "matteo.alongi@pagopa.it",
     "diego.lagosmorales@pagopa.it",
-    "umberto.coppolabottazzi@pagopa.it",
     "fabio.felici@pagopa.it"
   ]
 

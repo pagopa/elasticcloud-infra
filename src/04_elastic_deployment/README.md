@@ -22,10 +22,10 @@ export EC_API_KEY=<elastic cloud organization api key>
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azuread"></a> [azuread](#provider\_azuread) | ~> 3.1 |
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 4.16 |
-| <a name="provider_ec"></a> [ec](#provider\_ec) | ~> 0.12.2 |
-| <a name="provider_random"></a> [random](#provider\_random) | ~> 3.6 |
+| <a name="provider_azuread"></a> [azuread](#provider\_azuread) | 3.1.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 4.16.0 |
+| <a name="provider_ec"></a> [ec](#provider\_ec) | 0.12.2 |
+| <a name="provider_random"></a> [random](#provider\_random) | 3.6.3 |
 
 ## Modules
 

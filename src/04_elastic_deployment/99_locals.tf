@@ -11,10 +11,11 @@ locals {
 
   default_snapshot_container_name = "snapshotblob"
 
-  shared_env_application_id = {
-    for e in var.shared_env : e => data.azuread_application.ec_application[e].client_id
-  }
+  shared_env_application_id = zipmap(
+    var.shared_env,
+    [for idx, env in var.shared_env : {
+      client_id = data.azuread_application.ec_application[env].client_id
+      index     = idx
+    }]
+  )
 }
-
-
-

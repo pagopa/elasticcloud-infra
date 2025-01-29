@@ -2,4 +2,19 @@ prefix    = "pagopa"
 env       = "dev"
 env_short = "d"
 
-ec_deployment_id = "0a5530b19ca67de6b3cf71f02082443d"
+ec_deployment_id = "782a6d595487581de53e0e115756957f"
+
+role_mappings = {
+  adgroup-admin = {
+    roles   = ["admin"]
+    enabled = true
+  }
+  adgroup-developers = {
+    roles   = ["editor"]
+    enabled = true
+  }
+  adgroup-operations = {
+    roles   = ["viewer"]
+    enabled = true
+  }
+}

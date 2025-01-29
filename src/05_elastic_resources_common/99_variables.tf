@@ -42,3 +42,12 @@ variable "default_ilm" {
   description = "Defines the default Index Lifecycle Management (ILM) policy stages for an Elasticsearch deployment."
   default     = {}
 }
+
+variable "role_mappings" {
+  type = map(object({
+    roles   = list(string)
+    enabled = bool
+  }))
+  description = ""
+  default     = {}
+}

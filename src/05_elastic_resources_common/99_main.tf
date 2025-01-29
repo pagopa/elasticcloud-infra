@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 4.16"
     }
+    azuread = {
+      source  = "hashicorp/azuread"
+      version = "~> 3.1"
+    }
     ec = {
       source  = "elastic/ec"
       version = "~> 0.12.2"
