@@ -243,5 +243,5 @@ resource "kubernetes_manifest" "daemon_set" {
   field_manager {
     force_conflicts = true
   }
-  computed_fields = ["spec.template.spec.containers[0].resources"]
+  computed_fields = ["spec.template.spec.containers[0].resources", "metadata.annotations"]
 }
