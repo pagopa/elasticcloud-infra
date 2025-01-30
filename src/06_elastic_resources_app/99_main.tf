@@ -10,14 +10,13 @@ terraform {
     }
     elasticstack = {
       source  = "elastic/elasticstack"
-      version = "~> 0.11"
+      # version required to avoid a bug on integration policy: https://github.com/elastic/terraform-provider-elasticstack/issues/999
+      # version documented here https://github.com/elastic/terraform-provider-elasticstack/issues/836
+      version = "0.11.7"
     }
   }
 
-  #backend "azurerm" {}
-  backend "local" {
-    path = "terraform.tfstate"
-  }
+  backend "azurerm" {}
 }
 
 provider "azurerm" {
@@ -35,5 +34,8 @@ provider "elasticstack" {
   kibana {
     endpoints = [data.ec_deployment.ec_deployment.kibana[0].https_endpoint]
   }
+}
 
+provider "kubernetes" {
+  config_path = "${var.k8s_kube_config_path_prefix}/config-${var.aks_name}"
 }

@@ -1,0 +1,11 @@
+{
+  "kubernetes.event": {
+    "enabled": true,
+    "vars": {
+      "period": "10s",
+      "add_metadata": true,
+      "skip_older": true,
+      "leaderelection": true
+    }
+  }
+}

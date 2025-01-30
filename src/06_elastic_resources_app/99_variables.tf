@@ -39,3 +39,23 @@ variable "lifecycle_policy_wait_for_snapshot" {
   default     = true
 }
 
+
+
+variable "k8s_kube_config_path_prefix" {
+  type    = string
+  default = "~/.kube"
+}
+
+variable "aks_name" {
+  type = string
+}
+
+variable "dedicated_log_instance_name" {
+  type = list(string)
+}
+
+variable "elastic_agent_kube_namespace" {
+  type = string
+}
+
+

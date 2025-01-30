@@ -32,3 +32,10 @@ elk_snapshot_sa = {
   advanced_threat_protection = true
   replication_type           = "ZRS"
 }
+
+elasticsearch_version = "8.17.0"
+
+integration_server = {
+    size = "1g"
+    zones = 1
+}
