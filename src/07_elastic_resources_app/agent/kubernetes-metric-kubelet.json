@@ -1,0 +1,70 @@
+{
+      "kubernetes.container": {
+        "enabled": true,
+        "vars": {
+          "add_metadata": true,
+          "bearer_token_file": "/var/run/secrets/kubernetes.io/serviceaccount/token",
+          "hosts": [
+            "https://${env.NODE_NAME}:10250"
+          ],
+          "period": "10s",
+          "ssl.verification_mode": "none",
+          "add_resource_metadata_config": "",
+          "ssl.certificate_authorities": []
+        }
+      },
+      "kubernetes.node": {
+        "enabled": true,
+        "vars": {
+          "add_metadata": true,
+          "bearer_token_file": "/var/run/secrets/kubernetes.io/serviceaccount/token",
+          "hosts": [
+            "https://${env.NODE_NAME}:10250"
+          ],
+          "period": "10s",
+          "ssl.verification_mode": "none",
+          "ssl.certificate_authorities": []
+        }
+      },
+      "kubernetes.pod": {
+        "enabled": true,
+        "vars": {
+          "add_metadata": true,
+          "bearer_token_file": "/var/run/secrets/kubernetes.io/serviceaccount/token",
+          "hosts": [
+            "https://${env.NODE_NAME}:10250"
+          ],
+          "period": "10s",
+          "ssl.verification_mode": "none",
+          "ssl.certificate_authorities": [],
+          "add_resource_metadata_config": ""
+        }
+      },
+      "kubernetes.system": {
+        "enabled": true,
+        "vars": {
+          "add_metadata": true,
+          "bearer_token_file": "/var/run/secrets/kubernetes.io/serviceaccount/token",
+          "hosts": [
+            "https://${env.NODE_NAME}:10250"
+          ],
+          "period": "10s",
+          "ssl.verification_mode": "none",
+          "ssl.certificate_authorities": []
+        }
+      },
+      "kubernetes.volume": {
+        "enabled": true,
+        "vars": {
+          "add_metadata": true,
+          "bearer_token_file": "/var/run/secrets/kubernetes.io/serviceaccount/token",
+          "hosts": [
+            "https://${env.NODE_NAME}:10250"
+          ],
+          "period": "10s",
+          "ssl.verification_mode": "none",
+          "ssl.certificate_authorities": []
+        }
+      }
+
+}

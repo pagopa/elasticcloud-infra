@@ -11,22 +11,22 @@ resource "ec_deployment" "elastic_cloud" {
   name                   = local.deployment_name
   alias                  = local.deployment_name
   region                 = "azure-${var.location}"
-  version                = "8.17.0"
+  version                = var.elasticsearch_version
   deployment_template_id = "azure-storage-optimized"
 
-  integrations_server = {
-    elasticsearch_cluster_ref_id = "main-elasticsearch"
-    endpoints = {
-      apm       = local.apm_url
-      fleet     = local.fleet_url
-      profiling = null
-      symbols   = null
-    }
-    instance_configuration_id      = "azure.integrationsserver.fsv2"
-    instance_configuration_version = 2
-    size                           = "1g" #fixme
-    size_resource                  = "memory"
-    zone_count                     = 1 # fixme
+  integrations_server    = {
+     elasticsearch_cluster_ref_id          = "main-elasticsearch"
+     endpoints                             = {
+       apm   = local.apm_url
+       fleet = local.fleet_url
+       profiling = null
+       symbols  = null
+     }
+     instance_configuration_id             = "azure.integrationsserver.fsv2"
+     instance_configuration_version        = 2
+     size                                  = var.integration_server.size
+     size_resource                         = var.integration_server.size_resource
+     zone_count                            = var.integration_server.zones
   }
 
   elasticsearch = {
