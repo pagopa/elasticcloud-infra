@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: elastic-agent
+  name: elastic-cloud-agent
   namespace: ${namespace}
   labels:
-    app: elastic-agent
+    app: elastic-cloud-agent
 spec:
   selector:
     matchLabels:
-      app: elastic-agent
+      app: elastic-cloud-agent
   template:
     metadata:
       labels:
-        app: elastic-agent
+        app: elastic-cloud-agent
     spec:
       # Tolerations are needed to run Elastic Agent on Kubernetes control-plane nodes.
       # Agents running on control-plane nodes collect metrics from the control plane components (scheduler, controller manager) of Kubernetes
@@ -21,32 +21,20 @@ spec:
           effect: NoSchedule
         - key: node-role.kubernetes.io/master
           effect: NoSchedule
-      serviceAccountName: elastic-agent
-      hostNetwork: true
+      serviceAccountName: elastic-cloud-agent
+      hostNetwork: false
       dnsPolicy: ClusterFirstWithHostNet
-      # Uncomment if using hints feature
-      #initContainers:
-      #  - name: k8s-templates-downloader
-      #    image: docker.elastic.co/beats/elastic-agent:8.17.1
-      #    command: ['bash']
-      #    args:
-      #      - -c
-      #      - >-
-      #        mkdir -p /usr/share/elastic-agent/state/inputs.d &&
-      #        curl -sL https://github.com/elastic/elastic-agent/archive/8.16.tar.gz | tar xz -C /usr/share/elastic-agent/state/inputs.d --strip=5 "elastic-agent-8.16/deploy/kubernetes/elastic-agent-standalone/templates.d"
-      #    securityContext:
-      #      runAsUser: 0
-      #    volumeMounts:
-      #      - name: elastic-agent-state
-      #        mountPath: /usr/share/elastic-agent/state
       containers:
-        - name: elastic-agent
-          image: docker.elastic.co/beats/elastic-agent:8.17.1
+        - name: elastic-cloud-agent
+          image: docker.elastic.co/beats/elastic-agent:${elastic_agent_version}
           args: ["-c", "/etc/elastic-agent/agent.yml", "-e"]
           env:
             # The API Key with access privilleges to connect to Elasticsearch. https://www.elastic.co/guide/en/fleet/current/grant-access-to-elasticsearch.html#create-api-key-standalone-agent
             - name: API_KEY
-              value: "${elasticsearch_api_key}"
+              valueFrom:
+                secretKeyRef:
+                  name: elasticsearch-secret
+                  key: elasticsearch-api-key
             - name: NODE_NAME
               valueFrom:
                 fieldRef:

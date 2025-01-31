@@ -4,7 +4,7 @@ metadata:
   name: agent-node-datastreams
   namespace: ${namespace}
   labels:
-    k8s-app: elastic-agent
+    k8s-app: elastic-cloud-agent
 data:
   agent.yml: |-
     id: ${kubernetes_name}
@@ -14,7 +14,7 @@ data:
         hosts:
           - >-
             ${elastic_host}
-        api_key: '$${API_KEY}'
+        api_key: $${API_KEY}
         preset: balanced
     inputs:
       - id: logfile-system-${system_id}
@@ -286,6 +286,53 @@ data:
           package:
             name: kubernetes
             version: ${kubernetes_package_version}
+      - id: journald-system-${system_id}
+        revision: 10
+        name: ${system_name}
+        type: journald
+        data_stream:
+          namespace: ${namespace}
+        use_output: default
+        package_policy_id: ${system_id}
+        streams:
+          - id: journald-system.auth-${system_id}
+            data_stream:
+              type: logs
+              dataset: system.auth
+            type: journald
+            facilities:
+              - 4
+              - 10
+            condition: >-
+              $${host.os_version} == "12 (bookworm)" or ($${host.os_platform} ==
+              "amzn" and $${host.os_version} == "2023")
+            tags: null
+          - id: journald-system.syslog-${system_id}
+            data_stream:
+              type: logs
+              dataset: system.syslog
+            type: journald
+            facilities:
+              - 0
+              - 1
+              - 2
+              - 3
+              - 5
+              - 6
+              - 7
+              - 8
+              - 9
+              - 11
+              - 12
+              - 15
+            condition: >-
+              $${host.os_version} == "12 (bookworm)" or ($${host.os_platform} ==
+              "amzn" and $${host.os_version} == "2023")
+            tags: null
+        meta:
+          package:
+            name: system
+            version: ${system_package_version}
       - id: >-
           kubernetes/metrics-kube-state-metrics-${kubernetes_id}
         revision: 1
@@ -661,6 +708,10 @@ data:
             exclude_from_grouping: ^/webpack
             library_pattern: node_modules|bower_components|~
             response_headers: null
+            source_mapping:
+              metadata: []
+              elasticsearch:
+                api_key: $${API_KEY}
           shutdown_timeout: 30s
           ssl:
             enabled: false
@@ -668,7 +719,6 @@ data:
             key: null
             key_passphrase: null
             supported_protocols:
-              - TLSv1.1
               - TLSv1.2
               - TLSv1.3
             cipher_suites: null
@@ -681,6 +731,11 @@ data:
               policies:
                 - sample_rate: 0.1
               storage_limit: 3GB
+          agent_config: []
+          agent:
+            config:
+              elasticsearch:
+                api_key: $${API_KEY}
         meta:
           package:
             name: apm

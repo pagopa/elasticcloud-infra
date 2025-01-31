@@ -2,12 +2,12 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   namespace: ${namespace}
-  name: elastic-agent
+  name: elastic-cloud-agent
 subjects:
   - kind: ServiceAccount
-    name: elastic-agent
+    name: elastic-cloud-agent
     namespace: ${namespace}
 roleRef:
   kind: Role
-  name: elastic-agent
+  name: elastic-cloud-agent
   apiGroup: rbac.authorization.k8s.io

@@ -89,6 +89,7 @@ resource "elasticstack_fleet_integration_policy" "system_integration_policy" {
     input_id = "system-httpjson"
     streams_json = file("./agent/system-http.json")
   }
+
 }
 
 resource "elasticstack_fleet_integration_policy" "apm_integration_policy" {
@@ -236,8 +237,18 @@ resource "kubernetes_manifest" "service_account" {
   computed_fields = ["spec.template.spec.containers[0].resources"]
 }
 
-resource "kubernetes_manifest" "daemon_set" {
+resource "kubernetes_manifest" "secret_api_key" {
   depends_on = [kubernetes_manifest.service_account]
+  manifest = yamldecode(replace(replace(templatefile("${path.module}/yaml/secret.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
+
+  field_manager {
+    force_conflicts = true
+  }
+  computed_fields = ["spec.template.spec.containers[0].resources"]
+}
+
+resource "kubernetes_manifest" "daemon_set" {
+  depends_on = [kubernetes_manifest.secret_api_key]
   manifest = yamldecode(replace(replace(templatefile("${path.module}/yaml/daemonSet.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
 
   field_manager {

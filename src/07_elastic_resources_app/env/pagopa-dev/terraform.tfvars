@@ -5,7 +5,7 @@ env_short = "d"
 ec_deployment_id = "782a6d595487581de53e0e115756957f"
 
 
-aks_name  = "dvopla-d-itn-dev-aks"
+aks_name  = "pagopa-d-weu-dev-aks"
 dedicated_log_instance_name = [
     /* nodo */ "nodo", "nodoreplica", "nodocron", "nodocronreplica", "pagopawebbo", "pagopawfespwfesp", "pagopafdr", "pagopafdrnodo", "wispsoapconverter", "pagopawispconverter",
     /* afm */ "pagopaafmcalculator-microservice-chart", "pagopaafmmarketplacebe-microservice-chart", "pagopaafmutils-microservice-chart",
@@ -16,4 +16,4 @@ dedicated_log_instance_name = [
     /* gps */ "gpd-core-microservice-chart", "pagopagpdpayments-microservice-chart", "pagopareportingorgsenrollment-microservice-chart", "pagopaspontaneouspayments-microservice-chart", "gpd-payments-pull", "gpd-upload-microservice-chart", "pagopapagopagpdingestionmanager-microservice-chart"
   ]
 
-elastic_agent_kube_namespace = "elastic-system"
+elastic_agent_kube_namespace = "elastic-cloud-system"
