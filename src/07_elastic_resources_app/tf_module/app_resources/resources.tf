@@ -1,14 +1,13 @@
 locals {
-  data_streams    = { for d in var.configuration.dataStream : d => d }
-  application_id  = "${var.configuration.id}-${var.env}"
-  dashboards      = { for df in fileset("${var.dashboard_folder}", "/*.ndjson") : trimsuffix(basename(df), ".ndjson") => "${var.dashboard_folder}/${df}" }
-  queries         = { for df in fileset("${var.query_folder}", "/*.ndjson") : trimsuffix(basename(df), ".ndjson") => "${var.query_folder}/${df}" }
-  ilm             = lookup(var.configuration, "ilm", var.default_ilm_conf)
+  data_streams   = { for d in var.configuration.dataStream : d => d }
+  application_id = "${var.configuration.id}-${var.env}"
+  dashboards     = { for df in fileset("${var.dashboard_folder}", "/*.ndjson") : trimsuffix(basename(df), ".ndjson") => "${var.dashboard_folder}/${df}" }
+  queries        = { for df in fileset("${var.query_folder}", "/*.ndjson") : trimsuffix(basename(df), ".ndjson") => "${var.query_folder}/${df}" }
 
   index_custom_component = lookup(var.configuration, "customComponent", null) == null ? null : jsondecode(templatefile("${var.library_index_custom_path}/${var.configuration.customComponent}.json", {
-    name = local.application_id
-    pipeline = elasticstack_elasticsearch_ingest_pipeline.ingest_pipeline.name
-    lifecycle = elasticstack_elasticsearch_index_lifecycle.index_lifecycle.name
+    name      = local.application_id
+    pipeline  = elasticstack_elasticsearch_ingest_pipeline.ingest_pipeline.name
+    lifecycle = "${var.prefix}-${var.env_short}-${var.ilm_name}-ilm"
   }))
 
   index_package_component = lookup(var.configuration, "packageComponent", null) == null ? null : jsondecode(templatefile("${var.library_index_package_path}/${var.configuration.packageComponent}.json", {
@@ -38,51 +37,6 @@ resource "elasticstack_elasticsearch_ingest_pipeline" "ingest_pipeline" {
   processors = [for p in lookup(var.configuration, "ingestPipeline", var.default_ingest_pipeline_conf).processors : jsonencode(p)]
   on_failure = length(lookup(lookup(var.configuration, "ingestPipeline", var.default_ingest_pipeline_conf), "onFailure", [])) > 0 ? [for p in lookup(lookup(var.configuration, "ingestPipeline", var.default_ingest_pipeline_conf), "onFailure", []) : jsonencode(p)] : null
 }
-
-resource "elasticstack_elasticsearch_index_lifecycle" "index_lifecycle" {
-  name = "${local.application_id}-ilm"
-
-  hot {
-    min_age = lookup(lookup(local.ilm, "hot", var.default_ilm_conf.hot), "minAge", var.default_ilm_conf.hot.minAge)
-    rollover {
-      max_age                = lookup(lookup(lookup(local.ilm, "hot", var.default_ilm_conf.hot), "rollover", var.default_ilm_conf.hot.rollover), "maxAge", var.default_ilm_conf.hot.rollover.maxAge)
-      max_primary_shard_size = lookup(lookup(lookup(local.ilm, "hot", var.default_ilm_conf.hot), "rollover", var.default_ilm_conf.hot.rollover), "maxPrimarySize", var.default_ilm_conf.hot.rollover.maxPrimarySize)
-    }
-  }
-
-  warm {
-    min_age = lookup(lookup(local.ilm, "warm", var.default_ilm_conf.warm), "minAge", var.default_ilm_conf.warm.minAge)
-    set_priority {
-      priority = lookup(lookup(local.ilm, "warm", var.default_ilm_conf.warm), "setPriority", var.default_ilm_conf.warm.setPriority)
-    }
-  }
-
-  cold {
-    min_age = lookup(lookup(local.ilm, "cold", var.default_ilm_conf.cold), "minAge", var.default_ilm_conf.cold.minAge)
-    set_priority {
-      priority = lookup(lookup(local.ilm, "cold", var.default_ilm_conf.cold), "setPriority", var.default_ilm_conf.cold.setPriority)
-    }
-  }
-
-  delete {
-    min_age = lookup(lookup(local.ilm, "delete", var.default_ilm_conf.delete), "minAge", var.default_ilm_conf.delete.minAge)
-
-    dynamic "wait_for_snapshot" {
-      for_each = lookup(lookup(local.ilm, "delete", var.default_ilm_conf.delete), "waitForSnapshot", var.default_ilm_conf.delete.waitForSnapshot) ? [1] : []
-      content {
-        policy = var.default_snapshot_policy_name
-      }
-    }
-    delete {
-      delete_searchable_snapshot = lookup(lookup(local.ilm, "delete", var.default_ilm_conf.delete), "deleteSearchableSnapshot", var.default_ilm_conf.delete.deleteSearchableSnapshot)
-    }
-  }
-
-  metadata = jsonencode({
-    "managedBy" = "Terraform"
-  })
-}
-
 
 resource "elasticstack_elasticsearch_component_template" "custom_index_component_default" {
   count = lookup(var.configuration, "customComponent", null) != null ? 1 : 0

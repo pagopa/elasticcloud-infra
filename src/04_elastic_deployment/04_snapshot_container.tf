@@ -10,7 +10,7 @@ resource "azurerm_resource_group" "ec_rg" {
 resource "azurerm_storage_account" "ec_snapshot_sa" {
   for_each = toset(var.shared_env)
 
-  name                            = replace(format("%s-sa", each.key), "-", "")
+  name                            = replace(format("%s-ec-snap-sa", each.key), "-", "")
   resource_group_name             = azurerm_resource_group.ec_rg[each.key].name
   location                        = azurerm_resource_group.ec_rg[each.key].location
   account_tier                    = "Standard"

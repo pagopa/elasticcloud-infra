@@ -22,7 +22,6 @@ Before executing this module you need to define some properties in the elasticse
 | Name | Value |
 |------|---------|
 | `azure.client.<clientName>.account` | `<storage account name>` |
-| `azure.client.<clientName>.endpoint_suffix`| `blob.core.windows.net` |
 | `azure.client.<clientName>.key` | `<storage account access key>` |
 
 these values are required to properly configure a snapshot repository client.
@@ -58,7 +57,6 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [elasticstack_elasticsearch_index_lifecycle.index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/latest/docs/resources/elasticsearch_index_lifecycle) | resource |
 | [elasticstack_elasticsearch_security_role.admin_role](https://registry.terraform.io/providers/elastic/elasticstack/latest/docs/resources/elasticsearch_security_role) | resource |
 | [elasticstack_elasticsearch_security_role.editor_role](https://registry.terraform.io/providers/elastic/elasticstack/latest/docs/resources/elasticsearch_security_role) | resource |
 | [elasticstack_elasticsearch_security_role.viewer_role](https://registry.terraform.io/providers/elastic/elasticstack/latest/docs/resources/elasticsearch_security_role) | resource |

@@ -24,13 +24,11 @@ variable "env" {
   type = string
 }
 
-
-
-variable "default_ingest_pipeline_conf" {
-  type = any
+variable "env_short" {
+  type = string
 }
 
-variable "default_ilm_conf" {
+variable "default_ingest_pipeline_conf" {
   type = any
 }
 
@@ -47,5 +45,9 @@ variable "library_index_custom_path" {
 }
 
 variable "library_index_package_path" {
+  type = string
+}
+
+variable "ilm_name" {
   type = string
 }

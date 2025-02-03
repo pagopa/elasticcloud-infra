@@ -1,5 +1,5 @@
 locals {
-  subscription_prefix = "paymon"
+  subscription_prefix  = "paymon"
   subscription_product = "${local.subscription_prefix}-${var.env_short}"
 
   azdo_managed_identity_rg_name = "${local.subscription_prefix}-${var.env_short}-identity-rg"

@@ -20,5 +20,25 @@ dedicated_log_instance_name = [
 elastic_agent_kube_namespace = "elastic-cloud-system"
 
 ilm = {
-  nodo = "2-4-6-8"
+  nodo                 = "2-4-6-8"
+  nodocron             = "2-4-6-8"
+  nodocronreplica      = "2-4-6-8"
+  nodocronreplica      = "2-4-6-8"
+  pagopastandinmanager = "2-4-6-8"
+  pagopawebbo          = "2-4-6-8"
+  pagopawfespwfesp     = "2-4-6-8"
+  pagopawfespwfesp     = "2-4-6-8"
+  pagopawispconverter  = "2-4-6-8"
+  tech-support         = "2-4-6-8"
+  wispsoapconverter    = "2-4-6-8"
+  ecommerce            = "2-4-6-8"
+  fdr                  = "2-4-6-8"
+  pagopapaymentspull   = "2-4-6-8"
+  pagopa               = "2-4-6-8"
+  paywallet            = "2-4-6-8"
+  printit              = "2-4-6-8"
+
+
 }
+
+

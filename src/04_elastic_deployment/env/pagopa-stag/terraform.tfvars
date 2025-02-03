@@ -36,6 +36,6 @@ elk_snapshot_sa = {
 elasticsearch_version = "8.17.0"
 
 integration_server = {
-    size = "1g"
-    zones = 1
+  size  = "1g"
+  zones = 1
 }

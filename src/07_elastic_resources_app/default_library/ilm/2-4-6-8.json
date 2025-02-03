@@ -1,6 +1,6 @@
 {
   "hot": {
-    "minAge": "0m",
+    "minAge": "0ms",
     "rollover": {
       "maxPrimarySize": "50gb",
       "maxAge": "2d"

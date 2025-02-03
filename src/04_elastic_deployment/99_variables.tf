@@ -94,8 +94,8 @@ variable "elk_snapshot_sa" {
 
 variable "integration_server" {
   type = object({
-    size = string
-    zones = number
+    size          = string
+    zones         = number
     size_resource = optional(string, "memory")
   })
 }

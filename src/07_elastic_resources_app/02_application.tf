@@ -15,13 +15,15 @@ module "app_resources" {
   configuration                = each.value.conf
   default_snapshot_policy_name = var.default_snapshot_policy_name
   env                          = var.env
+  env_short                    = var.env_short
   space_id                     = elasticstack_kibana_space.kibana_space[each.value.space_name].space_id
 
   default_ilm_conf             = local.default_ilm
   default_ingest_pipeline_conf = local.default_ingest_pipeline
+  ilm_name                     = var.ilm[each.value.conf.id]
 
-  library_index_custom_path = "${path.module}/default_library/index_component"
-  library_index_package_path   = "${path.module}/default_library/index_component"
+  library_index_custom_path  = "${path.module}/default_library/index_component"
+  library_index_package_path = "${path.module}/default_library/index_component"
 
   #default_component_custom_template  = "./defaults/component@custom.json"
   #default_component_package_template = "./defaults/component@package.json"

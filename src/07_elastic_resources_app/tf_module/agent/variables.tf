@@ -9,7 +9,7 @@ variable "dedicated_log_instance_name" {
 variable "system_integration_policy" {
   type = object({
     name = string
-    id = string
+    id   = string
   })
 }
 
@@ -20,7 +20,7 @@ variable "system_package_version" {
 variable "k8s_integration_policy" {
   type = object({
     name = string
-    id = string
+    id   = string
   })
 }
 
@@ -31,7 +31,7 @@ variable "k8s_package_version" {
 variable "apm_integration_policy" {
   type = object({
     name = string
-    id = string
+    id   = string
   })
 }
 
@@ -52,7 +52,7 @@ variable "elasticsearch_host" {
 }
 
 variable "elasticsearch_api_key" {
-  type = string
+  type      = string
   sensitive = true
 }
 

@@ -7,7 +7,7 @@ resource "kubernetes_namespace" "agent_namespace" {
 
 resource "kubernetes_manifest" "config_map" {
   depends_on = [kubernetes_namespace.agent_namespace]
-  manifest = yamldecode(replace(replace(templatefile("${path.module}/yaml/configMap.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
+  manifest   = yamldecode(replace(replace(templatefile("${path.module}/yaml/configMap.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
 
   field_manager {
     force_conflicts = true
@@ -17,7 +17,7 @@ resource "kubernetes_manifest" "config_map" {
 
 resource "kubernetes_manifest" "cluster_role_binding" {
   depends_on = [kubernetes_manifest.config_map]
-  manifest = yamldecode(replace(replace(templatefile("${path.module}/yaml/clusterRoleBinding.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
+  manifest   = yamldecode(replace(replace(templatefile("${path.module}/yaml/clusterRoleBinding.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
 
   field_manager {
     force_conflicts = true
@@ -27,7 +27,7 @@ resource "kubernetes_manifest" "cluster_role_binding" {
 
 resource "kubernetes_manifest" "elastic_agent_role_binding" {
   depends_on = [kubernetes_manifest.cluster_role_binding]
-  manifest = yamldecode(replace(replace(templatefile("${path.module}/yaml/elasticAgentRoleBinding.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
+  manifest   = yamldecode(replace(replace(templatefile("${path.module}/yaml/elasticAgentRoleBinding.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
 
   field_manager {
     force_conflicts = true
@@ -37,7 +37,7 @@ resource "kubernetes_manifest" "elastic_agent_role_binding" {
 
 resource "kubernetes_manifest" "elastic_agent_kubeadmin_role_binding" {
   depends_on = [kubernetes_manifest.elastic_agent_role_binding]
-  manifest = yamldecode(replace(replace(templatefile("${path.module}/yaml/elasticAgentKubeAdminRoleBinding.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
+  manifest   = yamldecode(replace(replace(templatefile("${path.module}/yaml/elasticAgentKubeAdminRoleBinding.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
 
   field_manager {
     force_conflicts = true
@@ -47,7 +47,7 @@ resource "kubernetes_manifest" "elastic_agent_kubeadmin_role_binding" {
 
 resource "kubernetes_manifest" "cluster_role" {
   depends_on = [kubernetes_manifest.elastic_agent_kubeadmin_role_binding]
-  manifest = yamldecode(replace(replace(templatefile("${path.module}/yaml/clusterRole.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
+  manifest   = yamldecode(replace(replace(templatefile("${path.module}/yaml/clusterRole.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
 
   field_manager {
     force_conflicts = true
@@ -57,7 +57,7 @@ resource "kubernetes_manifest" "cluster_role" {
 
 resource "kubernetes_manifest" "elastic_agent_role" {
   depends_on = [kubernetes_manifest.cluster_role]
-  manifest = yamldecode(replace(replace(templatefile("${path.module}/yaml/elasticAgentRole.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
+  manifest   = yamldecode(replace(replace(templatefile("${path.module}/yaml/elasticAgentRole.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
 
   field_manager {
     force_conflicts = true
@@ -67,7 +67,7 @@ resource "kubernetes_manifest" "elastic_agent_role" {
 
 resource "kubernetes_manifest" "elastic_agent_kubeadmin_role" {
   depends_on = [kubernetes_manifest.elastic_agent_role]
-  manifest = yamldecode(replace(replace(templatefile("${path.module}/yaml/elasticAgentKubeAdminRole.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
+  manifest   = yamldecode(replace(replace(templatefile("${path.module}/yaml/elasticAgentKubeAdminRole.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
 
   field_manager {
     force_conflicts = true
@@ -77,7 +77,7 @@ resource "kubernetes_manifest" "elastic_agent_kubeadmin_role" {
 
 resource "kubernetes_manifest" "service_account" {
   depends_on = [kubernetes_manifest.elastic_agent_kubeadmin_role]
-  manifest = yamldecode(replace(replace(templatefile("${path.module}/yaml/serviceAccount.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
+  manifest   = yamldecode(replace(replace(templatefile("${path.module}/yaml/serviceAccount.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
 
   field_manager {
     force_conflicts = true
@@ -87,7 +87,7 @@ resource "kubernetes_manifest" "service_account" {
 
 resource "kubernetes_manifest" "secret_api_key" {
   depends_on = [kubernetes_manifest.service_account]
-  manifest = yamldecode(replace(replace(templatefile("${path.module}/yaml/secret.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
+  manifest   = yamldecode(replace(replace(templatefile("${path.module}/yaml/secret.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
 
   field_manager {
     force_conflicts = true
@@ -97,7 +97,7 @@ resource "kubernetes_manifest" "secret_api_key" {
 
 resource "kubernetes_manifest" "daemon_set" {
   depends_on = [kubernetes_manifest.secret_api_key]
-  manifest = yamldecode(replace(replace(templatefile("${path.module}/yaml/daemonSet.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
+  manifest   = yamldecode(replace(replace(templatefile("${path.module}/yaml/daemonSet.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
 
   field_manager {
     force_conflicts = true
