@@ -51,3 +51,7 @@ variable "library_index_package_path" {
 variable "ilm_name" {
   type = string
 }
+
+variable "library_ingest_pipeline_folder" {
+  type = string
+}

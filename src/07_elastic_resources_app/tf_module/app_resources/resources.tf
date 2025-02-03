@@ -20,6 +20,8 @@ locals {
     }
   }
 
+  ingest_pipeline = jsondecode(file("${var.library_ingest_pipeline_folder}/${var.configuration.ingest_pipeline}.json"))
+
   #  default_component_package = jsondecode(templatefile(var.default_component_package_template, {
   #    name = local.application_id
   #  }))
@@ -34,8 +36,8 @@ resource "elasticstack_elasticsearch_ingest_pipeline" "ingest_pipeline" {
   name        = "${local.application_id}-pipeline"
   description = "Ingest pipeline for ${var.configuration.displayName}"
 
-  processors = [for p in lookup(var.configuration, "ingestPipeline", var.default_ingest_pipeline_conf).processors : jsonencode(p)]
-  on_failure = length(lookup(lookup(var.configuration, "ingestPipeline", var.default_ingest_pipeline_conf), "onFailure", [])) > 0 ? [for p in lookup(lookup(var.configuration, "ingestPipeline", var.default_ingest_pipeline_conf), "onFailure", []) : jsonencode(p)] : null
+  processors = [for p in local.ingest_pipeline.processors : jsonencode(p)]
+  on_failure = length(lookup(local.ingest_pipeline, "onFailure", [])) > 0 ? [for p in lookup(local.ingest_pipeline, "onFailure", []) : jsonencode(p)] : null
 }
 
 resource "elasticstack_elasticsearch_component_template" "custom_index_component_default" {
@@ -115,7 +117,7 @@ resource "elasticstack_kibana_data_view" "kibana_data_view" {
     title           = "logs-${var.configuration.dataView.indexIdentifier}-*-${var.prefix}.${var.env}"
     time_field_name = "@timestamp"
 
-    runtime_field_map = local.runtime_fields
+    runtime_field_map = length(local.runtime_fields) != 0 ? local.runtime_fields : null
   }
 }
 
