@@ -5,7 +5,8 @@ env_short = "d"
 ec_deployment_id = "782a6d595487581de53e0e115756957f"
 
 
-aks_name  = "pagopa-d-weu-dev-aks"
+aks_names  = ["pagopa-d-weu-dev-aks", "pagopa-d-itn-dev-aks"]
+# aks_name  = "pagopa-d-weu-dev-aks"
 dedicated_log_instance_name = [
     /* nodo */ "nodo", "nodoreplica", "nodocron", "nodocronreplica", "pagopawebbo", "pagopawfespwfesp", "pagopafdr", "pagopafdrnodo", "wispsoapconverter", "pagopawispconverter",
     /* afm */ "pagopaafmcalculator-microservice-chart", "pagopaafmmarketplacebe-microservice-chart", "pagopaafmutils-microservice-chart",

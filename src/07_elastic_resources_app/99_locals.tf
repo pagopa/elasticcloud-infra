@@ -33,18 +33,18 @@ locals {
 
     system_name     = elasticstack_fleet_integration_policy.system_integration_policy.name
     system_id       = elasticstack_fleet_integration_policy.system_integration_policy.id
-    system_revision = 1
     system_package_version = data.elasticstack_fleet_integration.system.version
+    system_revision = 1
 
     kubernetes_name     = elasticstack_fleet_integration_policy.kubernetes_integration_policy.name
     kubernetes_id       = elasticstack_fleet_integration_policy.kubernetes_integration_policy.id
-    kubernetes_revision = 1
     kubernetes_package_version = data.elasticstack_fleet_integration.kubernetes.version
+    kubernetes_revision = 1
 
     apm_name     = elasticstack_fleet_integration_policy.apm_integration_policy.name
     apm_id       = elasticstack_fleet_integration_policy.apm_integration_policy.id
-    apm_revision = 1
     apm_package_version = data.ec_deployment.ec_deployment.integrations_server[0].version
+    apm_revision = 1
 
 
     target = "${var.prefix}-${var.env}"

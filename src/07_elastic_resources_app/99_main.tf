@@ -14,6 +14,11 @@ terraform {
       # version documented here https://github.com/elastic/terraform-provider-elasticstack/issues/836
       version = "0.11.7"
     }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.35.0"
+    }
+
   }
 
   backend "azurerm" {}
@@ -37,5 +42,12 @@ provider "elasticstack" {
 }
 
 provider "kubernetes" {
-  config_path = "${var.k8s_kube_config_path_prefix}/config-${var.aks_name}"
+  alias = "cluster_1"
+  config_path = "${var.k8s_kube_config_path_prefix}/config-${var.aks_names[0]}"
+}
+
+provider "kubernetes" {
+  alias = "cluster_2"
+  # if secondary cluster is not defined, use the primary cluster name just to make the provider configuration work. it will not be used
+  config_path = "${var.k8s_kube_config_path_prefix}/config-${length(var.aks_names) > 1 ? var.aks_names[1] : var.aks_names[0]}"
 }

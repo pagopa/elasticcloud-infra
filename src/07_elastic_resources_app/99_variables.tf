@@ -46,8 +46,13 @@ variable "k8s_kube_config_path_prefix" {
   default = "~/.kube"
 }
 
-variable "aks_name" {
-  type = string
+variable "aks_names" {
+  type = list(string)
+  description = "(Required) list of aks cluster names where the elstic agent will be installed. must not be empty, must not be mode than 2 elements"
+  validation {
+    condition = length(var.aks_names) <= 2
+    error_message = "Currently more than 2 cluster is not supported. Please open a ticket to @payments-cloud-admin to request an increase"
+  }
 }
 
 variable "dedicated_log_instance_name" {

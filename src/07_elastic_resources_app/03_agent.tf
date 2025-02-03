@@ -151,108 +151,72 @@ resource "elasticstack_fleet_integration_policy" "apm_integration_policy" {
   }
 }
 
-resource "kubernetes_namespace" "agent_namespace" {
-  metadata {
-    name = var.elastic_agent_kube_namespace
+
+module "install_agent_cluster_1" {
+  source = "./tf_module/agent"
+
+  providers = {
+    kubernetes = kubernetes.cluster_1
   }
+
+  apm_integration_policy = {
+    name = elasticstack_fleet_integration_policy.apm_integration_policy.name
+    id   = elasticstack_fleet_integration_policy.apm_integration_policy.id
+  }
+  apm_package_version = data.ec_deployment.ec_deployment.integrations_server[0].version
+  system_integration_policy = {
+    name = elasticstack_fleet_integration_policy.system_integration_policy.name
+    id   = elasticstack_fleet_integration_policy.system_integration_policy.id
+  }
+  system_package_version = data.elasticstack_fleet_integration.system.version
+  k8s_integration_policy = {
+    name = elasticstack_fleet_integration_policy.kubernetes_integration_policy.name
+    id   = elasticstack_fleet_integration_policy.kubernetes_integration_policy.id
+  }
+  k8s_package_version = data.elasticstack_fleet_integration.kubernetes.version
+
+  dedicated_log_instance_name = var.dedicated_log_instance_name
+  elastic_agent_kube_namespace = var.elastic_agent_kube_namespace
+  elasticsearch_api_key = data.azurerm_key_vault_secret.elasticsearch_api_key.value
+  elasticsearch_host = replace(data.ec_deployment.ec_deployment.elasticsearch[0].https_endpoint, ".es.", ".")
+  # use the first aks name configured in the list
+  k8s_kube_config_file_path = "${var.k8s_kube_config_path_prefix}/config-${var.aks_names[0]}"
+  target = "${var.prefix}-${var.env}"
+  target_namespace = "${var.prefix}.${var.env}"
 }
 
-resource "kubernetes_manifest" "config_map" {
-  depends_on = [kubernetes_namespace.agent_namespace]
-  manifest = yamldecode(replace(replace(templatefile("${path.module}/yaml/configMap.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
 
-  field_manager {
-    force_conflicts = true
+module "install_agent_cluster_2" {
+  source = "./tf_module/agent"
+
+  count = length(var.aks_names) > 1 ? 1 : 0
+
+  providers = {
+    kubernetes = kubernetes.cluster_2
   }
-  computed_fields = ["spec.template.spec.containers[0].resources"]
-}
 
-resource "kubernetes_manifest" "cluster_role_binding" {
-  depends_on = [kubernetes_manifest.config_map]
-  manifest = yamldecode(replace(replace(templatefile("${path.module}/yaml/clusterRoleBinding.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
-
-  field_manager {
-    force_conflicts = true
+  apm_integration_policy = {
+    name = elasticstack_fleet_integration_policy.apm_integration_policy.name
+    id   = elasticstack_fleet_integration_policy.apm_integration_policy.id
   }
-  computed_fields = ["spec.template.spec.containers[0].resources"]
-}
-
-resource "kubernetes_manifest" "elastic_agent_role_binding" {
-  depends_on = [kubernetes_manifest.cluster_role_binding]
-  manifest = yamldecode(replace(replace(templatefile("${path.module}/yaml/elasticAgentRoleBinding.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
-
-  field_manager {
-    force_conflicts = true
+  apm_package_version = data.ec_deployment.ec_deployment.integrations_server[0].version
+  system_integration_policy = {
+    name = elasticstack_fleet_integration_policy.system_integration_policy.name
+    id   = elasticstack_fleet_integration_policy.system_integration_policy.id
   }
-  computed_fields = ["spec.template.spec.containers[0].resources"]
-}
-
-resource "kubernetes_manifest" "elastic_agent_kubeadmin_role_binding" {
-  depends_on = [kubernetes_manifest.elastic_agent_role_binding]
-  manifest = yamldecode(replace(replace(templatefile("${path.module}/yaml/elasticAgentKubeAdminRoleBinding.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
-
-  field_manager {
-    force_conflicts = true
+  system_package_version = data.elasticstack_fleet_integration.system.version
+  k8s_integration_policy = {
+    name = elasticstack_fleet_integration_policy.kubernetes_integration_policy.name
+    id   = elasticstack_fleet_integration_policy.kubernetes_integration_policy.id
   }
-  computed_fields = ["spec.template.spec.containers[0].resources"]
-}
+  k8s_package_version = data.elasticstack_fleet_integration.kubernetes.version
 
-resource "kubernetes_manifest" "cluster_role" {
-  depends_on = [kubernetes_manifest.elastic_agent_kubeadmin_role_binding]
-  manifest = yamldecode(replace(replace(templatefile("${path.module}/yaml/clusterRole.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
-
-  field_manager {
-    force_conflicts = true
-  }
-  computed_fields = ["spec.template.spec.containers[0].resources"]
-}
-
-resource "kubernetes_manifest" "elastic_agent_role" {
-  depends_on = [kubernetes_manifest.cluster_role]
-  manifest = yamldecode(replace(replace(templatefile("${path.module}/yaml/elasticAgentRole.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
-
-  field_manager {
-    force_conflicts = true
-  }
-  computed_fields = ["spec.template.spec.containers[0].resources"]
-}
-
-resource "kubernetes_manifest" "elastic_agent_kubeadmin_role" {
-  depends_on = [kubernetes_manifest.elastic_agent_role]
-  manifest = yamldecode(replace(replace(templatefile("${path.module}/yaml/elasticAgentKubeAdminRole.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
-
-  field_manager {
-    force_conflicts = true
-  }
-  computed_fields = ["spec.template.spec.containers[0].resources"]
-}
-
-resource "kubernetes_manifest" "service_account" {
-  depends_on = [kubernetes_manifest.elastic_agent_kubeadmin_role]
-  manifest = yamldecode(replace(replace(templatefile("${path.module}/yaml/serviceAccount.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
-
-  field_manager {
-    force_conflicts = true
-  }
-  computed_fields = ["spec.template.spec.containers[0].resources"]
-}
-
-resource "kubernetes_manifest" "secret_api_key" {
-  depends_on = [kubernetes_manifest.service_account]
-  manifest = yamldecode(replace(replace(templatefile("${path.module}/yaml/secret.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
-
-  field_manager {
-    force_conflicts = true
-  }
-  computed_fields = ["spec.template.spec.containers[0].resources"]
-}
-
-resource "kubernetes_manifest" "daemon_set" {
-  depends_on = [kubernetes_manifest.secret_api_key]
-  manifest = yamldecode(replace(replace(templatefile("${path.module}/yaml/daemonSet.yaml", local.template_resolution_variables), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
-
-  field_manager {
-    force_conflicts = true
-  }
-  computed_fields = ["spec.template.spec.containers[0].resources", "metadata.annotations"]
+  dedicated_log_instance_name = var.dedicated_log_instance_name
+  elastic_agent_kube_namespace = var.elastic_agent_kube_namespace
+  elasticsearch_api_key = data.azurerm_key_vault_secret.elasticsearch_api_key.value
+  elasticsearch_host = replace(data.ec_deployment.ec_deployment.elasticsearch[0].https_endpoint, ".es.", ".")
+  # use the second aks name configured in the list
+  k8s_kube_config_file_path = "${var.k8s_kube_config_path_prefix}/config-${var.aks_names[1]}"
+  target = "${var.prefix}-${var.env}"
+  target_namespace = "${var.prefix}.${var.env}"
 }
