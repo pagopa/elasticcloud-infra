@@ -34,14 +34,6 @@ variable "default_ilm_conf" {
   type = any
 }
 
-variable "default_component_package_template" {
-  type = any
-}
-
-variable "default_component_custom_template" {
-  type = any
-}
-
 variable "query_folder" {
   type = string
 }
@@ -50,10 +42,10 @@ variable "dashboard_folder" {
   type = string
 }
 
-variable "library_component_path" {
+variable "library_index_custom_path" {
   type = string
 }
 
-variable "library_package_path" {
+variable "library_index_package_path" {
   type = string
 }

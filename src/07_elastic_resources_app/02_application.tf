@@ -20,14 +20,16 @@ module "app_resources" {
   default_ilm_conf             = local.default_ilm
   default_ingest_pipeline_conf = local.default_ingest_pipeline
 
-  library_component_path = "${path.module}/default_library/index_component"
-  library_package_path   = "${path.module}/default_library/index_component"
+  library_index_custom_path = "${path.module}/default_library/index_component"
+  library_index_package_path   = "${path.module}/default_library/index_component"
 
   #default_component_custom_template  = "./defaults/component@custom.json"
   #default_component_package_template = "./defaults/component@package.json"
 
   query_folder     = each.value.query_folder
   dashboard_folder = each.value.dashboard_folder
+
+  depends_on = [elasticstack_elasticsearch_index_lifecycle.index_lifecycle]
 }
 
 
