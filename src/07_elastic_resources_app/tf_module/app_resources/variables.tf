@@ -49,3 +49,11 @@ variable "query_folder" {
 variable "dashboard_folder" {
   type = string
 }
+
+variable "library_component_path" {
+  type = string
+}
+
+variable "library_package_path" {
+  type = string
+}

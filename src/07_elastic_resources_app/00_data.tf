@@ -17,6 +17,6 @@ data "azurerm_key_vault" "target_key_vault" {
 
 data "azurerm_key_vault_secret" "elasticsearch_api_key" {
   key_vault_id = data.azurerm_key_vault.target_key_vault.id
-  name = "elasticsearch-api-key"
+  name         = "elasticsearch-api-key"
 
 }

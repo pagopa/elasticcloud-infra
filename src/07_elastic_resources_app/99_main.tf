@@ -9,7 +9,7 @@ terraform {
       version = "~> 0.12.2"
     }
     elasticstack = {
-      source  = "elastic/elasticstack"
+      source = "elastic/elasticstack"
       # version required to avoid a bug on integration policy: https://github.com/elastic/terraform-provider-elasticstack/issues/999
       # version documented here https://github.com/elastic/terraform-provider-elasticstack/issues/836
       version = "0.11.7"
@@ -42,7 +42,7 @@ provider "elasticstack" {
 }
 
 provider "kubernetes" {
-  alias = "cluster_1"
+  alias       = "cluster_1"
   config_path = "${var.k8s_kube_config_path_prefix}/config-${var.aks_names[0]}"
 }
 

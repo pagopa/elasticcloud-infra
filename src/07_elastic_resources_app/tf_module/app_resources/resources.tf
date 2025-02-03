@@ -1,23 +1,27 @@
 locals {
-  data_streams   = { for d in var.configuration.dataStream : d => d }
-  application_id = "${var.configuration.id}-${var.env}"
-  dashboards     = { for df in fileset("${var.dashboard_folder}", "/*.ndjson") : trimsuffix(basename(df), ".ndjson") => "${var.dashboard_folder}/${df}" }
-  queries        = { for df in fileset("${var.query_folder}", "/*.ndjson") : trimsuffix(basename(df), ".ndjson") => "${var.query_folder}/${df}" }
-  ilm            = lookup(var.configuration, "ilm", var.default_ilm_conf)
+  data_streams    = { for d in var.configuration.dataStream : d => d }
+  application_id  = "${var.configuration.id}-${var.env}"
+  dashboards      = { for df in fileset("${var.dashboard_folder}", "/*.ndjson") : trimsuffix(basename(df), ".ndjson") => "${var.dashboard_folder}/${df}" }
+  queries         = { for df in fileset("${var.query_folder}", "/*.ndjson") : trimsuffix(basename(df), ".ndjson") => "${var.query_folder}/${df}" }
+  ilm             = lookup(var.configuration, "ilm", var.default_ilm_conf)
+  index_component = { for df in fileset(var.library_component_path, "/*@custom.json") : trimsuffix(basename(df), ".json") => "${var.library_component_path}/${df}" }
+  index_package   = { for df in fileset(var.library_package_path, "/*@package.json") : trimsuffix(basename(df), ".json") => "${var.library_package_path}/${df}" }
+
+
   runtime_fields = { for field in lookup(var.configuration.dataView, "runtimeFields", {}) : field.name => {
     type          = field.runtimeField.type
     script_source = field.runtimeField.script.source
     }
   }
 
-  default_component_package = jsondecode(templatefile(var.default_component_package_template, {
-    name = local.application_id
-  }))
-  default_component_custom = jsondecode(templatefile(var.default_component_custom_template, {
-    name      = local.application_id
-    lifecycle = elasticstack_elasticsearch_index_lifecycle.index_lifecycle.name
-    pipeline  = elasticstack_elasticsearch_ingest_pipeline.ingest_pipeline.name
-  }))
+  #  default_component_package = jsondecode(templatefile(var.default_component_package_template, {
+  #    name = local.application_id
+  #  }))
+  #  default_component_custom = jsondecode(templatefile(var.default_component_custom_template, {
+  #    name      = local.application_id
+  #    lifecycle = elasticstack_elasticsearch_index_lifecycle.index_lifecycle.name
+  #    pipeline  = elasticstack_elasticsearch_ingest_pipeline.ingest_pipeline.name
+  #  }))
 }
 
 resource "elasticstack_elasticsearch_ingest_pipeline" "ingest_pipeline" {
@@ -75,7 +79,8 @@ resource "elasticstack_elasticsearch_index_lifecycle" "index_lifecycle" {
 
 resource "elasticstack_elasticsearch_component_template" "custom_index_component_default" {
   count = lookup(var.configuration, "customComponent", null) == "default" ? 1 : 0
-  name  = "${local.application_id}@custom"
+
+  name = "${local.application_id}@custom"
   template {
 
     settings = jsonencode(lookup(local.default_component_custom.template, "settings", null))

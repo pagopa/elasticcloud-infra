@@ -47,10 +47,10 @@ variable "k8s_kube_config_path_prefix" {
 }
 
 variable "aks_names" {
-  type = list(string)
+  type        = list(string)
   description = "(Required) list of aks cluster names where the elstic agent will be installed. must not be empty, must not be mode than 2 elements"
   validation {
-    condition = length(var.aks_names) <= 2
+    condition     = length(var.aks_names) <= 2
     error_message = "Currently more than 2 cluster is not supported. Please open a ticket to @payments-cloud-admin to request an increase"
   }
 }
@@ -63,4 +63,6 @@ variable "elastic_agent_kube_namespace" {
   type = string
 }
 
-
+variable "ilm" {
+  type = map(string)
+}
