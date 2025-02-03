@@ -52,6 +52,6 @@ variable "ilm_name" {
   type = string
 }
 
-variable "library_ingest_pipeline_folder" {
+variable "library_ingest_pipeline_path" {
   type = string
 }

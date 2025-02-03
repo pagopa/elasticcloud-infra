@@ -3,7 +3,8 @@
     {
       "json": {
         "field": "message",
-        "add_to_root": true
+        "add_to_root": true,
+        "ignore_failure": true
       }
     },
     {
@@ -23,28 +24,6 @@
         "ignore_missing": true,
         "ignore_failure": true
       }
-    },
-    {
-      "json": {
-        "field": "args",
-        "target_field": "arguments",
-        "ignore_failure": true
-      }
-    },
-    {
-      "json": {
-        "field": "response",
-        "ignore_failure": true
-      }
-    }
-  ],
-  "onFailure": [
-    {
-      "set": {
-        "field": "ingest_failure",
-        "value": "true"
-      }
     }
   ]
-
 }

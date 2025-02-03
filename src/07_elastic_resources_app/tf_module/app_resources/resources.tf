@@ -7,7 +7,7 @@ locals {
   index_custom_component = lookup(var.configuration, "customComponent", null) == null ? null : jsondecode(templatefile("${var.library_index_custom_path}/${var.configuration.customComponent}.json", {
     name      = local.application_id
     pipeline  = elasticstack_elasticsearch_ingest_pipeline.ingest_pipeline.name
-    lifecycle = "${var.prefix}-${var.env_short}-${var.ilm_name}-ilm"
+    lifecycle = "${var.prefix}-${var.env}-${var.ilm_name}-ilm"
   }))
 
   index_package_component = lookup(var.configuration, "packageComponent", null) == null ? null : jsondecode(templatefile("${var.library_index_package_path}/${var.configuration.packageComponent}.json", {
@@ -20,16 +20,8 @@ locals {
     }
   }
 
-  ingest_pipeline = jsondecode(file("${var.library_ingest_pipeline_folder}/${var.configuration.ingest_pipeline}.json"))
+  ingest_pipeline = jsondecode(file("${var.library_ingest_pipeline_path}/${var.configuration.ingestPipeline}.json"))
 
-  #  default_component_package = jsondecode(templatefile(var.default_component_package_template, {
-  #    name = local.application_id
-  #  }))
-  #  default_component_custom = jsondecode(templatefile(var.default_component_custom_template, {
-  #    name      = local.application_id
-  #    lifecycle = elasticstack_elasticsearch_index_lifecycle.index_lifecycle.name
-  #    pipeline  = elasticstack_elasticsearch_ingest_pipeline.ingest_pipeline.name
-  #  }))
 }
 
 resource "elasticstack_elasticsearch_ingest_pipeline" "ingest_pipeline" {
@@ -46,8 +38,8 @@ resource "elasticstack_elasticsearch_component_template" "custom_index_component
   name = "${local.application_id}@custom"
   template {
 
-    settings = jsonencode(lookup(local.index_custom_component.template, "settings", null))
-    mappings = jsonencode(lookup(local.index_custom_component.template, "mappings", null))
+    settings = lookup(local.index_custom_component.template, "settings", null) != null ? jsonencode(lookup(local.index_custom_component.template, "settings", null)) : null
+    mappings = lookup(local.index_custom_component.template, "mappings", null) != null ? jsonencode(lookup(local.index_custom_component.template, "mappings", null)) : null
   }
 
   metadata = jsonencode(lookup(local.index_custom_component, "_meta", null))
@@ -73,8 +65,8 @@ resource "elasticstack_elasticsearch_index_template" "index_template" {
   priority       = 500
   index_patterns = [var.configuration.indexTemplate.indexPattern]
   composed_of = concat(
-    (lookup(var.configuration, "packageComponent", null) == "default" ? [elasticstack_elasticsearch_component_template.package_index_component_default[0].name] : []),
-    (lookup(var.configuration, "customComponent", null) == "default" ? [elasticstack_elasticsearch_component_template.custom_index_component_default[0].name] : []),
+    (lookup(var.configuration, "packageComponent", null) != null ? [elasticstack_elasticsearch_component_template.package_index_component_default[0].name] : []),
+    (lookup(var.configuration, "customComponent", null) != null ? [elasticstack_elasticsearch_component_template.custom_index_component_default[0].name] : []),
   )
 
   data_stream {

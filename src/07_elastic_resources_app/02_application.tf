@@ -18,15 +18,12 @@ module "app_resources" {
   env_short                    = var.env_short
   space_id                     = elasticstack_kibana_space.kibana_space[each.value.space_name].space_id
 
-  default_ilm_conf             = local.default_ilm
   default_ingest_pipeline_conf = local.default_ingest_pipeline
   ilm_name                     = var.ilm[each.value.conf.id]
 
   library_index_custom_path  = "${path.module}/default_library/index_component"
   library_index_package_path = "${path.module}/default_library/index_component"
-
-  #default_component_custom_template  = "./defaults/component@custom.json"
-  #default_component_package_template = "./defaults/component@package.json"
+  library_ingest_pipeline_path = "${path.module}/default_library/ingest_pipeline"
 
   query_folder     = each.value.query_folder
   dashboard_folder = each.value.dashboard_folder
