@@ -1,0 +1,12 @@
+{
+  "template": {
+    "settings": {
+      "index": {
+        "default_pipeline": "${pipeline}"
+      }
+    }
+  },
+  "_meta": {
+    "description": "Settings for ${name}"
+  }
+}
