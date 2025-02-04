@@ -3,7 +3,7 @@
     "enabled": true,
     "vars": {
       "hosts": [
-        "localhost:10249"
+        "prometheus-kube-prometheus-kube-proxy:10249"
       ],
       "period": "10s"
     }

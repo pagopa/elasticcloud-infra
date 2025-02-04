@@ -23,13 +23,13 @@ locals {
   spaces = toset([for f in local.config_files : split("/", dirname(f))[2]]) #get space name from structure config/<product>/<space_name>/<application_name>
 
   logs_general_to_exclude_paths = distinct(flatten([
-    for instance_name in var.dedicated_log_instance_name : "'/var/log/containers/${instance_name}-*.log'"
+    for instance_name in var.k8s_application_log_instance_names : "'/var/log/containers/${instance_name}-*.log'"
   ]))
 
 
   template_resolution_variables = {
     namespace                     = var.elastic_agent_kube_namespace
-    dedicated_log_instance_name   = var.dedicated_log_instance_name
+    dedicated_log_instance_name   = var.k8s_application_log_instance_names
     logs_general_to_exclude_paths = local.logs_general_to_exclude_paths
 
     system_name            = elasticstack_fleet_integration_policy.system_integration_policy.name

@@ -32,7 +32,7 @@ resource "elasticstack_elasticsearch_ingest_pipeline" "ingest_pipeline" {
   on_failure = length(lookup(local.ingest_pipeline, "onFailure", [])) > 0 ? [for p in lookup(local.ingest_pipeline, "onFailure", []) : jsonencode(p)] : null
 }
 
-resource "elasticstack_elasticsearch_component_template" "custom_index_component_default" {
+resource "elasticstack_elasticsearch_component_template" "custom_index_component" {
   count = lookup(var.configuration, "customComponent", null) != null ? 1 : 0
 
   name = "${local.application_id}@custom"
@@ -45,7 +45,7 @@ resource "elasticstack_elasticsearch_component_template" "custom_index_component
   metadata = jsonencode(lookup(local.index_custom_component, "_meta", null))
 }
 
-resource "elasticstack_elasticsearch_component_template" "package_index_component_default" {
+resource "elasticstack_elasticsearch_component_template" "package_index_component" {
   count = lookup(var.configuration, "packageComponent", null) != null ? 1 : 0
 
   name = "${local.application_id}@package"
@@ -65,8 +65,8 @@ resource "elasticstack_elasticsearch_index_template" "index_template" {
   priority       = 500
   index_patterns = [var.configuration.indexTemplate.indexPattern]
   composed_of = concat(
-    (lookup(var.configuration, "packageComponent", null) != null ? [elasticstack_elasticsearch_component_template.package_index_component_default[0].name] : []),
-    (lookup(var.configuration, "customComponent", null) != null ? [elasticstack_elasticsearch_component_template.custom_index_component_default[0].name] : []),
+    (lookup(var.configuration, "packageComponent", null) != null ? [elasticstack_elasticsearch_component_template.package_index_component[0].name] : []),
+    (lookup(var.configuration, "customComponent", null) != null ? [elasticstack_elasticsearch_component_template.custom_index_component[0].name] : []),
   )
 
   data_stream {

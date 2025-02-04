@@ -18,47 +18,47 @@ resource "elasticstack_fleet_integration_policy" "kubernetes_integration_policy"
 
   input {
     input_id     = "kubelet-kubernetes/metrics"
-    streams_json = file("./agent/kubernetes-metric-kubelet.json")
+    streams_json = file("${path.module}/integration_policy/kubernetes-metric-kubelet.json")
     enabled      = true
   }
   input {
     input_id     = "kube-state-metrics-kubernetes/metrics"
-    streams_json = file("./agent/kubernetes-state-metric.json")
+    streams_json = file("${path.module}/integration_policy/kubernetes-state-metric.json")
     enabled      = true
   }
   input {
     input_id     = "kube-apiserver-kubernetes/metrics"
-    streams_json = file("./agent/kubernetes-apiserver-metric.json")
+    streams_json = file("${path.module}/integration_policy/kubernetes-apiserver-metric.json")
     enabled      = true
   }
   input {
     input_id     = "kube-proxy-kubernetes/metrics"
-    streams_json = file("./agent/kubernetes-proxy-metric.json")
+    streams_json = file("${path.module}/integration_policy/kubernetes-proxy-metric.json")
     enabled      = true
   }
   input {
     input_id     = "kube-scheduler-kubernetes/metrics"
-    streams_json = file("./agent/kubernetes-scheduler-metric.json")
+    streams_json = file("${path.module}/integration_policy/kubernetes-scheduler-metric.json")
     enabled      = true
   }
   input {
     input_id     = "kube-controller-manager-kubernetes/metrics"
-    streams_json = file("./agent/kubernetes-controllermanager-metric.json")
+    streams_json = file("${path.module}/integration_policy/kubernetes-controllermanager-metric.json")
     enabled      = true
   }
   input {
     input_id     = "events-kubernetes/metrics"
-    streams_json = file("./agent/kubernetes-events-metric.json")
+    streams_json = file("${path.module}/integration_policy/kubernetes-events-metric.json")
     enabled      = true
   }
   input {
     input_id     = "container-logs-filestream"
-    streams_json = file("./agent/kubernetes-containerlog.json")
+    streams_json = file("${path.module}/integration_policy/kubernetes-containerlog.json")
     enabled      = true
   }
   input {
     input_id     = "audit-logs-filestream"
-    streams_json = file("./agent/kubernetes-audit-log.json")
+    streams_json = file("${path.module}/integration_policy/kubernetes-audit-log.json")
     enabled      = true
   }
 }
@@ -75,19 +75,19 @@ resource "elasticstack_fleet_integration_policy" "system_integration_policy" {
 
   input {
     input_id     = "system-logfile"
-    streams_json = file("./agent/system-logfile.json")
+    streams_json = file("${path.module}/integration_policy/system-logfile.json")
   }
   input {
     input_id     = "system-winlog"
-    streams_json = file("./agent/system-winlog.json")
+    streams_json = file("${path.module}/integration_policy/system-winlog.json")
   }
   input {
     input_id     = "system-system/metrics"
-    streams_json = file("./agent/system-systemmetrics.json")
+    streams_json = file("${path.module}/integration_policy/system-systemmetrics.json")
   }
   input {
     input_id     = "system-httpjson"
-    streams_json = file("./agent/system-http.json")
+    streams_json = file("${path.module}/integration_policy/system-http.json")
   }
 
 }
@@ -156,7 +156,7 @@ module "install_agent_cluster_1" {
   source = "./tf_module/agent"
 
   providers = {
-    kubernetes = kubernetes.cluster_1
+    kubectl = kubectl.cluster_1
   }
 
   apm_integration_policy = {
@@ -175,7 +175,7 @@ module "install_agent_cluster_1" {
   }
   k8s_package_version = data.elasticstack_fleet_integration.kubernetes.version
 
-  dedicated_log_instance_name  = var.dedicated_log_instance_name
+  dedicated_log_instance_name  = var.k8s_application_log_instance_names
   elastic_agent_kube_namespace = var.elastic_agent_kube_namespace
   elasticsearch_api_key        = data.azurerm_key_vault_secret.elasticsearch_api_key.value
   elasticsearch_host           = replace(data.ec_deployment.ec_deployment.elasticsearch[0].https_endpoint, ".es.", ".")
@@ -192,7 +192,7 @@ module "install_agent_cluster_2" {
   count = length(var.aks_names) > 1 ? 1 : 0
 
   providers = {
-    kubernetes = kubernetes.cluster_2
+    kubectl = kubectl.cluster_2
   }
 
   apm_integration_policy = {
@@ -211,7 +211,7 @@ module "install_agent_cluster_2" {
   }
   k8s_package_version = data.elasticstack_fleet_integration.kubernetes.version
 
-  dedicated_log_instance_name  = var.dedicated_log_instance_name
+  dedicated_log_instance_name  = var.k8s_application_log_instance_names
   elastic_agent_kube_namespace = var.elastic_agent_kube_namespace
   elasticsearch_api_key        = data.azurerm_key_vault_secret.elasticsearch_api_key.value
   elasticsearch_host           = replace(data.ec_deployment.ec_deployment.elasticsearch[0].https_endpoint, ".es.", ".")

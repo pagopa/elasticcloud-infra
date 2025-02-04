@@ -53,9 +53,14 @@ variable "aks_names" {
     condition     = length(var.aks_names) <= 2
     error_message = "Currently more than 2 cluster is not supported. Please open a ticket to @payments-cloud-admin to request an increase"
   }
+
+  validation {
+    condition = length(var.aks_names) == length(toset(var.aks_names))
+    error_message = "Aks names elements must be unique"
+  }
 }
 
-variable "dedicated_log_instance_name" {
+variable "k8s_application_log_instance_names" {
   type = list(string)
 }
 

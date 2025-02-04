@@ -352,7 +352,7 @@ data:
               - state_container
             add_metadata: true
             hosts:
-              - 'kube-state-metrics:8080'
+              - 'prometheus-kube-state-metrics.elastic-system.svc.cluster.local:8080'
             period: 10s
             condition: '$${kubernetes_leaderelection.leader} == true'
             bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -365,7 +365,7 @@ data:
               - state_cronjob
             add_metadata: true
             hosts:
-              - 'kube-state-metrics:8080'
+              - 'prometheus-kube-state-metrics.elastic-system.svc.cluster.local:8080'
             period: 10s
             condition: '$${kubernetes_leaderelection.leader} == true'
             bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -378,7 +378,7 @@ data:
               - state_daemonset
             add_metadata: true
             hosts:
-              - 'kube-state-metrics:8080'
+              - 'prometheus-kube-state-metrics.elastic-system.svc.cluster.local:8080'
             period: 10s
             condition: '$${kubernetes_leaderelection.leader} == true'
             bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -391,7 +391,7 @@ data:
               - state_deployment
             add_metadata: true
             hosts:
-              - 'kube-state-metrics:8080'
+              - 'prometheus-kube-state-metrics.elastic-system.svc.cluster.local:8080'
             period: 10s
             condition: '$${kubernetes_leaderelection.leader} == true'
             bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -404,7 +404,7 @@ data:
               - state_job
             add_metadata: true
             hosts:
-              - 'kube-state-metrics:8080'
+              - 'prometheus-kube-state-metrics.elastic-system.svc.cluster.local:8080'
             period: 10s
             condition: '$${kubernetes_leaderelection.leader} == true'
             bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -417,7 +417,7 @@ data:
               - state_namespace
             add_metadata: true
             hosts:
-              - 'kube-state-metrics:8080'
+              - prometheus-kube-state-metrics.elastic-system.svc.cluster.local:8080'
             period: 10s
             condition: '$${kubernetes_leaderelection.leader} == true'
             bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -430,7 +430,7 @@ data:
               - state_node
             add_metadata: true
             hosts:
-              - 'kube-state-metrics:8080'
+              - prometheus-kube-state-metrics.elastic-system.svc.cluster.local:8080'
             period: 10s
             condition: '$${kubernetes_leaderelection.leader} == true'
             bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -443,7 +443,7 @@ data:
               - state_persistentvolume
             add_metadata: true
             hosts:
-              - 'kube-state-metrics:8080'
+              - prometheus-kube-state-metrics.elastic-system.svc.cluster.local:8080'
             period: 10s
             condition: '$${kubernetes_leaderelection.leader} == true'
             bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -456,7 +456,7 @@ data:
               - state_persistentvolumeclaim
             add_metadata: true
             hosts:
-              - 'kube-state-metrics:8080'
+              - prometheus-kube-state-metrics.elastic-system.svc.cluster.local:8080'
             period: 10s
             condition: '$${kubernetes_leaderelection.leader} == true'
             bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -469,7 +469,7 @@ data:
               - state_pod
             add_metadata: true
             hosts:
-              - 'kube-state-metrics:8080'
+              - prometheus-kube-state-metrics.elastic-system.svc.cluster.local:8080'
             period: 10s
             condition: '$${kubernetes_leaderelection.leader} == true'
             bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -482,7 +482,7 @@ data:
               - state_replicaset
             add_metadata: true
             hosts:
-              - 'kube-state-metrics:8080'
+              - prometheus-kube-state-metrics.elastic-system.svc.cluster.local:8080'
             period: 10s
             condition: '$${kubernetes_leaderelection.leader} == true'
             bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -495,7 +495,7 @@ data:
               - state_resourcequota
             add_metadata: true
             hosts:
-              - 'kube-state-metrics:8080'
+              - prometheus-kube-state-metrics.elastic-system.svc.cluster.local:8080'
             period: 10s
             condition: '$${kubernetes_leaderelection.leader} == true'
             bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -508,7 +508,7 @@ data:
               - state_service
             add_metadata: true
             hosts:
-              - 'kube-state-metrics:8080'
+              - prometheus-kube-state-metrics.elastic-system.svc.cluster.local:8080'
             period: 10s
             condition: '$${kubernetes_leaderelection.leader} == true'
             bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -521,7 +521,7 @@ data:
               - state_statefulset
             add_metadata: true
             hosts:
-              - 'kube-state-metrics:8080'
+              - prometheus-kube-state-metrics.elastic-system.svc.cluster.local:8080'
             period: 10s
             condition: '$${kubernetes_leaderelection.leader} == true'
             bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -534,7 +534,7 @@ data:
               - state_storageclass
             add_metadata: true
             hosts:
-              - 'kube-state-metrics:8080'
+              - prometheus-kube-state-metrics.elastic-system.svc.cluster.local:8080'
             period: 10s
             condition: '$${kubernetes_leaderelection.leader} == true'
             bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -566,29 +566,6 @@ data:
             bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
             ssl.certificate_authorities:
               - /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-        meta:
-          package:
-            name: kubernetes
-            version: ${kubernetes_package_version}
-      - id: kubernetes/metrics-kube-proxy-${kubernetes_id}
-        revision: 1
-        name: ${kubernetes_name}
-        type: kubernetes/metrics
-        data_stream:
-          namespace: ${target_namespace}
-        use_output: default
-        package_policy_id: ${kubernetes_id}
-        streams:
-          - id: >-
-              kubernetes/metrics-kubernetes.proxy-${kubernetes_id}
-            data_stream:
-              type: metrics
-              dataset: kubernetes.proxy
-            metricsets:
-              - proxy
-            hosts:
-              - 'localhost:10249'
-            period: 10s
         meta:
           package:
             name: kubernetes
@@ -626,21 +603,6 @@ data:
         use_output: default
         package_policy_id: ${kubernetes_id}
         streams:
-          - id: kubernetes-container-logs-default-${kubernetes_id}
-            data_stream:
-              type: logs
-              dataset: kubernetes.container_logs_pippo
-            paths:
-              - '/var/log/containers/*.log'
-            exclude_files:
-              %{~ for exclude_path in logs_general_to_exclude_paths ~}
-              - ${exclude_path}
-              %{~ endfor ~}
-            prospector.scanner.symlinks: true
-            parsers:
-              - container:
-                  stream: all
-                  format: auto
           %{~ for instance_name in dedicated_log_instance_name ~}
           - id: kubernetes-container-logs-${instance_name}-${kubernetes_id}
             data_stream:
@@ -687,7 +649,7 @@ data:
           default_service_environment: null
           expvar.enabled: false
           pprof.enabled: false
-          host: '0.0.0.0:8200'
+          host: 'localhost:8200'
           max_connections: 0
           max_event_size: 307200
           max_header_size: 1048576

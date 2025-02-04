@@ -51,9 +51,9 @@ spec:
             runAsUser: 0
           resources:
             limits:
-              memory: 700Mi
+              memory: 1024Mi
             requests:
-              cpu: 100m
+              cpu: 700m
               memory: 400Mi
           volumeMounts:
             - name: datastreams
