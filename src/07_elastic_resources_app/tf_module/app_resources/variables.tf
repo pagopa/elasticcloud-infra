@@ -12,9 +12,6 @@ variable "configuration" {
   type = any
 }
 
-variable "default_snapshot_policy_name" {
-  type = string
-}
 
 variable "space_id" {
   type = string
@@ -28,9 +25,6 @@ variable "env_short" {
   type = string
 }
 
-variable "default_ingest_pipeline_conf" {
-  type = any
-}
 
 variable "query_folder" {
   type = string
