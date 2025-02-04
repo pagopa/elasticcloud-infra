@@ -89,6 +89,12 @@ resource "elasticstack_fleet_integration_policy" "system_integration_policy" {
     input_id     = "system-httpjson"
     streams_json = file("${path.module}/integration_policy/system-http.json")
   }
+  input {
+    input_id = "system-journald"
+    enabled = true
+    streams_json = file("${path.module}/integration_policy/system-journald.json")
+
+  }
 
 }
 
@@ -155,6 +161,8 @@ resource "elasticstack_fleet_integration_policy" "apm_integration_policy" {
 module "install_agent_cluster_1" {
   source = "./tf_module/agent"
 
+  depends_on = [module.app_resources]
+
   providers = {
     kubectl = kubectl.cluster_1
   }
@@ -188,6 +196,7 @@ module "install_agent_cluster_1" {
 
 module "install_agent_cluster_2" {
   source = "./tf_module/agent"
+  depends_on = [module.app_resources]
 
   count = length(var.aks_names) > 1 ? 1 : 0
 
