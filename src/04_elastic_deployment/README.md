@@ -1,6 +1,11 @@
 # Elastic cloud deployment
 
-in order to use the "ec" provider you need to configure your api key in your system [guide here](https://registry.terraform.io/providers/elastic/ec/latest/docs#api-key-authentication-recommended)
+This module creates the elastic deployment for the target environment and some related resources
+Here we use the "staging" environment to address the mixed "dev + uat" env and, if case of shared environment between multiple products, 
+they must converge in the same environment folder. As an example, the "arp4pa-<env>" is actually the arc target together with p4pa target. 
+They share the same deployment because they are both part of the same echosystem
+
+In order to use the "ec" provider you need to configure your api key in your system [guide here](https://registry.terraform.io/providers/elastic/ec/latest/docs#api-key-authentication-recommended)
 
 The recommended solution is to define environment variables as follows
 ```commandline

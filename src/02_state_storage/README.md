@@ -1,11 +1,10 @@
-# Elastic cloud deployment
+# Elastic state storage
 
-in order to use the "ec" provider you need to configure your api key in your system [guide here](https://registry.terraform.io/providers/elastic/ec/latest/docs#api-key-authentication-recommended)
+This module creates the storage accounts required to store the states for the resources defined in the other modules
 
-The recommended solution is to define environment variables as follows
-```commandline
-export EC_API_KEY=<elastic cloud organization api key>
-```
+Here the "staging" environment is first introduced: it is an environment defined to include "dev" and "uat" envs together,
+sharing a single elastic cloud deployment (see 04_elastic_deployment module)
+
 
 <!-- markdownlint-disable -->
 <!-- BEGIN_TF_DOCS -->

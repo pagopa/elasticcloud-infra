@@ -3,7 +3,7 @@ locals {
   prefix_env          = "${var.prefix}-${var.env}"
   prefix_env_short    = "${var.prefix}-${var.env_short}"
 
-  config_folder_name = "config/${var.prefix}"
+  config_folder_name = "products/${var.prefix}"
   config_files       = fileset(path.module, "${local.config_folder_name}/*/*/appSettings.json")
 
   configurations = {
@@ -15,12 +15,12 @@ locals {
         wait_for_snapshot = var.lifecycle_policy_wait_for_snapshot
         name              = trimsuffix(basename(f), ".json")
       }))
-      space_name       = split("/", dirname(f))[2] #get space name from structure config/<product>/<space_name>/<application_name>
+      space_name       = split("/", dirname(f))[2] #get space name from structure products/<product>/<space_name>/<application_name>
       dashboard_folder = "${dirname(f)}/dashboard"
       query_folder     = "${dirname(f)}/query"
     }
   }
-  spaces = toset([for f in local.config_files : split("/", dirname(f))[2]]) #get space name from structure config/<product>/<space_name>/<application_name>
+  spaces = toset([for f in local.config_files : split("/", dirname(f))[2]]) #get space name from structure products/<product>/<space_name>/<application_name>
 
   logs_general_to_exclude_paths = distinct(flatten([
     for instance_name in var.k8s_application_log_instance_names : "'/var/log/containers/${instance_name}-*.log'"

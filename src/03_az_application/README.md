@@ -1,4 +1,9 @@
-# elastic cloud azure application
+# Elastic cloud azure application
+
+This module defines the azure enterprise application used to federate the login between azure and elastic cloud.
+Each monitored target requires its own application, hence the environment folder contain folder for every combination of
+product and environment, such as "pagopa-dev" and "arc-prod"
+
 
 <!-- markdownlint-disable -->
 <!-- BEGIN_TF_DOCS -->

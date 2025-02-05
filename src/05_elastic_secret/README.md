@@ -1,5 +1,6 @@
 # elastic cloud secret
 
+This module creates the resources required to store the secrets for each monitored target and stores those secrets
 
 <!-- markdownlint-disable -->
 <!-- BEGIN_TF_DOCS -->

@@ -1,11 +1,10 @@
-# elastic cloud resources
+# elastic cloud resources common
 
 ## EC deployment id
 
 Before running this module you need to configure the elastic cloud deployment id for your target environment using the variable
 `ec_deployment_id`. The deployment id can be found in the elastic cloud console
 
-### The deployment is shared between DEV and UAT environment. this meta environment is caled TEST
 
 ## Elasticsearch api key
 in order to use the "elasticstack" provider you need to configure your kibana api key in your system [guide here](https://registry.terraform.io/providers/elastic/elasticstack/latest/docs#environment-variables)
