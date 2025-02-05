@@ -24,6 +24,7 @@ module "app_resources" {
   library_ingest_pipeline_path = "${path.module}/default_library/ingest_pipeline"
 
   default_custom_component_name = "basic-only-lifecycle@custom"
+  elastic_namespace = "${var.prefix}.${var.env}"
 
   query_folder     = each.value.query_folder
   dashboard_folder = each.value.dashboard_folder

@@ -61,7 +61,7 @@ resource "elasticstack_elasticsearch_index_template" "index_template" {
   name = "${local.application_id}-idxtpl"
 
   priority       = 500
-  index_patterns = [var.configuration.indexTemplate.indexPattern]
+  index_patterns = ["${var.configuration.indexTemplate.indexPattern}-${var.elastic_namespace}"]
   composed_of = concat(
     (lookup(var.configuration, "packageComponent", null) != null ? [elasticstack_elasticsearch_component_template.package_index_component[0].name] : []),
     [elasticstack_elasticsearch_component_template.custom_index_component.name]
@@ -90,7 +90,7 @@ resource "elasticstack_elasticsearch_index_template" "index_template" {
 
 resource "elasticstack_elasticsearch_data_stream" "data_stream" {
   for_each = local.data_streams
-  name     = each.value
+  name     = "${each.value}-${var.elastic_namespace}"
 
   // make sure that template is created before the data stream
   depends_on = [
@@ -104,7 +104,7 @@ resource "elasticstack_kibana_data_view" "kibana_data_view" {
   data_view = {
     id              = "log_${var.configuration.dataView.indexIdentifier}_${var.prefix}_${var.env}"
     name            = "Log ${var.configuration.dataView.indexIdentifier} ${var.prefix} ${var.env}"
-    title           = "logs-${var.configuration.dataView.indexIdentifier}-*-${var.prefix}.${var.env}"
+    title           = "logs-${var.configuration.dataView.indexIdentifier}-*-${var.elastic_namespace}"
     time_field_name = "@timestamp"
 
     runtime_field_map = length(local.runtime_fields) != 0 ? local.runtime_fields : null

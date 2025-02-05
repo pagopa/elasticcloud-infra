@@ -52,5 +52,32 @@ The `<env>` part of the target is used in the resource creation process to disti
 
 First of all you need to create the correct folder structure, starting from the product folder your application belongs to:
 
-- **if needed**, you need to create a folder for your desired kibana space; the name of the folder will be the name of the kibana space, prepended to the `<env>` tag (i.e.: myspace-dev)
-- you need to create a folder for your application, the name is just an 
+- **if needed**, create a folder for your desired kibana space; the name of the folder will be the name of the kibana space, prepended to the `<env>` tag (i.e.: myspace-dev). Use an existing folder otherwise to create objects attached to that space
+- **required**,  create a folder for your application, the folder name will be used as an identifier in the ES resource creation process, so **it must be unique within the product folder**
+- **required**, create a file names `appSettings.json`, otherwise no resources will be created
+- **if needed**, create a folder for your dashboards named `dashboard`. Save here all the exported dashboard in ndjson format. **NB:** replace the `data_view_id` value with `"${data_view}"` to make it dynamic
+- **if needed**, create a folder for your saved queries named `query`. Save here all the exported queries in ndjson format
+
+### appSettings.json
+
+Here's an example of the file content:
+
+```json
+{
+  "displayName": "Print It ${env}",
+  "indexTemplate": {
+    "indexPattern" : "logs-print-payment-notice-*"
+  },
+  "dataStream": [
+    "logs-print-payment-notice-service",
+    "logs-print-payment-notice-generator",
+    "logs-print-payment-notice-functions"
+  ],
+  "dataView": {
+    "indexIdentifier": "print-payment"
+  },
+  "customComponent": "basic-pipeline-lifecycle@custom",
+  "packageComponent": "kubernetes-agent@package",
+  "ingestPipeline": "convert_responseTime_httpCode"
+}
+```

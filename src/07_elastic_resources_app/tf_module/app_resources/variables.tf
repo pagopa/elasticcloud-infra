@@ -58,3 +58,7 @@ variable "default_custom_component_name" {
 variable "application_name" {
   type = string
 }
+
+variable "elastic_namespace" {
+  type = string
+}
