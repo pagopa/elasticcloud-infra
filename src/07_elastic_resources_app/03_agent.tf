@@ -187,8 +187,6 @@ module "install_agent_cluster_1" {
   elastic_agent_kube_namespace = var.elastic_agent_kube_namespace
   elasticsearch_api_key        = data.azurerm_key_vault_secret.elasticsearch_api_key.value
   elasticsearch_host           = replace(data.ec_deployment.ec_deployment.elasticsearch[0].https_endpoint, ".es.", ".")
-  # use the first aks name configured in the list
-  k8s_kube_config_file_path = "${var.k8s_kube_config_path_prefix}/config-${var.aks_names[0]}"
   target                    = "${var.prefix}-${var.env}"
   target_namespace          = "${var.prefix}.${var.env}"
 }
@@ -224,8 +222,6 @@ module "install_agent_cluster_2" {
   elastic_agent_kube_namespace = var.elastic_agent_kube_namespace
   elasticsearch_api_key        = data.azurerm_key_vault_secret.elasticsearch_api_key.value
   elasticsearch_host           = replace(data.ec_deployment.ec_deployment.elasticsearch[0].https_endpoint, ".es.", ".")
-  # use the second aks name configured in the list
-  k8s_kube_config_file_path = "${var.k8s_kube_config_path_prefix}/config-${var.aks_names[1]}"
   target                    = "${var.prefix}-${var.env}"
   target_namespace          = "${var.prefix}.${var.env}"
 }

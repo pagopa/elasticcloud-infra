@@ -110,4 +110,4 @@ where:
 
 #### Need a different ingest pipeline or component?
 
-If you require a different ingest pipeline definition or a differen index component definition, feel free to open a PR defining the new content; @pagopa/payments-cloud-admin will be glad to review it
+If you require a different ingest pipeline definition or a different index component definition, feel free to open a PR defining the new content; @pagopa/payments-cloud-admin will be glad to review it

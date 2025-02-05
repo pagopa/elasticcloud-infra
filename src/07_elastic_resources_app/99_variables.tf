@@ -10,6 +10,12 @@ variable "prefix" {
 
 variable "env" {
   type = string
+  description = "(Required) Environment name"
+
+  validation {
+    condition = contains(["dev", "uat", "prod"], var.env)
+    error_message = "Env allowed values are: dev, uat, prod"
+  }
 }
 
 variable "env_short" {
@@ -20,17 +26,16 @@ variable "env_short" {
     )
     error_message = "Length must be 1 chars."
   }
+
+  validation {
+    condition = contains(["d", "u", "p"], var.env_short)
+    error_message = "Env allowed values are: d, u, p"
+  }
 }
 
 variable "ec_deployment_id" {
   type        = string
   description = "(Required) identifier of EC deployment"
-}
-
-variable "default_snapshot_policy_name" {
-  type        = string
-  description = "(Required) default snapshot policy name"
-  default     = "default-nightly-snapshots"
 }
 
 variable "lifecycle_policy_wait_for_snapshot" {
@@ -44,6 +49,7 @@ variable "lifecycle_policy_wait_for_snapshot" {
 variable "k8s_kube_config_path_prefix" {
   type    = string
   default = "~/.kube"
+  description = "(Optional) path to the kube config folder"
 }
 
 variable "aks_names" {
@@ -62,12 +68,25 @@ variable "aks_names" {
 
 variable "k8s_application_log_instance_names" {
   type = list(string)
+  description = "(Required) List of app namespaces or pod names for which the elastic agent will send logs"
 }
 
 variable "elastic_agent_kube_namespace" {
   type = string
+  description = "(Required) Kubernetes namespace where to install all the resources needed for the elastic agent"
 }
 
 variable "ilm" {
   type = map(string)
+  description = "(Required) Map containing all the application name for this environment associated to the related index lifecicle management policy to be used for that application. The allowed values are the file names in `default_library/ilm` folder"
+
+  validation {
+    condition = alltrue([for v in values(var.ilm): !strcontains(v, ".json")])
+    error_message = "One or more ilm contains file extension. Use the file name only"
+  }
+
+  validation {
+    condition = alltrue([for v in values(var.ilm): fileexists("${path.module}/default_library/ilm/${v}.json")])
+    error_message = "One or mode ilm defined does not have the corresponding file configured in the library"
+  }
 }
