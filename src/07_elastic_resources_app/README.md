@@ -28,7 +28,7 @@ for details on how to configure a new space/application, please refer to the `co
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 4.16 |
 | <a name="requirement_ec"></a> [ec](#requirement\_ec) | ~> 0.12.2 |
 | <a name="requirement_elasticstack"></a> [elasticstack](#requirement\_elasticstack) | 0.11.7 |
-| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | ~> 2.35.0 |
+| <a name="requirement_kubectl"></a> [kubectl](#requirement\_kubectl) | ~> 1.19.0 |
 
 ## Providers
 
@@ -67,14 +67,13 @@ for details on how to configure a new space/application, please refer to the `co
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_aks_names"></a> [aks\_names](#input\_aks\_names) | (Required) list of aks cluster names where the elstic agent will be installed. must not be empty, must not be mode than 2 elements | `list(string)` | n/a | yes |
-| <a name="input_dedicated_log_instance_name"></a> [dedicated\_log\_instance\_name](#input\_dedicated\_log\_instance\_name) | n/a | `list(string)` | n/a | yes |
-| <a name="input_default_snapshot_policy_name"></a> [default\_snapshot\_policy\_name](#input\_default\_snapshot\_policy\_name) | (Required) default snapshot policy name | `string` | `"default-nightly-snapshots"` | no |
 | <a name="input_ec_deployment_id"></a> [ec\_deployment\_id](#input\_ec\_deployment\_id) | (Required) identifier of EC deployment | `string` | n/a | yes |
-| <a name="input_elastic_agent_kube_namespace"></a> [elastic\_agent\_kube\_namespace](#input\_elastic\_agent\_kube\_namespace) | n/a | `string` | n/a | yes |
-| <a name="input_env"></a> [env](#input\_env) | n/a | `string` | n/a | yes |
+| <a name="input_elastic_agent_kube_namespace"></a> [elastic\_agent\_kube\_namespace](#input\_elastic\_agent\_kube\_namespace) | (Required) Kubernetes namespace where to install all the resources needed for the elastic agent | `string` | n/a | yes |
+| <a name="input_env"></a> [env](#input\_env) | (Required) Environment name | `string` | n/a | yes |
 | <a name="input_env_short"></a> [env\_short](#input\_env\_short) | n/a | `string` | n/a | yes |
-| <a name="input_ilm"></a> [ilm](#input\_ilm) | n/a | `map(string)` | n/a | yes |
-| <a name="input_k8s_kube_config_path_prefix"></a> [k8s\_kube\_config\_path\_prefix](#input\_k8s\_kube\_config\_path\_prefix) | n/a | `string` | `"~/.kube"` | no |
+| <a name="input_ilm"></a> [ilm](#input\_ilm) | (Required) Map containing all the application name for this environment associated to the related index lifecicle management policy to be used for that application. The allowed values are the file names in `default_library/ilm` folder | `map(string)` | n/a | yes |
+| <a name="input_k8s_application_log_instance_names"></a> [k8s\_application\_log\_instance\_names](#input\_k8s\_application\_log\_instance\_names) | (Required) List of app namespaces or pod names for which the elastic agent will send logs | `list(string)` | n/a | yes |
+| <a name="input_k8s_kube_config_path_prefix"></a> [k8s\_kube\_config\_path\_prefix](#input\_k8s\_kube\_config\_path\_prefix) | (Optional) path to the kube config folder | `string` | `"~/.kube"` | no |
 | <a name="input_lifecycle_policy_wait_for_snapshot"></a> [lifecycle\_policy\_wait\_for\_snapshot](#input\_lifecycle\_policy\_wait\_for\_snapshot) | (Optional) True if the index lifecycle policy has to wait for snapshots before deletion | `bool` | `true` | no |
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | n/a | `string` | n/a | yes |
 

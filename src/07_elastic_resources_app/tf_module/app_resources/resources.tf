@@ -1,13 +1,13 @@
 locals {
   data_streams   = { for d in var.configuration.dataStream : d => d }
-  application_id = "${var.application_name}-${var.env}"
+  application_id = "${var.application_name}-${var.target_env}"
   dashboards     = { for df in fileset("${var.dashboard_folder}", "/*.ndjson") : trimsuffix(basename(df), ".ndjson") => "${var.dashboard_folder}/${df}" }
   queries        = { for df in fileset("${var.query_folder}", "/*.ndjson") : trimsuffix(basename(df), ".ndjson") => "${var.query_folder}/${df}" }
 
-  index_custom_component =  jsondecode(templatefile("${var.library_index_custom_path}/${lookup(var.configuration, "customComponent", var.default_custom_component_name)}.json", {
+  index_custom_component = jsondecode(templatefile("${var.library_index_custom_path}/${lookup(var.configuration, "customComponent", var.default_custom_component_name)}.json", {
     name      = local.application_id
     pipeline  = elasticstack_elasticsearch_ingest_pipeline.ingest_pipeline.name
-    lifecycle = "${var.prefix}-${var.env}-${var.ilm_name}-ilm"
+    lifecycle = "${var.target_name}-${var.target_env}-${var.ilm_name}-ilm"
   }))
 
   index_package_component = lookup(var.configuration, "packageComponent", null) == null ? null : jsondecode(templatefile("${var.library_index_package_path}/${var.configuration.packageComponent}.json", {
@@ -28,7 +28,7 @@ resource "elasticstack_elasticsearch_ingest_pipeline" "ingest_pipeline" {
   name        = "${local.application_id}-pipeline"
   description = "Ingest pipeline for ${var.configuration.displayName}"
 
-  processors = [for p in local. ingest_pipeline.processors : jsonencode(p)]
+  processors = [for p in local.ingest_pipeline.processors : jsonencode(p)]
   on_failure = length(lookup(local.ingest_pipeline, "onFailure", [])) > 0 ? [for p in lookup(local.ingest_pipeline, "onFailure", []) : jsonencode(p)] : null
 }
 
@@ -61,7 +61,7 @@ resource "elasticstack_elasticsearch_index_template" "index_template" {
   name = "${local.application_id}-idxtpl"
 
   priority       = 500
-  index_patterns = ["${var.configuration.indexTemplate.indexPattern}-${var.elastic_namespace}"]
+  index_patterns = ["${var.configuration.indexTemplate.indexPattern}-${var.target_name}.${var.target_env}"]
   composed_of = concat(
     (lookup(var.configuration, "packageComponent", null) != null ? [elasticstack_elasticsearch_component_template.package_index_component[0].name] : []),
     [elasticstack_elasticsearch_component_template.custom_index_component.name]
@@ -90,7 +90,7 @@ resource "elasticstack_elasticsearch_index_template" "index_template" {
 
 resource "elasticstack_elasticsearch_data_stream" "data_stream" {
   for_each = local.data_streams
-  name     = "${each.value}-${var.elastic_namespace}"
+  name     = "${each.value}-${var.target_name}.${var.target_env}"
 
   // make sure that template is created before the data stream
   depends_on = [
@@ -102,9 +102,9 @@ resource "elasticstack_elasticsearch_data_stream" "data_stream" {
 resource "elasticstack_kibana_data_view" "kibana_data_view" {
   space_id = var.space_id
   data_view = {
-    id              = "${replace(var.configuration.dataView.indexIdentifier, "-", "_")}_${var.prefix}_${var.env}"
-    name            = "${var.configuration.dataView.indexIdentifier} ${var.prefix} ${var.env}"
-    title           = "${var.configuration.dataView.indexIdentifier}-${var.elastic_namespace}"
+    id              = "${replace(var.configuration.dataView.indexIdentifier, "-", "_")}_${var.target_name}_${var.target_env}"
+    name            = "${var.configuration.dataView.indexIdentifier} ${var.target_name} ${var.target_env}"
+    title           = "${var.configuration.dataView.indexIdentifier}-${var.target_name}.${var.target_env}"
     time_field_name = "@timestamp"
 
     runtime_field_map = length(local.runtime_fields) != 0 ? local.runtime_fields : null

@@ -9,11 +9,11 @@ variable "prefix" {
 }
 
 variable "env" {
-  type = string
+  type        = string
   description = "(Required) Environment name"
 
   validation {
-    condition = contains(["dev", "uat", "prod"], var.env)
+    condition     = contains(["dev", "uat", "prod"], var.env)
     error_message = "Env allowed values are: dev, uat, prod"
   }
 }
@@ -28,7 +28,7 @@ variable "env_short" {
   }
 
   validation {
-    condition = contains(["d", "u", "p"], var.env_short)
+    condition     = contains(["d", "u", "p"], var.env_short)
     error_message = "Env allowed values are: d, u, p"
   }
 }
@@ -47,8 +47,8 @@ variable "lifecycle_policy_wait_for_snapshot" {
 
 
 variable "k8s_kube_config_path_prefix" {
-  type    = string
-  default = "~/.kube"
+  type        = string
+  default     = "~/.kube"
   description = "(Optional) path to the kube config folder"
 }
 
@@ -61,32 +61,32 @@ variable "aks_names" {
   }
 
   validation {
-    condition = length(var.aks_names) == length(toset(var.aks_names))
+    condition     = length(var.aks_names) == length(toset(var.aks_names))
     error_message = "Aks names elements must be unique"
   }
 }
 
 variable "k8s_application_log_instance_names" {
-  type = list(string)
+  type        = list(string)
   description = "(Required) List of app namespaces or pod names for which the elastic agent will send logs"
 }
 
 variable "elastic_agent_kube_namespace" {
-  type = string
+  type        = string
   description = "(Required) Kubernetes namespace where to install all the resources needed for the elastic agent"
 }
 
 variable "ilm" {
-  type = map(string)
+  type        = map(string)
   description = "(Required) Map containing all the application name for this environment associated to the related index lifecicle management policy to be used for that application. The allowed values are the file names in `default_library/ilm` folder"
 
   validation {
-    condition = alltrue([for v in values(var.ilm): !strcontains(v, ".json")])
+    condition     = alltrue([for v in values(var.ilm) : !strcontains(v, ".json")])
     error_message = "One or more ilm contains file extension. Use the file name only"
   }
 
   validation {
-    condition = alltrue([for v in values(var.ilm): fileexists("${path.module}/default_library/ilm/${v}.json")])
+    condition     = alltrue([for v in values(var.ilm) : fileexists("${path.module}/default_library/ilm/${v}.json")])
     error_message = "One or mode ilm defined does not have the corresponding file configured in the library"
   }
 }
