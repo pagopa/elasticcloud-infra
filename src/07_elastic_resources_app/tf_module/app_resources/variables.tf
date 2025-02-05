@@ -49,3 +49,7 @@ variable "ilm_name" {
 variable "library_ingest_pipeline_path" {
   type = string
 }
+
+variable "default_custom_component_name" {
+  type = string
+}

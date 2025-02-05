@@ -4,7 +4,7 @@ locals {
   dashboards     = { for df in fileset("${var.dashboard_folder}", "/*.ndjson") : trimsuffix(basename(df), ".ndjson") => "${var.dashboard_folder}/${df}" }
   queries        = { for df in fileset("${var.query_folder}", "/*.ndjson") : trimsuffix(basename(df), ".ndjson") => "${var.query_folder}/${df}" }
 
-  index_custom_component = lookup(var.configuration, "customComponent", null) == null ? null : jsondecode(templatefile("${var.library_index_custom_path}/${var.configuration.customComponent}.json", {
+  index_custom_component =  jsondecode(templatefile("${var.library_index_custom_path}/${lookup(var.configuration, "customComponent", var.default_custom_component_name)}.json", {
     name      = local.application_id
     pipeline  = elasticstack_elasticsearch_ingest_pipeline.ingest_pipeline.name
     lifecycle = "${var.prefix}-${var.env}-${var.ilm_name}-ilm"
@@ -33,8 +33,6 @@ resource "elasticstack_elasticsearch_ingest_pipeline" "ingest_pipeline" {
 }
 
 resource "elasticstack_elasticsearch_component_template" "custom_index_component" {
-  count = lookup(var.configuration, "customComponent", null) != null ? 1 : 0
-
   name = "${local.application_id}@custom"
   template {
 
@@ -66,7 +64,7 @@ resource "elasticstack_elasticsearch_index_template" "index_template" {
   index_patterns = [var.configuration.indexTemplate.indexPattern]
   composed_of = concat(
     (lookup(var.configuration, "packageComponent", null) != null ? [elasticstack_elasticsearch_component_template.package_index_component[0].name] : []),
-    (lookup(var.configuration, "customComponent", null) != null ? [elasticstack_elasticsearch_component_template.custom_index_component[0].name] : []),
+    [elasticstack_elasticsearch_component_template.custom_index_component.name]
   )
 
   data_stream {

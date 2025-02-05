@@ -23,6 +23,8 @@ module "app_resources" {
   library_index_package_path = "${path.module}/default_library/index_component"
   library_ingest_pipeline_path = "${path.module}/default_library/ingest_pipeline"
 
+  default_custom_component_name = "basic-only-lifecycle@custom"
+
   query_folder     = each.value.query_folder
   dashboard_folder = each.value.dashboard_folder
 

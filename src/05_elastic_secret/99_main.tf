@@ -34,6 +34,6 @@ data "azurerm_subscription" "current" {}
 data "azurerm_client_config" "current" {}
 
 module "__v4__" {
-  #
-  source = "git::https://github.com/pagopa/terraform-azurerm-v4?ref=PAYMCLOUD-209-cstar-terraform-v4-migration-from-v3" #fixme set a stable version when migration completed
+  # v1.2.1
+  source = "git::https://github.com/pagopa/terraform-azurerm-v4?ref=77d05f98b95c544b4997f02cb94fd53bd4c57eee"
 }
