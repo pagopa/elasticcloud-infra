@@ -53,4 +53,4 @@ The `<env>` part of the target is used in the resource creation process to disti
 First of all you need to create the correct folder structure, starting from the product folder your application belongs to:
 
 - **if needed**, you need to create a folder for your desired kibana space; the name of the folder will be the name of the kibana space, prepended to the `<env>` tag (i.e.: myspace-dev)
-- you need to create a folder for your application
+- you need to create a folder for your application, the name is just an 

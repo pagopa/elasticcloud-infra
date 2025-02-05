@@ -17,7 +17,7 @@ module "app_resources" {
   env_short                    = var.env_short
   space_id                     = elasticstack_kibana_space.kibana_space[each.value.space_name].space_id
 
-  ilm_name                     = var.ilm[each.value.conf.id]
+  ilm_name                     = var.ilm[each.key]
 
   library_index_custom_path  = "${path.module}/default_library/index_component"
   library_index_package_path = "${path.module}/default_library/index_component"
@@ -27,6 +27,8 @@ module "app_resources" {
 
   query_folder     = each.value.query_folder
   dashboard_folder = each.value.dashboard_folder
+
+  application_name = each.key
 
   depends_on = [elasticstack_elasticsearch_index_lifecycle.index_lifecycle]
 }

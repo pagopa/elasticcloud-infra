@@ -1,6 +1,6 @@
 locals {
   data_streams   = { for d in var.configuration.dataStream : d => d }
-  application_id = "${var.configuration.id}-${var.env}"
+  application_id = "${var.application_name}-${var.env}"
   dashboards     = { for df in fileset("${var.dashboard_folder}", "/*.ndjson") : trimsuffix(basename(df), ".ndjson") => "${var.dashboard_folder}/${df}" }
   queries        = { for df in fileset("${var.query_folder}", "/*.ndjson") : trimsuffix(basename(df), ".ndjson") => "${var.query_folder}/${df}" }
 

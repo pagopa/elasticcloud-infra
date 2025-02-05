@@ -53,3 +53,8 @@ variable "library_ingest_pipeline_path" {
 variable "default_custom_component_name" {
   type = string
 }
+
+
+variable "application_name" {
+  type = string
+}
