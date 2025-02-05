@@ -60,13 +60,16 @@ First of all you need to create the correct folder structure, starting from the 
 
 ### appSettings.json
 
+The appSettings content relies on the contents of `default_library` folder in order to reuse components definitions; in this file you will be referencing the file names 
+from the `default_library` that will be used to define resources for your application
+
 Here's an example of the file content:
 
 ```json
 {
   "displayName": "Print It ${env}",
   "indexTemplate": {
-    "indexPattern" : "logs-print-payment-notice-*"
+    "indexPattern": "logs-print-payment-notice-*"
   },
   "dataStream": [
     "logs-print-payment-notice-service",
@@ -74,10 +77,37 @@ Here's an example of the file content:
     "logs-print-payment-notice-functions"
   ],
   "dataView": {
-    "indexIdentifier": "print-payment"
+    "indexIdentifier": "logs-print-payment-*",
+    "runtimeFields": [
+      { "name": "faultCode", "runtimeField": { "type": "keyword", "script": {"source": "String message = params[\"_source\"][\"message\"];def m = /^.*title=(.*)(?=, status).*$/.matcher(message);if ( m.matches() ) {return emit(m.group(1));} else{return emit(\"-\");}"}}},
+      { "name": "faultDetail", "runtimeField": { "type": "keyword", "script": {"source": "String message = params[\"_source\"][\"message\"];\n\ndef m = /^.*detail=(.*)(?=\\)).*$/.matcher(message);\nif ( m.matches() ) {\n   return emit(m.group(1));\n} else {\n   return emit(\"-\");\n}"}}}
+    ]
   },
   "customComponent": "basic-pipeline-lifecycle@custom",
   "packageComponent": "kubernetes-agent@package",
   "ingestPipeline": "convert_responseTime_httpCode"
 }
 ```
+
+where:
+
+- `displayName`: **required** Human readable name used in some resources for this application
+- `indexTemplate`: **required** structure containing the following fields   
+  - `indexPattern`: **required** pattern used to identify the indexes for this application. **NB:** the `elastic_namespace` variable will be appended to that
+- `dataStream`: **required** list of data stream names that will be created for this application. **NB:** the `elastic_namespace` variable will be appended to that
+- `dataView`: **required** structure containing the following fields
+  - `indexIdentifier`: **required** identifier of the indexes to be collected in the data view for this application. **NB:** the `elastic_namespace` variable will be appended to that
+  - `runtimeFields`: **optional** list of runtime field definitions
+    - `name`: **required** name of the runtime field
+    - `runtimeField`: **required** runtime field definition (as exported from kibana)
+      - `type`: **required** type of the runtime field; [docs here](https://www.elastic.co/guide/en/elasticsearch/reference/current/runtime-mapping-fields.html)
+      - `script`: **required** runtime field source code;  [docs here](https://www.elastic.co/guide/en/elasticsearch/reference/current/runtime-mapping-fields.html)
+- `customComponent`: **optional, with default** component name from the `index_component` library, noted with `@custom` to be attached to the index template. If not defined, the default `basic-only-lifecycle@custom` will be used.
+- `packageComponent`: **optional** component name from the `index_component` library, noted with `@package` to be attached to the index template.
+- `ingestPipeline`: **required** ingest pipeline name, from the `ingest_pipeline` library, to be attached to the index template
+
+### FAQ
+
+#### Need a different ingest pipeline or component?
+
+If you require a different ingest pipeline definition or a differen index component definition, feel free to open a PR defining the new content; @pagopa/payments-cloud-admin will be glad to review it

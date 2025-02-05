@@ -28,7 +28,7 @@ resource "elasticstack_elasticsearch_ingest_pipeline" "ingest_pipeline" {
   name        = "${local.application_id}-pipeline"
   description = "Ingest pipeline for ${var.configuration.displayName}"
 
-  processors = [for p in local.ingest_pipeline.processors : jsonencode(p)]
+  processors = [for p in local. ingest_pipeline.processors : jsonencode(p)]
   on_failure = length(lookup(local.ingest_pipeline, "onFailure", [])) > 0 ? [for p in lookup(local.ingest_pipeline, "onFailure", []) : jsonencode(p)] : null
 }
 
@@ -102,9 +102,9 @@ resource "elasticstack_elasticsearch_data_stream" "data_stream" {
 resource "elasticstack_kibana_data_view" "kibana_data_view" {
   space_id = var.space_id
   data_view = {
-    id              = "log_${var.configuration.dataView.indexIdentifier}_${var.prefix}_${var.env}"
-    name            = "Log ${var.configuration.dataView.indexIdentifier} ${var.prefix} ${var.env}"
-    title           = "logs-${var.configuration.dataView.indexIdentifier}-*-${var.elastic_namespace}"
+    id              = "${replace(var.configuration.dataView.indexIdentifier, "-", "_")}_${var.prefix}_${var.env}"
+    name            = "${var.configuration.dataView.indexIdentifier} ${var.prefix} ${var.env}"
+    title           = "${var.configuration.dataView.indexIdentifier}-${var.elastic_namespace}"
     time_field_name = "@timestamp"
 
     runtime_field_map = length(local.runtime_fields) != 0 ? local.runtime_fields : null
