@@ -10,6 +10,7 @@ spec:
       otlp:
         protocols:
           grpc:
+            endpoint: 0.0.0.0:${receiver_port}
         
     processors:
       memory_limiter:

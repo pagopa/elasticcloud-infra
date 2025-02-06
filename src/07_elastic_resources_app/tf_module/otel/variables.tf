@@ -27,3 +27,9 @@ variable "affinity_selector" {
   default     = null
   description = "Affinity selector configuration for opentelemetry pods"
 }
+
+variable "grpc_receiver_port" {
+  type        = number
+  description = "Otel collector grpc receiver port"
+  default     = 4317
+}

@@ -28,6 +28,7 @@ k8s_application_log_instance_names = [
 ]
 
 elastic_agent_kube_namespace = "elastic-cloud-system"
+otel_kube_namespace          = "elastic-cloud-system"
 
 ilm = {
   nodo                 = "2-4-6-8"

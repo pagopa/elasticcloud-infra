@@ -84,6 +84,11 @@ variable "elastic_agent_kube_namespace" {
   description = "(Required) Kubernetes namespace where to install all the resources needed for the elastic agent"
 }
 
+variable "otel_kube_namespace" {
+  type        = string
+  description = "(Required) Kubernetes namespace where to install all the resources needed for the open telemetry"
+}
+
 variable "ilm" {
   type        = map(string)
   description = "(Required) Map containing all the application name for this environment associated to the related index lifecicle management policy to be used for that application. The allowed values are the file names in `default_library/ilm` folder"
