@@ -28,6 +28,7 @@ for details on how to configure a new space/application, please refer to the `co
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 4.16 |
 | <a name="requirement_ec"></a> [ec](#requirement\_ec) | ~> 0.12.2 |
 | <a name="requirement_elasticstack"></a> [elasticstack](#requirement\_elasticstack) | 0.11.7 |
+| <a name="requirement_helm"></a> [helm](#requirement\_helm) | = 2.17.0 |
 | <a name="requirement_kubectl"></a> [kubectl](#requirement\_kubectl) | ~> 1.19.0 |
 
 ## Providers
@@ -45,6 +46,8 @@ for details on how to configure a new space/application, please refer to the `co
 | <a name="module_app_resources"></a> [app\_resources](#module\_app\_resources) | ./tf_module/app_resources | n/a |
 | <a name="module_install_agent_cluster_1"></a> [install\_agent\_cluster\_1](#module\_install\_agent\_cluster\_1) | ./tf_module/agent | n/a |
 | <a name="module_install_agent_cluster_2"></a> [install\_agent\_cluster\_2](#module\_install\_agent\_cluster\_2) | ./tf_module/agent | n/a |
+| <a name="module_otel_cluster_1"></a> [otel\_cluster\_1](#module\_otel\_cluster\_1) | ./tf_module/otel | n/a |
+| <a name="module_otel_cluster_2"></a> [otel\_cluster\_2](#module\_otel\_cluster\_2) | ./tf_module/otel | n/a |
 
 ## Resources
 
@@ -66,7 +69,7 @@ for details on how to configure a new space/application, please refer to the `co
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_aks_names"></a> [aks\_names](#input\_aks\_names) | (Required) list of aks cluster names where the elstic agent will be installed. must not be empty, must not be mode than 2 elements | `list(string)` | n/a | yes |
+| <a name="input_aks_names"></a> [aks\_names](#input\_aks\_names) | (Required) list of aks cluster names where the elstic agent will be installed. must not be empty, must not be mode than 2 elements | <pre>list(object({<br/>    name = string<br/>    affinity_selector = optional(object({<br/>      key   = string<br/>      value = string<br/>    }), null)<br/>  }))</pre> | n/a | yes |
 | <a name="input_ec_deployment_id"></a> [ec\_deployment\_id](#input\_ec\_deployment\_id) | (Required) identifier of EC deployment | `string` | n/a | yes |
 | <a name="input_elastic_agent_kube_namespace"></a> [elastic\_agent\_kube\_namespace](#input\_elastic\_agent\_kube\_namespace) | (Required) Kubernetes namespace where to install all the resources needed for the elastic agent | `string` | n/a | yes |
 | <a name="input_env"></a> [env](#input\_env) | (Required) Environment name | `string` | n/a | yes |
@@ -75,6 +78,7 @@ for details on how to configure a new space/application, please refer to the `co
 | <a name="input_k8s_application_log_instance_names"></a> [k8s\_application\_log\_instance\_names](#input\_k8s\_application\_log\_instance\_names) | (Required) List of app namespaces or pod names for which the elastic agent will send logs | `list(string)` | n/a | yes |
 | <a name="input_k8s_kube_config_path_prefix"></a> [k8s\_kube\_config\_path\_prefix](#input\_k8s\_kube\_config\_path\_prefix) | (Optional) path to the kube config folder | `string` | `"~/.kube"` | no |
 | <a name="input_lifecycle_policy_wait_for_snapshot"></a> [lifecycle\_policy\_wait\_for\_snapshot](#input\_lifecycle\_policy\_wait\_for\_snapshot) | (Optional) True if the index lifecycle policy has to wait for snapshots before deletion | `bool` | `true` | no |
+| <a name="input_opentelemetry_operator_helm_version"></a> [opentelemetry\_operator\_helm\_version](#input\_opentelemetry\_operator\_helm\_version) | Open telemetry operator version | `string` | `"0.24.3"` | no |
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | n/a | `string` | n/a | yes |
 
 ## Outputs

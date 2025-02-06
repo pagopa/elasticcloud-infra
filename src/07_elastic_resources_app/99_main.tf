@@ -18,6 +18,10 @@ terraform {
       source  = "gavinbunney/kubectl"
       version = "~> 1.19.0"
     }
+    helm = {
+      source  = "hashicorp/helm"
+      version = "= 2.17.0"
+    }
 
   }
 
@@ -42,13 +46,33 @@ provider "elasticstack" {
 }
 
 
-provider "kubectl" {
-  alias       = "cluster_1"
-  config_path = "${var.k8s_kube_config_path_prefix}/config-${var.aks_names[0]}"
+locals {
+  cluster_1_config_path = "${var.k8s_kube_config_path_prefix}/config-${var.aks_names[0].name}"
+  # if secondary cluster is not defined, use the primary cluster name just to make the provider configuration work. it will not be used
+  cluster_2_config_path = "${var.k8s_kube_config_path_prefix}/config-${length(var.aks_names) > 1 ? var.aks_names[1].name : var.aks_names[0].name}"
 }
 
 provider "kubectl" {
+  alias       = "cluster_1"
+  config_path = local.cluster_1_config_path
+}
+
+provider "kubectl" {
+  alias       = "cluster_2"
+  config_path = local.cluster_2_config_path
+}
+
+
+provider "helm" {
+  alias = "cluster_1"
+  kubernetes {
+    config_path = local.cluster_1_config_path
+  }
+}
+
+provider "helm" {
   alias = "cluster_2"
-  # if secondary cluster is not defined, use the primary cluster name just to make the provider configuration work. it will not be used
-  config_path = "${var.k8s_kube_config_path_prefix}/config-${length(var.aks_names) > 1 ? var.aks_names[1] : var.aks_names[0]}"
+  kubernetes {
+    config_path = local.cluster_2_config_path
+  }
 }

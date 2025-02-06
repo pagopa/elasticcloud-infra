@@ -53,15 +53,23 @@ variable "k8s_kube_config_path_prefix" {
 }
 
 variable "aks_names" {
-  type        = list(string)
+  type = list(object({
+    name = string
+    affinity_selector = optional(object({
+      key   = string
+      value = string
+    }), null)
+  }))
+
   description = "(Required) list of aks cluster names where the elstic agent will be installed. must not be empty, must not be mode than 2 elements"
+
   validation {
     condition     = length(var.aks_names) <= 2
     error_message = "Currently more than 2 cluster is not supported. Please open a ticket to @payments-cloud-admin to request an increase"
   }
 
   validation {
-    condition     = length(var.aks_names) == length(toset(var.aks_names))
+    condition     = length(var.aks_names) == length(toset([for n in var.aks_names : n.name]))
     error_message = "Aks names elements must be unique"
   }
 }
@@ -90,3 +98,10 @@ variable "ilm" {
     error_message = "One or mode ilm defined does not have the corresponding file configured in the library"
   }
 }
+
+variable "opentelemetry_operator_helm_version" {
+  type        = string
+  description = "Open telemetry operator version"
+  default     = "0.24.3"
+}
+
