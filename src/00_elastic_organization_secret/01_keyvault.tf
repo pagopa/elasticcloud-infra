@@ -1,6 +1,6 @@
 resource "azurerm_resource_group" "sec_rg" {
-  name     = "${local.subscription_product}-${var.prefix}-${var.env}-sec-rg"
-  location = var.location
+  name     = "${local.project}-sec-rg"
+  location = local.location
 
   tags = local.tags
 }
@@ -8,7 +8,7 @@ resource "azurerm_resource_group" "sec_rg" {
 module "key_vault" {
   source = "./.terraform/modules/__v4__/key_vault"
 
-  name                       = "${local.subscription_product}-${var.prefix}-${var.env}-kv"
+  name                       = "${local.project}-kv"
   location                   = azurerm_resource_group.sec_rg.location
   resource_group_name        = azurerm_resource_group.sec_rg.name
   tenant_id                  = data.azurerm_client_config.current.tenant_id
@@ -29,3 +29,4 @@ resource "azurerm_key_vault_access_policy" "ad_group_policy" {
   storage_permissions     = []
   certificate_permissions = ["Get", "List", "Update", "Create", "Import", "Delete", "Restore", "Purge", "Recover", ]
 }
+

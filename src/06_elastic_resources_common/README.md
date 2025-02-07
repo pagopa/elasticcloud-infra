@@ -7,12 +7,9 @@ Before running this module you need to configure the elastic cloud deployment id
 
 
 ## Elasticsearch api key
-in order to use the "elasticstack" provider you need to configure your kibana api key in your system [guide here](https://registry.terraform.io/providers/elastic/elasticstack/latest/docs#environment-variables)
+To use the elasticstack provider, you must have access to the Key Vault of the target subscription (e.g., pagopa-dev, arc-prod, p4pa-uat).
+The API key used for provider authentication will be retrieved from this KV. [Guide here](https://registry.terraform.io/providers/elastic/elasticstack/latest/docs#elasticsearch).
 
-The recommended solution is to define environment variables as follows
-```commandline
-export ELASTICSEARCH_API_KEY=<deployment api key from kibana portal>
-```
 **NOTE**: this is different from the elastic cloud api key
 
 ## Snapshot repository setup
@@ -45,6 +42,7 @@ these values are required to properly configure a snapshot repository client.
 | Name | Version |
 |------|---------|
 | <a name="provider_azuread"></a> [azuread](#provider\_azuread) | 3.1.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 4.16.0 |
 | <a name="provider_ec"></a> [ec](#provider\_ec) | 0.12.2 |
 | <a name="provider_elasticstack"></a> [elasticstack](#provider\_elasticstack) | 0.11.13 |
 
@@ -61,11 +59,14 @@ No modules.
 | [elasticstack_elasticsearch_security_role.viewer_role](https://registry.terraform.io/providers/elastic/elasticstack/latest/docs/resources/elasticsearch_security_role) | resource |
 | [elasticstack_elasticsearch_security_role_mapping.admins_as_superuser](https://registry.terraform.io/providers/elastic/elasticstack/latest/docs/resources/elasticsearch_security_role_mapping) | resource |
 | [elasticstack_elasticsearch_security_role_mapping.custom_role_mappings](https://registry.terraform.io/providers/elastic/elasticstack/latest/docs/resources/elasticsearch_security_role_mapping) | resource |
+| [elasticstack_elasticsearch_security_role_mapping.kibana_admin](https://registry.terraform.io/providers/elastic/elasticstack/latest/docs/resources/elasticsearch_security_role_mapping) | resource |
 | [elasticstack_elasticsearch_snapshot_lifecycle.default_snapshot_policy](https://registry.terraform.io/providers/elastic/elasticstack/latest/docs/resources/elasticsearch_snapshot_lifecycle) | resource |
 | [elasticstack_elasticsearch_snapshot_repository.snapshot_repository](https://registry.terraform.io/providers/elastic/elasticstack/latest/docs/resources/elasticsearch_snapshot_repository) | resource |
 | [elasticstack_fleet_integration.kubernetes_package](https://registry.terraform.io/providers/elastic/elasticstack/latest/docs/resources/fleet_integration) | resource |
 | [elasticstack_fleet_integration.system_package](https://registry.terraform.io/providers/elastic/elasticstack/latest/docs/resources/fleet_integration) | resource |
 | [azuread_group.adgroup](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/group) | data source |
+| [azurerm_key_vault.key_vault](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault) | data source |
+| [azurerm_key_vault_secret.elasticsearch_api_key](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault_secret) | data source |
 | [ec_deployment.ec_deployment](https://registry.terraform.io/providers/elastic/ec/latest/docs/data-sources/deployment) | data source |
 
 ## Inputs

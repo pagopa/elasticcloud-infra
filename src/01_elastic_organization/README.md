@@ -33,6 +33,7 @@ export EC_API_KEY=<elastic cloud organization api key>
 
 | Name | Version |
 |------|---------|
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 4.16.0 |
 | <a name="provider_ec"></a> [ec](#provider\_ec) | 0.12.2 |
 
 ## Modules
@@ -44,10 +45,14 @@ No modules.
 | Name | Type |
 |------|------|
 | [ec_organization.admin_elastic_cloud_organization](https://registry.terraform.io/providers/elastic/ec/latest/docs/resources/organization) | resource |
+| [azurerm_key_vault.key_vault](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault) | data source |
+| [azurerm_key_vault_secret.elastic_cloud_api_key](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault_secret) | data source |
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_env_short"></a> [env\_short](#input\_env\_short) | n/a | `string` | n/a | yes |
 
 ## Outputs
 

@@ -3,7 +3,7 @@ data "external" "terrasops" {
     "bash", "terrasops.sh"
   ]
   query = {
-    env = "${var.prefix}-${var.env}"
+    env = "${local.prefix}-${var.env}"
   }
 
 }
@@ -43,10 +43,4 @@ resource "azurerm_key_vault_secret" "secret" {
     data.external.terrasops,
     azurerm_key_vault_access_policy.ad_group_policy,
   ]
-
-  tags = merge(
-    local.tags, {
-      "SOPS" : "True"
-    }
-  )
 }

@@ -1,18 +1,18 @@
 #TODO Possibilità di creare dei ruoli custom sugli indici
 
-#resource "elasticstack_elasticsearch_security_role_mapping" "kibana_admin" {
-#  name    = "${local.prefix_env_short}-elasticcloud-app-kibana-admin"
-#  enabled = true
-#  roles = [
-#    "kibana_admin"
-#  ]
-#  rules = jsonencode({
-#    all = [
-#      { field = { "realm.name" = local.prefix_env } },
-#      { field = { username = local.admins_email } }
-#    ]
-#  })
-#}
+resource "elasticstack_elasticsearch_security_role_mapping" "kibana_admin" {
+  name    = "${local.prefix_env_short}-elasticcloud-app-kibana-admin"
+  enabled = true
+  roles = [
+    "kibana_admin"
+  ]
+  rules = jsonencode({
+    all = [
+      { field = { "realm.name" = local.prefix_env } },
+      { field = { username = local.admins_email } }
+    ]
+  })
+}
 
 # admin users in realm as kibana superusers
 resource "elasticstack_elasticsearch_security_role_mapping" "admins_as_superuser" {

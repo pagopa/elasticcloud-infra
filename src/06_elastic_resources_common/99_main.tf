@@ -31,6 +31,7 @@ provider "azurerm" {
 
 provider "elasticstack" {
   elasticsearch {
+    api_key   = data.azurerm_key_vault_secret.elasticsearch_api_key.value
     endpoints = [data.ec_deployment.ec_deployment.elasticsearch[0].https_endpoint]
   }
   kibana {
