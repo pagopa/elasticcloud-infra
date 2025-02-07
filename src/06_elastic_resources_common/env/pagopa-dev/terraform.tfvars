@@ -2,7 +2,7 @@ prefix    = "pagopa"
 env       = "dev"
 env_short = "d"
 
-ec_deployment_id = "782a6d595487581de53e0e115756957f"
+ec_deployment_id = "40aa630967df5cec1062507ad080cc6b"
 
 role_mappings = {
   adgroup-admin = {

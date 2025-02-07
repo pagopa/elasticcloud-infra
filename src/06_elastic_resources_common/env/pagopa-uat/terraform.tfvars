@@ -1,7 +1,7 @@
 prefix    = "pagopa"
 env_short = "u"
 
-ec_deployment_id = "782a6d595487581de53e0e115756957f"
+ec_deployment_id = "40aa630967df5cec1062507ad080cc6b"
 
 dedicated_log_instance_name = [
   /* nodo */ "nodo", "nodoreplica", "nodocron", "nodocronreplica", "pagopawebbo", "pagopawfespwfesp", "pagopafdr", "pagopafdrnodo", "wispsoapconverter", "pagopawispconverter",
