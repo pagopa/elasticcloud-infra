@@ -1,7 +1,13 @@
 resource "azuread_application" "ec_application" {
   display_name    = "${local.project}-app"
-  identifier_uris = ["api://${local.project}-app"]
+  identifier_uris = [local.kibana_url]
   owners          = [data.azuread_client_config.current.object_id]
+
+   web {
+    homepage_url  = "${local.kibana_url}"
+    logout_url    = "${local.kibana_url}/logout"
+    redirect_uris = ["${local.kibana_url}/api/security/saml/callback"]
+  }
 }
 
 resource "azuread_service_principal" "ec_application_principal" {
