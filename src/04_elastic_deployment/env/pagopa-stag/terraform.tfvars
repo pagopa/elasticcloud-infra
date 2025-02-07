@@ -6,24 +6,27 @@ location_short = "weu"
 
 shared_env = ["pagopa-dev", "pagopa-uat"]
 
-# TODO riguardare insieme ai ragazzi
 hot_config = {
   size       = "4g"
   zone_count = 2
 }
 
-warm_config = null
-cold_config = null
-
-#warm_config = {
-#  size       = null
-#  zone_count = null
-#}
-#
-#cold_config = {
-#  size       = null
-#  zone_count = null
-#}
+warm_config = {
+  size       = "2g"
+  zone_count = 2
+}
+cold_config = {
+  size       = "2g"
+  zone_count = 2
+}
+kibana_config = {
+  size       = "2g"
+  zone_count = 2
+}
+master_config = {
+  size       = "2g"
+  zone_count = 3
+}
 
 elk_snapshot_sa = {
   blob_versioning_enabled    = false

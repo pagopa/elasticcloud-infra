@@ -1,0 +1,22 @@
+{
+  "hot": {
+    "minAge": "0ms",
+    "rollover": {
+      "maxPrimarySize": "50gb",
+      "maxAge": "2d"
+    }
+  },
+  "warm": {
+    "minAge": "2d",
+    "setPriority": 50
+  },
+  "cold": {
+    "minAge": "4d",
+    "setPriority": 0
+  },
+  "delete": {
+    "minAge": "5d",
+    "deleteSearchableSnapshot": true,
+    "waitForSnapshot": "${prefix_env_short}-default-nightly-snapshots"
+  }
+}

@@ -48,6 +48,7 @@ resource "ec_deployment" "elastic_cloud" {
       zone_count  = var.cold_config.zone_count
     } : null
 
+
     config = {
       user_settings_yaml = templatefile("./configs/es.yml.tpl", {
         kibana_url = local.kibana_url
@@ -56,10 +57,18 @@ resource "ec_deployment" "elastic_cloud" {
       })
     }
 
+    master = var.master_config != null ? {
+      autoscaling = {}
+      size        = var.master_config.size
+      zone_count  = var.master_config.zone_count
+    } : null
+
+
   }
 
   kibana = {
-    zone_count = var.kibana_zone_count
+    zone_count = var.kibana_config.zone_count
+    size       = var.kibana_config.size
     config = {
       user_settings_yaml = templatefile("./configs/kb.yml.tpl", {
         shared_env = local.shared_env_application_id

@@ -48,7 +48,7 @@ variable "hot_config" {
     size       = string
     zone_count = number
   })
-  description = "Hot storage disk configuration"
+  description = "Hot storage node configuration"
 }
 
 variable "warm_config" {
@@ -56,7 +56,7 @@ variable "warm_config" {
     size       = string
     zone_count = number
   })
-  description = "Warm storage disk configuration"
+  description = "Warm storage node configuration"
 }
 
 variable "cold_config" {
@@ -64,14 +64,24 @@ variable "cold_config" {
     size       = string
     zone_count = number
   })
-  description = "Cold storage disk configuration"
+  description = "Cold storage node configuration"
 }
 
 
-variable "kibana_zone_count" {
-  type        = number
-  description = "Kibana AZ count"
-  default     = 1
+variable "kibana_config" {
+  type = object({
+    size       = string
+    zone_count = number
+  })
+  description = "Kibana node configuration"
+}
+
+variable "master_config" {
+  type = object({
+    size       = string
+    zone_count = number
+  })
+  description = "ES Master node configuration"
 }
 
 
