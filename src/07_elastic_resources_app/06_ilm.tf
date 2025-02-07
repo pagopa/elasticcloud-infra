@@ -7,15 +7,10 @@ locals {
       prefix_env_short = local.prefix_env_short
     }))
   }
-  ilm_target_policies = {
-    for key, policy in local.ilm_all_policies :
-    key => policy if contains(values(var.ilm), key)
-  }
-
 }
 
 resource "elasticstack_elasticsearch_index_lifecycle" "index_lifecycle" {
-  for_each = local.ilm_target_policies
+  for_each = local.ilm_all_policies
 
   name = "${local.prefix_env}-${each.key}-ilm"
 
