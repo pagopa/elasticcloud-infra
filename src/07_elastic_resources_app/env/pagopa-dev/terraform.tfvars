@@ -31,24 +31,26 @@ elastic_agent_kube_namespace = "elastic-cloud-system"
 otel_kube_namespace          = "elastic-cloud-system"
 
 ilm = {
-  nodo                 = "2-4-6-8"
-  nodocron             = "2-4-6-8"
-  nodoreplica          = "2-4-6-8"
-  nodocronreplica      = "2-4-6-8"
-  pagopastandinmanager = "2-4-6-8"
-  pagopawebbo          = "2-4-6-8"
-  pagopawfespwfesp     = "2-4-6-8"
-  pagopawfespwfesp     = "2-4-6-8"
-  pagopawispconverter  = "2-4-6-8"
-  tech-support         = "2-4-6-8"
-  wispsoapconverter    = "2-4-6-8"
-  ecommerce            = "2-4-6-8"
-  pagopapaymentspull   = "2-4-6-8"
-  pagopa               = "2-4-6-8"
-  paywallet            = "2-4-6-8"
-  printit              = "2-4-6-8"
-  pagopafdrnodo        = "2-4-6-8"
+  nodo                 = "w2-c4-d7"
+  nodocron             = "w2-c4-d7"
+  nodoreplica          = "w2-c4-d7"
+  nodocronreplica      = "w2-c4-d7"
+  pagopastandinmanager = "w2-c4-d7"
+  pagopawebbo          = "w2-c4-d7"
+  pagopawfespwfesp     = "w2-c4-d7"
+  pagopawfespwfesp     = "w2-c4-d7"
+  pagopawispconverter  = "w2-c4-d7"
+  tech-support         = "w2-c4-d7"
+  wispsoapconverter    = "w2-c4-d7"
+  ecommerce            = "w2-c4-d7"
+  pagopapaymentspull   = "w2-c4-d7"
+  pagopa               = "w2-c4-d7"
+  paywallet            = "w2-c4-d7"
+  printit              = "w2-c4-d7"
+  pagopafdrnodo        = "w2-c4-d7"
 
 }
+
+ilm_delete_wait_for_snapshot = false
 
 

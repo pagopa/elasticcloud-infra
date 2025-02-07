@@ -57,6 +57,7 @@ First of all you need to create the correct folder structure, starting from the 
 - **required**, create a file names `appSettings.json`, otherwise no resources will be created
 - **if needed**, create a folder for your dashboards named `dashboard`. Save here all the exported dashboard in ndjson format. **NB:** replace the `data_view_id` value with `"${data_view}"` to make it dynamic
 - **if needed**, create a folder for your saved queries named `query`. Save here all the exported queries in ndjson format
+- **required & needs approval**, define the index lifecycle policy to be used for your indexes in `env/<your_env>` variable file, variable `ilm`. Add here a new entry with your application identifier adn the ilm to use, choosing between one of the provided ilm in the `default_library/ilm` folder
 
 ### appSettings.json
 
@@ -108,6 +109,6 @@ where:
 
 ### FAQ
 
-#### Need a different ingest pipeline or component?
+#### Need a different ingest pipeline or component or ilm?
 
 If you require a different ingest pipeline definition or a different index component definition, feel free to open a PR defining the new content; @pagopa/payments-cloud-admin will be glad to review it

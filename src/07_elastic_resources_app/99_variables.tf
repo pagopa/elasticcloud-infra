@@ -110,3 +110,8 @@ variable "opentelemetry_operator_helm_version" {
   default     = "0.24.3"
 }
 
+variable "ilm_delete_wait_for_snapshot" {
+  type = bool
+  description = "Wheather or not the delete phase of every lifecycle policy for this environment needs to wait for snapshot policy to run or not"
+}
+
