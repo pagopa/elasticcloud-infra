@@ -1,7 +1,6 @@
 prefix    = "pagopa"
 env_short = "p"
 
-aks_name = "pagopa-p-weu-dev-aks"
 k8s_application_log_instance_names = [
   /* nodo */ "nodo", "nodoreplica", "nodocron", "nodocronreplica", "pagopawebbo", "pagopawfespwfesp", "pagopafdr", "pagopafdrnodo", "wispsoapconverter", "pagopawispconverter",
   /* afm */ "pagopaafmcalculator-microservice-chart", "pagopaafmmarketplacebe-microservice-chart", "pagopaafmutils-microservice-chart",
@@ -11,5 +10,3 @@ k8s_application_log_instance_names = [
   /* selfcare */ "pagopaselfcaremsbackofficebackend-microservice-chart", "backoffice-external",
   /* gps */ "gpd-core-microservice-chart", "pagopagpdpayments-microservice-chart", "pagopareportingorgsenrollment-microservice-chart", "pagopaspontaneouspayments-microservice-chart", "gpd-payments-pull", "gpd-upload-microservice-chart", "pagopapagopagpdingestionmanager-microservice-chart"
 ]
-
-elastic_agent_kube_namespace = "elastic-cloud-system"

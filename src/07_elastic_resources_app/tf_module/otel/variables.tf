@@ -33,3 +33,9 @@ variable "grpc_receiver_port" {
   description = "Otel collector grpc receiver port"
   default     = 4317
 }
+
+variable "create_namespace" {
+  type        = bool
+  default     = true
+  description = "If true creates the namespace used by otel, expects it to be created otherwise"
+}

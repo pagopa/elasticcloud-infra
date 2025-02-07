@@ -35,7 +35,7 @@ for details on how to configure a new space/application, please refer to the `co
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 4.17.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 4.18.0 |
 | <a name="provider_ec"></a> [ec](#provider\_ec) | 0.12.2 |
 | <a name="provider_elasticstack"></a> [elasticstack](#provider\_elasticstack) | 0.11.7 |
 
@@ -69,9 +69,8 @@ for details on how to configure a new space/application, please refer to the `co
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_aks_names"></a> [aks\_names](#input\_aks\_names) | (Required) list of aks cluster names where the elstic agent will be installed. must not be empty, must not be mode than 2 elements | <pre>list(object({<br/>    name = string<br/>    affinity_selector = optional(object({<br/>      key   = string<br/>      value = string<br/>    }), null)<br/>  }))</pre> | n/a | yes |
+| <a name="input_aks_config"></a> [aks\_config](#input\_aks\_config) | (Required) list of aks cluster configurations where the elstic agent and otel will be installed. must not be empty, must not be more than 2 elements | <pre>list(object({<br/>    name = string<br/>    elastic_agent = object({<br/>      namespace = string<br/>      create_ns = bool<br/>    })<br/>    otel = object({<br/>      namespace = string<br/>      create_ns = bool<br/>      affinity_selector = optional(object({<br/>        key   = string<br/>        value = string<br/>      }), null)<br/>    })<br/>  }))</pre> | n/a | yes |
 | <a name="input_ec_deployment_id"></a> [ec\_deployment\_id](#input\_ec\_deployment\_id) | (Required) identifier of EC deployment | `string` | n/a | yes |
-| <a name="input_elastic_agent_kube_namespace"></a> [elastic\_agent\_kube\_namespace](#input\_elastic\_agent\_kube\_namespace) | (Required) Kubernetes namespace where to install all the resources needed for the elastic agent | `string` | n/a | yes |
 | <a name="input_env"></a> [env](#input\_env) | (Required) Environment name | `string` | n/a | yes |
 | <a name="input_env_short"></a> [env\_short](#input\_env\_short) | n/a | `string` | n/a | yes |
 | <a name="input_ilm"></a> [ilm](#input\_ilm) | (Required) Map containing all the application name for this environment associated to the related index lifecicle management policy to be used for that application. The allowed values are the file names in `default_library/ilm` folder | `map(string)` | n/a | yes |
@@ -80,7 +79,6 @@ for details on how to configure a new space/application, please refer to the `co
 | <a name="input_k8s_kube_config_path_prefix"></a> [k8s\_kube\_config\_path\_prefix](#input\_k8s\_kube\_config\_path\_prefix) | (Optional) path to the kube config folder | `string` | `"~/.kube"` | no |
 | <a name="input_lifecycle_policy_wait_for_snapshot"></a> [lifecycle\_policy\_wait\_for\_snapshot](#input\_lifecycle\_policy\_wait\_for\_snapshot) | (Optional) True if the index lifecycle policy has to wait for snapshots before deletion | `bool` | `true` | no |
 | <a name="input_opentelemetry_operator_helm_version"></a> [opentelemetry\_operator\_helm\_version](#input\_opentelemetry\_operator\_helm\_version) | Open telemetry operator version | `string` | `"0.24.3"` | no |
-| <a name="input_otel_kube_namespace"></a> [otel\_kube\_namespace](#input\_otel\_kube\_namespace) | (Required) Kubernetes namespace where to install all the resources needed for the open telemetry | `string` | n/a | yes |
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | n/a | `string` | n/a | yes |
 
 ## Outputs

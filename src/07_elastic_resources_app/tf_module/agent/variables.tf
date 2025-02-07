@@ -77,3 +77,9 @@ variable "elasticsearch_api_key" {
   sensitive   = true
   description = "Api key used by the elastic agent"
 }
+
+variable "create_namespace" {
+  type        = bool
+  default     = true
+  description = "If true creates the namespace used by elastic-agent, expects it to be created otherwise"
+}

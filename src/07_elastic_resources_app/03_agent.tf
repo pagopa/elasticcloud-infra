@@ -184,7 +184,8 @@ module "install_agent_cluster_1" {
   k8s_package_version = data.elasticstack_fleet_integration.kubernetes.version
 
   dedicated_log_instance_name  = var.k8s_application_log_instance_names
-  elastic_agent_kube_namespace = var.elastic_agent_kube_namespace
+  elastic_agent_kube_namespace = var.aks_config[0].elastic_agent.namespace
+  create_namespace             = var.aks_config[0].elastic_agent.create_ns
   elasticsearch_api_key        = data.azurerm_key_vault_secret.elasticsearch_api_key.value
   elasticsearch_host           = replace(data.ec_deployment.ec_deployment.elasticsearch[0].https_endpoint, ".es.", ".")
   target                       = "${var.prefix}-${var.env}"
@@ -196,7 +197,7 @@ module "install_agent_cluster_2" {
   source     = "./tf_module/agent"
   depends_on = [module.app_resources]
 
-  count = length(var.aks_names) > 1 ? 1 : 0
+  count = length(var.aks_config) > 1 ? 1 : 0
 
   providers = {
     kubectl = kubectl.cluster_2
@@ -219,7 +220,8 @@ module "install_agent_cluster_2" {
   k8s_package_version = data.elasticstack_fleet_integration.kubernetes.version
 
   dedicated_log_instance_name  = var.k8s_application_log_instance_names
-  elastic_agent_kube_namespace = var.elastic_agent_kube_namespace
+  elastic_agent_kube_namespace = var.aks_config[1].elastic_agent.namespace
+  create_namespace             = var.aks_config[1].elastic_agent.create_ns
   elasticsearch_api_key        = data.azurerm_key_vault_secret.elasticsearch_api_key.value
   elasticsearch_host           = replace(data.ec_deployment.ec_deployment.elasticsearch[0].https_endpoint, ".es.", ".")
   target                       = "${var.prefix}-${var.env}"

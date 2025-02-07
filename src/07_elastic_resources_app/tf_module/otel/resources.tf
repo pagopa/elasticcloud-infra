@@ -1,4 +1,14 @@
+resource "kubectl_manifest" "agent_namespace" {
+  count = var.create_namespace ? 1 : 0
+
+  yaml_body = (replace(replace(templatefile("${path.module}/yaml/namespace.yaml", {
+    namespace = var.otel_kube_namespace
+  }), "/(?s:\nstatus:.*)$/", ""), "0640", "416"))
+}
+
 resource "helm_release" "opentelemetry_operator_helm" {
+  depends_on = [kubectl_manifest.agent_namespace]
+
   name       = "opentelemetry-cloud-operator"
   repository = "https://open-telemetry.github.io/opentelemetry-helm-charts"
   chart      = "opentelemetry-operator"

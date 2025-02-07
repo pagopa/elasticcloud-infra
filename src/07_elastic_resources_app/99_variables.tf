@@ -50,24 +50,32 @@ variable "k8s_kube_config_path_prefix" {
   description = "(Optional) path to the kube config folder"
 }
 
-variable "aks_names" {
+variable "aks_config" {
   type = list(object({
     name = string
-    affinity_selector = optional(object({
-      key   = string
-      value = string
-    }), null)
+    elastic_agent = object({
+      namespace = string
+      create_ns = bool
+    })
+    otel = object({
+      namespace = string
+      create_ns = bool
+      affinity_selector = optional(object({
+        key   = string
+        value = string
+      }), null)
+    })
   }))
 
-  description = "(Required) list of aks cluster names where the elstic agent will be installed. must not be empty, must not be mode than 2 elements"
+  description = "(Required) list of aks cluster configurations where the elstic agent and otel will be installed. must not be empty, must not be more than 2 elements"
 
   validation {
-    condition     = length(var.aks_names) <= 2
+    condition     = length(var.aks_config) <= 2
     error_message = "Currently more than 2 cluster is not supported. Please open a ticket to @payments-cloud-admin to request an increase"
   }
 
   validation {
-    condition     = length(var.aks_names) == length(toset([for n in var.aks_names : n.name]))
+    condition     = length(var.aks_config) == length(toset([for n in var.aks_config : n.name]))
     error_message = "Aks names elements must be unique"
   }
 }
@@ -77,15 +85,6 @@ variable "k8s_application_log_instance_names" {
   description = "(Required) List of app namespaces or pod names for which the elastic agent will send logs"
 }
 
-variable "elastic_agent_kube_namespace" {
-  type        = string
-  description = "(Required) Kubernetes namespace where to install all the resources needed for the elastic agent"
-}
-
-variable "otel_kube_namespace" {
-  type        = string
-  description = "(Required) Kubernetes namespace where to install all the resources needed for the open telemetry"
-}
 
 variable "ilm" {
   type        = map(string)

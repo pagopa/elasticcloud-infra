@@ -38,6 +38,7 @@ provider "azurerm" {
 
 provider "elasticstack" {
   elasticsearch {
+    api_key   = data.azurerm_key_vault_secret.elasticsearch_api_key.value
     endpoints = [data.ec_deployment.ec_deployment.elasticsearch[0].https_endpoint]
   }
   kibana {
@@ -47,9 +48,9 @@ provider "elasticstack" {
 
 
 locals {
-  cluster_1_config_path = "${var.k8s_kube_config_path_prefix}/config-${var.aks_names[0].name}"
+  cluster_1_config_path = "${var.k8s_kube_config_path_prefix}/config-${var.aks_config[0].name}"
   # if secondary cluster is not defined, use the primary cluster name just to make the provider configuration work. it will not be used
-  cluster_2_config_path = "${var.k8s_kube_config_path_prefix}/config-${length(var.aks_names) > 1 ? var.aks_names[1].name : var.aks_names[0].name}"
+  cluster_2_config_path = "${var.k8s_kube_config_path_prefix}/config-${length(var.aks_config) > 1 ? var.aks_config[1].name : var.aks_config[0].name}"
 }
 
 provider "kubectl" {

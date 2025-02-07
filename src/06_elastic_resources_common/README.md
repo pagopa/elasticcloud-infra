@@ -23,6 +23,9 @@ Before executing this module you need to define some properties in the elasticse
 these values are required to properly configure a snapshot repository client.
 `clientName` is an arbitrary name assigned to the client, it must be different between the environments
 
+**NB:** By convention, the requested name must be `<prefix><env_short>`, such as `pagopad`
+
+
 - [how to configure anzure blob storage snapshot repo](https://www.elastic.co/guide/en/cloud/current/ec-azure-snapshotting.html)
 - [more details on azure repository](https://www.elastic.co/guide/en/elasticsearch/reference/8.17/repository-azure.html)
 

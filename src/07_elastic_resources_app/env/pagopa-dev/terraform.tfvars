@@ -2,19 +2,35 @@ prefix    = "pagopa"
 env       = "dev"
 env_short = "d"
 
-ec_deployment_id = "782a6d595487581de53e0e115756957f"
+ec_deployment_id = "40aa630967df5cec1062507ad080cc6b"
 
 
-aks_names = [
+aks_config = [
   {
     name = "pagopa-d-weu-dev-aks"
-    affinity_selector = {
-      key   = "elastic"
-      value = "eck"
+    elastic_agent = {
+      namespace = "elastic-cloud-agent"
+      create_ns = true
+    }
+    otel = {
+      namespace = "otel"
+      create_ns = true
+      affinity_selector = {
+        key   = "elastic"
+        value = "eck"
+      }
     }
   },
   {
     name = "pagopa-d-itn-dev-aks"
+    elastic_agent = {
+      namespace = "elastic-cloud-agent"
+      create_ns = true
+    }
+    otel = {
+      namespace = "otel"
+      create_ns = true
+    }
   }
 ]
 k8s_application_log_instance_names = [
@@ -26,9 +42,6 @@ k8s_application_log_instance_names = [
   /* selfcare */ "pagopaselfcaremsbackofficebackend-microservice-chart", "backoffice-external",
   /* gps */ "gpd-core-microservice-chart", "pagopagpdpayments-microservice-chart", "pagopareportingorgsenrollment-microservice-chart", "pagopaspontaneouspayments-microservice-chart", "gpd-payments-pull", "gpd-upload-microservice-chart", "pagopapagopagpdingestionmanager-microservice-chart"
 ]
-
-elastic_agent_kube_namespace = "elastic-cloud-system"
-otel_kube_namespace          = "elastic-cloud-system"
 
 ilm = {
   nodo                 = "w2-c4-d5"

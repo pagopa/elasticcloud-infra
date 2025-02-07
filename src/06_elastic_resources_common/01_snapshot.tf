@@ -6,7 +6,7 @@ resource "elasticstack_elasticsearch_snapshot_repository" "snapshot_repository" 
     base_path  = ""
     chunk_size = "32MB"
     compress   = true
-    client     = local.prefix_env_short
+    client     = replace(local.prefix_env_short, "-", "")
   }
 }
 
