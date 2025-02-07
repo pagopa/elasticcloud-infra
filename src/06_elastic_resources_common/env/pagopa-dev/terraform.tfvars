@@ -17,4 +17,8 @@ role_mappings = {
     roles   = ["viewer"]
     enabled = true
   }
+  adgroup-externals = {
+    roles   = ["viewer"]
+    enabled = true
+  }
 }
