@@ -63,6 +63,11 @@ resource "ec_deployment" "elastic_cloud" {
       zone_count  = var.master_config.zone_count
     } : null
 
+    coordinating = var.coordinating_config != null ? {
+      autoscaling = {}
+      size        = var.coordinating_config.size
+      zone_count  = var.coordinating_config.zone_count
+    } : null
 
   }
 

@@ -27,7 +27,10 @@ master_config = {
   size       = "2g"
   zone_count = 3
 }
-
+coordinating_config = {
+  size       = "1g"
+  zone_count = 2
+}
 elk_snapshot_sa = {
   blob_versioning_enabled    = false
   blob_delete_retention_days = 0

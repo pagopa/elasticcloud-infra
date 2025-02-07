@@ -83,6 +83,13 @@ variable "master_config" {
   })
   description = "ES Master node configuration"
 }
+variable "coordinating_config" {
+  type = object({
+    size       = string
+    zone_count = number
+  })
+  description = "ES Coordinating node configuration"
+}
 
 
 variable "elk_snapshot_sa" {

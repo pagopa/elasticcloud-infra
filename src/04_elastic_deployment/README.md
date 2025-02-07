@@ -54,6 +54,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_cold_config"></a> [cold\_config](#input\_cold\_config) | Cold storage node configuration | <pre>object({<br/>    size       = string<br/>    zone_count = number<br/>  })</pre> | n/a | yes |
+| <a name="input_coordinating_config"></a> [coordinating\_config](#input\_coordinating\_config) | ES Coordinating node configuration | <pre>object({<br/>    size       = string<br/>    zone_count = number<br/>  })</pre> | n/a | yes |
 | <a name="input_elasticsearch_version"></a> [elasticsearch\_version](#input\_elasticsearch\_version) | n/a | `string` | n/a | yes |
 | <a name="input_elk_snapshot_sa"></a> [elk\_snapshot\_sa](#input\_elk\_snapshot\_sa) | n/a | <pre>object({<br/>    blob_delete_retention_days = number<br/>    backup_enabled             = bool<br/>    blob_versioning_enabled    = bool<br/>    advanced_threat_protection = bool<br/>    replication_type           = optional(string, "LRS")<br/>  })</pre> | <pre>{<br/>  "advanced_threat_protection": true,<br/>  "backup_enabled": true,<br/>  "blob_delete_retention_days": 30,<br/>  "blob_versioning_enabled": true,<br/>  "replication_type": "GZRS"<br/>}</pre> | no |
 | <a name="input_env"></a> [env](#input\_env) | n/a | `string` | n/a | yes |
