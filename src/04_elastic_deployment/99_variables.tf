@@ -120,3 +120,11 @@ variable "integration_server" {
 variable "elasticsearch_version" {
   type = string
 }
+
+variable "kv_name_org_ec" {
+  type = string
+}
+
+variable "kv_rg_org_ec" {
+  type = string
+}

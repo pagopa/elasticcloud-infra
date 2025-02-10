@@ -29,6 +29,10 @@ provider "azurerm" {
   }
 }
 
+provider "ec" {
+  apikey = data.azurerm_key_vault_secret.elastic_cloud_api_key.value
+}
+
 data "azurerm_subscription" "current" {}
 
 data "azurerm_client_config" "current" {}

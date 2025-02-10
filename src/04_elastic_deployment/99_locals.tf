@@ -1,4 +1,7 @@
 locals {
+  subscription_prefix  = "paymon"
+  subscription_product = "${local.subscription_prefix}-${var.env_short}"
+
   project = "${var.prefix}-${var.env_short}-${var.location_short}-ec"
 
   tags = {

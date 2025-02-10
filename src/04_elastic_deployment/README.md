@@ -30,7 +30,6 @@ export EC_API_KEY=<elastic cloud organization api key>
 | <a name="provider_azuread"></a> [azuread](#provider\_azuread) | 3.1.0 |
 | <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 4.16.0 |
 | <a name="provider_ec"></a> [ec](#provider\_ec) | 0.12.2 |
-| <a name="provider_random"></a> [random](#provider\_random) | 3.6.3 |
 
 ## Modules
 
@@ -44,9 +43,10 @@ No modules.
 | [azurerm_storage_account.ec_snapshot_sa](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account) | resource |
 | [azurerm_storage_container.snapshot_container](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
 | [ec_deployment.elastic_cloud](https://registry.terraform.io/providers/elastic/ec/latest/docs/resources/deployment) | resource |
-| [random_uuid.uuid](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/uuid) | resource |
 | [azuread_application.ec_application](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/application) | data source |
 | [azurerm_client_config.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/client_config) | data source |
+| [azurerm_key_vault.key_vault](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault) | data source |
+| [azurerm_key_vault_secret.elastic_cloud_api_key](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault_secret) | data source |
 | [azurerm_subscription.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription) | data source |
 
 ## Inputs
@@ -62,6 +62,8 @@ No modules.
 | <a name="input_hot_config"></a> [hot\_config](#input\_hot\_config) | Hot storage node configuration | <pre>object({<br/>    size       = string<br/>    zone_count = number<br/>  })</pre> | n/a | yes |
 | <a name="input_integration_server"></a> [integration\_server](#input\_integration\_server) | n/a | <pre>object({<br/>    size          = string<br/>    zones         = number<br/>    size_resource = optional(string, "memory")<br/>  })</pre> | n/a | yes |
 | <a name="input_kibana_config"></a> [kibana\_config](#input\_kibana\_config) | Kibana node configuration | <pre>object({<br/>    size       = string<br/>    zone_count = number<br/>  })</pre> | n/a | yes |
+| <a name="input_kv_name_org_ec"></a> [kv\_name\_org\_ec](#input\_kv\_name\_org\_ec) | n/a | `string` | n/a | yes |
+| <a name="input_kv_rg_org_ec"></a> [kv\_rg\_org\_ec](#input\_kv\_rg\_org\_ec) | n/a | `string` | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | One of westeurope, northeurope | `string` | n/a | yes |
 | <a name="input_location_short"></a> [location\_short](#input\_location\_short) | One of wue, neu | `string` | n/a | yes |
 | <a name="input_master_config"></a> [master\_config](#input\_master\_config) | ES Master node configuration | <pre>object({<br/>    size       = string<br/>    zone_count = number<br/>  })</pre> | n/a | yes |

@@ -1,6 +1,6 @@
 
 locals {
-  deployment_name = "${local.project}"
+  deployment_name = local.project
   kibana_url      = "https://${local.deployment_name}.kb.${var.location}.azure.elastic-cloud.com"
   apm_url         = "https://${local.deployment_name}.apm.${var.location}.azure.elastic-cloud.com"
   fleet_url       = "https://${local.deployment_name}.fleet.${var.location}.azure.elastic-cloud.com"

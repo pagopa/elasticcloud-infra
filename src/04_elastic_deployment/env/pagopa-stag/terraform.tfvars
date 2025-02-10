@@ -4,6 +4,9 @@ env            = "staging"
 location       = "westeurope"
 location_short = "weu"
 
+kv_name_org_ec = "paymon-u-ec-org-kv"
+kv_rg_org_ec   = "paymon-u-ec-org-sec-rg"
+
 shared_env = ["pagopa-dev", "pagopa-uat"]
 
 hot_config = {
