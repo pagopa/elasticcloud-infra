@@ -53,6 +53,8 @@ resource "ec_deployment" "elastic_cloud" {
         kibana_url = local.kibana_url
         tenant_id  = data.azurerm_subscription.current.tenant_id
         shared_env = local.shared_env_application_id
+        # MUST match the AZ Entra application identifier ID
+        application_identifier_uri = "api://${var.prefix}-${var.env_short}-${var.location_short}-elasticcloud"
       })
     }
 

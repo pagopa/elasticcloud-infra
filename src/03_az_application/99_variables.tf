@@ -18,13 +18,17 @@ variable "env_short" {
   }
 }
 
-
 variable "deployment_name" {
   type        = string
   description = "One of westeurope, northeurope"
 }
 
 variable "location" {
-  type = string
+  type        = string
   description = "One of wue, neu"
+}
+
+variable "federated_entra_groups" {
+  type        = list(string)
+  description = "List of Microsoft Entra group names to be added to this environment application"
 }
