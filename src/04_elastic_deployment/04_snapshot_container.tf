@@ -1,7 +1,7 @@
 resource "azurerm_resource_group" "ec_rg" {
   for_each = toset(var.shared_env)
 
-  name     = "${local.project}-rg"
+  name     = "${each.key}-${var.location_short}-rg"
   location = var.location
 
   tags = local.tags

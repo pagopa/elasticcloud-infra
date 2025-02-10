@@ -8,6 +8,10 @@ variable "prefix" {
   }
 }
 
+variable "env" {
+  type = string
+}
+
 variable "env_short" {
   type = string
   validation {

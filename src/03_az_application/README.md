@@ -43,6 +43,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_deployment_name"></a> [deployment\_name](#input\_deployment\_name) | One of westeurope, northeurope | `string` | n/a | yes |
+| <a name="input_env"></a> [env](#input\_env) | n/a | `string` | n/a | yes |
 | <a name="input_env_short"></a> [env\_short](#input\_env\_short) | n/a | `string` | n/a | yes |
 | <a name="input_federated_entra_groups"></a> [federated\_entra\_groups](#input\_federated\_entra\_groups) | List of Microsoft Entra group names to be added to this environment application | `list(string)` | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | One of wue, neu | `string` | n/a | yes |

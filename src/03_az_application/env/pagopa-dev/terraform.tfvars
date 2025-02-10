@@ -1,4 +1,5 @@
 prefix          = "pagopa"
+env             = "dev"
 env_short       = "d"
 deployment_name = "pagopa-s-weu-ec"
 location        = "westeurope"
