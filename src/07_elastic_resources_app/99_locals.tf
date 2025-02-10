@@ -1,7 +1,9 @@
 locals {
-  subscription_prefix = "paymon-${var.env_short}"
-  prefix_env          = "${var.prefix}-${var.env}"
-  prefix_env_short    = "${var.prefix}-${var.env_short}"
+  subscription_prefix  = "paymon"
+  subscription_product = "${local.subscription_prefix}-${var.env_short}"
+
+  prefix_env       = "${var.prefix}-${var.env}"
+  prefix_env_short = "${var.prefix}-${var.env_short}"
 
   config_folder_name = "products/${var.prefix}"
   config_files       = fileset(path.module, "${local.config_folder_name}/*/*/appSettings.json")

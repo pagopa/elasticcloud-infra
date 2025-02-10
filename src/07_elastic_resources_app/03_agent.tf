@@ -104,7 +104,7 @@ resource "elasticstack_fleet_integration_policy" "apm_integration_policy" {
   description         = "Integration policy for ${var.prefix}-${var.env} APM"
   agent_policy_id     = elasticstack_fleet_agent_policy.kubernetes_policy.policy_id
   integration_name    = "apm"
-  integration_version = data.ec_deployment.ec_deployment.integrations_server[0].version
+  integration_version = data.ec_deployment.deployment.integrations_server[0].version
 
 
   # configuration derived from cloud setup
@@ -171,7 +171,7 @@ module "install_agent_cluster_1" {
     name = elasticstack_fleet_integration_policy.apm_integration_policy.name
     id   = elasticstack_fleet_integration_policy.apm_integration_policy.id
   }
-  apm_package_version = data.ec_deployment.ec_deployment.integrations_server[0].version
+  apm_package_version = data.ec_deployment.deployment.integrations_server[0].version
   system_integration_policy = {
     name = elasticstack_fleet_integration_policy.system_integration_policy.name
     id   = elasticstack_fleet_integration_policy.system_integration_policy.id
@@ -187,7 +187,7 @@ module "install_agent_cluster_1" {
   elastic_agent_kube_namespace = var.aks_config[0].elastic_agent.namespace
   create_namespace             = var.aks_config[0].elastic_agent.create_ns
   elasticsearch_api_key        = data.azurerm_key_vault_secret.elasticsearch_api_key.value
-  elasticsearch_host           = replace(data.ec_deployment.ec_deployment.elasticsearch[0].https_endpoint, ".es.", ".")
+  elasticsearch_host           = replace(data.ec_deployment.deployment.elasticsearch[0].https_endpoint, ".es.", ".")
   target                       = "${var.prefix}-${var.env}"
   target_namespace             = "${var.prefix}.${var.env}"
 }
@@ -207,7 +207,7 @@ module "install_agent_cluster_2" {
     name = elasticstack_fleet_integration_policy.apm_integration_policy.name
     id   = elasticstack_fleet_integration_policy.apm_integration_policy.id
   }
-  apm_package_version = data.ec_deployment.ec_deployment.integrations_server[0].version
+  apm_package_version = data.ec_deployment.deployment.integrations_server[0].version
   system_integration_policy = {
     name = elasticstack_fleet_integration_policy.system_integration_policy.name
     id   = elasticstack_fleet_integration_policy.system_integration_policy.id
@@ -223,7 +223,7 @@ module "install_agent_cluster_2" {
   elastic_agent_kube_namespace = var.aks_config[1].elastic_agent.namespace
   create_namespace             = var.aks_config[1].elastic_agent.create_ns
   elasticsearch_api_key        = data.azurerm_key_vault_secret.elasticsearch_api_key.value
-  elasticsearch_host           = replace(data.ec_deployment.ec_deployment.elasticsearch[0].https_endpoint, ".es.", ".")
+  elasticsearch_host           = replace(data.ec_deployment.deployment.elasticsearch[0].https_endpoint, ".es.", ".")
   target                       = "${var.prefix}-${var.env}"
   target_namespace             = "${var.prefix}.${var.env}"
 }

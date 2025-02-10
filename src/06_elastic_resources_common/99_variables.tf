@@ -22,9 +22,9 @@ variable "env_short" {
   }
 }
 
-variable "ec_deployment_id" {
+variable "deployment_name" {
   type        = string
-  description = "(Required) identifier of EC deployment"
+  description = "(Required) EC deployment name"
 }
 
 variable "snapshot_lifecycle_default" {

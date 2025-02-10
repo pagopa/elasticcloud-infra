@@ -29,13 +29,16 @@ provider "azurerm" {
   }
 }
 
+provider "ec" {
+  apikey = data.azurerm_key_vault_secret.elastic_cloud_api_key.value
+}
+
 provider "elasticstack" {
   elasticsearch {
     api_key   = data.azurerm_key_vault_secret.elasticsearch_api_key.value
-    endpoints = [data.ec_deployment.ec_deployment.elasticsearch[0].https_endpoint]
+    endpoints = [data.ec_deployment.deployment.elasticsearch[0].https_endpoint]
   }
   kibana {
-    endpoints = [data.ec_deployment.ec_deployment.kibana[0].https_endpoint]
+    endpoints = [data.ec_deployment.deployment.kibana[0].https_endpoint]
   }
-
 }
