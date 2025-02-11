@@ -44,10 +44,7 @@ variable "default_ilm" {
 }
 
 variable "role_mappings" {
-  type = map(object({
-    roles   = list(string)
-    enabled = bool
-  }))
+  type        = map(any)
   description = ""
   default     = {}
 }

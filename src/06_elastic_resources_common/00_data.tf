@@ -8,8 +8,9 @@ data "ec_deployment" "deployment" {
 
 # AD GROUP
 data "azuread_group" "adgroup" {
-  for_each     = var.role_mappings
-  display_name = "${local.prefix_env_short}-${each.key}"
+  for_each = var.role_mappings
+
+  display_name = each.key
 }
 
 #

@@ -84,7 +84,7 @@ No modules.
 | <a name="input_env"></a> [env](#input\_env) | n/a | `string` | n/a | yes |
 | <a name="input_env_short"></a> [env\_short](#input\_env\_short) | n/a | `string` | n/a | yes |
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | n/a | `string` | n/a | yes |
-| <a name="input_role_mappings"></a> [role\_mappings](#input\_role\_mappings) | n/a | <pre>map(object({<br/>    roles   = list(string)<br/>    enabled = bool<br/>  }))</pre> | `{}` | no |
+| <a name="input_role_mappings"></a> [role\_mappings](#input\_role\_mappings) | n/a | `map(any)` | `{}` | no |
 | <a name="input_snapshot_lifecycle_default"></a> [snapshot\_lifecycle\_default](#input\_snapshot\_lifecycle\_default) | (Required) Identifier for the default snapshot lifecycle policy of the EC deployment. | <pre>object({<br/>    expire_after = string<br/>  })</pre> | <pre>{<br/>  "expire_after": "30d"<br/>}</pre> | no |
 
 ## Outputs

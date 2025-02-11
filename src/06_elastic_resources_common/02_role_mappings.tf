@@ -34,8 +34,8 @@ resource "elasticstack_elasticsearch_security_role_mapping" "custom_role_mapping
   for_each = var.role_mappings
 
   name    = "${local.prefix_env_short}-${each.key}"
-  enabled = each.value.enabled
-  roles   = [for i in each.value.roles : "${local.prefix_env}-${i}-role"]
+  enabled = true
+  roles   = [for i in each.value : "${local.prefix_env}-${i}-role"]
 
   rules = jsonencode({
     all = [
