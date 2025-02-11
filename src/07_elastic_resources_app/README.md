@@ -2,10 +2,10 @@
 
 ## EC deployment id
 
-Before running this module you need to configure the elastic cloud deployment id for your target environment using the variable
-`ec_deployment_id`. The deployment id can be found in the elastic cloud console
+This module requires to know the deployment id where to create the elastic resources; to do so you need to configure the `deployment_name` 
+variable with the custom alias set in the `04_elastic_deployment` module, it will be used to retrieve the list of deployment with that name prefix, and the the correct deployment id
 
-### The deployment is shared between DEV and UAT environment. this meta environment is caled TEST
+### The deployment is shared between DEV and UAT environment. this meta environment is caled STAGING
 
 ## Elasticsearch api key
 in order to use the "elasticstack" provider you need to configure your kibana api key in your system [guide here](https://registry.terraform.io/providers/elastic/elasticstack/latest/docs#environment-variables)
@@ -35,8 +35,8 @@ for details on how to configure a new space/application, please refer to the `co
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 4.18.0 |
-| <a name="provider_ec"></a> [ec](#provider\_ec) | 0.12.2 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 4.16 |
+| <a name="provider_ec"></a> [ec](#provider\_ec) | ~> 0.12.2 |
 | <a name="provider_elasticstack"></a> [elasticstack](#provider\_elasticstack) | 0.11.7 |
 
 ## Modules

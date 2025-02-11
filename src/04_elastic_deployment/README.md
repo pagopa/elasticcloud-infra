@@ -1,7 +1,8 @@
 # Elastic cloud deployment
 
-This module creates the elastic deployment for the target environment and some related resources
-Here we use the "staging" environment to address the mixed "dev + uat" env and, if case of shared environment between multiple products, 
+This module creates the elastic deployment for the target environment and some related resources.
+
+Here we use the "staging" environment to address the mixed "dev + uat" env and, in case of shared environment between multiple products, 
 they must converge in the same environment folder. As an example, the "arp4pa-<env>" is actually the arc target together with p4pa target. 
 They share the same deployment because they are both part of the same echosystem
 

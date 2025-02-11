@@ -2,12 +2,12 @@
 
 ## EC deployment id
 
-Before running this module you need to configure the elastic cloud deployment id for your target environment using the variable
-`ec_deployment_id`. The deployment id can be found in the elastic cloud console
+This module requires to know the deployment id where to create the elastic resources; to do so you need to configure the `deployment_name` 
+variable with the custom alias set in the `04_elastic_deployment` module, it will be used to retrieve the list of deployment with that name prefix, and the the correct deployment id
 
 
 ## Elasticsearch api key
-To use the elasticstack provider, you must have access to the Key Vault of the target subscription (e.g., pagopa-dev, arc-prod, p4pa-uat).
+To use the elasticstack provider, you must have access to the Key Vault dedicated the target monitored (e.g., pagopa-dev, arc-prod, p4pa-uat).
 The API key used for provider authentication will be retrieved from this KV. [Guide here](https://registry.terraform.io/providers/elastic/elasticstack/latest/docs#elasticsearch).
 
 **NOTE**: this is different from the elastic cloud api key
