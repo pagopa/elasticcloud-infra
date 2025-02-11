@@ -15,9 +15,9 @@ pids=()
 ACTION="$1"
 
 array=(
-    'src/00_elastic_organization_secret::monitoring-prod'
-    'src/01_elastic_organization::monitoring-prod'
-    'src/02_state_storage::monitoring-prod'
+    'src/00_elastic_organization_secret::paymon-prod'
+    'src/01_elastic_organization::paymon-prod'
+    'src/02_state_storage::paymon-prod'
     'src/03_az_application::pagopa-dev'
     'src/04_elastic_deployment::pagopa-stag'
     'src/05_elastic_secret::pagopa-dev'
