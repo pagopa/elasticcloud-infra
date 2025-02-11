@@ -15,9 +15,14 @@ pids=()
 ACTION="$1"
 
 array=(
-    #'.identity::dev'
-    #'src/01_networking::itn-dev'
-
+    'src/00_elastic_organization_secret::paymon-prod'
+    'src/01_elastic_organization::paymon-prod'
+    'src/02_state_storage::paymon-prod'
+    'src/03_az_application::pagopa-dev'
+    'src/04_elastic_deployment::pagopa-stag'
+    'src/05_elastic_secret::pagopa-dev'
+    'src/06_elastic_resources_common::pagopa-dev'
+    'src/07_elastic_resources_app::pagopa-dev'
 )
 
 function rm_terraform {

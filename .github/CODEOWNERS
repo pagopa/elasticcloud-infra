@@ -1,3 +1,24 @@
 # see https://help.github.com/en/articles/about-code-owners#example-of-a-codeowners-file
 
+# @pagopa/payments-cloud-admin must be the owner of the whole repo and must not be removed or overriden in the nested folders,
+# except for the 07_elastic_resources_app/products/<product> folders
 * @pagopa/payments-cloud-admin
+
+
+###################
+# pagoPA platform
+###################
+# Add here pagopa teams that need to edit the pagopa elastic resources
+/src/07_elastic_resources_app/products/pagopa @pagopa/payments-cloud-admin
+
+###################
+# ARC platform
+###################
+# Add here arc teams that need to edit the arc elastic resources
+/src/07_elastic_resources_app/products/arc @pagopa/payments-cloud-admin
+
+###################
+# P4PA platform
+###################
+# Add here p4pa teams that need to edit the p4pa elastic resources
+/src/07_elastic_resources_app/products/p4pa @pagopa/payments-cloud-admin

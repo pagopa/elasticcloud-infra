@@ -1,0 +1,10 @@
+{
+  "kubernetes.audit_logs": {
+    "enabled": false,
+    "vars": {
+      "paths": [
+        "/var/log/kubernetes/kube-apiserver-audit.log"
+      ]
+    }
+  }
+}

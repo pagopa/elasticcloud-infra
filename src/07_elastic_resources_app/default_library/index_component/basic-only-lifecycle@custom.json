@@ -1,0 +1,14 @@
+{
+  "template": {
+    "settings": {
+      "index": {
+        "lifecycle": {
+          "name": "${lifecycle}"
+        }
+      }
+    }
+  },
+  "_meta": {
+    "description": "Settings for ${name}"
+  }
+}

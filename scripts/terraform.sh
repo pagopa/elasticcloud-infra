@@ -283,6 +283,7 @@ if [ -n "$env" ]; then
     exit 1
   fi
   az account set -s "${subscription}"
+  export ARM_SUBSCRIPTION_ID=$(az account list --query "[?name=='${subscription}'].id" -o tsv)
 fi
 
 # Call appropriate function based on action

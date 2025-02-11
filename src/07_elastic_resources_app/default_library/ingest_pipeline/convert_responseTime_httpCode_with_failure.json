@@ -1,0 +1,50 @@
+{
+  "processors": [
+    {
+      "json": {
+        "field": "message",
+        "add_to_root": true
+      }
+    },
+    {
+      "convert": {
+        "field": "responseTime",
+        "type": "long",
+        "target_field": "response_time",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "convert": {
+        "field": "httpCode",
+        "type": "integer",
+        "target_field": "http_code",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "json": {
+        "field": "args",
+        "target_field": "arguments",
+        "ignore_failure": true
+      }
+    },
+    {
+      "json": {
+        "field": "response",
+        "ignore_failure": true
+      }
+    }
+  ],
+  "onFailure": [
+    {
+      "set": {
+        "field": "ingest_failure",
+        "value": "true"
+      }
+    }
+  ]
+
+}
