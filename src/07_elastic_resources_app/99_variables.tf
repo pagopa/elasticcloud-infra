@@ -64,6 +64,7 @@ variable "aks_config" {
         key   = string
         value = string
       }), null)
+      receiver_port = optional(string, "4317")
     })
   }))
 
