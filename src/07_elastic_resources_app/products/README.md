@@ -70,7 +70,7 @@ Here's an example of the file content:
 {
   "displayName": "Print It ${env}",
   "indexTemplate": {
-    "indexPatterns": "logs-print-payment-notice-*"
+    "indexPatterns": ["logs-print-payment-notice-*"]
   },
   "dataStream": [
     "logs-print-payment-notice-service",
@@ -94,7 +94,7 @@ where:
 
 - `displayName`: **required** Human readable name used in some resources for this application
 - `indexTemplate`: **required** structure containing the following fields   
-  - `indexPattern`: **required** pattern used to identify the indexes for this application. **NB:** the `elastic_namespace` variable will be appended to that
+  - `indexPatterns`: **required** list of patterns used to identify the indexes for this application. **NB:** the `elastic_namespace` variable will be appended to every pattern
 - `dataStream`: **required** list of data stream names that will be created for this application. **NB:** the `elastic_namespace` variable will be appended to that
 - `dataView`: **required** structure containing the following fields
   - `indexIdentifier`: **required** identifier of the indexes to be collected in the data view for this application. **NB:** the `elastic_namespace` variable will be appended to that
