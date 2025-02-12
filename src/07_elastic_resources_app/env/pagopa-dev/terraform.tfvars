@@ -44,6 +44,7 @@ k8s_application_log_instance_names = [
 ]
 
 ilm = {
+  default              = "w2-c4-d5"
   nodo                 = "w2-c4-d5"
   nodocron             = "w2-c4-d5"
   nodoreplica          = "w2-c4-d5"
