@@ -80,6 +80,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_default_ilm"></a> [default\_ilm](#input\_default\_ilm) | Defines the default Index Lifecycle Management (ILM) policy stages for an Elasticsearch deployment. | `any` | `{}` | no |
+| <a name="input_default_snapshot_policy"></a> [default\_snapshot\_policy](#input\_default\_snapshot\_policy) | Defines the properties of the default snapshot policy | <pre>object({<br/>    scheduling = optional(string, "0 30 1 * * ?")<br/>    enabled    = bool<br/>  })</pre> | n/a | yes |
 | <a name="input_deployment_name"></a> [deployment\_name](#input\_deployment\_name) | (Required) EC deployment name | `string` | n/a | yes |
 | <a name="input_env"></a> [env](#input\_env) | n/a | `string` | n/a | yes |
 | <a name="input_env_short"></a> [env\_short](#input\_env\_short) | n/a | `string` | n/a | yes |
