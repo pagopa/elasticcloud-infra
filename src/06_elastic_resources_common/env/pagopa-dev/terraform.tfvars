@@ -10,3 +10,7 @@ role_mappings = {
   pagopa-d-adgroup-externals  = ["viewer"]
   pagopa-d-adgroup-operations = ["viewer"]
 }
+
+default_snapshot_policy = {
+  enabled = false
+}

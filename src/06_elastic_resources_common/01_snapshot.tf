@@ -10,14 +10,16 @@ resource "elasticstack_elasticsearch_snapshot_repository" "snapshot_repository" 
   }
 }
 
-resource "elasticstack_elasticsearch_snapshot_lifecycle" "default_snapshot_policy" {
-  name = "${local.prefix_env_short}-default-nightly-snapshots"
 
-  schedule      = "0 30 1 * * ?"
+resource "elasticstack_elasticsearch_snapshot_lifecycle" "default_snapshot_policy" {
+  count = var.default_snapshot_policy.enabled ? 1 : 0
+  name  = "${local.prefix_env_short}-default-nightly-snaapshots"
+
+  schedule      = var.default_snapshot_policy.scheduling
   snapshot_name = "<nightly-snap-{now/d}>"
   repository    = elasticstack_elasticsearch_snapshot_repository.snapshot_repository.name
 
-  indices              = ["*"]
+  indices              = ["*-${var.prefix}.${var.env}"]
   ignore_unavailable   = true
   include_global_state = true
 

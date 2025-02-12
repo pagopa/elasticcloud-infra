@@ -48,3 +48,13 @@ variable "role_mappings" {
   description = ""
   default     = {}
 }
+
+
+variable "default_snapshot_policy" {
+  type = object({
+    scheduling = optional(string, "0 30 1 * * ?")
+    enabled    = bool
+  })
+
+  description = "Defines the properties of the default snapshot policy"
+}
