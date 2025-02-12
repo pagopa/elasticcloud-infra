@@ -8,11 +8,19 @@ resource "elasticstack_elasticsearch_security_role" "admin_role" {
       names = [indices.key]
       privileges = [
         "auto_configure", "create", "create_doc", "create_index", "delete",
-        "index", "maintenance", "manage", "manage_data_stream_lifecycle",
-        "manage_follow_index", "manage_leader_index", "monitor", "read",
-        "view_index_metadata", "write"
+        "index", "maintenance", "manage", "manage_follow_index", "manage_leader_index",
+        "monitor", "read", "view_index_metadata", "write"
       ]
     }
+  }
+
+  indices {
+    names = [
+      "traces-apm*", "traces-*.otel-*", "logs-apm*", "apm-*", "logs-*.otel-*", "metrics-apm*", "metrics-*.otel-*"
+    ]
+    privileges = [
+      "create_doc", "index", "monitor", "read", "view_index_metadata",
+    ]
   }
 
   dynamic "applications" {
@@ -50,6 +58,14 @@ resource "elasticstack_elasticsearch_security_role" "editor_role" {
     }
   }
 
+  indices {
+    names = [
+    "traces-apm*", "traces-*.otel-*", "logs-apm*", "apm-*", "logs-*.otel-*", "metrics-apm*", "metrics-*.otel-*"]
+    privileges = [
+      "create_doc", "index", "monitor", "read", "view_index_metadata",
+    ]
+  }
+
   dynamic "applications" {
     for_each = toset([
       {
@@ -85,6 +101,15 @@ resource "elasticstack_elasticsearch_security_role" "viewer_role" {
         "monitor", "read", "view_index_metadata",
       ]
     }
+  }
+
+  indices {
+    names = [
+      "traces-apm*", "traces-*.otel-*", "logs-apm*", "apm-*", "logs-*.otel-*", "metrics-apm*", "metrics-*.otel-*"
+    ]
+    privileges = [
+      "monitor", "read", "view_index_metadata",
+    ]
   }
 
   dynamic "applications" {
