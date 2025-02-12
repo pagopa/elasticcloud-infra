@@ -6,15 +6,29 @@ resource "elasticstack_kibana_space" "kibana_space" {
   disabled_features = []
 }
 
+resource "elasticstack_kibana_data_view" "kibana_apm_data_view" {
+  for_each = local.spaces
+
+  space_id = elasticstack_kibana_space.kibana_space[each.key].id
+  data_view = {
+    id              = "apm_${each.key}"
+    name            = "APM ${each.key}"
+    title           = "traces-apm*,apm-*,traces-*.otel-*,logs-apm*,apm-*,logs-*.otel-*,metrics-apm*,apm-*,metrics-*.otel-*"
+    time_field_name = "@timestamp"
+  }
+}
+
+
 
 module "app_resources" {
   source   = "./tf_module/app_resources"
   for_each = local.configurations
 
-  target_name   = var.prefix
-  configuration = each.value.conf
-  target_env    = var.env
-  space_id      = elasticstack_kibana_space.kibana_space[each.value.space_name].space_id
+  target_name      = var.prefix
+  configuration    = each.value.conf
+  target_env       = var.env
+  space_id         = elasticstack_kibana_space.kibana_space[each.value.space_name].space_id
+  apm_data_view_id = elasticstack_kibana_data_view.kibana_apm_data_view[each.value.space_name].data_view.id
 
   ilm_name = var.ilm[each.key]
 

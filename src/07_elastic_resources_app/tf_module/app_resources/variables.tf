@@ -84,3 +84,7 @@ variable "application_name" {
   type        = string
   description = "Name of this application"
 }
+
+variable "apm_data_view_id" {
+  type = string
+}
