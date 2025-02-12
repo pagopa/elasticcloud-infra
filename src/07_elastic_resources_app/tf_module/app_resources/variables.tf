@@ -14,7 +14,7 @@ variable "configuration" {
   type = object({
     displayName = string
     indexTemplate = object({
-      indexPattern = string
+      indexPatterns = list(string)
     })
     dataStream = list(string)
     dataView = object({
