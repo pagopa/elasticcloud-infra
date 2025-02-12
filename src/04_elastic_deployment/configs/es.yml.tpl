@@ -4,6 +4,7 @@ xpack.security.authc.realms:
         order: ${2 + data.index}
         attributes.principal: nameid
         attributes.groups: "http://schemas.microsoft.com/ws/2008/06/identity/claims/groups"
+        attributes.name: "https://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"
         idp.metadata.path: "https://login.microsoftonline.com/${tenant_id}/federationmetadata/2007-06/federationmetadata.xml?appid=${data.client_id}"
         idp.entity_id: "https://sts.windows.net/${tenant_id}/"
         sp.entity_id: "api://${prefix_env}-elasticcloud"
