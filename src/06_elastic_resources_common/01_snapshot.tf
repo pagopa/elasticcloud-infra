@@ -19,7 +19,12 @@ resource "elasticstack_elasticsearch_snapshot_lifecycle" "default_snapshot_polic
   snapshot_name = "<nightly-snap-{now/d}>"
   repository    = elasticstack_elasticsearch_snapshot_repository.snapshot_repository.name
 
-  indices              = ["*-${var.prefix}.${var.env}"]
+  indices              = [
+    "*-${var.prefix}.${var.env}",
+    "logs-apm*",
+    "traces-apm*",
+    "metrics-apm*"
+  ]
   ignore_unavailable   = true
   include_global_state = true
 
