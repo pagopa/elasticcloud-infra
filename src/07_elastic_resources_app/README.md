@@ -35,8 +35,8 @@ for details on how to configure a new space/application, please refer to the `co
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 4.16 |
-| <a name="provider_ec"></a> [ec](#provider\_ec) | ~> 0.12.2 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 4.18.0 |
+| <a name="provider_ec"></a> [ec](#provider\_ec) | 0.12.2 |
 | <a name="provider_elasticstack"></a> [elasticstack](#provider\_elasticstack) | 0.11.7 |
 
 ## Modules
