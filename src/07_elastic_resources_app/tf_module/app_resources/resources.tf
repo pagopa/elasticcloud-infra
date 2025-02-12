@@ -111,13 +111,15 @@ resource "elasticstack_kibana_data_view" "kibana_data_view" {
   }
 }
 
+
 resource "elasticstack_kibana_import_saved_objects" "dashboard" {
   for_each   = local.dashboards
   depends_on = [elasticstack_kibana_data_view.kibana_data_view]
   overwrite  = true
   space_id   = var.space_id
   file_contents = templatefile(each.value, {
-    data_view = elasticstack_kibana_data_view.kibana_data_view.data_view.id
+    data_view            = elasticstack_kibana_data_view.kibana_data_view.data_view.id
+    apm_data_view = var.apm_data_view_id
   })
 }
 
