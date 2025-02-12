@@ -61,7 +61,7 @@ resource "elasticstack_elasticsearch_index_template" "index_template" {
   name = "${local.application_id}-idxtpl"
 
   priority       = 500
-  index_patterns = ["${var.configuration.indexTemplate.indexPattern}-${var.target_name}.${var.target_env}"]
+  index_patterns = [ for p in var.configuration.indexTemplate.indexPatterns: "${p}-${var.target_name}.${var.target_env}"] #["${var.configuration.indexTemplate.indexPattern}-${var.target_name}.${var.target_env}"]
   composed_of = concat(
     (lookup(var.configuration, "packageComponent", null) != null ? [elasticstack_elasticsearch_component_template.package_index_component[0].name] : []),
     [elasticstack_elasticsearch_component_template.custom_index_component.name]

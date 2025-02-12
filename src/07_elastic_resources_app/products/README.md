@@ -70,7 +70,7 @@ Here's an example of the file content:
 {
   "displayName": "Print It ${env}",
   "indexTemplate": {
-    "indexPattern": "logs-print-payment-notice-*"
+    "indexPatterns": "logs-print-payment-notice-*"
   },
   "dataStream": [
     "logs-print-payment-notice-service",
