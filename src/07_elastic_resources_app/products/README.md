@@ -84,6 +84,11 @@ Here's an example of the file content:
       { "name": "faultDetail", "runtimeField": { "type": "keyword", "script": {"source": "String message = params[\"_source\"][\"message\"];\n\ndef m = /^.*detail=(.*)(?=\\)).*$/.matcher(message);\nif ( m.matches() ) {\n   return emit(m.group(1));\n} else {\n   return emit(\"-\");\n}"}}}
     ]
   },
+  "apmDataView": {
+    "indexIdentifiers": [
+      "print-payment"
+    ]
+  },
   "customComponent": "basic-pipeline-lifecycle@custom",
   "packageComponent": "kubernetes-agent@package",
   "ingestPipeline": "convert_responseTime_httpCode"
@@ -103,6 +108,9 @@ where:
     - `runtimeField`: **required** runtime field definition (as exported from kibana)
       - `type`: **required** type of the runtime field; [docs here](https://www.elastic.co/guide/en/elasticsearch/reference/current/runtime-mapping-fields.html)
       - `script`: **required** runtime field source code;  [docs here](https://www.elastic.co/guide/en/elasticsearch/reference/current/runtime-mapping-fields.html)
+- `apmDataView`: **optional, with default**, stucture defining how to create the APM data view for this application
+  - `indexIdentifiers`: **required**, list of index identifiers used to create the data view; they will be appended to the default identifiers with a trailing `*`: eg: `traces-apm*print-payment*,apm-*print-payment*`
+  By default it's `"traces-apm*,apm-*,traces-*.otel-*,logs-apm*,apm-*,logs-*.otel-*,metrics-apm*,apm-*,metrics-*.otel-*"`
 - `customComponent`: **optional, with default** component name from the `index_component` library, noted with `@custom` to be attached to the index template. If not defined, the default `basic-only-lifecycle@custom` will be used.
 - `packageComponent`: **optional** component name from the `index_component` library, noted with `@package` to be attached to the index template.
 - `ingestPipeline`: **required** ingest pipeline name, from the `ingest_pipeline` library, to be attached to the index template
