@@ -81,3 +81,9 @@ provider "helm" {
     config_path = local.cluster_2_config_path
   }
 }
+
+
+module "elastic_utils" {
+  source = "git::https://github.com/pagopa/eng-common-scripts?ref=tf-elasticcloud-module"
+
+}
