@@ -8,7 +8,7 @@ resource "elasticstack_kibana_space" "kibana_space" {
 
 
 module "app_resources" {
-  source   = "./tf_module/app_resources"
+  source   = "../../tf_module/app_resources"
   for_each = local.configurations
 
   target_name   = var.prefix

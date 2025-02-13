@@ -159,7 +159,7 @@ resource "elasticstack_fleet_integration_policy" "apm_integration_policy" {
 
 
 module "install_agent_cluster_1" {
-  source = "./tf_module/agent"
+  source = "../../tf_module/agent"
 
   depends_on = [module.app_resources]
 
@@ -194,7 +194,7 @@ module "install_agent_cluster_1" {
 
 
 module "install_agent_cluster_2" {
-  source     = "./tf_module/agent"
+  source     = "../../tf_module/agent"
   depends_on = [module.app_resources]
 
   count = length(var.aks_config) > 1 ? 1 : 0

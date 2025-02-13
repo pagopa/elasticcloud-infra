@@ -43,11 +43,11 @@ for details on how to configure a new space/application, please refer to the `co
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_app_resources"></a> [app\_resources](#module\_app\_resources) | ./tf_module/app_resources | n/a |
-| <a name="module_install_agent_cluster_1"></a> [install\_agent\_cluster\_1](#module\_install\_agent\_cluster\_1) | ./tf_module/agent | n/a |
-| <a name="module_install_agent_cluster_2"></a> [install\_agent\_cluster\_2](#module\_install\_agent\_cluster\_2) | ./tf_module/agent | n/a |
-| <a name="module_otel_cluster_1"></a> [otel\_cluster\_1](#module\_otel\_cluster\_1) | ./tf_module/otel | n/a |
-| <a name="module_otel_cluster_2"></a> [otel\_cluster\_2](#module\_otel\_cluster\_2) | ./tf_module/otel | n/a |
+| <a name="module_app_resources"></a> [app\_resources](#module\_app\_resources) | ../../tf_module/app_resources | n/a |
+| <a name="module_install_agent_cluster_1"></a> [install\_agent\_cluster\_1](#module\_install\_agent\_cluster\_1) | ../../tf_module/agent | n/a |
+| <a name="module_install_agent_cluster_2"></a> [install\_agent\_cluster\_2](#module\_install\_agent\_cluster\_2) | ../../tf_module/agent | n/a |
+| <a name="module_otel_cluster_1"></a> [otel\_cluster\_1](#module\_otel\_cluster\_1) | ../../tf_module/otel | n/a |
+| <a name="module_otel_cluster_2"></a> [otel\_cluster\_2](#module\_otel\_cluster\_2) | ../../tf_module/otel | n/a |
 
 ## Resources
 
