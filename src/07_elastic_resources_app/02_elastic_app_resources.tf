@@ -11,8 +11,8 @@ resource "elasticstack_kibana_data_view" "kibana_apm_data_view" {
 
   space_id = elasticstack_kibana_space.kibana_space[each.key].id
   data_view = {
-    id              = "apm_${each.key}"
-    name            = "APM ${each.key}"
+    id              = "apm_${each.key}_${var.env}"
+    name            = "APM ${each.key} ${var.env}"
     title           = "traces-apm*,apm-*,traces-*.otel-*,logs-apm*,apm-*,logs-*.otel-*,metrics-apm*,apm-*,metrics-*.otel-*"
     time_field_name = "@timestamp"
   }
