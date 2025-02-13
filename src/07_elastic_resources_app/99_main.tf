@@ -83,7 +83,7 @@ provider "helm" {
 }
 
 
-module "elastic_utils" {
+module "__elastic_utils__" {
   source = "git::https://github.com/pagopa/eng-common-scripts?ref=tf-elasticcloud-module"
 
 }

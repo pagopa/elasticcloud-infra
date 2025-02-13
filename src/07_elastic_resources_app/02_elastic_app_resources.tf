@@ -8,7 +8,7 @@ resource "elasticstack_kibana_space" "kibana_space" {
 
 
 module "app_resources" {
-  source   = "./.terraform/modules/elastic_utils/elastic-cloud/app_resources"
+  source   = "./.terraform/modules/__elastic_utils__/elastic-cloud/app_resources"
   for_each = local.configurations
 
   target_name   = var.prefix
