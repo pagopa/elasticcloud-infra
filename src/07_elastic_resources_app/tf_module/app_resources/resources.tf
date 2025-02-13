@@ -111,6 +111,16 @@ resource "elasticstack_kibana_data_view" "kibana_data_view" {
   }
 }
 
+resource "elasticstack_kibana_data_view" "kibana_apm_data_view" {
+  space_id = var.space_id
+  data_view = {
+    id              = "apm_${local.application_id}"
+    name            = "APM ${local.application_id}"
+    title           = length(var.configuration.apmDataView.indexIdentifiers) > 0 ? join(",", [for i in var.configuration.apmDataView.indexIdentifiers : "traces-apm*${i}*,apm-*${i}*,traces-*${i}*.otel-*,logs-apm*${i}*,apm-*${i}*,logs-*${i}*.otel-*,metrics-apm*${i}*,apm-*${i}*,metrics-*${i}*.otel-*"]) : "traces-apm*,apm-*,traces-*.otel-*,logs-apm*,apm-*,logs-*.otel-*,metrics-apm*,apm-*,metrics-*.otel-*"
+    time_field_name = "@timestamp"
+  }
+}
+
 
 resource "elasticstack_kibana_import_saved_objects" "dashboard" {
   for_each   = local.dashboards
@@ -118,8 +128,8 @@ resource "elasticstack_kibana_import_saved_objects" "dashboard" {
   overwrite  = true
   space_id   = var.space_id
   file_contents = templatefile(each.value, {
-    data_view            = elasticstack_kibana_data_view.kibana_data_view.data_view.id
-    apm_data_view = var.apm_data_view_id
+    data_view     = elasticstack_kibana_data_view.kibana_data_view.data_view.id
+    apm_data_view = elasticstack_kibana_data_view.kibana_apm_data_view.data_view.id
   })
 }
 

@@ -21,6 +21,11 @@ variable "configuration" {
       indexIdentifier = string
       runtimeFields   = optional(list(any), [])
     })
+    apmDataView = optional(object({
+      indexIdentifiers = list(string)
+      }), {
+      indexIdentifiers = []
+    })
     customComponent  = optional(string, null)
     packageComponent = optional(string, null)
     ingestPipeline   = string
@@ -83,8 +88,4 @@ variable "default_custom_component_name" {
 variable "application_name" {
   type        = string
   description = "Name of this application"
-}
-
-variable "apm_data_view_id" {
-  type = string
 }
