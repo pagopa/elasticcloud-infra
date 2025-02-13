@@ -55,9 +55,10 @@ First of all you need to create the correct folder structure, starting from the 
 - **if needed**, create a folder for your desired kibana space; the name of the folder will be the name of the kibana space, prepended to the `<env>` tag (i.e.: myspace-dev). Use an existing folder otherwise to create objects attached to that space
 - **required**,  create a folder for your application, the folder name will be used as an identifier in the ES resource creation process, so **it must be unique within the product folder**
 - **required**, create a file names `appSettings.json`, otherwise no resources will be created
-- **if needed**, create a folder for your dashboards named `dashboard`. Save here all the exported dashboard in ndjson format. **NB:** replace the `data_view_id` value with `"${data_view}"` and `apm_static_index_pattern_id` with `"${apm_data_view}"` to make it dynamic
+- **if needed**, create a folder for your dashboards named `dashboard`. Save here all the exported dashboard in ndjson format. **NB:** replace the `data_view_id` value with `"${data_view}"` and `apm_static_index_pattern_id` or `apm_static_index_pattern_id_<your-env>`with `"${apm_data_view}"` to make it dynamic
 - **if needed**, create a folder for your saved queries named `query`. Save here all the exported queries in ndjson format
 - **required & needs approval**, define the index lifecycle policy to be used for your indexes in `env/<your_env>` variable file, variable `ilm`. Add here a new entry with your application identifier adn the ilm to use, choosing between one of the provided ilm in the `default_library/ilm` folder
+- **if needed**, add your application instance name in the `env/<your_env>` `k8s_application_log_instance_names` variable if that application is supposed to be monitored using **elastic agent**
 
 ### appSettings.json
 
@@ -115,8 +116,8 @@ where:
 - `packageComponent`: **optional** component name from the `index_component` library, noted with `@package` to be attached to the index template.
 - `ingestPipeline`: **required** ingest pipeline name, from the `ingest_pipeline` library, to be attached to the index template
 
-### FAQ
+## FAQ
 
-#### Need a different ingest pipeline or component or ilm?
+### Need a different ingest pipeline or component or ilm?
 
 If you require a different ingest pipeline definition or a different index component definition, feel free to open a PR defining the new content; @pagopa/payments-cloud-admin will be glad to review it
