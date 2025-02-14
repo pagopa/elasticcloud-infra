@@ -83,7 +83,7 @@ provider "helm" {
 }
 
 
-module "__elastic_utils__" {
-  source = "git::https://github.com/pagopa/eng-common-scripts?ref=tf-elasticcloud-module"
-
+module "__v4__" {
+  # 1.5.0
+  source = "git::https://github.com/pagopa/terraform-azurerm-v4?ref=876158038b03d7a82ea437c56591154ab504d725"
 }
