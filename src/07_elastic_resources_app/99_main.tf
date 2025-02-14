@@ -81,3 +81,9 @@ provider "helm" {
     config_path = local.cluster_2_config_path
   }
 }
+
+
+module "__v4__" {
+  # 1.5.0
+  source = "git::https://github.com/pagopa/terraform-azurerm-v4?ref=876158038b03d7a82ea437c56591154ab504d725"
+}
