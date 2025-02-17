@@ -1,0 +1,31 @@
+{
+  "system.auth": {
+    "enabled": true,
+    "vars": {
+      "ignore_older": "72h",
+      "paths": [
+        "/var/log/auth.log*",
+        "/var/log/secure*"
+      ],
+      "preserve_original_event": false,
+      "tags": [
+        "system-auth"
+      ]
+    }
+  },
+  "system.syslog": {
+    "enabled": true,
+    "vars": {
+      "preserve_original_event": false,
+       "exclude_files": [
+                "\\\\.gz$"
+            ],
+      "paths": [
+        "/var/log/messages*",
+        "/var/log/syslog*"
+      ],
+      "tags": [],
+      "ignore_older": "72h"
+    }
+  }
+}

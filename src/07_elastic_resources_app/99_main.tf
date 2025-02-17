@@ -14,14 +14,6 @@ terraform {
       # version documented here https://github.com/elastic/terraform-provider-elasticstack/issues/836
       version = "0.11.7"
     }
-    kubectl = {
-      source  = "gavinbunney/kubectl"
-      version = "~> 1.19.0"
-    }
-    helm = {
-      source  = "hashicorp/helm"
-      version = "= 2.17.0"
-    }
 
   }
 
@@ -50,37 +42,6 @@ provider "elasticstack" {
   }
 }
 
-
-locals {
-  cluster_1_config_path = "${var.k8s_kube_config_path_prefix}/config-${var.aks_config[0].name}"
-  # if secondary cluster is not defined, use the primary cluster name just to make the provider configuration work. it will not be used
-  cluster_2_config_path = "${var.k8s_kube_config_path_prefix}/config-${length(var.aks_config) > 1 ? var.aks_config[1].name : var.aks_config[0].name}"
-}
-
-provider "kubectl" {
-  alias       = "cluster_1"
-  config_path = local.cluster_1_config_path
-}
-
-provider "kubectl" {
-  alias       = "cluster_2"
-  config_path = local.cluster_2_config_path
-}
-
-
-provider "helm" {
-  alias = "cluster_1"
-  kubernetes {
-    config_path = local.cluster_1_config_path
-  }
-}
-
-provider "helm" {
-  alias = "cluster_2"
-  kubernetes {
-    config_path = local.cluster_2_config_path
-  }
-}
 
 
 module "__v4__" {

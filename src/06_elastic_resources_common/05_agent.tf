@@ -13,8 +13,8 @@ resource "elasticstack_fleet_integration_policy" "kubernetes_integration_policy"
   namespace           = "${var.prefix}.${var.env}"
   description         = "Integration policy for ${var.prefix}-${var.env} kube logs"
   agent_policy_id     = elasticstack_fleet_agent_policy.kubernetes_policy.policy_id
-  integration_name    = data.elasticstack_fleet_integration.kubernetes.name
-  integration_version = data.elasticstack_fleet_integration.kubernetes.version
+  integration_name    = elasticstack_fleet_integration.kubernetes_package.name
+  integration_version = elasticstack_fleet_integration.kubernetes_package.version
 
   input {
     input_id     = "kubelet-kubernetes/metrics"
@@ -69,8 +69,8 @@ resource "elasticstack_fleet_integration_policy" "system_integration_policy" {
   namespace           = "${var.prefix}.${var.env}"
   description         = "Integration policy for ${var.prefix}-${var.env} system logs"
   agent_policy_id     = elasticstack_fleet_agent_policy.kubernetes_policy.policy_id
-  integration_name    = data.elasticstack_fleet_integration.system.name
-  integration_version = data.elasticstack_fleet_integration.system.version
+  integration_name    = elasticstack_fleet_integration.system_package.name
+  integration_version = elasticstack_fleet_integration.system_package.version
 
 
   input {
@@ -161,7 +161,6 @@ resource "elasticstack_fleet_integration_policy" "apm_integration_policy" {
 module "install_agent_cluster_1" {
   source = "./.terraform/modules/__v4__/elastic_cloud_agent"
 
-  depends_on = [module.app_resources]
 
   providers = {
     kubectl = kubectl.cluster_1
@@ -176,12 +175,12 @@ module "install_agent_cluster_1" {
     name = elasticstack_fleet_integration_policy.system_integration_policy.name
     id   = elasticstack_fleet_integration_policy.system_integration_policy.id
   }
-  system_package_version = data.elasticstack_fleet_integration.system.version
+  system_package_version = elasticstack_fleet_integration.system_package.version
   k8s_integration_policy = {
     name = elasticstack_fleet_integration_policy.kubernetes_integration_policy.name
     id   = elasticstack_fleet_integration_policy.kubernetes_integration_policy.id
   }
-  k8s_package_version = data.elasticstack_fleet_integration.kubernetes.version
+  k8s_package_version = elasticstack_fleet_integration.kubernetes_package.version
 
   dedicated_log_instance_name  = var.k8s_application_log_instance_names
   elastic_agent_kube_namespace = var.aks_config[0].elastic_agent.namespace
@@ -194,8 +193,7 @@ module "install_agent_cluster_1" {
 
 
 module "install_agent_cluster_2" {
-  source     = "./.terraform/modules/__v4__/elastic_cloud_agent"
-  depends_on = [module.app_resources]
+  source = "./.terraform/modules/__v4__/elastic_cloud_agent"
 
   count = length(var.aks_config) > 1 ? 1 : 0
 
@@ -212,12 +210,12 @@ module "install_agent_cluster_2" {
     name = elasticstack_fleet_integration_policy.system_integration_policy.name
     id   = elasticstack_fleet_integration_policy.system_integration_policy.id
   }
-  system_package_version = data.elasticstack_fleet_integration.system.version
+  system_package_version = elasticstack_fleet_integration.system_package.version
   k8s_integration_policy = {
     name = elasticstack_fleet_integration_policy.kubernetes_integration_policy.name
     id   = elasticstack_fleet_integration_policy.kubernetes_integration_policy.id
   }
-  k8s_package_version = data.elasticstack_fleet_integration.kubernetes.version
+  k8s_package_version = elasticstack_fleet_integration.kubernetes_package.version
 
   dedicated_log_instance_name  = var.k8s_application_log_instance_names
   elastic_agent_kube_namespace = var.aks_config[1].elastic_agent.namespace
