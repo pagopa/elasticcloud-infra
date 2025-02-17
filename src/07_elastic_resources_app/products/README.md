@@ -58,7 +58,7 @@ First of all you need to create the correct folder structure, starting from the 
 - **if needed**, create a folder for your dashboards named `dashboard`. Save here all the exported dashboard in ndjson format. **NB:** replace the `data_view_id` value with `"${data_view}"` and `apm_static_index_pattern_id` or `apm_static_index_pattern_id_<your-env>`with `"${apm_data_view}"` to make it dynamic
 - **if needed**, create a folder for your saved queries named `query`. Save here all the exported queries in ndjson format
 - **required & needs approval**, define the index lifecycle policy to be used for your indexes in `env/<your_env>` variable file, variable `ilm`. Add here a new entry with your application identifier adn the ilm to use, choosing between one of the provided ilm in the `default_library/ilm` folder
-- **if needed**, add your application instance name in the `env/<your_env>` `k8s_application_log_instance_names` variable if that application is supposed to be monitored using **elastic agent**
+- **if needed**, add your application instance name in the `06_elastic_resources_common/env/<your_env>` `k8s_application_log_instance_names` variable if that application is supposed to be monitored using **elastic agent**
 
 ### appSettings.json
 
