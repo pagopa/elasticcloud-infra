@@ -5,7 +5,7 @@
 
 ### New application definition checklist
 
-Checklist based on the documentation provided [here](../src/07_elastic_resources_app/products/README.md) 
+Checklist based on the documentation provided [here](https://github.com/pagopa/elasticcloud-infra/blob/main/src/07_elastic_resources_app/products/README.md) 
 
 
 - [ ] Created a new application folder
