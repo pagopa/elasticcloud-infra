@@ -1,0 +1,51 @@
+pr:
+  autoCancel: true
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - 'src/01_elastic_organization'
+    exclude:
+      - '**/*.lock.hcl'
+      - '**/*.md'
+
+parameters:
+  - name: 'PROD'
+    displayName: 'Run on PROD environment'
+    type: boolean
+    default: True
+    values:
+      - False
+      - True
+
+
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+resources:
+  repositories:
+    - repository: terraform
+      type: github
+      name: pagopa/azure-pipeline-templates
+      ref: refs/tags/v5.2.1
+      endpoint: "io-azure-devops-github-ro"
+
+variables:
+  TIME_OUT: 30
+  # working dir
+  WORKING_DIR: 'src/01_elastic_organization'
+
+stages:
+  #PROD
+  - ${{ if eq(parameters['PROD'], true) }}:
+      - template: './base-code-review-pipelines.yml'
+        parameters:
+          ENV: "paymon-prod"
+          ENV_FOLDER: "paymon-prod"
+          WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
+          SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_PROD)'
+          POOL_NAME: '$(TF_POOL_NAME_PROD)'
+          TIME_OUT: ${{ variables.TIME_OUT }}
+          TF_SUMMARIZE: true
