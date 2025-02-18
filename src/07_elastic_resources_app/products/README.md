@@ -69,7 +69,7 @@ Here's an example of the file content:
 
 ```json
 {
-  "displayName": "Print It ${env}",
+  "displayName": "Print It",
   "indexTemplate": {
     "indexPatterns": ["logs-print-payment-notice-*"]
   },
@@ -79,7 +79,7 @@ Here's an example of the file content:
     "logs-print-payment-notice-functions"
   ],
   "dataView": {
-    "indexIdentifier": "logs-print-payment-*",
+    "indexIdentifiers": [ "logs-print-payment-*" ],
     "runtimeFields": [
       { "name": "faultCode", "runtimeField": { "type": "keyword", "script": {"source": "String message = params[\"_source\"][\"message\"];def m = /^.*title=(.*)(?=, status).*$/.matcher(message);if ( m.matches() ) {return emit(m.group(1));} else{return emit(\"-\");}"}}},
       { "name": "faultDetail", "runtimeField": { "type": "keyword", "script": {"source": "String message = params[\"_source\"][\"message\"];\n\ndef m = /^.*detail=(.*)(?=\\)).*$/.matcher(message);\nif ( m.matches() ) {\n   return emit(m.group(1));\n} else {\n   return emit(\"-\");\n}"}}}
@@ -103,7 +103,7 @@ where:
   - `indexPatterns`: **required** list of patterns used to identify the indexes for this application. **NB:** the `elastic_namespace` variable will be appended to every pattern
 - `dataStream`: **required** list of data stream names that will be created for this application. **NB:** the `elastic_namespace` variable will be appended to that
 - `dataView`: **required** structure containing the following fields
-  - `indexIdentifier`: **required** identifier of the indexes to be collected in the data view for this application. **NB:** the `elastic_namespace` variable will be appended to that
+  - `indexIdentifiers`: **required** List of index identifiers to be collected in the data view for this application. **NB:** the `elastic_namespace` variable will be appended to that
   - `runtimeFields`: **optional** list of runtime field definitions
     - `name`: **required** name of the runtime field
     - `runtimeField`: **required** runtime field definition (as exported from kibana)
