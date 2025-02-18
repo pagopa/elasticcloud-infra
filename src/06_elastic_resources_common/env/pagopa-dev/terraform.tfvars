@@ -20,8 +20,9 @@ aks_config = [
   {
     name = "pagopa-d-weu-dev-aks"
     elastic_agent = {
-      namespace = "elastic-cloud-agent"
-      create_ns = true
+      namespace        = "elastic-cloud-agent"
+      create_ns        = true
+      tolerated_taints = [{ key = "dedicated" }]
     }
     otel = {
       namespace = "otel"
