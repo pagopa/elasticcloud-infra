@@ -110,3 +110,4 @@ variable "default_snapshot_policy" {
 
   description = "Defines the properties of the default snapshot policy"
 }
+

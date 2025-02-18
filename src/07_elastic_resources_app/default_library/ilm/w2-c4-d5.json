@@ -17,6 +17,6 @@
   "delete": {
     "minAge": "5d",
     "deleteSearchableSnapshot": true,
-    "waitForSnapshot": "${prefix_env_short}-default-nightly-snapshots"
+    "waitForSnapshot": "${snapshot_policy}"
   }
 }

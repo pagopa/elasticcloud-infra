@@ -13,7 +13,7 @@ resource "elasticstack_elasticsearch_snapshot_repository" "snapshot_repository" 
 
 resource "elasticstack_elasticsearch_snapshot_lifecycle" "default_snapshot_policy" {
   count = var.default_snapshot_policy.enabled ? 1 : 0
-  name  = "${local.prefix_env_short}-default-nightly-snaapshots"
+  name  = "${local.prefix_env_short}-default-nightly-snapshots"
 
   schedule      = var.default_snapshot_policy.scheduling
   snapshot_name = "<nightly-snap-{now/d}>"
