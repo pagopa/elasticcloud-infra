@@ -65,9 +65,9 @@ variable "default_ilm" {
 }
 
 variable "use_embedded_snapshot_policy" {
-  type = bool
+  type        = bool
   description = "If true, uses the embedded 'cloud-snapshot-policy' instead of 'default_snapshot_policy'"
-  default = false
+  default     = false
 }
 
 

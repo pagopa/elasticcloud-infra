@@ -5,7 +5,7 @@ locals {
     trimsuffix(basename(f), ".json") =>
     jsondecode(templatefile("${path.module}/default_library/ilm/${f}", {
       prefix_env_short = local.prefix_env_short
-      snapshot_policy = var.use_embedded_snapshot_policy ? "cloud-snapshot-policy" : "${local.prefix_env_short}-default-nightly-snapshots"
+      snapshot_policy  = var.use_embedded_snapshot_policy ? "cloud-snapshot-policy" : "${local.prefix_env_short}-default-nightly-snapshots"
     }))
   }
 }
