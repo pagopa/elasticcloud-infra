@@ -46,7 +46,7 @@ variable "lifecycle_policy_wait_for_snapshot" {
 
 variable "ilm" {
   type        = map(string)
-  description = "(Required) Map containing all the application name for this environment associated to the related index lifecicle management policy to be used for that application. The allowed values are the file names in `default_library/ilm` folder"
+  description = "(Required) Map containing all the application name for this environment associated to the related index lifecycle management policy to be used for that application. The allowed values are the file names in `default_library/ilm` folder"
 
   validation {
     condition     = alltrue([for v in values(var.ilm) : !strcontains(v, ".json")])
@@ -59,11 +59,11 @@ variable "ilm" {
   }
 }
 
-variable "opentelemetry_operator_helm_version" {
+variable "default_ilm" {
   type        = string
-  description = "Open telemetry operator version"
-  default     = "0.24.3"
+  description = "ILM used by default index templates via logs@custom, traces@custom and metrics@custom"
 }
+
 
 variable "ilm_delete_wait_for_snapshot" {
   type        = bool

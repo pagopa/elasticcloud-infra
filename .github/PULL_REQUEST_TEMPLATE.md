@@ -3,6 +3,18 @@
 <!--- Write this PR as you were contributing to a public OSS project, where nobody knows you and you have to earn their trust. -->
 <!--- This will improve our projects in the long run! Thanks. -->
 
+### New application definition checklist
+
+Checklist based on the documentation provided [here](https://github.com/pagopa/elasticcloud-infra/blob/main/src/07_elastic_resources_app/products/README.md) 
+
+
+- [ ] Created a new application folder
+- [ ] Defined `appSettings.json`
+- [ ] Defined the index lifecycle management policy for your app 
+
+For any detail refer to the documentation linked above
+
+
 ### List of changes
 
 <!--- Describe your changes in detail -->

@@ -5,7 +5,6 @@ env_short = "d"
 deployment_name = "pagopa-s-weu-ec"
 
 ilm = {
-  default              = "w2-c4-d5"
   nodo                 = "w2-c4-d5"
   nodocron             = "w2-c4-d5"
   nodoreplica          = "w2-c4-d5"
@@ -26,6 +25,8 @@ ilm = {
   fdrnodo              = "w2-c4-d5"
 
 }
+
+default_ilm = "w2-c4-d5"
 
 ilm_delete_wait_for_snapshot = false
 
