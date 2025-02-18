@@ -71,7 +71,13 @@ Here's an example of the file content:
 {
   "displayName": "Print It",
   "indexTemplate": {
-    "indexPatterns": ["logs-print-payment-notice-*"]
+    "printit": {
+      "indexPatterns": [
+        "logs-print-payment-notice-*"
+      ],
+      "customComponent": "basic-pipeline-lifecycle@custom",
+      "ingestPipeline": "convert_responseTime_httpCode"
+    }
   },
   "dataStream": [
     "logs-print-payment-notice-service",
@@ -79,28 +85,19 @@ Here's an example of the file content:
     "logs-print-payment-notice-functions"
   ],
   "dataView": {
-    "indexIdentifiers": [ "logs-print-payment-*" ],
-    "runtimeFields": [
-      { "name": "faultCode", "runtimeField": { "type": "keyword", "script": {"source": "String message = params[\"_source\"][\"message\"];def m = /^.*title=(.*)(?=, status).*$/.matcher(message);if ( m.matches() ) {return emit(m.group(1));} else{return emit(\"-\");}"}}},
-      { "name": "faultDetail", "runtimeField": { "type": "keyword", "script": {"source": "String message = params[\"_source\"][\"message\"];\n\ndef m = /^.*detail=(.*)(?=\\)).*$/.matcher(message);\nif ( m.matches() ) {\n   return emit(m.group(1));\n} else {\n   return emit(\"-\");\n}"}}}
-    ]
-  },
-  "apmDataView": {
-    "indexIdentifiers": [
-      "print-payment"
-    ]
-  },
-  "customComponent": "basic-pipeline-lifecycle@custom",
-  "packageComponent": "kubernetes-agent@package",
-  "ingestPipeline": "convert_responseTime_httpCode"
+    "indexIdentifiers": [ "logs-print-payment-*" ]
+  }
 }
 ```
 
 where:
 
 - `displayName`: **required** Human readable name used in some resources for this application
-- `indexTemplate`: **required** structure containing the following fields   
+- `indexTemplate`: **required** map of index templates to be defined. The _key_ is the unique name of the index template for this application, the _value_ is the following  
   - `indexPatterns`: **required** list of patterns used to identify the indexes for this application. **NB:** the `elastic_namespace` variable will be appended to every pattern
+  - `customComponent`: **optional, with default** component name from the `index_component` library, noted with `@custom` to be attached to the index template. If not defined, the default `basic-only-lifecycle@custom` will be used.
+  - `packageComponent`: **optional** component name from the `index_component` library, noted with `@package` to be attached to the index template.
+  - `ingestPipeline`: **required** ingest pipeline name, from the `ingest_pipeline` library, to be attached to the index template
 - `dataStream`: **required** list of data stream names that will be created for this application. **NB:** the `elastic_namespace` variable will be appended to that
 - `dataView`: **required** structure containing the following fields
   - `indexIdentifiers`: **required** List of index identifiers to be collected in the data view for this application. **NB:** the `elastic_namespace` variable will be appended to that
@@ -112,9 +109,7 @@ where:
 - `apmDataView`: **optional, with default**, stucture defining how to create the APM data view for this application
   - `indexIdentifiers`: **required**, list of index identifiers used to create the data view; they will be appended to the default identifiers with a trailing `*`: eg: `traces-apm*print-payment*,apm-*print-payment*`
   By default it's `"traces-apm*,apm-*,traces-*.otel-*,logs-apm*,apm-*,logs-*.otel-*,metrics-apm*,apm-*,metrics-*.otel-*"`
-- `customComponent`: **optional, with default** component name from the `index_component` library, noted with `@custom` to be attached to the index template. If not defined, the default `basic-only-lifecycle@custom` will be used.
-- `packageComponent`: **optional** component name from the `index_component` library, noted with `@package` to be attached to the index template.
-- `ingestPipeline`: **required** ingest pipeline name, from the `ingest_pipeline` library, to be attached to the index template
+
 
 ## FAQ
 
