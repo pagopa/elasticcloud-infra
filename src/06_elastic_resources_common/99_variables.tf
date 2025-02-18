@@ -28,6 +28,10 @@ variable "aks_config" {
     elastic_agent = object({
       namespace = string
       create_ns = bool
+      tolerated_taints = optional(list(object({
+        key    = string
+        effect = optional(string, "NoSchedule")
+      })), [])
     })
     otel = object({
       namespace = string
