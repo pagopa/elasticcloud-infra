@@ -86,6 +86,11 @@ stages:
             POOL_NAME: '$(TF_POOL_NAME_DEV)'
             TIME_OUT: ${{ variables.TIME_OUT }}
             TF_SUMMARIZE: true
+            MODULE_USE_AKS: true
+            AKS_APISERVER_URL: '$(TF_DEV_AKS_APISERVER_URL)'
+            AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_DEV_AKS_AZURE_DEVOPS_SA_CACRT)'
+            AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_DEV_AKS_AZURE_DEVOPS_SA_TOKEN)'
+            AKS_NAME: '$(TF_AKS_DEV_NAME)'
       - ${{ if eq(parameters['P4PA'], true) }}:
           - template: './base-code-review-pipelines.yml'
             parameters:
@@ -96,6 +101,11 @@ stages:
               POOL_NAME: '$(TF_POOL_NAME_DEV)'
               TIME_OUT: ${{ variables.TIME_OUT }}
               TF_SUMMARIZE: true
+              MODULE_USE_AKS: true
+              AKS_APISERVER_URL: '$(TF_DEV_AKS_APISERVER_URL)'
+              AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_DEV_AKS_AZURE_DEVOPS_SA_CACRT)'
+              AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_DEV_AKS_AZURE_DEVOPS_SA_TOKEN)'
+              AKS_NAME: '$(TF_AKS_DEV_NAME)'
       - ${{ if eq(parameters['PAGOPA'], true) }}:
           - template: './base-code-review-pipelines.yml'
             parameters:
@@ -106,6 +116,16 @@ stages:
               POOL_NAME: '$(TF_POOL_NAME_DEV)'
               TIME_OUT: ${{ variables.TIME_OUT }}
               TF_SUMMARIZE: true
+              MODULE_USE_AKS: true
+              AKS_APISERVER_URL: '$(TF_DEV_AKS_APISERVER_URL)'
+              AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_DEV_AKS_AZURE_DEVOPS_SA_CACRT)'
+              AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_DEV_AKS_AZURE_DEVOPS_SA_TOKEN)'
+              AKS_NAME: '$(TF_AKS_DEV_NAME)'
+              MODULE_USE_SECOND_AKS: true
+              SECOND_AKS_APISERVER_URL: '$(TF_DEV_SECOND_AKS_APISERVER_URL)'
+              SECOND_AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_DEV_SECOND_AKS_AZURE_DEVOPS_SA_CACRT)'
+              SECOND_AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_DEV_SECOND_AKS_AZURE_DEVOPS_SA_TOKEN)'
+              SECOND_AKS_NAME: '$(TF_SECOND_AKS_DEV_NAME)'
 
   #UAT
   - ${{ if eq(parameters['UAT'], true) }}:
@@ -119,6 +139,11 @@ stages:
               POOL_NAME: '$(TF_POOL_NAME_UAT)'
               TIME_OUT: ${{ variables.TIME_OUT }}
               TF_SUMMARIZE: true
+              MODULE_USE_AKS: true
+              AKS_APISERVER_URL: '$(TF_UAT_AKS_APISERVER_URL)'
+              AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_UAT_AKS_AZURE_DEVOPS_SA_CACRT)'
+              AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_UAT_AKS_AZURE_DEVOPS_SA_TOKEN)'
+              AKS_NAME: '$(TF_AKS_UAT_NAME)'
       - ${{ if eq(parameters['P4PA'], true) }}:
           - template: './base-code-review-pipelines.yml'
             parameters:
@@ -129,6 +154,11 @@ stages:
               POOL_NAME: '$(TF_POOL_NAME_UAT)'
               TIME_OUT: ${{ variables.TIME_OUT }}
               TF_SUMMARIZE: true
+              MODULE_USE_AKS: true
+              AKS_APISERVER_URL: '$(TF_UAT_AKS_APISERVER_URL)'
+              AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_UAT_AKS_AZURE_DEVOPS_SA_CACRT)'
+              AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_UAT_AKS_AZURE_DEVOPS_SA_TOKEN)'
+              AKS_NAME: '$(TF_AKS_UAT_NAME)'
       - ${{ if eq(parameters['PAGOPA'], true) }}:
           - template: './base-code-review-pipelines.yml'
             parameters:
@@ -139,6 +169,16 @@ stages:
               POOL_NAME: '$(TF_POOL_NAME_UAT)'
               TIME_OUT: ${{ variables.TIME_OUT }}
               TF_SUMMARIZE: true
+              MODULE_USE_AKS: true
+              AKS_APISERVER_URL: '$(TF_UAT_AKS_APISERVER_URL)'
+              AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_UAT_AKS_AZURE_DEVOPS_SA_CACRT)'
+              AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_UAT_AKS_AZURE_DEVOPS_SA_TOKEN)'
+              AKS_NAME: '$(TF_AKS_UAT_NAME)'
+              MODULE_USE_SECOND_AKS: true
+              SECOND_AKS_APISERVER_URL: '$(TF_UAT_SECOND_AKS_APISERVER_URL)'
+              SECOND_AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_UAT_SECOND_AKS_AZURE_DEVOPS_SA_CACRT)'
+              SECOND_AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_UAT_SECOND_AKS_AZURE_DEVOPS_SA_TOKEN)'
+              SECOND_AKS_NAME: '$(TF_SECOND_AKS_UAT_NAME)'
 
 
   #PROD
@@ -153,6 +193,11 @@ stages:
               POOL_NAME: '$(TF_POOL_NAME_PROD)'
               TIME_OUT: ${{ variables.TIME_OUT }}
               TF_SUMMARIZE: true
+              MODULE_USE_AKS: true
+              AKS_APISERVER_URL: '$(TF_PROD_AKS_APISERVER_URL)'
+              AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_PROD_AKS_AZURE_DEVOPS_SA_CACRT)'
+              AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_PROD_AKS_AZURE_DEVOPS_SA_TOKEN)'
+              AKS_NAME: '$(TF_AKS_PROD_NAME)'
       - ${{ if eq(parameters['P4PA'], true) }}:
           - template: './base-code-review-pipelines.yml'
             parameters:
@@ -163,6 +208,11 @@ stages:
               POOL_NAME: '$(TF_POOL_NAME_PROD)'
               TIME_OUT: ${{ variables.TIME_OUT }}
               TF_SUMMARIZE: true
+              MODULE_USE_AKS: true
+              AKS_APISERVER_URL: '$(TF_PROD_AKS_APISERVER_URL)'
+              AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_PROD_AKS_AZURE_DEVOPS_SA_CACRT)'
+              AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_PROD_AKS_AZURE_DEVOPS_SA_TOKEN)'
+              AKS_NAME: '$(TF_AKS_PROD_NAME)'
       - ${{ if eq(parameters['PAGOPA'], true) }}:
           - template: './base-code-review-pipelines.yml'
             parameters:
@@ -173,3 +223,13 @@ stages:
               POOL_NAME: '$(TF_POOL_NAME_PROD)'
               TIME_OUT: ${{ variables.TIME_OUT }}
               TF_SUMMARIZE: true
+              MODULE_USE_AKS: true
+              AKS_APISERVER_URL: '$(TF_PROD_AKS_APISERVER_URL)'
+              AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_PROD_AKS_AZURE_DEVOPS_SA_CACRT)'
+              AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_PROD_AKS_AZURE_DEVOPS_SA_TOKEN)'
+              AKS_NAME: '$(TF_AKS_PROD_NAME)'
+              MODULE_USE_SECOND_AKS: true
+              SECOND_AKS_APISERVER_URL: '$(TF_PROD_SECOND_AKS_APISERVER_URL)'
+              SECOND_AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_PROD_SECOND_AKS_AZURE_DEVOPS_SA_CACRT)'
+              SECOND_AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_PROD_SECOND_AKS_AZURE_DEVOPS_SA_TOKEN)'
+              SECOND_AKS_NAME: '$(TF_SECOND_AKS_PROD_NAME)'
