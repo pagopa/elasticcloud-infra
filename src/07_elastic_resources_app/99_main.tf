@@ -45,6 +45,6 @@ provider "elasticstack" {
 
 
 module "__v4__" {
-  # 1.6.0
-  source = "git::https://github.com/pagopa/terraform-azurerm-v4?ref=elastic-resource-multiple-idxtpl"
+  # 1.7.0
+  source = "git::https://github.com/pagopa/terraform-azurerm-v4?ref=7c53ea66f9aa1479d720e2152a4c6c7dde48ab71"
 }
