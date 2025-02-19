@@ -20,8 +20,9 @@ aks_config = [
   {
     name = "pagopa-d-weu-dev-aks"
     elastic_agent = {
-      namespace = "elastic-cloud-agent"
-      create_ns = true
+      namespace        = "elastic-cloud-agent"
+      create_ns        = true
+      tolerated_taints = [{ key = "dedicated" }]
     }
     otel = {
       namespace = "otel"
@@ -52,5 +53,6 @@ k8s_application_log_instance_names = [
   /* ecommerce */ "pagopaecommerceeventdispatcherservice-microservice-chart", "pagopaecommercepaymentmethodsservice-microservice-chart", "pagopaecommercepaymentrequestsservice-microservice-chart", "pagopaecommercetransactionsservice-microservice-chart", "pagopaecommercetxschedulerservice-microservice-chart", "pagopanotificationsservice-microservice-chart",
   /* selfcare */ "pagopaselfcaremsbackofficebackend-microservice-chart", "backoffice-external",
   /* gps */ "gpd-core-microservice-chart", "pagopagpdpayments-microservice-chart", "pagopareportingorgsenrollment-microservice-chart", "pagopaspontaneouspayments-microservice-chart", "gpd-payments-pull", "gpd-upload-microservice-chart", "pagopapagopagpdingestionmanager-microservice-chart",
-  /* fdr */ "fdr-nodo-fdrnodo", "pagopafdr-microservice-chart", "fdr-technicalsupport-microservice-chart"
+  /* fdr */ "fdr-nodo-fdrnodo", "pagopafdr-microservice-chart", "fdr-technicalsupport-microservice-chart",
+  /* printit */ "print-payment-notice-service", "print-payment-notice-generator", "print-payment-notice-functions"
 ]

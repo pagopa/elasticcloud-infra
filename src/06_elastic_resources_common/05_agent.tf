@@ -180,8 +180,8 @@ module "install_agent_cluster_1" {
     name = elasticstack_fleet_integration_policy.kubernetes_integration_policy.name
     id   = elasticstack_fleet_integration_policy.kubernetes_integration_policy.id
   }
-  k8s_package_version = elasticstack_fleet_integration.kubernetes_package.version
-
+  k8s_package_version          = elasticstack_fleet_integration.kubernetes_package.version
+  tolerated_taints             = var.aks_config[0].elastic_agent.tolerated_taints
   dedicated_log_instance_name  = var.k8s_application_log_instance_names
   elastic_agent_kube_namespace = var.aks_config[0].elastic_agent.namespace
   create_namespace             = var.aks_config[0].elastic_agent.create_ns
@@ -218,6 +218,7 @@ module "install_agent_cluster_2" {
   k8s_package_version = elasticstack_fleet_integration.kubernetes_package.version
 
   dedicated_log_instance_name  = var.k8s_application_log_instance_names
+  tolerated_taints             = var.aks_config[1].elastic_agent.tolerated_taints
   elastic_agent_kube_namespace = var.aks_config[1].elastic_agent.namespace
   create_namespace             = var.aks_config[1].elastic_agent.create_ns
   elasticsearch_api_key        = data.azurerm_key_vault_secret.elasticsearch_api_key.value
