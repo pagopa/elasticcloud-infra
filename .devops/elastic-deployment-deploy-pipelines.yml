@@ -57,7 +57,7 @@ stages:
       - ${{ if eq(parameters['ARC_P4PA'], true) }}:
           - template: './base-deploy-pipelines.yml'
             parameters:
-              ENV: 'arp4pa-stag'
+              ENV: 'uat'
               ENV_FOLDER: 'arp4pa-stag'
               WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
               DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
@@ -67,7 +67,7 @@ stages:
       - ${{ if eq(parameters['PAGOPA'], true) }}:
           - template: './base-deploy-pipelines.yml'
             parameters:
-              ENV: 'pagopa-stag'
+              ENV: 'uat'
               ENV_FOLDER: 'pagopa-stag'
               WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
               DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
@@ -79,7 +79,7 @@ stages:
       - ${{ if eq(parameters['ARC_P4PA'], true) }}:
           - template: './base-deploy-pipelines.yml'
             parameters:
-              ENV: 'arp4pa-prod'
+              ENV: 'prod'
               ENV_FOLDER: 'arp4pa-prod'
               WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
               DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
@@ -89,7 +89,7 @@ stages:
       - ${{ if eq(parameters['PAGOPA'], true) }}:
           - template: './base-deploy-pipelines.yml'
             parameters:
-              ENV: 'pagopa-prod'
+              ENV: 'prod'
               ENV_FOLDER: 'pagopa-prod'
               WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
               DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}

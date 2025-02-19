@@ -35,7 +35,7 @@ stages:
   - ${{ if eq(parameters['PROD'], true) }}:
     - template: './base-deploy-pipelines.yml'
       parameters:
-        ENV: 'paymon-prod'
+        ENV: 'prod'
         ENV_FOLDER: 'paymon-prod'
         WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
         DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}

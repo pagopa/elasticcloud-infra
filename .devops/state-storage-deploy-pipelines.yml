@@ -49,7 +49,7 @@ stages:
   - ${{ if eq(parameters['DEV'], true) }}:
     - template: './base-deploy-pipelines.yml'
       parameters:
-        ENV: 'paymon-dev'
+        ENV: 'dev'
         ENV_FOLDER: 'paymon-dev'
         WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
         DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
@@ -58,7 +58,7 @@ stages:
         POOL_NAME: '$(TF_POOL_NAME_DEV)'
     - template: './base-deploy-pipelines.yml'
       parameters:
-        ENV: 'deployment-stag'
+        ENV: 'dev'
         ENV_FOLDER: 'deployment-stag'
         WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
         DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
@@ -69,7 +69,7 @@ stages:
   - ${{ if eq(parameters['UAT'], true) }}:
     - template: './base-deploy-pipelines.yml'
       parameters:
-        ENV: 'paymon-uat'
+        ENV: 'uat'
         ENV_FOLDER: 'paymon-uat'
         WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
         DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
@@ -78,7 +78,7 @@ stages:
         POOL_NAME: '$(TF_POOL_NAME_UAT)'
     - template: './base-deploy-pipelines.yml'
       parameters:
-        ENV: 'deployment-stag'
+        ENV: 'uat'
         ENV_FOLDER: 'deployment-stag'
         WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
         DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
@@ -89,7 +89,7 @@ stages:
   - ${{ if eq(parameters['PROD'], true) }}:
     - template: './base-deploy-pipelines.yml'
       parameters:
-        ENV: 'paymon-prod'
+        ENV: 'prod'
         ENV_FOLDER: 'paymon-prod'
         WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
         DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
