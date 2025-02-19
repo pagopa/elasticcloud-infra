@@ -13,4 +13,5 @@ locals {
   }
 
   input_file = "./secret/${var.prefix}-${var.env}/configs.json"
+
 }

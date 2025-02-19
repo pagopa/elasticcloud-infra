@@ -16,4 +16,6 @@ locals {
     CostCenter  = "TS310 - PAGAMENTI & SERVIZI"
     Folder      = basename(abspath(path.module))
   }
+
+
 }
