@@ -103,14 +103,14 @@ data "kubernetes_secret" "azure_devops_secret_2" {
 locals {
   azdo_devops_sa_token = length(var.aks_config) > 1 ? [
     data.kubernetes_secret.azure_devops_secret_1.binary_data["token"],
-    can(data.kubernetes_secret.azure_devops_secret_2[0].binary_data["token"])
+    try(data.kubernetes_secret.azure_devops_secret_2[0].binary_data["token"], null)
     ] : [
     data.kubernetes_secret.azure_devops_secret_1.binary_data["token"]
   ]
 
   azdo_devops_ca_crt = length(var.aks_config) > 1 ? [
     data.kubernetes_secret.azure_devops_secret_1.binary_data["ca.crt"],
-    can(data.kubernetes_secret.azure_devops_secret_2[0].binary_data["ca.crt"])
+    try(data.kubernetes_secret.azure_devops_secret_2[0].binary_data["ca.crt"], null)
     ] : [
     data.kubernetes_secret.azure_devops_secret_1.binary_data["ca.crt"]
   ]
