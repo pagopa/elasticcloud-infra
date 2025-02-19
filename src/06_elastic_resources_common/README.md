@@ -68,6 +68,8 @@ these values are required to properly configure a snapshot repository client.
 
 | Name | Type |
 |------|------|
+| [azurerm_key_vault_secret.azure_devops_sa_cacrt](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret) | resource |
+| [azurerm_key_vault_secret.azure_devops_sa_token](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret) | resource |
 | [elasticstack_elasticsearch_security_role.admin_role](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_security_role) | resource |
 | [elasticstack_elasticsearch_security_role.editor_role](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_security_role) | resource |
 | [elasticstack_elasticsearch_security_role.viewer_role](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_security_role) | resource |

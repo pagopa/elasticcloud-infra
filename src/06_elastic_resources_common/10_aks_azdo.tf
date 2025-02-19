@@ -99,3 +99,53 @@ data "kubernetes_secret" "azure_devops_secret_2" {
     "token"  = ""
   }
 }
+
+locals {
+  azdo_devops_sa_token = length(var.aks_config) > 1 ? [
+    data.kubernetes_secret.azure_devops_secret_1.binary_data["token"],
+    can(data.kubernetes_secret.azure_devops_secret_2[0].binary_data["token"])
+    ] : [
+    data.kubernetes_secret.azure_devops_secret_1.binary_data["token"]
+  ]
+
+  azdo_devops_ca_crt = length(var.aks_config) > 1 ? [
+    data.kubernetes_secret.azure_devops_secret_1.binary_data["ca.crt"],
+    can(data.kubernetes_secret.azure_devops_secret_2[0].binary_data["ca.crt"])
+    ] : [
+    data.kubernetes_secret.azure_devops_secret_1.binary_data["ca.crt"]
+  ]
+}
+
+
+#tfsec:ignore:AZU023
+resource "azurerm_key_vault_secret" "azure_devops_sa_token" {
+  count = length(var.aks_config)
+
+  name         = "${var.aks_config[count.index].name}-azure-devops-sa-token"
+  value        = local.azdo_devops_sa_token[count.index]
+  content_type = "text/plain"
+
+  key_vault_id = data.azurerm_key_vault.key_vault.id
+
+  depends_on = [
+    kubernetes_service_account.azdo_1,
+    kubernetes_service_account.azdo_2
+  ]
+}
+
+#tfsec:ignore:AZU023
+resource "azurerm_key_vault_secret" "azure_devops_sa_cacrt" {
+  count = length(var.aks_config)
+
+  name         = "${var.aks_config[count.index].name}-azure-devops-sa-cacrt"
+  value        = local.azdo_devops_ca_crt[count.index]
+  content_type = "text/plain"
+
+  key_vault_id = data.azurerm_key_vault.key_vault.id
+
+  depends_on = [
+    kubernetes_service_account.azdo_1,
+    kubernetes_service_account.azdo_2
+  ]
+}
+
