@@ -43,7 +43,7 @@ resources:
     - repository: terraform
       type: github
       name: pagopa/azure-pipeline-templates
-      ref: refs/tags/v5.2.1
+      ref: refs/heads/support-two-clusters
       endpoint: "azure-devops-github-ro"
 
 variables:
@@ -56,20 +56,18 @@ stages:
   - ${{ if eq(parameters['DEV'], true) }}:
       - template: './base-code-review-pipelines.yml'
         parameters:
-          ENV: "paymon-dev"
+          ENV: "dev"
           ENV_FOLDER: "paymon-dev"
           WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
           SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_DEV)'
-          POOL_NAME: '$(TF_POOL_NAME_DEV)'
           TIME_OUT: ${{ variables.TIME_OUT }}
           TF_SUMMARIZE: true
       - template: './base-code-review-pipelines.yml'
         parameters:
-          ENV: "deployment-stag"
+          ENV: "dev"
           ENV_FOLDER: "deployment-stag"
           WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
           SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_DEV)'
-          POOL_NAME: '$(TF_POOL_NAME_DEV)'
           TIME_OUT: ${{ variables.TIME_OUT }}
           TF_SUMMARIZE: true
 
@@ -77,20 +75,18 @@ stages:
   - ${{ if eq(parameters['UAT'], true) }}:
       - template: './base-code-review-pipelines.yml'
         parameters:
-          ENV: "paymon-uat"
+          ENV: "uat"
           ENV_FOLDER: "paymon-uat"
           WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
           SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_UAT)'
-          POOL_NAME: '$(TF_POOL_NAME_UAT)'
           TIME_OUT: ${{ variables.TIME_OUT }}
           TF_SUMMARIZE: true
       - template: './base-code-review-pipelines.yml'
         parameters:
-          ENV: "deployment-stag"
+          ENV: "uat"
           ENV_FOLDER: "deployment-stag"
           WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
           SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_UAT)'
-          POOL_NAME: '$(TF_POOL_NAME_UAT)'
           TIME_OUT: ${{ variables.TIME_OUT }}
           TF_SUMMARIZE: true
 
@@ -99,10 +95,9 @@ stages:
   - ${{ if eq(parameters['PROD'], true) }}:
       - template: './base-code-review-pipelines.yml'
         parameters:
-          ENV: "paymon-prod"
+          ENV: "prod"
           ENV_FOLDER: "paymon-prod"
           WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
           SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_PROD)'
-          POOL_NAME: '$(TF_POOL_NAME_PROD)'
           TIME_OUT: ${{ variables.TIME_OUT }}
           TF_SUMMARIZE: true

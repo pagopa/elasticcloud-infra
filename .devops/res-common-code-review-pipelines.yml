@@ -33,27 +33,6 @@ parameters:
       - False
       - True
 
-  - name: 'ARC'
-    displayName: 'Run for ARC environment'
-    type: boolean
-    default: True
-    values:
-      - False
-      - True
-  - name: 'P4PA'
-    displayName: 'Run on P4PA environment'
-    type: boolean
-    default: True
-    values:
-      - False
-      - True
-  - name: 'PAGOPA'
-    displayName: 'Run on PAGOPA environment'
-    type: boolean
-    default: True
-    values:
-      - False
-      - True
 
 
 
@@ -76,160 +55,72 @@ variables:
 stages:
     #DEV
   - ${{ if eq(parameters['DEV'], true) }}:
-      - ${{ if eq(parameters['ARC'], true) }}:
-        - template: './base-code-review-pipelines.yml'
-          parameters:
-            ENV: "arc-dev"
-            ENV_FOLDER: "arc-dev"
-            WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
-            SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_DEV)'
-            POOL_NAME: '$(TF_POOL_NAME_DEV)'
-            TIME_OUT: ${{ variables.TIME_OUT }}
-            TF_SUMMARIZE: true
-            MODULE_USE_AKS: true
-            AKS_APISERVER_URL: '$(TF_DEV_AKS_APISERVER_URL)'
-            AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_DEV_AKS_AZURE_DEVOPS_SA_CACRT)'
-            AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_DEV_AKS_AZURE_DEVOPS_SA_TOKEN)'
-            AKS_NAME: '$(TF_AKS_DEV_NAME)'
-      - ${{ if eq(parameters['P4PA'], true) }}:
-          - template: './base-code-review-pipelines.yml'
-            parameters:
-              ENV: "p4pa-dev"
-              ENV_FOLDER: "p4pa-dev"
-              WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
-              SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_DEV)'
-              POOL_NAME: '$(TF_POOL_NAME_DEV)'
-              TIME_OUT: ${{ variables.TIME_OUT }}
-              TF_SUMMARIZE: true
-              MODULE_USE_AKS: true
-              AKS_APISERVER_URL: '$(TF_DEV_AKS_APISERVER_URL)'
-              AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_DEV_AKS_AZURE_DEVOPS_SA_CACRT)'
-              AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_DEV_AKS_AZURE_DEVOPS_SA_TOKEN)'
-              AKS_NAME: '$(TF_AKS_DEV_NAME)'
-      - ${{ if eq(parameters['PAGOPA'], true) }}:
-          - template: './base-code-review-pipelines.yml'
-            parameters:
-              ENV: "pagopa-dev"
-              ENV_FOLDER: "pagopa-dev"
-              WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
-              SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_DEV)'
-              POOL_NAME: '$(TF_POOL_NAME_DEV)'
-              TIME_OUT: ${{ variables.TIME_OUT }}
-              TF_SUMMARIZE: true
-              MODULE_USE_AKS: true
-              AKS_APISERVER_URL: '$(TF_DEV_AKS_APISERVER_URL)'
-              AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_DEV_AKS_AZURE_DEVOPS_SA_CACRT)'
-              AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_DEV_AKS_AZURE_DEVOPS_SA_TOKEN)'
-              AKS_NAME: '$(TF_AKS_DEV_NAME)'
-              MODULE_USE_SECOND_AKS: true
-              SECOND_AKS_APISERVER_URL: '$(TF_DEV_SECOND_AKS_APISERVER_URL)'
-              SECOND_AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_DEV_SECOND_AKS_AZURE_DEVOPS_SA_CACRT)'
-              SECOND_AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_DEV_SECOND_AKS_AZURE_DEVOPS_SA_TOKEN)'
-              SECOND_AKS_NAME: '$(TF_SECOND_AKS_DEV_NAME)'
+    - template: './base-code-review-pipelines.yml'
+      parameters:
+        ENV: "dev"
+        ENV_FOLDER: "$(TF_TARGET)-dev"
+        WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
+        SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_DEV)'
+        POOL_NAME: '$(TF_POOL_NAME_DEV)'
+        TIME_OUT: ${{ variables.TIME_OUT }}
+        TF_SUMMARIZE: true
+        MODULE_USE_AKS: true
+        AKS_APISERVER_URL: '$(TF_DEV_AKS_APISERVER_URL)'
+        AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_DEV_AKS_AZURE_DEVOPS_SA_CACRT)'
+        AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_DEV_AKS_AZURE_DEVOPS_SA_TOKEN)'
+        AKS_NAME: '$(TF_AKS_DEV_NAME)'
+        ${{ if eq($(TF_USE_AKS_SECOND), true) }}:
+          MODULE_USE_SECOND_AKS: true
+          SECOND_AKS_APISERVER_URL: '$(TF_DEV_SECOND_AKS_APISERVER_URL)'
+          SECOND_AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_DEV_SECOND_AKS_AZURE_DEVOPS_SA_CACRT)'
+          SECOND_AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_DEV_SECOND_AKS_AZURE_DEVOPS_SA_TOKEN)'
+          SECOND_AKS_NAME: '$(TF_SECOND_AKS_DEV_NAME)'
+
+
 
   #UAT
   - ${{ if eq(parameters['UAT'], true) }}:
-      - ${{ if eq(parameters['ARC'], true) }}:
-          - template: './base-code-review-pipelines.yml'
-            parameters:
-              ENV: "arc-uat"
-              ENV_FOLDER: "arc-uat"
-              WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
-              SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_UAT)'
-              POOL_NAME: '$(TF_POOL_NAME_UAT)'
-              TIME_OUT: ${{ variables.TIME_OUT }}
-              TF_SUMMARIZE: true
-              MODULE_USE_AKS: true
-              AKS_APISERVER_URL: '$(TF_UAT_AKS_APISERVER_URL)'
-              AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_UAT_AKS_AZURE_DEVOPS_SA_CACRT)'
-              AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_UAT_AKS_AZURE_DEVOPS_SA_TOKEN)'
-              AKS_NAME: '$(TF_AKS_UAT_NAME)'
-      - ${{ if eq(parameters['P4PA'], true) }}:
-          - template: './base-code-review-pipelines.yml'
-            parameters:
-              ENV: "p4pa-uat"
-              ENV_FOLDER: "p4pa-uat"
-              WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
-              SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_UAT)'
-              POOL_NAME: '$(TF_POOL_NAME_UAT)'
-              TIME_OUT: ${{ variables.TIME_OUT }}
-              TF_SUMMARIZE: true
-              MODULE_USE_AKS: true
-              AKS_APISERVER_URL: '$(TF_UAT_AKS_APISERVER_URL)'
-              AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_UAT_AKS_AZURE_DEVOPS_SA_CACRT)'
-              AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_UAT_AKS_AZURE_DEVOPS_SA_TOKEN)'
-              AKS_NAME: '$(TF_AKS_UAT_NAME)'
-      - ${{ if eq(parameters['PAGOPA'], true) }}:
-          - template: './base-code-review-pipelines.yml'
-            parameters:
-              ENV: "pagopa-uat"
-              ENV_FOLDER: "pagopa-uat"
-              WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
-              SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_UAT)'
-              POOL_NAME: '$(TF_POOL_NAME_UAT)'
-              TIME_OUT: ${{ variables.TIME_OUT }}
-              TF_SUMMARIZE: true
-              MODULE_USE_AKS: true
-              AKS_APISERVER_URL: '$(TF_UAT_AKS_APISERVER_URL)'
-              AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_UAT_AKS_AZURE_DEVOPS_SA_CACRT)'
-              AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_UAT_AKS_AZURE_DEVOPS_SA_TOKEN)'
-              AKS_NAME: '$(TF_AKS_UAT_NAME)'
-              MODULE_USE_SECOND_AKS: true
-              SECOND_AKS_APISERVER_URL: '$(TF_UAT_SECOND_AKS_APISERVER_URL)'
-              SECOND_AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_UAT_SECOND_AKS_AZURE_DEVOPS_SA_CACRT)'
-              SECOND_AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_UAT_SECOND_AKS_AZURE_DEVOPS_SA_TOKEN)'
-              SECOND_AKS_NAME: '$(TF_SECOND_AKS_UAT_NAME)'
+    - template: './base-code-review-pipelines.yml'
+      parameters:
+        ENV: "uat"
+        ENV_FOLDER: "$(TF_TARGET)-uat"
+        WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
+        SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_UAT)'
+        POOL_NAME: '$(TF_POOL_NAME_UAT)'
+        TIME_OUT: ${{ variables.TIME_OUT }}
+        TF_SUMMARIZE: true
+        MODULE_USE_AKS: true
+        AKS_APISERVER_URL: '$(TF_UAT_AKS_APISERVER_URL)'
+        AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_UAT_AKS_AZURE_DEVOPS_SA_CACRT)'
+        AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_UAT_AKS_AZURE_DEVOPS_SA_TOKEN)'
+        AKS_NAME: '$(TF_AKS_UAT_NAME)'
+        ${{ if eq($(TF_USE_AKS_SECOND), true) }}:
+          MODULE_USE_SECOND_AKS: true
+          SECOND_AKS_APISERVER_URL: '$(TF_UAT_SECOND_AKS_APISERVER_URL)'
+          SECOND_AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_UAT_SECOND_AKS_AZURE_DEVOPS_SA_CACRT)'
+          SECOND_AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_UAT_SECOND_AKS_AZURE_DEVOPS_SA_TOKEN)'
+          SECOND_AKS_NAME: '$(TF_SECOND_AKS_UAT_NAME)'
 
 
   #PROD
   - ${{ if eq(parameters['PROD'], true) }}:
-      - ${{ if eq(parameters['ARC'], true) }}:
-          - template: './base-code-review-pipelines.yml'
-            parameters:
-              ENV: "arc-prod"
-              ENV_FOLDER: "arc-prod"
-              WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
-              SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_PROD)'
-              POOL_NAME: '$(TF_POOL_NAME_PROD)'
-              TIME_OUT: ${{ variables.TIME_OUT }}
-              TF_SUMMARIZE: true
-              MODULE_USE_AKS: true
-              AKS_APISERVER_URL: '$(TF_PROD_AKS_APISERVER_URL)'
-              AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_PROD_AKS_AZURE_DEVOPS_SA_CACRT)'
-              AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_PROD_AKS_AZURE_DEVOPS_SA_TOKEN)'
-              AKS_NAME: '$(TF_AKS_PROD_NAME)'
-      - ${{ if eq(parameters['P4PA'], true) }}:
-          - template: './base-code-review-pipelines.yml'
-            parameters:
-              ENV: "p4pa-prod"
-              ENV_FOLDER: "p4pa-prod"
-              WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
-              SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_PROD)'
-              POOL_NAME: '$(TF_POOL_NAME_PROD)'
-              TIME_OUT: ${{ variables.TIME_OUT }}
-              TF_SUMMARIZE: true
-              MODULE_USE_AKS: true
-              AKS_APISERVER_URL: '$(TF_PROD_AKS_APISERVER_URL)'
-              AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_PROD_AKS_AZURE_DEVOPS_SA_CACRT)'
-              AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_PROD_AKS_AZURE_DEVOPS_SA_TOKEN)'
-              AKS_NAME: '$(TF_AKS_PROD_NAME)'
-      - ${{ if eq(parameters['PAGOPA'], true) }}:
-          - template: './base-code-review-pipelines.yml'
-            parameters:
-              ENV: "pagopa-prod"
-              ENV_FOLDER: "pagopa-prod"
-              WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
-              SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_PROD)'
-              POOL_NAME: '$(TF_POOL_NAME_PROD)'
-              TIME_OUT: ${{ variables.TIME_OUT }}
-              TF_SUMMARIZE: true
-              MODULE_USE_AKS: true
-              AKS_APISERVER_URL: '$(TF_PROD_AKS_APISERVER_URL)'
-              AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_PROD_AKS_AZURE_DEVOPS_SA_CACRT)'
-              AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_PROD_AKS_AZURE_DEVOPS_SA_TOKEN)'
-              AKS_NAME: '$(TF_AKS_PROD_NAME)'
-              MODULE_USE_SECOND_AKS: true
-              SECOND_AKS_APISERVER_URL: '$(TF_PROD_SECOND_AKS_APISERVER_URL)'
-              SECOND_AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_PROD_SECOND_AKS_AZURE_DEVOPS_SA_CACRT)'
-              SECOND_AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_PROD_SECOND_AKS_AZURE_DEVOPS_SA_TOKEN)'
-              SECOND_AKS_NAME: '$(TF_SECOND_AKS_PROD_NAME)'
+    - template: './base-code-review-pipelines.yml'
+      parameters:
+        ENV: "prod"
+        ENV_FOLDER: "$(TF_TARGET)-prod"
+        WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
+        SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_PROD)'
+        POOL_NAME: '$(TF_POOL_NAME_PROD)'
+        TIME_OUT: ${{ variables.TIME_OUT }}
+        TF_SUMMARIZE: true
+        MODULE_USE_AKS: true
+        AKS_APISERVER_URL: '$(TF_PROD_AKS_APISERVER_URL)'
+        AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_PROD_AKS_AZURE_DEVOPS_SA_CACRT)'
+        AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_PROD_AKS_AZURE_DEVOPS_SA_TOKEN)'
+        AKS_NAME: '$(TF_AKS_PROD_NAME)'
+        ${{ if eq($(TF_USE_AKS_SECOND), true) }}:
+          MODULE_USE_SECOND_AKS: true
+          SECOND_AKS_APISERVER_URL: '$(TF_UAT_SECOND_AKS_APISERVER_URL)'
+          SECOND_AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_UAT_SECOND_AKS_AZURE_DEVOPS_SA_CACRT)'
+          SECOND_AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_UAT_SECOND_AKS_AZURE_DEVOPS_SA_TOKEN)'
+          SECOND_AKS_NAME: '$(TF_SECOND_AKS_UAT_NAME)'

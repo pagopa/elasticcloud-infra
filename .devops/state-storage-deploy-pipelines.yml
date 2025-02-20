@@ -34,7 +34,7 @@ resources:
     - repository: terraform
       type: github
       name: pagopa/azure-pipeline-templates
-      ref: refs/tags/v5.2.1
+      ref: refs/heads/support-two-clusters
       endpoint: "azure-devops-github-ro"
 
 
@@ -55,7 +55,6 @@ stages:
         DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
         SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_DEV)'
         SC_APPLY_NAME: '$(TF_AZURE_SERVICE_CONNECTION_APPLY_NAME_DEV)'
-        POOL_NAME: '$(TF_POOL_NAME_DEV)'
     - template: './base-deploy-pipelines.yml'
       parameters:
         ENV: 'dev'
@@ -64,7 +63,6 @@ stages:
         DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
         SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_DEV)'
         SC_APPLY_NAME: '$(TF_AZURE_SERVICE_CONNECTION_APPLY_NAME_DEV)'
-        POOL_NAME: '$(TF_POOL_NAME_DEV)'
   #UAT
   - ${{ if eq(parameters['UAT'], true) }}:
     - template: './base-deploy-pipelines.yml'
@@ -75,7 +73,6 @@ stages:
         DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
         SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_UAT)'
         SC_APPLY_NAME: '$(TF_AZURE_SERVICE_CONNECTION_APPLY_NAME_UAT)'
-        POOL_NAME: '$(TF_POOL_NAME_UAT)'
     - template: './base-deploy-pipelines.yml'
       parameters:
         ENV: 'uat'
@@ -84,7 +81,6 @@ stages:
         DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
         SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_UAT)'
         SC_APPLY_NAME: '$(TF_AZURE_SERVICE_CONNECTION_APPLY_NAME_UAT)'
-        POOL_NAME: '$(TF_POOL_NAME_UAT)'
   #PROD
   - ${{ if eq(parameters['PROD'], true) }}:
     - template: './base-deploy-pipelines.yml'
@@ -95,7 +91,6 @@ stages:
         DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
         SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_PROD)'
         SC_APPLY_NAME: '$(TF_AZURE_SERVICE_CONNECTION_APPLY_NAME_PROD)'
-        POOL_NAME: '$(TF_POOL_NAME_PROD)'
 
 
 

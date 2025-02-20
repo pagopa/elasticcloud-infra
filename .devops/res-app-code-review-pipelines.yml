@@ -62,7 +62,6 @@ stages:
         ENV_FOLDER: "$(TF_TARGET)-dev"
         WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
         SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_DEV)'
-#        POOL_NAME: '$(TF_POOL_NAME_DEV)'
         TIME_OUT: ${{ variables.TIME_OUT }}
         TF_SUMMARIZE: true
 
@@ -74,7 +73,6 @@ stages:
         ENV_FOLDER: "$(TF_TARGET)-uat"
         WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
         SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_UAT)'
-#        POOL_NAME: '$(TF_POOL_NAME_UAT)'
         TIME_OUT: ${{ variables.TIME_OUT }}
         TF_SUMMARIZE: true
 
@@ -87,6 +85,5 @@ stages:
         ENV_FOLDER: "$(TF_TARGET)-prod"
         WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
         SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_PROD)'
-#        POOL_NAME: '$(TF_POOL_NAME_PROD)'
         TIME_OUT: ${{ variables.TIME_OUT }}
         TF_SUMMARIZE: true
