@@ -66,7 +66,7 @@ resources:
       type: github
       name: pagopa/azure-pipeline-templates
       ref: refs/heads/support-two-clusters
-      endpoint: "io-azure-devops-github-ro"
+      endpoint: "azure-devops-github-ro"
 
 variables:
   TIME_OUT: 30
