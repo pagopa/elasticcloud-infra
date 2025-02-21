@@ -6,8 +6,8 @@ resource "azurerm_key_vault_access_policy" "azdevops_iac_managed_identities" {
   object_id    = data.azurerm_user_assigned_identity.iac_federated_azdo[each.key].principal_id
 
   secret_permissions = ["Get", "List", "Set", ]
-
-  certificate_permissions = ["SetIssuers", "DeleteIssuers", "Purge", "List", "Get"]
   key_permissions         = ["Get", "GetRotationPolicy", "Decrypt"]
+  certificate_permissions = ["SetIssuers", "DeleteIssuers", "Purge", "List", "Get"]
+
   storage_permissions = []
 }

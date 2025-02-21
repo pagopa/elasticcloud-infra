@@ -14,4 +14,15 @@ locals {
 
   input_file = "./secret/${var.prefix}-${var.env}/configs.json"
 
+  azdo_iac_managed_identities   = {
+    # "pagopa" = {
+    #   names = ["azdo-${var.env}-pagopa-iac-deploy", "azdo-${var.env}-pagopa-iac-plan"]
+    #   rg_name = "pagopa-${var.env_short}-identity-rg"
+    # },
+    "paymon" = {
+      names = ["azdo-${var.env}-paymon-iac-plan", "azdo-${var.env}-paymon-iac-deploy"]
+      rg_name = "paymon-${var.env_short}-itn-azdo-identity-rg"
+    }
+
+  }
 }
