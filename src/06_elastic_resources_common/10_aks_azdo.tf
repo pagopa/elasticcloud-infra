@@ -43,6 +43,60 @@ data "kubernetes_secret" "azure_devops_secret_1" {
   }
 }
 
+resource "kubernetes_role_binding" "deployer_binding_azdo_1" {
+  provider = kubernetes.cluster_1
+  metadata {
+    name      = "deployer-binding"
+    namespace = kubernetes_namespace.azdo_1.metadata[0].name
+  }
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "cluster-deployer"
+  }
+  subject {
+    kind      = "ServiceAccount"
+    name      = "azure-devops"
+    namespace = kubernetes_namespace.azdo_1.metadata[0].name
+  }
+}
+
+resource "kubernetes_role_binding" "deployer_binding_agent_1" {
+  provider = kubernetes.cluster_1
+  metadata {
+    name      = "deployer-binding"
+    namespace = var.aks_config[0].elastic_agent.namespace
+  }
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "cluster-deployer"
+  }
+  subject {
+    kind      = "ServiceAccount"
+    name      = "azure-devops"
+    namespace = kubernetes_namespace.azdo_1.metadata[0].name
+  }
+}
+
+resource "kubernetes_role_binding" "deployer_binding_otel_1" {
+  provider = kubernetes.cluster_1
+  metadata {
+    name      = "deployer-binding"
+    namespace = var.aks_config[0].otel.namespace
+  }
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "cluster-deployer"
+  }
+  subject {
+    kind      = "ServiceAccount"
+    name      = "azure-devops"
+    namespace = kubernetes_namespace.azdo_1.metadata[0].name
+  }
+}
+
 #
 # Second Cluster
 #
@@ -97,6 +151,64 @@ data "kubernetes_secret" "azure_devops_secret_2" {
   binary_data = {
     "ca.crt" = ""
     "token"  = ""
+  }
+}
+
+
+resource "kubernetes_role_binding" "deployer_binding_azdo_2" {
+  count = length(var.aks_config) > 1 ? 1 : 0
+  provider = kubernetes.cluster_2
+  metadata {
+    name      = "deployer-binding"
+    namespace = kubernetes_namespace.azdo_2[0].metadata[0].name
+  }
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "cluster-deployer"
+  }
+  subject {
+    kind      = "ServiceAccount"
+    name      = "azure-devops"
+    namespace = kubernetes_namespace.azdo_2[0].metadata[0].name
+  }
+}
+
+resource "kubernetes_role_binding" "deployer_binding_agent_2" {
+  count = length(var.aks_config) > 1 ? 1 : 0
+  provider = kubernetes.cluster_2
+  metadata {
+    name      = "deployer-binding"
+    namespace = var.aks_config[1].elastic_agent.namespace
+  }
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "cluster-deployer"
+  }
+  subject {
+    kind      = "ServiceAccount"
+    name      = "azure-devops"
+    namespace = kubernetes_namespace.azdo_2[0].metadata[0].name
+  }
+}
+
+resource "kubernetes_role_binding" "deployer_binding_otel_2" {
+  count = length(var.aks_config) > 1 ? 1 : 0
+  provider = kubernetes.cluster_2
+  metadata {
+    name      = "deployer-binding"
+    namespace = var.aks_config[1].otel.namespace
+  }
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "cluster-deployer"
+  }
+  subject {
+    kind      = "ServiceAccount"
+    name      = "azure-devops"
+    namespace = kubernetes_namespace.azdo_2[0].metadata[0].name
   }
 }
 
