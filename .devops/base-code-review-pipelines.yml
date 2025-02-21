@@ -48,8 +48,8 @@ parameters:
     type: boolean
     default: false
   - name: 'MODULE_USE_SECOND_AKS'
-    type: boolean
-    default: false
+    type: string
+    default: 'false'
 
 
 
