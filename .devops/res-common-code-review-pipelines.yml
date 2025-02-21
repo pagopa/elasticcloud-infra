@@ -51,7 +51,7 @@ variables:
   TIME_OUT: 30
   # working dir
   WORKING_DIR: 'src/06_elastic_resources_common'
-  USE_SECOND_AKS: '${{TF_USE_AKS_SECOND}}'
+  USE_SECOND_AKS: '${{variables.TF_USE_AKS_SECOND}}'
 
 stages:
     #DEV
