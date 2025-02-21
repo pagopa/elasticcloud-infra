@@ -72,6 +72,10 @@ stages:
             # 1. Install terraform
             - template: templates/terraform-setup/template.yaml@terraform
             - template: templates/terraform-summarize/template.yaml@terraform
+            - bash: |
+                echo "##[group]variables log"
+                echo "##[debug] $(parameters.MODULE_USE_SECOND_AKS)"
+                echo "##[endgroup]"
             # 2. Run terraform plan
             - template: templates/terraform-plan/template.yaml@terraform
               parameters:
