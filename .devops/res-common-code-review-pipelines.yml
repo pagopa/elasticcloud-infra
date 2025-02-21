@@ -51,6 +51,7 @@ variables:
   TIME_OUT: 30
   # working dir
   WORKING_DIR: 'src/06_elastic_resources_common'
+  USE_SECOND_AKS: '$(TF_USE_AKS_SECOND)'
 
 stages:
     #DEV
@@ -69,7 +70,7 @@ stages:
         AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_DEV_AKS_AZURE_DEVOPS_SA_CACRT)'
         AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_DEV_AKS_AZURE_DEVOPS_SA_TOKEN)'
         AKS_NAME: '$(TF_AKS_DEV_NAME)'
-        ${{ if eq($(TF_USE_AKS_SECOND), true) }}:
+        ${{ if eq(variables.USE_SECOND_AKS, true) }}:
           MODULE_USE_SECOND_AKS: true
           SECOND_AKS_APISERVER_URL: '$(TF_DEV_SECOND_AKS_APISERVER_URL)'
           SECOND_AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_DEV_SECOND_AKS_AZURE_DEVOPS_SA_CACRT)'
@@ -94,7 +95,7 @@ stages:
         AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_UAT_AKS_AZURE_DEVOPS_SA_CACRT)'
         AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_UAT_AKS_AZURE_DEVOPS_SA_TOKEN)'
         AKS_NAME: '$(TF_AKS_UAT_NAME)'
-        ${{ if eq($(TF_USE_AKS_SECOND), true) }}:
+        ${{ if eq(variables.USE_SECOND_AKS, true) }}:
           MODULE_USE_SECOND_AKS: true
           SECOND_AKS_APISERVER_URL: '$(TF_UAT_SECOND_AKS_APISERVER_URL)'
           SECOND_AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_UAT_SECOND_AKS_AZURE_DEVOPS_SA_CACRT)'
@@ -118,7 +119,7 @@ stages:
         AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_PROD_AKS_AZURE_DEVOPS_SA_CACRT)'
         AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_PROD_AKS_AZURE_DEVOPS_SA_TOKEN)'
         AKS_NAME: '$(TF_AKS_PROD_NAME)'
-        ${{ if eq($(TF_USE_AKS_SECOND), true) }}:
+        ${{ if eq(variables.USE_SECOND_AKS, true) }}:
           MODULE_USE_SECOND_AKS: true
           SECOND_AKS_APISERVER_URL: '$(TF_UAT_SECOND_AKS_APISERVER_URL)'
           SECOND_AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_UAT_SECOND_AKS_AZURE_DEVOPS_SA_CACRT)'
