@@ -75,7 +75,7 @@ stages:
             - bash: |
                 echo "##[group]variables log"
                 echo "##[debug] ${{parameters.MODULE_USE_SECOND_AKS}}"
-                echo "##[debug] if is? ${{ eq(parameters.MODULE_USE_SECOND_AKS, true) }}"
+                echo "##[debug] if is? ${{ eq(parameters.MODULE_USE_SECOND_AKS, 'true') }}"
                 echo "##[endgroup]"
             # 2. Run terraform plan
             - template: templates/terraform-plan/template.yaml@terraform
