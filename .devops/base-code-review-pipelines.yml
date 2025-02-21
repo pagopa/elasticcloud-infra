@@ -90,7 +90,7 @@ stages:
                   AKS_API_SERVER_URL: ${{ parameters.AKS_APISERVER_URL }}
                   AKS_AZURE_DEVOPS_SA_CA_CRT: ${{ parameters.AKS_AZURE_DEVOPS_SA_CACRT }}
                   AKS_AZURE_DEVOPS_SA_TOKEN: ${{ parameters.AKS_AZURE_DEVOPS_SA_TOKEN }}
-                ${{ if eq(parameters.MODULE_USE_SECOND_AKS, 'true') }}:
+                ${{ if parameters.MODULE_USE_SECOND_AKS }}:
                   SECOND_AKS_NAME: ${{ parameters.SECOND_AKS_NAME }}
                   SECOND_AKS_API_SERVER_URL: ${{ parameters.SECOND_AKS_APISERVER_URL }}
                   SECOND_AKS_AZURE_DEVOPS_SA_CA_CRT: ${{ parameters.SECOND_AKS_AZURE_DEVOPS_SA_CACRT }}
