@@ -53,6 +53,14 @@ variables:
   WORKING_DIR: 'src/06_elastic_resources_common'
 
 stages:
+  - stage: log
+    jobs:
+      - job: logjob
+        steps:
+          - bash: |
+              echo "##[debug] 1: '${{ variables.TF_USE_AKS_SECOND }}'"
+              echo "##[debug] 2: ${{ variables.TF_USE_AKS_SECOND }}"
+              echo "##[debug] 3: $(TF_USE_AKS_SECOND)"
     #DEV
   - ${{ if eq(parameters['DEV'], true) }}:
     - template: './base-code-review-pipelines.yml'
