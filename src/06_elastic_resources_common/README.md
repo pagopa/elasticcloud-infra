@@ -84,8 +84,16 @@ these values are required to properly configure a snapshot repository client.
 | [elasticstack_fleet_integration_policy.apm_integration_policy](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/fleet_integration_policy) | resource |
 | [elasticstack_fleet_integration_policy.kubernetes_integration_policy](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/fleet_integration_policy) | resource |
 | [elasticstack_fleet_integration_policy.system_integration_policy](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/fleet_integration_policy) | resource |
+| [kubernetes_cluster_role_binding.system_deployer_binding_1](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/cluster_role_binding) | resource |
+| [kubernetes_cluster_role_binding.system_deployer_binding_2](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/cluster_role_binding) | resource |
 | [kubernetes_namespace.azdo_1](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 | [kubernetes_namespace.azdo_2](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
+| [kubernetes_role_binding.deployer_binding_agent_1](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role_binding) | resource |
+| [kubernetes_role_binding.deployer_binding_agent_2](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role_binding) | resource |
+| [kubernetes_role_binding.deployer_binding_azdo_1](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role_binding) | resource |
+| [kubernetes_role_binding.deployer_binding_azdo_2](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role_binding) | resource |
+| [kubernetes_role_binding.deployer_binding_otel_1](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role_binding) | resource |
+| [kubernetes_role_binding.deployer_binding_otel_2](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role_binding) | resource |
 | [kubernetes_secret_v1.default_secret_1](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1) | resource |
 | [kubernetes_secret_v1.default_secret_2](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1) | resource |
 | [kubernetes_service_account.azdo_1](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account) | resource |
