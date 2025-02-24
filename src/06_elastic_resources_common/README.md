@@ -29,6 +29,12 @@ these values are required to properly configure a snapshot repository client.
 - [how to configure anzure blob storage snapshot repo](https://www.elastic.co/guide/en/cloud/current/ec-azure-snapshotting.html)
 - [more details on azure repository](https://www.elastic.co/guide/en/elasticsearch/reference/8.17/repository-azure.html)
 
+## RBAC AKS configuration - Azure Devops IaC
+
+For the IaC pipelines to run properly, the cluster roles used by the `azure-devops` service account need the correct permissions.
+You can check them in this PR:
+[#2825](https://github.com/pagopa/pagopa-infra/pull/2825)
+
 <!-- markdownlint-disable -->
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
