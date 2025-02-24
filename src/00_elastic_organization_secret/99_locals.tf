@@ -7,12 +7,11 @@ locals {
 
   input_file = "./secret/${local.prefix}-${var.env}/configs.json"
 
-  azdo_iac_managed_identities   = {
-    "paymon" = {
-      names = ["azdo-${var.env}-paymon-iac-plan", "azdo-${var.env}-paymon-iac-deploy"]
-      rg_name = "paymon-${var.env_short}-itn-azdo-identity-rg"
-    }
 
+
+  azdo_iac_managed_identities = {
+      names = toset(["azdo-${var.env}-paymon-iac-plan", "azdo-${var.env}-paymon-iac-deploy"])
+      rg_name = "paymon-${var.env_short}-itn-azdo-identity-rg"
   }
 
   tags = {

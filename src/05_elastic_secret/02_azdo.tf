@@ -13,7 +13,7 @@ resource "azurerm_key_vault_access_policy" "azdevops_iac_managed_identities" {
 }
 
 resource "azurerm_key_vault_access_policy" "azdevops_iac_target_managed_identities" {
-  for_each = var.azdo_iac_target_identities.principal_ids
+  for_each = var.azdo_iac_target_identities
 
   key_vault_id = module.key_vault.id
   tenant_id    = data.azurerm_client_config.current.tenant_id
