@@ -58,7 +58,7 @@ parameters:
 
 stages:
   - stage: ${{replace(parameters.ENV, '-', '_')}}${{parameters.STAGE_NAME}}
-    displayName: 'Code review for ${{parameters.ENV}}${{parameters.STAGE_NAME}}'
+    displayName: 'Code review for ${{parameters.ENV}} ${{parameters.STAGE_NAME}}'
     dependsOn: []
     condition: succeeded()
     ${{ if ne(parameters.POOL_NAME, '') }}:
