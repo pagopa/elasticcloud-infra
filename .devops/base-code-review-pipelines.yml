@@ -50,12 +50,15 @@ parameters:
   - name: 'MODULE_USE_SECOND_AKS'
     type: string # using string because parameter value comes from pipeline definition and is not interpreted as boolean
     default: 'false'
+  - name: 'STAGE_NAME'
+    type: string
+    default: ''
 
 
 
 stages:
-  - stage: ${{replace(parameters.ENV, '-', '_')}}
-    displayName: 'Code review for ${{parameters.ENV}}'
+  - stage: ${{replace(parameters.ENV, '-', '_')}}${{parameters.STAGE_NAME}}
+    displayName: 'Code review for ${{parameters.ENV}} ${{parameters.STAGE_NAME}}'
     dependsOn: []
     condition: succeeded()
     ${{ if ne(parameters.POOL_NAME, '') }}:
