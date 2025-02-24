@@ -25,12 +25,8 @@ aks_config = [
       tolerated_taints = [{ key = "dedicated" }]
     }
     otel = {
-      namespace = "otel"
+      namespace = "elastic-system"
       create_ns = true
-      affinity_selector = {
-        key   = "elastic"
-        value = "eck"
-      }
     }
   },
   {
