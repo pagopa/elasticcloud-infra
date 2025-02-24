@@ -48,7 +48,7 @@ parameters:
     type: boolean
     default: false
   - name: 'MODULE_USE_SECOND_AKS'
-    type: string
+    type: string # using string because parameter value comes from pipeline definition and is not interpreted as boolean
     default: 'false'
 
 
@@ -72,10 +72,6 @@ stages:
             # 1. Install terraform
             - template: templates/terraform-setup/template.yaml@terraform
             - template: templates/terraform-summarize/template.yaml@terraform
-            - bash: |
-                echo "##[debug] ${{parameters.MODULE_USE_SECOND_AKS}}"
-                echo "##[debug] if is? ${{ eq(parameters.MODULE_USE_SECOND_AKS, 'true') }}"
-                echo "##[debug] if2 is? ${{ ne(parameters.MODULE_USE_SECOND_AKS, 'false') }}"
             # 2. Run terraform plan
             - template: templates/terraform-plan/template.yaml@terraform
               parameters:

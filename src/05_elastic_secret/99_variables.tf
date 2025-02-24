@@ -28,3 +28,11 @@ variable "env_short" {
     error_message = "Length must be 1 chars."
   }
 }
+
+variable "azdo_iac_target_identities" {
+  type = object({
+    principal_ids = set(string)
+    rg_name = string
+  })
+  description = "Object containing the AZDO managed identities principal ids and resource group name for the target subscription that must have access to this target keyvault"
+}
