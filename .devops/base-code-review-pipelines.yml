@@ -57,7 +57,7 @@ parameters:
 
 
 stages:
-  - stage: ${{ join('_', [ replace(parameters.ENV, '-', '_'), parameters.STAGE_NAME ]) }}
+  - stage: ${{replace(parameters.ENV, '-', '_')}}${{ if ne(parameters.WORKING_DIR_MODULE, '') }}_${{parameters.STAGE_NAME}}
     displayName: 'Code review for ${{parameters.ENV}}'
     dependsOn: []
     condition: succeeded()
