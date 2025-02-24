@@ -62,6 +62,7 @@ stages:
           SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_DEV)'
           TIME_OUT: ${{ variables.TIME_OUT }}
           TF_SUMMARIZE: true
+          STAGE_NAME: "dev"
       - template: './base-code-review-pipelines.yml'
         parameters:
           ENV: "dev"
@@ -70,6 +71,7 @@ stages:
           SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_DEV)'
           TIME_OUT: ${{ variables.TIME_OUT }}
           TF_SUMMARIZE: true
+          STAGE_NAME: "stag"
 
   #UAT
   - ${{ if eq(parameters['UAT'], true) }}:
@@ -81,6 +83,7 @@ stages:
           SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_UAT)'
           TIME_OUT: ${{ variables.TIME_OUT }}
           TF_SUMMARIZE: true
+          STAGE_NAME: "uat"
       - template: './base-code-review-pipelines.yml'
         parameters:
           ENV: "uat"
@@ -89,6 +92,8 @@ stages:
           SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_UAT)'
           TIME_OUT: ${{ variables.TIME_OUT }}
           TF_SUMMARIZE: true
+          STAGE_NAME: "stag"
+
 
 
   #PROD
@@ -101,3 +106,5 @@ stages:
           SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_PROD)'
           TIME_OUT: ${{ variables.TIME_OUT }}
           TF_SUMMARIZE: true
+          STAGE_NAME: "prod"
+
