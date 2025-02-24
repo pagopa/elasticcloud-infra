@@ -41,7 +41,7 @@ resources:
 variables:
   TIME_OUT: 30
   # working dir
-  WORKING_DIR: 'src/02_sate_storage'
+  WORKING_DIR: 'src/02_state_storage'
   DOMAIN_NAME: "state_storage"
 
 stages:
