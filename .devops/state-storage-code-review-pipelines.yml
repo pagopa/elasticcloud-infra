@@ -68,7 +68,7 @@ stages:
           ENV: "dev"
           ENV_FOLDER: "deployment-stag"
           WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
-          SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_DEV)'
+          SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_UAT)'
           TIME_OUT: ${{ variables.TIME_OUT }}
           TF_SUMMARIZE: true
           STAGE_NAME: "stag"
