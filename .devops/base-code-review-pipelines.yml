@@ -44,6 +44,9 @@ parameters:
   - name: 'TF_SUMMARIZE'
     type: string
     default: ''
+  - name: 'USE_SOPS'
+    type: boolean
+    default: false
   - name: 'MODULE_USE_AKS'
     type: boolean
     default: false
@@ -53,8 +56,6 @@ parameters:
   - name: 'STAGE_NAME'
     type: string
     default: ''
-
-
 
 stages:
   - stage: ${{replace(parameters.ENV, '-', '_')}}${{parameters.STAGE_NAME}}
@@ -75,7 +76,13 @@ stages:
             # 1. Install terraform
             - template: templates/terraform-setup/template.yaml@terraform
             - template: templates/terraform-summarize/template.yaml@terraform
-            # 2. Run terraform plan
+            # 2. Install Sops
+            - displayName: 'Install Sops'
+              condition: eq(parameters.USE_SOPS, true)
+              script: |
+                sudo apt update
+                sudo apt install sops
+            # 3. Run terraform plan
             - template: templates/terraform-plan/template.yaml@terraform
               parameters:
                 TF_ENVIRONMENT_FOLDER: ${{ lower(parameters.ENV_FOLDER) }}
