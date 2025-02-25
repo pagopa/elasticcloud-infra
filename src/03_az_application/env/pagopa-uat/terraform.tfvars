@@ -1,4 +1,5 @@
 prefix = "pagopa"
+env    = "uat"
 
 deployment_name = "pagopa-s-weu-ec"
 location        = "westeurope"
