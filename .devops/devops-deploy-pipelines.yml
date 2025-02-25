@@ -41,7 +41,7 @@ resources:
 variables:
   TIME_OUT: 30
   # working dir
-  WORKING_DIR: 'src/00_elastic_organization_secret'
+  WORKING_DIR: 'src/00_devops'
   DOMAIN_NAME: "organization_secret"
 
 stages:
@@ -55,7 +55,6 @@ stages:
         DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
         SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_DEV)'
         SC_APPLY_NAME: '$(TF_AZURE_SERVICE_CONNECTION_APPLY_NAME_DEV)'
-        USE_SOPS: true
 
   #UAT
   - ${{ if eq(parameters['UAT'], true) }}:
@@ -67,7 +66,6 @@ stages:
         DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
         SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_UAT)'
         SC_APPLY_NAME: '$(TF_AZURE_SERVICE_CONNECTION_APPLY_NAME_UAT)'
-        USE_SOPS: true
 
   #PROD
   - ${{ if eq(parameters['PROD'], true) }}:
@@ -79,7 +77,6 @@ stages:
         DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
         SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_PROD)'
         SC_APPLY_NAME: '$(TF_AZURE_SERVICE_CONNECTION_APPLY_NAME_PROD)'
-        USE_SOPS: true
 
 
 

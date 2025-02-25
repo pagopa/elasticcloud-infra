@@ -5,7 +5,7 @@ pr:
       - main
   paths:
     include:
-      - 'src/00_elastic_organization_secret'
+      - 'src/00_devops'
     exclude:
       - '**/*.lock.hcl'
       - '**/*.md'
@@ -49,7 +49,7 @@ resources:
 variables:
   TIME_OUT: 30
   # working dir
-  WORKING_DIR: 'src/00_elastic_organization_secret'
+  WORKING_DIR: 'src/00_devops'
 
 stages:
   #DEV
@@ -62,7 +62,6 @@ stages:
           SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_DEV)'
           TIME_OUT: ${{ variables.TIME_OUT }}
           TF_SUMMARIZE: true
-          USE_SOPS: true
 
 
   #UAT
@@ -75,7 +74,6 @@ stages:
           SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_UAT)'
           TIME_OUT: ${{ variables.TIME_OUT }}
           TF_SUMMARIZE: true
-          USE_SOPS: true
 
 
 
@@ -89,5 +87,4 @@ stages:
           SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_PROD)'
           TIME_OUT: ${{ variables.TIME_OUT }}
           TF_SUMMARIZE: true
-          USE_SOPS: true
 
