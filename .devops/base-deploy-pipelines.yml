@@ -56,7 +56,6 @@ parameters:
     type: boolean
     default: false
 
-
 stages:
   - ${{ if ne(parameters.WORKING_DIR_MODULE, '') }}:
     #MODULE
@@ -69,6 +68,7 @@ stages:
         WORKINGDIR: ${{ parameters.WORKING_DIR_MODULE }}
         AZURE_SERVICE_CONNECTION_PLAN_NAME: "${{parameters.SC_PLAN_NAME}}"
         AZURE_SERVICE_CONNECTION_APPLY_NAME: "${{parameters.SC_APPLY_NAME}}"
+        USE_SOPS: ${{ parameters.USE_SOPS }}
         ${{ if eq(parameters.MODULE_USE_AKS, 'true') }}:
           AKS_NAME: ${{ parameters.AKS_NAME }}
           AKS_API_SERVER_URL: ${{ parameters.AKS_APISERVER_URL }}
