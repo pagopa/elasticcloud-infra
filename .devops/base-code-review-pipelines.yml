@@ -78,8 +78,9 @@ stages:
             - template: templates/terraform-summarize/template.yaml@terraform
             # 2. Install Sops
             - script: |
-                sudo apt update
-                sudo apt install sops
+                curl -LO https://github.com/getsops/sops/releases/download/v3.9.4/sops-v3.9.4.linux.amd64
+                mv sops-v3.9.4.linux.amd64 /usr/local/bin/sops
+                chmod +x /usr/local/bin/sops
               displayName: 'Install Sops'
               condition: eq( ${{ parameters.USE_SOPS }}, true)
             # 3. Run terraform plan
