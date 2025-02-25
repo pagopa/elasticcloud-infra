@@ -52,6 +52,9 @@ parameters:
   - name: 'MODULE_USE_SECOND_AKS'
     type: string # using string because parameter value comes from pipeline definition and is not interpreted as boolean
     default: 'false'
+  - name: 'USE_SOPS'
+    type: boolean
+    default: false
 
 
 stages:
