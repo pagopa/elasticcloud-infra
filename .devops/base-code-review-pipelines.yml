@@ -77,11 +77,11 @@ stages:
             - template: templates/terraform-setup/template.yaml@terraform
             - template: templates/terraform-summarize/template.yaml@terraform
             # 2. Install Sops
-            - displayName: 'Install Sops'
-              condition: eq(parameters.USE_SOPS, true)
-              script: |
+            - script: |
                 sudo apt update
                 sudo apt install sops
+              displayName: 'Install Sops'
+              condition: eq(parameters.USE_SOPS, true)
             # 3. Run terraform plan
             - template: templates/terraform-plan/template.yaml@terraform
               parameters:
