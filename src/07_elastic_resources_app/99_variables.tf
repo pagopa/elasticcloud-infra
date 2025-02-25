@@ -59,11 +59,6 @@ variable "ilm" {
   }
 }
 
-variable "default_ilm" {
-  type        = string
-  description = "ILM used by default index templates via logs@custom, traces@custom and metrics@custom"
-}
-
 variable "use_embedded_snapshot_policy" {
   type        = bool
   description = "If true, uses the embedded 'cloud-snapshot-policy' instead of 'default_snapshot_policy'"
