@@ -48,7 +48,7 @@ resources:
 variables:
   TIME_OUT: 30
   # working dir
-  WORKING_DIR: 'src/06_elastic__resources_deployment'
+  WORKING_DIR: 'src/06_elastic_resources_deployment'
   DOMAIN_NAME: "elastic_resource_deployment"
 
 stages:
