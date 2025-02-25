@@ -14,30 +14,21 @@ parameters:
   - name: 'DEV'
     displayName: 'Run on DEV environment'
     type: boolean
-    ${{ if $(TF_ENV_DEV) }}:
-      default: True
-    ${{ else }}:
-      default: False
+    default: True
     values:
       - False
       - True
   - name: 'UAT'
     displayName: 'Run on UAT environment'
     type: boolean
-    ${{ if $(TF_ENV_UAT) }}:
-      default: True
-    ${{ else }}:
-      default: False
+    default: True
     values:
       - False
       - True
   - name: 'PROD'
     displayName: 'Run on PROD environment'
     type: boolean
-    ${{ if $(TF_ENV_PROD) }}:
-      default: True
-    ${{ else }}:
-      default: False
+    default: True
     values:
       - False
       - True
