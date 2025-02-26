@@ -52,10 +52,13 @@ variables:
   TIME_OUT: 30
   # working dir
   WORKING_DIR: 'src/07_elastic_resources_app'
+  DEV_ENABLED: '$(TF_ENV_DEV)'
+  UAT_ENABLED: '$(TF_ENV_UAT)'
+  PROD_ENABLED: '$(TF_ENV_PROD)'
 
 stages:
     #DEV
-  - ${{ if and(eq(parameters['DEV'], true), eq(variables['TF_ENV_DEV'], 'true'))}}:
+  - ${{ if and(eq(parameters['DEV'], true), eq(variables['DEV_ENABLED'], 'true'))}}:
     - template: './base-code-review-pipelines.yml'
       parameters:
         ENV: "dev"
@@ -66,7 +69,7 @@ stages:
         TF_SUMMARIZE: true
 
   #UAT
-  - ${{ if and(eq(parameters['UAT'], true), eq(variables['TF_ENV_UAT'], 'true'))}}:
+  - ${{ if and(eq(parameters['UAT'], true), eq(variables['UAT_ENABLED'], 'true'))}}:
     - template: './base-code-review-pipelines.yml'
       parameters:
         ENV: "uat"
@@ -78,7 +81,7 @@ stages:
 
 
   #PROD
-  - ${{ if and(eq(parameters['PROD'], true), eq(variables['TF_ENV_PROD'], 'true'))}}:
+  - ${{ if and(eq(parameters['PROD'], true), eq(variables['PROD_ENABLED'], 'true'))}}:
     - template: './base-code-review-pipelines.yml'
       parameters:
         ENV: "prod"
