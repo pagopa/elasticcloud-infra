@@ -30,6 +30,6 @@ variable "env_short" {
 }
 
 variable "azdo_iac_target_identities" {
-  type = set(string)
+  type        = set(string)
   description = "List of AZDO managed identities principal ids for the target subscription that must have access to this target keyvault"
 }

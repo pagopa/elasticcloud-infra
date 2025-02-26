@@ -1,6 +1,6 @@
 prefix    = "pagopa"
 env_short = "u"
-env = "uat"
+env       = "uat"
 
 input_file = "./secret/pagopa-uat/configs.json"
 

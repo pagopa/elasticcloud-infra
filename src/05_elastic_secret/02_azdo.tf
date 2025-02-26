@@ -9,7 +9,7 @@ resource "azurerm_key_vault_access_policy" "azdevops_iac_managed_identities" {
 
   certificate_permissions = ["SetIssuers", "DeleteIssuers", "Purge", "List", "Get"]
   key_permissions         = ["Get", "GetRotationPolicy", "Decrypt"]
-  storage_permissions = []
+  storage_permissions     = []
 }
 
 resource "azurerm_key_vault_access_policy" "azdevops_iac_target_managed_identities" {
@@ -23,5 +23,5 @@ resource "azurerm_key_vault_access_policy" "azdevops_iac_target_managed_identiti
 
   certificate_permissions = ["SetIssuers", "DeleteIssuers", "Purge", "List", "Get"]
   key_permissions         = ["Get", "GetRotationPolicy", "Decrypt"]
-  storage_permissions = []
+  storage_permissions     = []
 }
