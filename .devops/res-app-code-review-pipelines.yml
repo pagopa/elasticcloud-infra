@@ -14,21 +14,21 @@ parameters:
   - name: 'DEV'
     displayName: 'Run on DEV environment'
     type: boolean
-    default: ${{ eq(variables.TF_ENV_DEV, 'true') }}
+    default: True
     values:
       - False
       - True
   - name: 'UAT'
     displayName: 'Run on UAT environment'
     type: boolean
-    default: ${{ eq(variables.TF_ENV_UAT, 'true') }}
+    default: True
     values:
       - False
       - True
   - name: 'PROD'
     displayName: 'Run on PROD environment'
     type: boolean
-    default: ${{ eq(variables.TF_ENV_PROD, 'true') }}
+    default: True
     values:
       - False
       - True
@@ -55,7 +55,7 @@ variables:
 
 stages:
     #DEV
-  - ${{ if eq(parameters['DEV'], true) }}:
+  - ${{ if eq(parameters['DEV'], true) &&  eq(variables['TF_ENV_DEV'], true)}}:
     - template: './base-code-review-pipelines.yml'
       parameters:
         ENV: "dev"
@@ -66,7 +66,7 @@ stages:
         TF_SUMMARIZE: true
 
   #UAT
-  - ${{ if eq(parameters['UAT'], true) }}:
+  - ${{ if eq(parameters['UAT'], true) &&  eq(variables['TF_ENV_UAT'], true)}}:
     - template: './base-code-review-pipelines.yml'
       parameters:
         ENV: "uat"
@@ -78,7 +78,7 @@ stages:
 
 
   #PROD
-  - ${{ if eq(parameters['PROD'], true) }}:
+  - ${{ if eq(parameters['PROD'], true) &&  eq(variables['TF_ENV_PROD'], true)}}:
     - template: './base-code-review-pipelines.yml'
       parameters:
         ENV: "prod"
