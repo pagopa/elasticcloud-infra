@@ -25,27 +25,6 @@ parameters:
       - False
       - True
 
-  - name: 'ARC'
-    displayName: 'Run for ARC environment'
-    type: boolean
-    default: True
-    values:
-      - False
-      - True
-  - name: 'P4PA'
-    displayName: 'Run on P4PA environment'
-    type: boolean
-    default: True
-    values:
-      - False
-      - True
-  - name: 'PAGOPA'
-    displayName: 'Run on PAGOPA environment'
-    type: boolean
-    default: True
-    values:
-      - False
-      - True
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -55,7 +34,7 @@ resources:
     - repository: terraform
       type: github
       name: pagopa/azure-pipeline-templates
-      ref: refs/heads/support-two-clusters
+      ref: refs/tags/v6.12.0
       endpoint: "azure-devops-github-ro"
 
 
@@ -71,7 +50,7 @@ stages:
     - template: './base-deploy-pipelines.yml'
       parameters:
         ENV: 'dev'
-        ENV_FOLDER: 'arc-dev'
+        ENV_FOLDER: '$(TF_TARGET)-dev'
         WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
         DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
         SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_DEV)'
@@ -81,18 +60,18 @@ stages:
         AKS_APISERVER_URL: '$(TF_DEV_AKS_APISERVER_URL)'
         AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_DEV_AKS_AZURE_DEVOPS_SA_CACRT)'
         AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_DEV_AKS_AZURE_DEVOPS_SA_TOKEN)'
-        AKS_NAME: '$(TF_AKS_DEV_NAME)'
+        AKS_NAME: '$(TF_DEV_AKS_NAME)'
         MODULE_USE_SECOND_AKS: '$(TF_USE_AKS_SECOND)'
-        SECOND_AKS_APISERVER_URL: '$(TF_DEV_SECOND_AKS_APISERVER_URL)'
-        SECOND_AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_DEV_SECOND_AKS_AZURE_DEVOPS_SA_CACRT)'
-        SECOND_AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_DEV_SECOND_AKS_AZURE_DEVOPS_SA_TOKEN)'
-        SECOND_AKS_NAME: '$(TF_SECOND_AKS_DEV_NAME)'
+        SECOND_AKS_APISERVER_URL: '$(TF_SECOND_DEV_AKS_APISERVER_URL)'
+        SECOND_AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_SECOND_DEV_AKS_AZURE_DEVOPS_SA_CACRT)'
+        SECOND_AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_SECOND_DEV_AKS_AZURE_DEVOPS_SA_TOKEN)'
+        SECOND_AKS_NAME: '$(TF_SECOND_DEV_AKS_NAME)'
   #UAT
   - ${{ if eq(parameters['UAT'], true) }}:
     - template: './base-deploy-pipelines.yml'
       parameters:
         ENV: 'uat'
-        ENV_FOLDER: 'arc-uat'
+        ENV_FOLDER: '$(TF_TARGET)-uat'
         WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
         DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
         SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_UAT)'
@@ -102,19 +81,19 @@ stages:
         AKS_APISERVER_URL: '$(TF_UAT_AKS_APISERVER_URL)'
         AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_UAT_AKS_AZURE_DEVOPS_SA_CACRT)'
         AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_UAT_AKS_AZURE_DEVOPS_SA_TOKEN)'
-        AKS_NAME: '$(TF_AKS_UAT_NAME)'
+        AKS_NAME: '$(TF_UAT_AKS_NAME)'
         MODULE_USE_SECOND_AKS: '$(TF_USE_AKS_SECOND)'
-        SECOND_AKS_APISERVER_URL: '$(TF_UAT_SECOND_AKS_APISERVER_URL)'
-        SECOND_AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_UAT_SECOND_AKS_AZURE_DEVOPS_SA_CACRT)'
-        SECOND_AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_UAT_SECOND_AKS_AZURE_DEVOPS_SA_TOKEN)'
-        SECOND_AKS_NAME: '$(TF_SECOND_AKS_UAT_NAME)'
+        SECOND_AKS_APISERVER_URL: '$(TF_SECOND_UAT_AKS_APISERVER_URL)'
+        SECOND_AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_SECOND_UAT_AKS_AZURE_DEVOPS_SA_CACRT)'
+        SECOND_AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_SECOND_UAT_AKS_AZURE_DEVOPS_SA_TOKEN)'
+        SECOND_AKS_NAME: '$(TF_SECOND_UAT_AKS_NAME)'
 
   #PROD
   - ${{ if eq(parameters['PROD'], true) }}:
     - template: './base-deploy-pipelines.yml'
       parameters:
         ENV: 'prod'
-        ENV_FOLDER: 'arc-prod'
+        ENV_FOLDER: '$(TF_TARGET)-prod'
         WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
         DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
         SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_PROD)'
@@ -124,12 +103,12 @@ stages:
         AKS_APISERVER_URL: '$(TF_PROD_AKS_APISERVER_URL)'
         AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_PROD_AKS_AZURE_DEVOPS_SA_CACRT)'
         AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_PROD_AKS_AZURE_DEVOPS_SA_TOKEN)'
-        AKS_NAME: '$(TF_AKS_PROD_NAME)'
+        AKS_NAME: '$(TF_PROD_AKS_NAME)'
         MODULE_USE_SECOND_AKS: '$(TF_USE_AKS_SECOND)'
-        SECOND_AKS_APISERVER_URL: '$(TF_UAT_SECOND_AKS_APISERVER_URL)'
-        SECOND_AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_UAT_SECOND_AKS_AZURE_DEVOPS_SA_CACRT)'
-        SECOND_AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_UAT_SECOND_AKS_AZURE_DEVOPS_SA_TOKEN)'
-        SECOND_AKS_NAME: '$(TF_SECOND_AKS_UAT_NAME)'
+        SECOND_AKS_APISERVER_URL: '$(TF_SECOND_UAT_AKS_APISERVER_URL)'
+        SECOND_AKS_AZURE_DEVOPS_SA_CACRT: '$(TF_SECOND_UAT_AKS_AZURE_DEVOPS_SA_CACRT)'
+        SECOND_AKS_AZURE_DEVOPS_SA_TOKEN: '$(TF_SECOND_UAT_AKS_AZURE_DEVOPS_SA_TOKEN)'
+        SECOND_AKS_NAME: '$(TF_SECOND_PROD_AKS_NAME)'
 
 
 

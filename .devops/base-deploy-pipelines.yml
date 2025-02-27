@@ -55,6 +55,9 @@ parameters:
   - name: 'USE_SOPS'
     type: boolean
     default: false
+  - name: 'STAGE_NAME'
+    type: string
+    default: ''
 
 stages:
   - ${{ if ne(parameters.WORKING_DIR_MODULE, '') }}:
