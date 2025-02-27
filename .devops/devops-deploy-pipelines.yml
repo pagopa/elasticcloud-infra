@@ -34,7 +34,7 @@ resources:
     - repository: terraform
       type: github
       name: pagopa/azure-pipeline-templates
-      ref: refs/heads/support-two-clusters
+      ref: refs/tags/v6.12.0
       endpoint: "azure-devops-github-ro"
 
 
@@ -42,7 +42,7 @@ variables:
   TIME_OUT: 30
   # working dir
   WORKING_DIR: 'src/00_devops'
-  DOMAIN_NAME: "organization_secret"
+  DOMAIN_NAME: "devops"
 
 stages:
   #DEV
@@ -50,7 +50,7 @@ stages:
     - template: './base-deploy-pipelines.yml'
       parameters:
         ENV: 'dev'
-        ENV_FOLDER: 'paymon-dev'
+        ENV_FOLDER: '$(TF_TARGET)-dev'
         WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
         DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
         SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_DEV)'
@@ -61,7 +61,7 @@ stages:
     - template: './base-deploy-pipelines.yml'
       parameters:
         ENV: 'uat'
-        ENV_FOLDER: 'paymon-uat'
+        ENV_FOLDER: '$(TF_TARGET)-uat'
         WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
         DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
         SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_UAT)'
@@ -72,7 +72,7 @@ stages:
     - template: './base-deploy-pipelines.yml'
       parameters:
         ENV: 'prod'
-        ENV_FOLDER: 'paymon-prod'
+        ENV_FOLDER: '$(TF_TARGET)-prod'
         WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
         DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
         SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_PROD)'

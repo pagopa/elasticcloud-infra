@@ -18,21 +18,6 @@ parameters:
       - False
       - True
 
-  - name: 'ARC_P4PA'
-    displayName: 'Run for ARC and P4PA environment'
-    type: boolean
-    default: True
-    values:
-      - False
-      - True
-  - name: 'PAGOPA'
-    displayName: 'Run on PAGOPA environment'
-    type: boolean
-    default: True
-    values:
-      - False
-      - True
-
 pool:
   vmImage: 'ubuntu-latest'
 
@@ -41,7 +26,7 @@ resources:
     - repository: terraform
       type: github
       name: pagopa/azure-pipeline-templates
-      ref: refs/heads/support-two-clusters
+      ref: refs/tags/v6.12.0
       endpoint: "azure-devops-github-ro"
 
 
