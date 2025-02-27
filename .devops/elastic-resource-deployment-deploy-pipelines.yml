@@ -1,0 +1,77 @@
+# only manual
+trigger: none
+pr: none
+
+parameters:
+  - name: 'STAG'
+    displayName: 'Run on STAGING environment'
+    type: boolean
+    default: True
+    values:
+      - False
+      - True
+  - name: 'PROD'
+    displayName: 'Run on PROD environment'
+    type: boolean
+    default: True
+    values:
+      - False
+      - True
+
+  - name: 'ARC_P4PA'
+    displayName: 'Run for ARC and P4PA environment'
+    type: boolean
+    default: True
+    values:
+      - False
+      - True
+  - name: 'PAGOPA'
+    displayName: 'Run on PAGOPA environment'
+    type: boolean
+    default: True
+    values:
+      - False
+      - True
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+resources:
+  repositories:
+    - repository: terraform
+      type: github
+      name: pagopa/azure-pipeline-templates
+      ref: refs/heads/support-two-clusters
+      endpoint: "azure-devops-github-ro"
+
+
+variables:
+  TIME_OUT: 30
+  # working dir
+  WORKING_DIR: 'src/06_elastic_resources_deployment'
+  DOMAIN_NAME: "elastic_resource_deployment"
+
+stages:
+  #STAGING
+  - ${{ if eq(parameters['STAG'], true) }}:
+    - template: './base-deploy-pipelines.yml'
+      parameters:
+        ENV: 'uat'
+        ENV_FOLDER: '$(TF_TARGET)-stag'
+        WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
+        DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
+        SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_UAT)'
+        SC_APPLY_NAME: '$(TF_AZURE_SERVICE_CONNECTION_APPLY_NAME_UAT)'
+  #PROD
+  - ${{ if eq(parameters['PROD'], true) }}:
+    - template: './base-deploy-pipelines.yml'
+      parameters:
+        ENV: 'prod'
+        ENV_FOLDER: '$(TF_TARGET)-prod'
+        WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
+        DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
+        SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_PROD)'
+        SC_APPLY_NAME: '$(TF_AZURE_SERVICE_CONNECTION_APPLY_NAME_PROD)'
+
+
+

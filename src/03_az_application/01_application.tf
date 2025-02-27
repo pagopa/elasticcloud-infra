@@ -44,14 +44,24 @@ resource "azuread_application" "ec_application" {
     id                   = random_uuid.user_role_uid.result
   }
 
+  lifecycle {
+    ignore_changes = [
+      owners
+    ]
+  }
 }
-
 
 resource "azuread_service_principal" "ec_application_principal" {
   client_id                     = azuread_application.ec_application.client_id
   app_role_assignment_required  = false
   owners                        = [data.azuread_client_config.current.object_id]
   preferred_single_sign_on_mode = "saml"
+
+  lifecycle {
+    ignore_changes = [
+      owners
+    ]
+  }
 }
 
 resource "azuread_service_principal_token_signing_certificate" "sso_certificate" {

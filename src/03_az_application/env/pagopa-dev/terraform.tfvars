@@ -1,6 +1,6 @@
-prefix          = "pagopa"
-env             = "dev"
-env_short       = "d"
+prefix = "pagopa"
+env    = "dev"
+
 deployment_name = "pagopa-s-weu-ec"
 location        = "westeurope"
 

@@ -30,3 +30,5 @@ resource "azurerm_key_vault_access_policy" "ad_group_policy" {
   certificate_permissions = []
 }
 
+
+

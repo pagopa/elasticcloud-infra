@@ -44,4 +44,6 @@ locals {
       "waitForSnapshot"          = true
     }
   }
+
+  azdo_kubernetes_namespace = "elastic-cloud-azdo"
 }

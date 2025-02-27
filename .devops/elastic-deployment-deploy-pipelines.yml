@@ -41,8 +41,8 @@ resources:
     - repository: terraform
       type: github
       name: pagopa/azure-pipeline-templates
-      ref: refs/tags/v5.2.1
-      endpoint: "io-azure-devops-github-ro"
+      ref: refs/heads/support-two-clusters
+      endpoint: "azure-devops-github-ro"
 
 
 variables:
@@ -54,48 +54,24 @@ variables:
 stages:
   #STAGING
   - ${{ if eq(parameters['STAG'], true) }}:
-      - ${{ if eq(parameters['ARC_P4PA'], true) }}:
-          - template: './base-deploy-pipelines.yml'
-            parameters:
-              ENV: 'arp4pa-stag'
-              ENV_FOLDER: 'arp4pa-stag'
-              WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
-              DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
-              SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_UAT)'
-              SC_APPLY_NAME: '$(TF_AZURE_SERVICE_CONNECTION_APPLY_NAME_UAT)'
-              POOL_NAME: '$(TF_POOL_NAME_UAT)'
-      - ${{ if eq(parameters['PAGOPA'], true) }}:
-          - template: './base-deploy-pipelines.yml'
-            parameters:
-              ENV: 'pagopa-stag'
-              ENV_FOLDER: 'pagopa-stag'
-              WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
-              DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
-              SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_UAT)'
-              SC_APPLY_NAME: '$(TF_AZURE_SERVICE_CONNECTION_APPLY_NAME_UAT)'
-              POOL_NAME: '$(TF_POOL_NAME_UAT)'
+    - template: './base-deploy-pipelines.yml'
+      parameters:
+        ENV: 'uat'
+        ENV_FOLDER: '$(TF_TARGET)-stag'
+        WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
+        DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
+        SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_UAT)'
+        SC_APPLY_NAME: '$(TF_AZURE_SERVICE_CONNECTION_APPLY_NAME_UAT)'
   #PROD
   - ${{ if eq(parameters['PROD'], true) }}:
-      - ${{ if eq(parameters['ARC_P4PA'], true) }}:
-          - template: './base-deploy-pipelines.yml'
-            parameters:
-              ENV: 'arp4pa-prod'
-              ENV_FOLDER: 'arp4pa-prod'
-              WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
-              DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
-              SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_PROD)'
-              SC_APPLY_NAME: '$(TF_AZURE_SERVICE_CONNECTION_APPLY_NAME_PROD)'
-              POOL_NAME: '$(TF_POOL_NAME_PROD)'
-      - ${{ if eq(parameters['PAGOPA'], true) }}:
-          - template: './base-deploy-pipelines.yml'
-            parameters:
-              ENV: 'pagopa-prod'
-              ENV_FOLDER: 'pagopa-prod'
-              WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
-              DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
-              SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_PROD)'
-              SC_APPLY_NAME: '$(TF_AZURE_SERVICE_CONNECTION_APPLY_NAME_PROD)'
-              POOL_NAME: '$(TF_POOL_NAME_PROD)'
+    - template: './base-deploy-pipelines.yml'
+      parameters:
+        ENV: 'prod'
+        ENV_FOLDER: '$(TF_TARGET)-prod'
+        WORKING_DIR_MODULE: ${{ variables.WORKING_DIR }}
+        DEFINITION_NAME: ${{ variables.DOMAIN_NAME }}
+        SC_PLAN_NAME: '$(TF_AZURE_SERVICE_CONNECTION_PLAN_NAME_PROD)'
+        SC_APPLY_NAME: '$(TF_AZURE_SERVICE_CONNECTION_APPLY_NAME_PROD)'
 
 
 

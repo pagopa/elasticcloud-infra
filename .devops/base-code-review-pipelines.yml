@@ -23,27 +23,48 @@ parameters:
   - name: 'AKS_NAME'
     type: string
     default: ''
+  - name: 'SECOND_AKS_APISERVER_URL'
+    type: string
+    default: ''
+  - name: 'SECOND_AKS_AZURE_DEVOPS_SA_CACRT'
+    type: string
+    default: ''
+  - name: 'SECOND_AKS_AZURE_DEVOPS_SA_TOKEN'
+    type: string
+    default: ''
+  - name: 'SECOND_AKS_NAME'
+    type: string
+    default: ''
   - name: 'POOL_NAME'
     type: string
+    default: ""
   - name: 'TIME_OUT'
     type: number
     default: 15
   - name: 'TF_SUMMARIZE'
     type: string
     default: ''
+  - name: 'USE_SOPS'
+    type: boolean
+    default: false
   - name: 'MODULE_USE_AKS'
     type: boolean
     default: false
-
-
+  - name: 'MODULE_USE_SECOND_AKS'
+    type: string # using string because parameter value comes from pipeline definition and is not interpreted as boolean
+    default: 'false'
+  - name: 'STAGE_NAME'
+    type: string
+    default: ''
 
 stages:
-  - stage: ${{replace(parameters.ENV, '-', '_')}}
-    displayName: 'Code review for ${{parameters.ENV}}'
+  - stage: ${{replace(parameters.ENV, '-', '_')}}${{parameters.STAGE_NAME}}
+    displayName: 'Code review for ${{parameters.ENV}} ${{parameters.STAGE_NAME}}'
     dependsOn: []
     condition: succeeded()
-    pool:
-      name: "${{parameters.POOL_NAME}}"
+    ${{ if ne(parameters.POOL_NAME, '') }}:
+      pool:
+        name: "${{parameters.POOL_NAME}}"
     jobs:
       - ${{ if ne(parameters.WORKING_DIR_MODULE, '') }}:
         - job: tfplan_module
@@ -54,8 +75,10 @@ stages:
             - checkout: self
             # 1. Install terraform
             - template: templates/terraform-setup/template.yaml@terraform
+              parameters:
+                USE_SOPS: ${{ parameters.USE_SOPS }}
             - template: templates/terraform-summarize/template.yaml@terraform
-            # 2. Run terraform plan core
+            # 2. Run terraform plan
             - template: templates/terraform-plan/template.yaml@terraform
               parameters:
                 TF_ENVIRONMENT_FOLDER: ${{ lower(parameters.ENV_FOLDER) }}
@@ -68,4 +91,9 @@ stages:
                   AKS_API_SERVER_URL: ${{ parameters.AKS_APISERVER_URL }}
                   AKS_AZURE_DEVOPS_SA_CA_CRT: ${{ parameters.AKS_AZURE_DEVOPS_SA_CACRT }}
                   AKS_AZURE_DEVOPS_SA_TOKEN: ${{ parameters.AKS_AZURE_DEVOPS_SA_TOKEN }}
+                ${{ if ne(parameters.MODULE_USE_SECOND_AKS, 'false') }}:
+                  SECOND_AKS_NAME: ${{ parameters.SECOND_AKS_NAME }}
+                  SECOND_AKS_API_SERVER_URL: ${{ parameters.SECOND_AKS_APISERVER_URL }}
+                  SECOND_AKS_AZURE_DEVOPS_SA_CA_CRT: ${{ parameters.SECOND_AKS_AZURE_DEVOPS_SA_CACRT }}
+                  SECOND_AKS_AZURE_DEVOPS_SA_TOKEN: ${{ parameters.SECOND_AKS_AZURE_DEVOPS_SA_TOKEN }}
 

@@ -26,6 +26,10 @@ terraform {
       source  = "hashicorp/helm"
       version = "= 2.17.0"
     }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.31"
+    }
   }
 
   backend "azurerm" {}
@@ -70,6 +74,15 @@ provider "kubectl" {
   config_path = local.cluster_2_config_path
 }
 
+provider "kubernetes" {
+  alias       = "cluster_1"
+  config_path = local.cluster_1_config_path
+}
+
+provider "kubernetes" {
+  alias       = "cluster_2"
+  config_path = local.cluster_2_config_path
+}
 
 provider "helm" {
   alias = "cluster_1"
@@ -85,8 +98,7 @@ provider "helm" {
   }
 }
 
-
 module "__v4__" {
-  # 1.8.0
+  # https://github.com/pagopa/terraform-azurerm-v4/releases/tag/v1.8.0
   source = "git::https://github.com/pagopa/terraform-azurerm-v4?ref=659a44db66e6fbfaddd56471a9ee304ac7f074eb"
 }
