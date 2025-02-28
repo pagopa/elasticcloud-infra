@@ -7,9 +7,7 @@ location_short = "weu"
 kv_name_org_ec = "paymon-u-ec-org-kv"
 kv_rg_org_ec   = "paymon-u-ec-org-sec-rg"
 
-# temporarly commented because uat has not yet been created
-#shared_env = ["pagopa-dev", "pagopa-uat"]
-shared_env = ["pagopa-dev"]
+shared_env = ["pagopa-dev", "pagopa-uat"]
 
 hot_config = {
   size       = "4g"

@@ -27,5 +27,3 @@ ilm = {
 }
 
 ilm_delete_wait_for_snapshot = false
-
-

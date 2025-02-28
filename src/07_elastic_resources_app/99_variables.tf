@@ -59,13 +59,6 @@ variable "ilm" {
   }
 }
 
-variable "use_embedded_snapshot_policy" {
-  type        = bool
-  description = "If true, uses the embedded 'cloud-snapshot-policy' instead of 'default_snapshot_policy'"
-  default     = false
-}
-
-
 variable "ilm_delete_wait_for_snapshot" {
   type        = bool
   description = "Wheather or not the delete phase of every lifecycle policy for this environment needs to wait for snapshot policy to run or not"
