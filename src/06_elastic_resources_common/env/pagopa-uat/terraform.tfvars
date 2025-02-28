@@ -25,8 +25,8 @@ aks_config = [
       tolerated_taints = [{ key = "dedicated" }]
     }
     otel = {
-      namespace = "elastic-system"
-      create_ns = false
+      namespace     = "elastic-system"
+      create_ns     = false
       receiver_port = 4319
     }
   },
