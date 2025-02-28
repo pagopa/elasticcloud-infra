@@ -1,14 +1,56 @@
 prefix    = "pagopa"
 env_short = "u"
+env       = "uat"
 
-ec_deployment_id = "40aa630967df5cec1062507ad080cc6b"
+deployment_name = "pagopa-s-weu-ec"
 
-dedicated_log_instance_name = [
+role_mappings = {
+  pagopa-u-adgroup-admin      = ["admin"]
+  pagopa-u-adgroup-developers = ["editor"]
+  pagopa-u-adgroup-externals  = ["viewer"]
+  pagopa-u-adgroup-operations = ["viewer"]
+}
+
+default_snapshot_policy = {
+  enabled = false
+}
+
+
+aks_config = [
+  {
+    name = "pagopa-u-weu-uat-aks"
+    elastic_agent = {
+      namespace        = "elastic-cloud-agent"
+      create_ns        = true
+      tolerated_taints = [{ key = "dedicated" }]
+    }
+    otel = {
+      namespace = "elastic-system"
+      create_ns = false
+      receiver_port = 4319
+    }
+  },
+  {
+    name = "pagopa-u-itn-uat-aks"
+    elastic_agent = {
+      namespace = "elastic-cloud-agent"
+      create_ns = true
+    }
+    otel = {
+      namespace = "otel"
+      create_ns = true
+    }
+  }
+]
+
+k8s_application_log_instance_names = [
   /* nodo */ "nodo", "nodoreplica", "nodocron", "nodocronreplica", "pagopawebbo", "pagopawfespwfesp", "pagopafdr", "pagopafdrnodo", "wispsoapconverter", "pagopawispconverter",
   /* afm */ "pagopaafmcalculator-microservice-chart", "pagopaafmmarketplacebe-microservice-chart", "pagopaafmutils-microservice-chart",
   /* bizevents */ "pagopabizeventsdatastore-microservice-chart", "pagopabizeventsservice-microservice-chart", "pagopanegativebizeventsdatastore-microservice-chart",
   /* apiconfig */ "pagopaapiconfig-postgresql", "pagopaapiconfig-oracle", "apiconfig-selfcare-integration-microservice-chart", "cache-oracle", "cache-postgresql", "cache-replica-oracle", "cache-replica-postgresql",
   /* ecommerce */ "pagopaecommerceeventdispatcherservice-microservice-chart", "pagopaecommercepaymentmethodsservice-microservice-chart", "pagopaecommercepaymentrequestsservice-microservice-chart", "pagopaecommercetransactionsservice-microservice-chart", "pagopaecommercetxschedulerservice-microservice-chart", "pagopanotificationsservice-microservice-chart",
   /* selfcare */ "pagopaselfcaremsbackofficebackend-microservice-chart", "backoffice-external",
-  /* gps */ "gpd-core-microservice-chart", "pagopagpdpayments-microservice-chart", "pagopareportingorgsenrollment-microservice-chart", "pagopaspontaneouspayments-microservice-chart", "gpd-payments-pull", "gpd-upload-microservice-chart", "pagopapagopagpdingestionmanager-microservice-chart"
+  /* gps */ "gpd-core-microservice-chart", "pagopagpdpayments-microservice-chart", "pagopareportingorgsenrollment-microservice-chart", "pagopaspontaneouspayments-microservice-chart", "gpd-payments-pull", "gpd-upload-microservice-chart", "pagopapagopagpdingestionmanager-microservice-chart",
+  /* fdr */ "fdr-nodo-fdrnodo", "pagopafdr-microservice-chart", "fdr-technicalsupport-microservice-chart",
+  /* printit */ "print-payment-notice-service", "print-payment-notice-generator", "print-payment-notice-functions"
 ]

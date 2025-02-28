@@ -2,6 +2,14 @@
 
 This module creates the resources required to store the secrets for each monitored target and stores those secrets
 
+the required secrets to be configured are:
+
+| Name                                                  | Description                                                                        |
+|-------------------------------------------------------|------------------------------------------------------------------------------------|
+| `elasticsearch-api-key`                                 | Api key obtained from kibana, used to access and create resources on elasticsearch |
+| `<target>-<env_short>-<region>-<env>-aks-apiserver-url` | AKS Api server url, one for each cluster in the target product-env                 |
+
+
 <!-- markdownlint-disable -->
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
