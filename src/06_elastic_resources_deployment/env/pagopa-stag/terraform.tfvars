@@ -9,6 +9,6 @@ kv_rg_org_ec             = "paymon-u-ec-org-sec-rg"
 elastic_apikey_env_short = "u"
 elastic_apikey_env       = "uat"
 
-default_ilm = "w2-c4-d5"
+default_ilm = "w1-c3-d5"
 
 deployment_name = "pagopa-s-weu-ec"
