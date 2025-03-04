@@ -17,7 +17,8 @@ locals {
     "marco.mari@pagopa.it",
     "matteo.alongi@pagopa.it",
     "diego.lagosmorales@pagopa.it",
-    "fabio.felici@pagopa.it"
+    "fabio.felici@pagopa.it",
+    "umberto.coppolabottazzi@pagopa.it"
   ]
 
   ilm = lookup(var.default_ilm, "ilm", local.default_ilm)
