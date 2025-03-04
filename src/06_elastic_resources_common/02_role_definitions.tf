@@ -31,7 +31,7 @@ resource "elasticstack_elasticsearch_security_role" "admin_role" {
           "feature_canvas.all", "feature_ml.all", "feature_graph.all", "feature_maps.all",
           "feature_logs.all", "feature_infrastructure.all", "feature_apm.all", "feature_uptime.all",
         "feature_slo.all", "feature_dev_tools.all", "feature_indexPatterns.read"],
-      resources = ["*"] }
+      resources = ["space:default", "space:*-${var.env}"] }
     ])
     content {
       application = applications.value.application
@@ -76,7 +76,7 @@ resource "elasticstack_elasticsearch_security_role" "editor_role" {
           "feature_logs.all", "feature_infrastructure.all", "feature_apm.all", "feature_uptime.all",
           "feature_slo.all", "feature_dev_tools.all", "feature_indexPatterns.read",
         ],
-        resources = ["*"]
+        resources = ["space:default", "space:*-${var.env}"]
       }
     ])
     content {
@@ -117,7 +117,7 @@ resource "elasticstack_elasticsearch_security_role" "viewer_role" {
       {
         application = "kibana-.kibana",
         privileges  = ["space_read"],
-        resources   = ["*"]
+        resources   = ["space:default", "space:*-${var.env}"]
       }
     ])
     content {
