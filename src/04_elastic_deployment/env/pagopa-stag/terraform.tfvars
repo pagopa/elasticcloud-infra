@@ -11,7 +11,7 @@ shared_env = ["pagopa-dev", "pagopa-uat"]
 
 hot_config = {
   size       = "4g"
-  zone_count = 2
+  zone_count = 3
 }
 
 warm_config = {
