@@ -27,7 +27,7 @@ kibana_config = {
   zone_count = 2
 }
 master_config = {
-  size       = "2g"
+  size       = "1g"
   zone_count = 3
 }
 coordinating_config = {
