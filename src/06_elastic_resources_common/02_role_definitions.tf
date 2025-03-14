@@ -3,7 +3,7 @@ resource "elasticstack_elasticsearch_security_role" "admin_role" {
   cluster = null
 
   dynamic "indices" {
-    for_each = toset(["logs-*-${replace(local.prefix_env, "-", ".")}"])
+    for_each = toset(["logs-*-${local.elastic_namespace}"])
     content {
       names = [indices.key]
       privileges = [
@@ -15,9 +15,7 @@ resource "elasticstack_elasticsearch_security_role" "admin_role" {
   }
 
   indices {
-    names = [
-      "traces-apm*", "traces-*.otel-*", "logs-apm*", "apm-*", "logs-*.otel-*", "metrics-apm*", "metrics-*.otel-*"
-    ]
+    names = local.apm_indices
     privileges = [
       "create_doc", "index", "monitor", "read", "view_index_metadata",
     ]
@@ -59,8 +57,7 @@ resource "elasticstack_elasticsearch_security_role" "editor_role" {
   }
 
   indices {
-    names = [
-    "traces-apm*", "traces-*.otel-*", "logs-apm*", "apm-*", "logs-*.otel-*", "metrics-apm*", "metrics-*.otel-*"]
+    names = local.apm_indices
     privileges = [
       "create_doc", "index", "monitor", "read", "view_index_metadata",
     ]
@@ -94,7 +91,7 @@ resource "elasticstack_elasticsearch_security_role" "viewer_role" {
   cluster = null
 
   dynamic "indices" {
-    for_each = toset(["logs-*-${replace(local.prefix_env, "-", ".")}"])
+    for_each = toset(["logs-*-${local.elastic_namespace}"])
     content {
       names = [indices.key]
       privileges = [
@@ -104,9 +101,7 @@ resource "elasticstack_elasticsearch_security_role" "viewer_role" {
   }
 
   indices {
-    names = [
-      "traces-apm*", "traces-*.otel-*", "logs-apm*", "apm-*", "logs-*.otel-*", "metrics-apm*", "metrics-*.otel-*"
-    ]
+    names = local.apm_indices
     privileges = [
       "monitor", "read", "view_index_metadata",
     ]

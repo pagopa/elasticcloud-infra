@@ -8,6 +8,7 @@ module "otel_cluster_1" {
   create_namespace                    = var.aks_config[0].otel.create_ns
   grpc_receiver_port                  = var.aks_config[0].otel.receiver_port
   deployment_env                      = var.env
+  elastic_namespace                   = "${var.prefix}.${var.env}"
 
   affinity_selector = var.aks_config[0].otel.affinity_selector
 
@@ -28,6 +29,7 @@ module "otel_cluster_2" {
   create_namespace                    = var.aks_config[1].otel.create_ns
   grpc_receiver_port                  = var.aks_config[0].otel.receiver_port
   deployment_env                      = var.env
+  elastic_namespace                   = "${var.prefix}.${var.env}"
 
   affinity_selector = var.aks_config[1].otel.affinity_selector
 
