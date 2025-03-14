@@ -2,12 +2,12 @@ locals {
   subscription_prefix  = "paymon"
   subscription_product = "${local.subscription_prefix}-${var.env_short}"
 
-  prefix_env       = "${var.prefix}-${var.env}"
-  elastic_namespace= "${var.prefix}.${var.env}"
-  prefix_env_short = "${var.prefix}-${var.env_short}"
+  prefix_env        = "${var.prefix}-${var.env}"
+  elastic_namespace = "${var.prefix}.${var.env}"
+  prefix_env_short  = "${var.prefix}-${var.env_short}"
 
   apm_indices = [
-      "traces-apm*-${local.elastic_namespace}", "traces-*.otel-*-${local.elastic_namespace}", "logs-apm*-${local.elastic_namespace}", "apm-*-${local.elastic_namespace}", "logs-*.otel-*-${local.elastic_namespace}", "metrics-apm*-${local.elastic_namespace}", "metrics-*.otel-*-${local.elastic_namespace}"
+    "traces-apm*-${local.elastic_namespace}", "traces-*.otel-*-${local.elastic_namespace}", "logs-apm*-${local.elastic_namespace}", "apm-*-${local.elastic_namespace}", "logs-*.otel-*-${local.elastic_namespace}", "metrics-apm*-${local.elastic_namespace}", "metrics-*.otel-*-${local.elastic_namespace}"
   ]
 
   tags = {
