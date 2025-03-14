@@ -19,7 +19,7 @@ locals {
   }
 
   admins_email = [
-    # "marco.mari@pagopa.it",
+    "marco.mari@pagopa.it",
     "matteo.alongi@pagopa.it",
     "diego.lagosmorales@pagopa.it",
     "fabio.felici@pagopa.it",
