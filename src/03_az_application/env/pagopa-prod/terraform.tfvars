@@ -1,5 +1,5 @@
-prefix    = "pagopa"
-env = "prod"
+prefix = "pagopa"
+env    = "prod"
 
 deployment_name = "pagopa-p-weu-ec"
 location        = "westeurope"
