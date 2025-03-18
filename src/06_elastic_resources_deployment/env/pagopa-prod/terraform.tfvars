@@ -18,3 +18,4 @@ default_ilm_metrics = "w3-c8-d90"
 
 deployment_name = "pagopa-p-weu-ec"
 
+ilm_delete_wait_for_snapshot = true

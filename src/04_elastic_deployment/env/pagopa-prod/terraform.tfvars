@@ -21,12 +21,16 @@ warm_config = {
   zone_count = 3
 }
 cold_config = {
-  size       = "30g"
-  zone_count = 2
+  size       = "8g"
+  zone_count = 3
 }
 kibana_config = {
   size       = "2g"
-  zone_count = 2
+  zone_count = 3
+}
+integration_server = {
+  size  = "1g"
+  zones = 3
 }
 master_config = {
   size       = "2g"
@@ -44,8 +48,5 @@ elk_snapshot_sa = {
 
 elasticsearch_version = "8.17.0"
 
-integration_server = {
-  size  = "1g"
-  zones = 2
-}
+
 

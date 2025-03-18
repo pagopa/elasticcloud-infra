@@ -19,7 +19,7 @@ default_snapshot_policy = {
 
 aks_config = [
   {
-    name = "pagopa-p-weu-uat-aks"
+    name = "pagopa-p-weu-prod-aks"
     elastic_agent = {
       namespace        = "elastic-cloud-agent"
       create_ns        = true
@@ -31,7 +31,7 @@ aks_config = [
     }
   },
   {
-    name = "pagopa-p-itn-uat-aks"
+    name = "pagopa-p-itn-prod-aks"
     elastic_agent = {
       namespace = "elastic-cloud-agent"
       create_ns = true
