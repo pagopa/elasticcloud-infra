@@ -13,8 +13,8 @@ elastic_apikey_env       = "prod"
 
 
 default_ilm_logs    = "w2-c4-d7"
-default_ilm_traces  = "w2-c4-d7"
-default_ilm_metrics = "w2-c4-d7"
+default_ilm_traces  = "w3-c8-d30"
+default_ilm_metrics = "w3-c8-d90"
 
 deployment_name = "pagopa-p-weu-ec"
 
