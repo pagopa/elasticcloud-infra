@@ -76,12 +76,15 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_default_ilm"></a> [default\_ilm](#input\_default\_ilm) | ILM used by default index templates via logs@custom, traces@custom and metrics@custom | `string` | n/a | yes |
+| <a name="input_default_ilm_logs"></a> [default\_ilm\_logs](#input\_default\_ilm\_logs) | ILM used by default index templates via logs@custom | `string` | n/a | yes |
+| <a name="input_default_ilm_metrics"></a> [default\_ilm\_metrics](#input\_default\_ilm\_metrics) | ILM used by default index templates via metrics@custom | `string` | n/a | yes |
+| <a name="input_default_ilm_traces"></a> [default\_ilm\_traces](#input\_default\_ilm\_traces) | ILM used by default index templates via traces@custom | `string` | n/a | yes |
 | <a name="input_deployment_name"></a> [deployment\_name](#input\_deployment\_name) | (Required) EC deployment name | `string` | n/a | yes |
 | <a name="input_elastic_apikey_env"></a> [elastic\_apikey\_env](#input\_elastic\_apikey\_env) | Env to be used when building the KV name to retrieve the elasticsearch api key | `string` | n/a | yes |
 | <a name="input_elastic_apikey_env_short"></a> [elastic\_apikey\_env\_short](#input\_elastic\_apikey\_env\_short) | Short env to be used when building the KV name to retrieve the elasticsearch api key | `string` | n/a | yes |
 | <a name="input_env"></a> [env](#input\_env) | n/a | `string` | n/a | yes |
 | <a name="input_env_short"></a> [env\_short](#input\_env\_short) | n/a | `string` | n/a | yes |
+| <a name="input_ilm_delete_wait_for_snapshot"></a> [ilm\_delete\_wait\_for\_snapshot](#input\_ilm\_delete\_wait\_for\_snapshot) | Wheather or not the delete phase of every lifecycle policy for this environment needs to wait for snapshot policy to run or not | `bool` | n/a | yes |
 | <a name="input_kv_name_org_ec"></a> [kv\_name\_org\_ec](#input\_kv\_name\_org\_ec) | n/a | `string` | n/a | yes |
 | <a name="input_kv_rg_org_ec"></a> [kv\_rg\_org\_ec](#input\_kv\_rg\_org\_ec) | n/a | `string` | n/a | yes |
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | n/a | `string` | n/a | yes |

@@ -5,6 +5,7 @@ locals {
     trimsuffix(basename(f), ".json") =>
     jsondecode(templatefile("${path.module}/custom_resources/ilm/${f}", {
       prefix_env_short = local.prefix_env_short
+      snapshot_policy  = "${local.prefix_env_short}-default-nightly-snapshots"
     }))
   }
 }
@@ -20,6 +21,7 @@ resource "elasticstack_elasticsearch_index_lifecycle" "index_lifecycle" {
 
     rollover {
       max_primary_shard_size = each.value.hot.rollover.maxPrimarySize
+      min_primary_shard_size = each.value.hot.rollover.minPrimarySize
       max_age                = each.value.hot.rollover.maxAge
     }
   }
@@ -45,6 +47,13 @@ resource "elasticstack_elasticsearch_index_lifecycle" "index_lifecycle" {
 
     delete {
       delete_searchable_snapshot = each.value.delete.deleteSearchableSnapshot
+    }
+
+    dynamic "wait_for_snapshot" {
+      for_each = var.ilm_delete_wait_for_snapshot ? [1] : []
+      content {
+        policy = each.value.delete.waitForSnapshot
+      }
     }
   }
 

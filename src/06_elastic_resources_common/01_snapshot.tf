@@ -16,14 +16,11 @@ resource "elasticstack_elasticsearch_snapshot_lifecycle" "default_snapshot_polic
   name  = "${local.prefix_env_short}-default-nightly-snapshots"
 
   schedule      = var.default_snapshot_policy.scheduling
-  snapshot_name = "<nightly-snap-{now/d}>"
+  snapshot_name = "<${local.prefix_env_short}-nightly-snap-{now/d}>"
   repository    = elasticstack_elasticsearch_snapshot_repository.snapshot_repository.name
 
   indices = [
-    "*-${var.prefix}.${var.env}",
-    "logs-apm*",
-    "traces-apm*",
-    "metrics-apm*"
+    "*-${var.prefix}.${var.env}"
   ]
   ignore_unavailable   = true
   include_global_state = true

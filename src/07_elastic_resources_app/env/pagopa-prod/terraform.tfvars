@@ -1,12 +1,29 @@
 prefix    = "pagopa"
 env_short = "p"
+env       = "prod"
 
-k8s_application_log_instance_names = [
-  /* nodo */ "nodo", "nodoreplica", "nodocron", "nodocronreplica", "pagopawebbo", "pagopawfespwfesp", "pagopafdr", "pagopafdrnodo", "wispsoapconverter", "pagopawispconverter",
-  /* afm */ "pagopaafmcalculator-microservice-chart", "pagopaafmmarketplacebe-microservice-chart", "pagopaafmutils-microservice-chart",
-  /* bizevents */ "pagopabizeventsdatastore-microservice-chart", "pagopabizeventsservice-microservice-chart", "pagopanegativebizeventsdatastore-microservice-chart",
-  /* apiconfig */ "pagopaapiconfig-postgresql", "pagopaapiconfig-oracle", "apiconfig-selfcare-integration-microservice-chart", "cache-oracle", "cache-postgresql", "cache-replica-oracle", "cache-replica-postgresql",
-  /* ecommerce */ "pagopaecommerceeventdispatcherservice-microservice-chart", "pagopaecommercepaymentmethodsservice-microservice-chart", "pagopaecommercepaymentrequestsservice-microservice-chart", "pagopaecommercetransactionsservice-microservice-chart", "pagopaecommercetxschedulerservice-microservice-chart", "pagopanotificationsservice-microservice-chart",
-  /* selfcare */ "pagopaselfcaremsbackofficebackend-microservice-chart", "backoffice-external",
-  /* gps */ "gpd-core-microservice-chart", "pagopagpdpayments-microservice-chart", "pagopareportingorgsenrollment-microservice-chart", "pagopaspontaneouspayments-microservice-chart", "gpd-payments-pull", "gpd-upload-microservice-chart", "pagopapagopagpdingestionmanager-microservice-chart"
-]
+deployment_name = "pagopa-p-weu-ec"
+
+ilm = {
+  nodo                 = "w2-c4-d7"
+  nodocron             = "w2-c4-d7"
+  nodoreplica          = "w2-c4-d7"
+  nodocronreplica      = "w2-c4-d7"
+  pagopastandinmanager = "w2-c4-d7"
+  pagopawebbo          = "w2-c4-d7"
+  pagopawfespwfesp     = "w2-c4-d7"
+  pagopawfespwfesp     = "w2-c4-d7"
+  pagopawispconverter  = "w2-c4-d7"
+  tech-support         = "w2-c4-d7"
+  wispsoapconverter    = "w2-c4-d7"
+  ecommerce            = "w2-c4-d7"
+  pagopapaymentspull   = "w2-c4-d7"
+  pagopa               = "w2-c4-d7"
+  paywallet            = "w2-c4-d7"
+  printit              = "w2-c4-d7"
+  fdr                  = "w2-c4-d7"
+  fdrnodo              = "w2-c4-d7"
+
+}
+
+ilm_delete_wait_for_snapshot = true

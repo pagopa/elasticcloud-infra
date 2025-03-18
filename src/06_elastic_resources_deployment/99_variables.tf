@@ -28,9 +28,17 @@ variable "deployment_name" {
   description = "(Required) EC deployment name"
 }
 
-variable "default_ilm" {
+variable "default_ilm_logs" {
   type        = string
-  description = "ILM used by default index templates via logs@custom, traces@custom and metrics@custom"
+  description = "ILM used by default index templates via logs@custom"
+}
+variable "default_ilm_traces" {
+  type        = string
+  description = "ILM used by default index templates via traces@custom"
+}
+variable "default_ilm_metrics" {
+  type        = string
+  description = "ILM used by default index templates via metrics@custom"
 }
 
 variable "kv_name_org_ec" {
@@ -51,5 +59,9 @@ variable "elastic_apikey_env" {
   description = "Env to be used when building the KV name to retrieve the elasticsearch api key"
 }
 
+variable "ilm_delete_wait_for_snapshot" {
+  type        = bool
+  description = "Wheather or not the delete phase of every lifecycle policy for this environment needs to wait for snapshot policy to run or not"
+}
 
 

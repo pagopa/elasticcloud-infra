@@ -16,7 +16,7 @@
     "setPriority": 0
   },
   "delete": {
-    "minAge": "5d",
+    "minAge": "30d",
     "deleteSearchableSnapshot": true,
     "waitForSnapshot": "${snapshot_policy}"
   }

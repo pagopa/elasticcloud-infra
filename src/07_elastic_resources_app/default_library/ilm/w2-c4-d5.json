@@ -3,6 +3,7 @@
     "minAge": "0ms",
     "rollover": {
       "maxPrimarySize": "50gb",
+      "minPrimarySize": "10gb",
       "maxAge": "2d"
     }
   },
