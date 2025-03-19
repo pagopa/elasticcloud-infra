@@ -19,7 +19,7 @@ warm_config = {
   zone_count = 2
 }
 cold_config = {
-  size       = "2g"
+  size       = "4g"
   zone_count = 2
 }
 kibana_config = {
