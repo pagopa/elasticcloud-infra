@@ -23,6 +23,7 @@ ilm = {
   printit              = "w2-c4-d5"
   fdr                  = "w2-c4-d5"
   fdrnodo              = "w2-c4-d5"
+  checkout             = "w2-c4-d5"
 
 }
 
