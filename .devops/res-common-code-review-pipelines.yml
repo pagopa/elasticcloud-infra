@@ -5,7 +5,7 @@ pr:
       - main
   paths:
     include:
-      - 'src/05_elastic_secret'
+      - 'src/06_elastic_resources_common'
     exclude:
       - '**/*.lock.hcl'
       - '**/*.md'
