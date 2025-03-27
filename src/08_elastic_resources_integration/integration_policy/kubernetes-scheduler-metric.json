@@ -1,0 +1,15 @@
+{
+  "kubernetes.scheduler": {
+    "enabled": false,
+    "vars": {
+      "bearer_token_file": "/var/run/secrets/kubernetes.io/serviceaccount/token",
+      "hosts": [
+        "https://0.0.0.0:10259"
+      ],
+      "period": "10s",
+      "scheduler_label_key": "component",
+      "scheduler_label_value": "kube-scheduler",
+      "ssl.verification_mode": "none"
+    }
+  }
+}
