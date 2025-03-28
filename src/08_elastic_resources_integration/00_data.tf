@@ -34,3 +34,8 @@ data "azurerm_key_vault_secret" "elastic_cloud_api_key" {
   name         = "elastic-cloud-api-key"
   key_vault_id = data.azurerm_key_vault.key_vault_org.id
 }
+
+data "azurerm_key_vault" "key_vault" {
+  name                = "${local.subscription_product}-${local.prefix_env}-kv"
+  resource_group_name = "${local.subscription_product}-${local.prefix_env}-sec-rg"
+}
