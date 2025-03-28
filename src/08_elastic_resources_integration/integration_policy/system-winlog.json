@@ -1,0 +1,32 @@
+{
+  "system.application": {
+    "enabled": true,
+    "vars": {
+      "preserve_original_event": false,
+      "ignore_older": "72h",
+      "language": 0,
+      "tags": [],
+       "custom": "# Winlog configuration example\n#batch_read_size: 100"
+    }
+  },
+  "system.security": {
+    "enabled": true,
+    "vars": {
+      "preserve_original_event": false,
+      "ignore_older": "72h",
+      "language": 0,
+      "tags": [],
+       "custom": "# Winlog configuration example\n#batch_read_size: 100"
+    }
+  },
+  "system.system": {
+    "enabled": true,
+    "vars": {
+      "preserve_original_event": false,
+      "ignore_older": "72h",
+      "language": 0,
+      "tags": [],
+       "custom": "# Winlog configuration example\n#batch_read_size: 100"
+    }
+  }
+}
