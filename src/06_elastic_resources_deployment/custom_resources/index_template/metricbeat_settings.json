@@ -1,8 +1,5 @@
 {
   "index": {
-    "lifecycle": {
-      "name": "metricbeat"
-    },
     "mapping": {
       "total_fields": {
         "limit": "12500"

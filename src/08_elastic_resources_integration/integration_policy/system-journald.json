@@ -1,0 +1,20 @@
+{
+  "system.auth": {
+    "enabled": true,
+    "vars": {
+      "include_matches": [],
+      "paths": [],
+      "preserve_original_event": false,
+      "tags": []
+    }
+  },
+  "system.syslog": {
+    "enabled": true,
+    "vars": {
+      "include_matches": [],
+      "paths": [],
+      "preserve_original_event": false,
+      "tags": []
+    }
+  }
+}

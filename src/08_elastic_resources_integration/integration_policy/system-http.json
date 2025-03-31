@@ -1,0 +1,32 @@
+{
+  "system.application": {
+    "enabled": false,
+    "vars": {
+      "interval": "10s",
+      "search": "search sourcetype=\"XmlWinEventLog:Application\"",
+      "tags": [
+        "forwarded"
+      ]
+    }
+  },
+  "system.security": {
+    "enabled": false,
+    "vars": {
+      "interval": "10s",
+      "search": "search sourcetype=\"XmlWinEventLog:Security\"",
+      "tags": [
+        "forwarded"
+      ]
+    }
+  },
+  "system.system": {
+    "enabled": false,
+    "vars": {
+      "interval": "10s",
+      "search": "search sourcetype=\"XmlWinEventLog:System\"",
+      "tags": [
+        "forwarded"
+      ]
+    }
+  }
+}

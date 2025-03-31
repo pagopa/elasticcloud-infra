@@ -1,0 +1,17 @@
+{
+  "kubernetes.container_logs": {
+    "enabled": true,
+    "vars": {
+      "additionalParsersConfig": "# - ndjson:\n#     target: json\n#     ignore_decoding_error: true\n# - multiline:\n#     type: pattern\n#     pattern: '^\\['\n#     negate: true\n#     match: after\n",
+      "containerParserFormat": "auto",
+      "containerParserStream": "all",
+      "data_stream.dataset": "kubernetes.container_logs",
+      "fingerprintYaml": "enabled: true # This must be set to `true`\noffset: 0\nlength: 1024\n",
+      "paths": [
+        "/var/log/containers/*${kubernetes.container.id}.log"
+      ],
+      "symlinks": true,
+      "useFingerprint": true
+    }
+  }
+}
