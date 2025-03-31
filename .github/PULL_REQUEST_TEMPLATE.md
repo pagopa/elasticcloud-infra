@@ -11,7 +11,7 @@ Checklist based on the documentation provided [here](https://github.com/pagopa/e
 - [ ] Created a new application folder
 - [ ] Defined `appSettings.json`
 - [ ] Defined the index lifecycle management policy for your app 
-- [ ] If using elastic agent: defined your service name in `06_elastic_resources_common/env/<target>-<env>/terraform.tfvars` => `k8s_application_log_instance_names` variable
+- [ ] If using elastic agent: defined your service name in `08_elastic_resources_integration/env/<target>-<env>/terraform.tfvars` => `k8s_application_log_instance_names` variable
 
 For any detail refer to the documentation linked above
 

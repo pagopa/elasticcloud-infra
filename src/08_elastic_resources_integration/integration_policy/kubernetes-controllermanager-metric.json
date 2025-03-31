@@ -1,0 +1,15 @@
+{
+  "kubernetes.controllermanager": {
+    "enabled": false,
+    "vars": {
+      "bearer_token_file": "/var/run/secrets/kubernetes.io/serviceaccount/token",
+      "controller_manager_label_key": "component",
+      "controller_manager_label_value": "kube-controller-manager",
+      "hosts": [
+        "https://0.0.0.0:10257"
+      ],
+      "period": "10s",
+      "ssl.verification_mode": "none"
+    }
+  }
+}

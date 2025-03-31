@@ -1,0 +1,11 @@
+{
+  "kubernetes.proxy": {
+    "enabled": true,
+    "vars": {
+      "hosts": [
+        "prometheus-kube-prometheus-kube-proxy:10249"
+      ],
+      "period": "10s"
+    }
+  }
+}

@@ -2,9 +2,9 @@
   "hot": {
     "minAge": "0ms",
     "rollover": {
-      "maxPrimarySize": "50gb",
+      "maxPrimarySize": "20gb",
       "minPrimarySize": "10gb",
-      "maxAge": "2d"
+      "maxAge": "1d"
     }
   },
   "warm": {

@@ -8,15 +8,15 @@
     }
   },
   "warm": {
-    "minAge": "1d",
+    "minAge": "2d",
     "setPriority": 50
   },
   "cold": {
-    "minAge": "3d",
+    "minAge": "8d",
     "setPriority": 0
   },
   "delete": {
-    "minAge": "5d",
+    "minAge": "30d",
     "deleteSearchableSnapshot": true,
     "waitForSnapshot": "${snapshot_policy}"
   }
