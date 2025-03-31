@@ -45,6 +45,6 @@ provider "elasticstack" {
 
 
 module "__v4__" {
-  # 1.20.0
-  source = "git::https://github.com/pagopa/terraform-azurerm-v4?ref=elastic_app_resources-file-contents" // TODO change after merge of https://github.com/pagopa/terraform-azurerm-v4/pull/37
+  # 1.24.0
+  source = "git::https://github.com/pagopa/terraform-azurerm-v4?ref=ef48c69313b42975acc0cdbc620f94a374294017"
 }
