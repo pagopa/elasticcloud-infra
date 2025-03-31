@@ -8,7 +8,7 @@
     }
   },
   "warm": {
-    "minAge": "3d",
+    "minAge": "2d",
     "setPriority": 50
   },
   "cold": {
