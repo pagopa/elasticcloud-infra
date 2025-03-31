@@ -24,7 +24,7 @@ ilm = {
   fdr                  = "w2-c4-d7"
   fdrnodo              = "w2-c4-d7"
   checkout             = "w2-c4-d7"
-  backoffice           = "w2-c4-d7"
+  backoffice           = "w3-c8-d30"
 
 }
 
