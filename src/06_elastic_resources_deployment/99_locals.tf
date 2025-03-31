@@ -5,6 +5,8 @@ locals {
   prefix_env       = "${var.prefix}-${var.env}"
   prefix_env_short = "${var.prefix}-${var.env_short}"
 
+  ilm_prefix = "${var.prefix}-${var.env_short}-deployment"
+
   tags = {
     CreatedBy   = "Terraform"
     Environment = upper(var.env)
