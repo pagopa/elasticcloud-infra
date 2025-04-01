@@ -3,6 +3,7 @@ locals {
     logs : var.default_ilm_logs,
     traces : var.default_ilm_traces,
     metrics : var.default_ilm_metrics
+    elastic : var.default_ilm_elastic
   }
 
   custom_lifecycle_components = { for k, v in local.custom_licecycle_idx : k =>
