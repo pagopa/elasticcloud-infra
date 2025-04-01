@@ -40,6 +40,10 @@ variable "default_ilm_metrics" {
   type        = string
   description = "ILM used by default index templates via metrics@custom"
 }
+variable "default_ilm_elastic" {
+  type        = string
+  description = "ILM used by default index templates via elastic@custom"
+}
 
 variable "kv_name_org_ec" {
   type = string
