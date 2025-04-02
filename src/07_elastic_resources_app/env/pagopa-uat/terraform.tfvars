@@ -25,6 +25,9 @@ ilm = {
   fdrnodo              = "w2-c4-d5"
   checkout             = "w2-c4-d5"
   backoffice           = "w2-c4-d5"
+  apiconfig            = "w2-c4-d5"
+  bizevents            = "w2-c4-d5"
+  afm                  = "w2-c4-d5"
 }
 
 ilm_delete_wait_for_snapshot = false

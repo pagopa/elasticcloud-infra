@@ -25,6 +25,9 @@ ilm = {
   fdrnodo              = "w2-c4-d7"
   checkout             = "w2-c4-d7"
   backoffice           = "w2-c8-d30"
+  apiconfig            = "w2-c4-d7"
+  bizevents            = "w2-c4-d7"
+  afm                  = "w2-c4-d7"
 
 }
 
