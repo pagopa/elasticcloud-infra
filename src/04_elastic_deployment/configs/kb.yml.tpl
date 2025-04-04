@@ -1,3 +1,4 @@
+xpack.reporting.roles.enabled: false
 xpack.security.authc.providers:
 %{ for prefix_env, data in shared_env }
   saml.${prefix_env}:
