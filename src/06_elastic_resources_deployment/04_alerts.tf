@@ -59,10 +59,10 @@ locals {
       description = "${title(var.env)} cluster nodes memory usage is high"
       params = {
         threshold = 70
-        duration = "5m"
+        duration = "10m"
       }
       rule_type_id = "monitoring_alert_jvm_memory_usage"
-      interval     = "1m"
+      interval     = "5m"
       opsgenie_priority     = "P2"
     },
     index_shard_size = {
