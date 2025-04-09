@@ -14,6 +14,11 @@ locals {
     snapshot_policy  = "cloud-snapshot-policy"
   }))
 
+  metricbeat_logs_policy = jsondecode(templatefile("${path.module}/custom_resources/ilm/${var.default_ilm_metricbeat}.json", {
+    prefix_env_short = local.prefix_env_short
+    snapshot_policy  = "cloud-snapshot-policy"
+  }))
+
 }
 
 # kept for backward compatibility
