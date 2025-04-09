@@ -9,10 +9,24 @@ locals {
     }))
   }
 
-  elastic_logs_policy = jsondecode(templatefile("${path.module}/custom_resources/ilm/${var.default_ilm_elastic}.json", {
-    prefix_env_short = local.prefix_env_short
-    snapshot_policy  = "cloud-snapshot-policy"
-  }))
+  ilm_custom_policy = {
+    elastic = {
+      snapshot_policy = "cloud-snapshot-policy"
+      ilm             = var.default_ilm_elastic
+    }
+    metricbeat = {
+      snapshot_policy = "cloud-snapshot-policy"
+      ilm             = var.default_ilm_metricbeat
+    }
+  }
+
+  ilm_custom_policies = {
+    for k, v in local.ilm_custom_policy :
+    k => jsondecode(templatefile("${path.module}/custom_resources/ilm/${v.ilm}.json", {
+      prefix_env_short = local.prefix_env_short
+      snapshot_policy  = v.snapshot_policy
+    }))
+  }
 
 }
 
@@ -124,48 +138,49 @@ resource "elasticstack_elasticsearch_index_lifecycle" "deployment_index_lifecycl
 }
 
 
-# used for elastic-cloud-logs-8 index, to not be included in applicateive snapshot policy
-resource "elasticstack_elasticsearch_index_lifecycle" "elastic_logs_index_lifecycle" {
 
-  name = "${local.ilm_prefix}-elastic-${var.default_ilm_elastic}-ilm"
+resource "elasticstack_elasticsearch_index_lifecycle" "custom_index_lifecycle" {
+  for_each = local.ilm_custom_policies
+
+  name = "${local.ilm_prefix}-${each.key}-ilm"
 
   hot {
-    min_age = local.elastic_logs_policy.hot.minAge
+    min_age = each.value.hot.minAge
 
     rollover {
-      max_primary_shard_size = local.elastic_logs_policy.hot.rollover.maxPrimarySize
-      min_primary_shard_size = local.elastic_logs_policy.hot.rollover.minPrimarySize
-      max_age                = local.elastic_logs_policy.hot.rollover.maxAge
+      max_primary_shard_size = each.value.hot.rollover.maxPrimarySize
+      min_primary_shard_size = each.value.hot.rollover.minPrimarySize
+      max_age                = each.value.hot.rollover.maxAge
     }
   }
 
   warm {
-    min_age = local.elastic_logs_policy.warm.minAge
+    min_age = each.value.warm.minAge
 
     set_priority {
-      priority = local.elastic_logs_policy.warm.setPriority
+      priority = each.value.warm.setPriority
     }
   }
 
   cold {
-    min_age = local.elastic_logs_policy.cold.minAge
+    min_age = each.value.cold.minAge
 
     set_priority {
-      priority = local.elastic_logs_policy.cold.setPriority
+      priority = each.value.cold.setPriority
     }
   }
 
   delete {
-    min_age = local.elastic_logs_policy.delete.minAge
+    min_age = each.value.delete.minAge
 
     delete {
-      delete_searchable_snapshot = local.elastic_logs_policy.delete.deleteSearchableSnapshot
+      delete_searchable_snapshot = each.value.delete.deleteSearchableSnapshot
     }
 
     dynamic "wait_for_snapshot" {
       for_each = var.ilm_delete_wait_for_snapshot ? [1] : []
       content {
-        policy = local.elastic_logs_policy.delete.waitForSnapshot
+        policy = each.value.delete.waitForSnapshot
       }
     }
   }

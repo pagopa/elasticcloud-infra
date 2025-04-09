@@ -63,8 +63,8 @@ No modules.
 | Name | Type |
 |------|------|
 | [elasticstack_elasticsearch_component_template.custom_components_default_index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_component_template) | resource |
+| [elasticstack_elasticsearch_index_lifecycle.custom_index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_index_lifecycle) | resource |
 | [elasticstack_elasticsearch_index_lifecycle.deployment_index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_index_lifecycle) | resource |
-| [elasticstack_elasticsearch_index_lifecycle.elastic_logs_index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_index_lifecycle) | resource |
 | [elasticstack_elasticsearch_index_lifecycle.index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_index_lifecycle) | resource |
 | [elasticstack_elasticsearch_index_template.elastic_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_index_template) | resource |
 | [elasticstack_elasticsearch_index_template.metricbeat_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_index_template) | resource |
@@ -81,6 +81,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_default_ilm_elastic"></a> [default\_ilm\_elastic](#input\_default\_ilm\_elastic) | ILM used by default index templates via elastic@custom | `string` | n/a | yes |
 | <a name="input_default_ilm_logs"></a> [default\_ilm\_logs](#input\_default\_ilm\_logs) | ILM used by default index templates via logs@custom | `string` | n/a | yes |
+| <a name="input_default_ilm_metricbeat"></a> [default\_ilm\_metricbeat](#input\_default\_ilm\_metricbeat) | ILM used by default index templates via metricbeat@custom | `string` | n/a | yes |
 | <a name="input_default_ilm_metrics"></a> [default\_ilm\_metrics](#input\_default\_ilm\_metrics) | ILM used by default index templates via metrics@custom | `string` | n/a | yes |
 | <a name="input_default_ilm_traces"></a> [default\_ilm\_traces](#input\_default\_ilm\_traces) | ILM used by default index templates via traces@custom | `string` | n/a | yes |
 | <a name="input_deployment_name"></a> [deployment\_name](#input\_deployment\_name) | (Required) EC deployment name | `string` | n/a | yes |
