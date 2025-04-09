@@ -7,6 +7,12 @@ locals {
 
   ilm_prefix = "${var.prefix}-${var.env_short}-deployment"
 
+  alert_notification_emails = [
+          "marco.mari@pagopa.it",
+          "umberto.coppolabottazzi@pagopa.it",
+          "matteo.alongi@pagopa.it"
+        ]
+
   tags = {
     CreatedBy   = "Terraform"
     Environment = upper(var.env)
