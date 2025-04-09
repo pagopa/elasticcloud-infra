@@ -12,20 +12,20 @@ locals {
   ilm_custom_policy = {
     elastic = {
       snapshot_policy = "cloud-snapshot-policy"
-      ilm = var.default_ilm_elastic
+      ilm             = var.default_ilm_elastic
     }
     metricbeat = {
       snapshot_policy = "cloud-snapshot-policy"
-      ilm = var.default_ilm_metricbeat
+      ilm             = var.default_ilm_metricbeat
     }
   }
 
   ilm_custom_policies = {
     for k, v in local.ilm_custom_policy :
     k => jsondecode(templatefile("${path.module}/custom_resources/ilm/${v.ilm}.json", {
-        prefix_env_short = local.prefix_env_short
-        snapshot_policy  = v.snapshot_policy
-      }))
+      prefix_env_short = local.prefix_env_short
+      snapshot_policy  = v.snapshot_policy
+    }))
   }
 
 }
