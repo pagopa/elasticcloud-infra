@@ -1,7 +1,16 @@
 locals {
+  opsgenie_message_priority_mapping = {
+    P1 = "Sev0"
+    P2 = "Sev1"
+    P3 = "Sev2"
+    P4 = "Sev3"
+    P5 = "Sev4"
+  }
+
   alerts = {
     "cluster_health" = {
       name        = "Cluster health"
+      description = "${title(var.env)} cluster health is red"
       params = {
         threshold = 85
         duration = "1h"
@@ -11,10 +20,10 @@ locals {
       rule_type_id = "monitoring_alert_cluster_health"
       interval     = "1m"
       opsgenie_priority     = "P1"
-      description = "${title(var.env)} cluster health is red"
     },
     node_changed = {
       name        = "Nodes changed"
+      description = "${title(var.env)} cluster nodes changed"
       params = {
         threshold = 85
         duration = "1h"
@@ -22,10 +31,10 @@ locals {
       rule_type_id = "monitoring_alert_nodes_changed"
       interval     = "5m"
       opsgenie_priority     = "P2"
-      description = "${title(var.env)} cluster nodes changed"
     },
     node_cpu_usage = {
       name        = "CPU Usage"
+      description = "${title(var.env)} cluster nodes CPU usage is high"
       params = {
         threshold = 90
         duration = "10m"
@@ -33,10 +42,10 @@ locals {
       rule_type_id = "monitoring_alert_cpu_usage"
       interval     = "5m"
       opsgenie_priority     = "P2"
-      description = "${title(var.env)} cluster nodes CPU usage is high"
     },
     node_disk_usage = {
       name        = "Disk Usage"
+      description = "${title(var.env)} cluster nodes disk usage is high"
       params = {
         threshold = 95
         duration = "5m"
@@ -44,21 +53,21 @@ locals {
       rule_type_id = "monitoring_alert_disk_usage"
       interval     = "1m"
       opsgenie_priority     = "P2"
-      description = "${title(var.env)} cluster nodes disk usage is high"
     },
     node_memory_usage = {
       name        = "Memory Usage (JVM)"
+      description = "${title(var.env)} cluster nodes memory usage is high"
       params = {
-        threshold = 85
+        threshold = 70
         duration = "5m"
       }
       rule_type_id = "monitoring_alert_jvm_memory_usage"
       interval     = "1m"
       opsgenie_priority     = "P2"
-      description = "${title(var.env)} cluster nodes memory usage is high"
     },
     index_shard_size = {
       name        = "Shard size"
+      description = "${title(var.env)} cluster shard size is high"
       params = {
         indexPattern = "-.*"
         threshold = 55
@@ -66,7 +75,6 @@ locals {
       rule_type_id = "monitoring_shard_size"
       interval     = "1m"
       opsgenie_priority     = "P2"
-      description = "${title(var.env)} cluster shard size is high"
     }
     # Add other alerts here...
   }
@@ -83,6 +91,7 @@ resource "elasticstack_kibana_alerting_rule" "alert" {
   interval     = each.value.interval
   enabled      = true
 
+  #serverlog
   dynamic "actions" {
     for_each = var.alert_channels.log ? [1] : []
     content {
@@ -99,6 +108,7 @@ resource "elasticstack_kibana_alerting_rule" "alert" {
     }
   }
 
+  #email
   dynamic "actions" {
     for_each = var.alert_channels.email ? [1] : []
     content {
@@ -116,6 +126,7 @@ resource "elasticstack_kibana_alerting_rule" "alert" {
     }
   }
 
+  #opsgenie create
   dynamic "actions" {
     for_each = var.alert_channels.opsgenie ? [1] : []
     content {
@@ -127,9 +138,9 @@ resource "elasticstack_kibana_alerting_rule" "alert" {
           tags = [
             "{{rule.tags}}"
           ],
-          message = "${var.env} ${each.value.name}"
+          message = "[PAGOPA-infra][Elastic ${local.opsgenie_message_priority_mapping[each.value.opsgenie_priority]}] ${var.env} ${each.value.name}"
           priority = each.value.opsgenie_priority
-          description = each.value.description
+          description = "{{context.internalFullMessage}}"
         }
       })
       frequency {
@@ -139,6 +150,26 @@ resource "elasticstack_kibana_alerting_rule" "alert" {
     }
   }
 
+  #opsgenie close alert
+  dynamic "actions" {
+    for_each = var.alert_channels.opsgenie ? [1] : []
+    content {
+      group = "recovered"
+      id = elasticstack_kibana_action_connector.opsgenie.connector_id
+      params = jsonencode({
+        subAction = "closeAlert"
+        subActionParams = {
+          alias = "{{rule.id}}:{{alert.id}}"
+        }
+      })
+      frequency {
+        notify_when = "onActionGroupChange"
+        summary = false
+      }
+    }
+  }
+
+  #slack
   dynamic "actions" {
     for_each = var.alert_channels.slack ? [1] : []
     content {

@@ -1,9 +1,6 @@
 resource "elasticstack_kibana_action_connector" "log" {
   name = "log"
-  connector_type_id = ".index"
-  config = jsonencode({
-    index = ".server-log"
-  })
+  connector_type_id = ".server-log"
 }
 
 resource "elasticstack_kibana_action_connector" "slack" {
