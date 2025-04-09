@@ -72,4 +72,20 @@ variable "ilm_delete_wait_for_snapshot" {
   description = "Wheather or not the delete phase of every lifecycle policy for this environment needs to wait for snapshot policy to run or not"
 }
 
+variable "alert_channels" {
+  description = "Channels used to notify alerts"
+  type = object({
+    opsgenie = bool
+    email = bool
+    log = bool
+    slack = bool
+  })
+  default = {
+    log = true
+    slack = true
+    email = false
+    opsgenie = false
+  }
+}
+
 
