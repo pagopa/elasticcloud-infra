@@ -39,7 +39,7 @@ k8s_application_log_instance_names = [
   /* ecommerce */ "pagopaecommerceeventdispatcherservice-microservice-chart", "pagopaecommercepaymentmethodsservice-microservice-chart", "pagopaecommercepaymentrequestsservice-microservice-chart", "pagopaecommercetransactionsservice-microservice-chart", "pagopaecommercetxschedulerservice-microservice-chart", "pagopanotificationsservice-microservice-chart",
   /* selfcare backoffice*/ "pagopaselfcaremsbackofficebackend-microservice-chart", "backoffice-external",
   /* gps */ "gpd-core-microservice-chart", "pagopagpdpayments-microservice-chart", "pagopareportingorgsenrollment-microservice-chart", "pagopaspontaneouspayments-microservice-chart", "gpd-payments-pull", "gpd-upload-microservice-chart", "pagopapagopagpdingestionmanager-microservice-chart",
-  /* fdr */ "fdr-nodo-fdrnodo", "pagopafdr-microservice-chart", "fdr-technicalsupport-microservice-chart", "pagopa-fdr-2-event-hub",
+  /* fdr */ "fdr-nodo-fdrnodo", "pagopafdr-microservice-chart", "fdr-technicalsupport-microservice-chart", "pagopafdr-scheduler", "pagopafdrtoeventhub-fdr1-blobtrigger", "pagopafdrtoeventhub-fdr3-blobtrigger", "pagopafdrtoeventhub-recovery", "pagopa-fdr-2-event-hub",
   /* printit */ "print-payment-notice-service", "print-payment-notice-generator", "print-payment-notice-functions",
   /* checkout */ "pagopa-checkout-auth-service"
 ]
