@@ -8,6 +8,12 @@ locals {
       snapshot_policy  = "${local.prefix_env_short}-default-nightly-snapshots"
     }))
   }
+
+  elastic_logs_policy = jsondecode(templatefile("${path.module}/custom_resources/ilm/${var.default_ilm_elastic}.json", {
+    prefix_env_short = local.prefix_env_short
+    snapshot_policy  = "cloud-snapshot-policy"
+  }))
+
 }
 
 # kept for backward compatibility
@@ -108,6 +114,58 @@ resource "elasticstack_elasticsearch_index_lifecycle" "deployment_index_lifecycl
       for_each = var.ilm_delete_wait_for_snapshot ? [1] : []
       content {
         policy = each.value.delete.waitForSnapshot
+      }
+    }
+  }
+
+  metadata = jsonencode({
+    "managedBy" = "Terraform"
+  })
+}
+
+
+# used for elastic-cloud-logs-8 index, to not be included in applicateive snapshot policy
+resource "elasticstack_elasticsearch_index_lifecycle" "elastic_logs_index_lifecycle" {
+
+  name = "${local.ilm_prefix}-elastic-${var.default_ilm_elastic}-ilm"
+
+  hot {
+    min_age = local.elastic_logs_policy.hot.minAge
+
+    rollover {
+      max_primary_shard_size = local.elastic_logs_policy.hot.rollover.maxPrimarySize
+      min_primary_shard_size = local.elastic_logs_policy.hot.rollover.minPrimarySize
+      max_age                = local.elastic_logs_policy.hot.rollover.maxAge
+    }
+  }
+
+  warm {
+    min_age = local.elastic_logs_policy.warm.minAge
+
+    set_priority {
+      priority = local.elastic_logs_policy.warm.setPriority
+    }
+  }
+
+  cold {
+    min_age = local.elastic_logs_policy.cold.minAge
+
+    set_priority {
+      priority = local.elastic_logs_policy.cold.setPriority
+    }
+  }
+
+  delete {
+    min_age = local.elastic_logs_policy.delete.minAge
+
+    delete {
+      delete_searchable_snapshot = local.elastic_logs_policy.delete.deleteSearchableSnapshot
+    }
+
+    dynamic "wait_for_snapshot" {
+      for_each = var.ilm_delete_wait_for_snapshot ? [1] : []
+      content {
+        policy = local.elastic_logs_policy.delete.waitForSnapshot
       }
     }
   }

@@ -1,14 +1,14 @@
 locals {
   custom_licecycle_idx = {
-    logs : var.default_ilm_logs,
-    traces : var.default_ilm_traces,
-    metrics : var.default_ilm_metrics
-    elastic : var.default_ilm_elastic
+    logs : "${local.ilm_prefix}-${var.default_ilm_logs}-ilm",
+    traces : "${local.ilm_prefix}-${var.default_ilm_traces}-ilm",
+    metrics : "${local.ilm_prefix}-${var.default_ilm_traces}-ilm",
+    elastic : "${local.ilm_prefix}-elastic-${var.default_ilm_elastic}-ilm"
   }
 
   custom_lifecycle_components = { for k, v in local.custom_licecycle_idx : k =>
     jsondecode(templatefile("${path.module}/custom_resources/index_component/basic-only-lifecycle@custom.json", {
-      lifecycle = "${local.ilm_prefix}-${v}-ilm",
+      lifecycle = v,
       name      = k
       }
   )) }
