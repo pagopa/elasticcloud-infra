@@ -3,8 +3,8 @@ locals {
     logs : "${local.ilm_prefix}-${var.default_ilm_logs}-ilm",
     traces : "${local.ilm_prefix}-${var.default_ilm_traces}-ilm",
     metrics : "${local.ilm_prefix}-${var.default_ilm_metrics}-ilm",
-    elastic : "${local.ilm_prefix}-elastic-${var.default_ilm_elastic}-ilm"
-    metricbeat : "${local.ilm_prefix}-elastic-${var.default_ilm_metricbeat}-ilm"
+    elastic : "${local.ilm_prefix}-elastic-ilm"
+    metricbeat : "${local.ilm_prefix}-metricbeat-ilm"
   }
 
   custom_lifecycle_components = { for k, v in local.custom_licecycle_idx : k =>

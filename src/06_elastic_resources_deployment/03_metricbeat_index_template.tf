@@ -5,7 +5,7 @@ resource "elasticstack_elasticsearch_index_template" "metricbeat_index_template"
 
   priority       = 500
   index_patterns = ["metricbeat-*"]
-  composed_of    = ["metrics@custom"]
+  composed_of    = ["metricbeat@custom"]
 
   data_stream {
     allow_custom_routing = false

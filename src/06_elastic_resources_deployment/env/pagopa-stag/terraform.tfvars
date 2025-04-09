@@ -13,6 +13,7 @@ default_ilm_logs    = "w1-c3-d5"
 default_ilm_traces  = "w1-c3-d5"
 default_ilm_metrics = "w1-c3-d5"
 default_ilm_elastic = "w1-c3-d5"
+default_ilm_metricbeat = "w1-c3-d5"
 
 ilm_delete_wait_for_snapshot = false
 
