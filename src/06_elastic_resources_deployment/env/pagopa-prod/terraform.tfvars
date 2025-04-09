@@ -25,6 +25,6 @@ ilm_delete_wait_for_snapshot = true
 alert_channels = {
     log = true
     slack = true
-    email = false
-    opsgenie = true
+    email = true
+    opsgenie = false
 }

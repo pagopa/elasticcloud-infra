@@ -95,7 +95,7 @@ resource "elasticstack_kibana_alerting_rule" "alert" {
   dynamic "actions" {
     for_each = var.alert_channels.log ? [1] : []
     content {
-        id = elasticstack_kibana_action_connector.log.connector_id
+        id = elasticstack_kibana_action_connector.log[0].connector_id
         params = jsonencode({
             message = "{{context.internalShortMessage}}"
             level   = "info"
@@ -130,7 +130,7 @@ resource "elasticstack_kibana_alerting_rule" "alert" {
   dynamic "actions" {
     for_each = var.alert_channels.opsgenie ? [1] : []
     content {
-      id = elasticstack_kibana_action_connector.opsgenie.connector_id
+      id = elasticstack_kibana_action_connector.opsgenie[0].connector_id
       params = jsonencode({
         subAction = "createAlert"
         subActionParams = {
@@ -155,7 +155,7 @@ resource "elasticstack_kibana_alerting_rule" "alert" {
     for_each = var.alert_channels.opsgenie ? [1] : []
     content {
       group = "recovered"
-      id = elasticstack_kibana_action_connector.opsgenie.connector_id
+      id = elasticstack_kibana_action_connector.opsgenie[0].connector_id
       params = jsonencode({
         subAction = "closeAlert"
         subActionParams = {
@@ -173,7 +173,7 @@ resource "elasticstack_kibana_alerting_rule" "alert" {
   dynamic "actions" {
     for_each = var.alert_channels.slack ? [1] : []
     content {
-      id = elasticstack_kibana_action_connector.slack.connector_id
+      id = elasticstack_kibana_action_connector.slack[0].connector_id
       params = jsonencode({
         "message": "Cluster ${var.env}:\n\n{{context.internalFullMessage}}"
       })
