@@ -43,7 +43,7 @@ resource "elasticstack_elasticsearch_index_lifecycle" "index_lifecycle" {
     rollover {
       max_primary_shard_size = each.value.hot.rollover.maxPrimarySize
       # min_primary_shard_size = each.value.hot.rollover.minPrimarySize
-      max_age                = each.value.hot.rollover.maxAge
+      max_age = each.value.hot.rollover.maxAge
     }
   }
 
@@ -97,7 +97,7 @@ resource "elasticstack_elasticsearch_index_lifecycle" "deployment_index_lifecycl
     rollover {
       max_primary_shard_size = each.value.hot.rollover.maxPrimarySize
       # min_primary_shard_size = each.value.hot.rollover.minPrimarySize
-      max_age                = each.value.hot.rollover.maxAge
+      max_age = each.value.hot.rollover.maxAge
     }
   }
 
@@ -150,7 +150,7 @@ resource "elasticstack_elasticsearch_index_lifecycle" "custom_index_lifecycle" {
     rollover {
       max_primary_shard_size = each.value.hot.rollover.maxPrimarySize
       # min_primary_shard_size = each.value.hot.rollover.minPrimarySize
-      max_age                = each.value.hot.rollover.maxAge
+      max_age = each.value.hot.rollover.maxAge
     }
   }
 
