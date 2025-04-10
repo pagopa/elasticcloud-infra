@@ -18,3 +18,10 @@ default_ilm_metricbeat = "w1-c3-d5"
 ilm_delete_wait_for_snapshot = false
 
 deployment_name = "pagopa-s-weu-ec"
+
+alert_channels = {
+  log      = true
+  slack    = true
+  email    = false
+  opsgenie = false
+}

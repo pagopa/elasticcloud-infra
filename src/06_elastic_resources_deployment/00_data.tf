@@ -21,6 +21,16 @@ data "azurerm_key_vault_secret" "elasticsearch_api_key" {
   key_vault_id = data.azurerm_key_vault.key_vault.id
 }
 
+data "azurerm_key_vault_secret" "opsgenie_api_key" {
+  name         = "opsgenie-api-key"
+  key_vault_id = data.azurerm_key_vault.key_vault.id
+}
+
+data "azurerm_key_vault_secret" "slack_webhook_url" {
+  name         = "slack-webhook-url"
+  key_vault_id = data.azurerm_key_vault.key_vault.id
+}
+
 data "azurerm_key_vault" "key_vault_org" {
   name                = var.kv_name_org_ec
   resource_group_name = var.kv_rg_org_ec
