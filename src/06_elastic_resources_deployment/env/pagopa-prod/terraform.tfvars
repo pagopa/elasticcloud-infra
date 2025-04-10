@@ -23,8 +23,8 @@ deployment_name = "pagopa-p-weu-ec"
 ilm_delete_wait_for_snapshot = true
 
 alert_channels = {
-    log = true
-    slack = true
-    email = true
-    opsgenie = false
+  log      = true
+  slack    = false
+  email    = true
+  opsgenie = true
 }

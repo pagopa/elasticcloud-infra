@@ -68,10 +68,16 @@ No modules.
 | [elasticstack_elasticsearch_index_lifecycle.index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_index_lifecycle) | resource |
 | [elasticstack_elasticsearch_index_template.elastic_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_index_template) | resource |
 | [elasticstack_elasticsearch_index_template.metricbeat_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_index_template) | resource |
+| [elasticstack_kibana_action_connector.log](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/kibana_action_connector) | resource |
+| [elasticstack_kibana_action_connector.opsgenie](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/kibana_action_connector) | resource |
+| [elasticstack_kibana_action_connector.slack](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/kibana_action_connector) | resource |
+| [elasticstack_kibana_alerting_rule.alert](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/kibana_alerting_rule) | resource |
 | [azurerm_key_vault.key_vault](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault) | data source |
 | [azurerm_key_vault.key_vault_org](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault) | data source |
 | [azurerm_key_vault_secret.elastic_cloud_api_key](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault_secret) | data source |
 | [azurerm_key_vault_secret.elasticsearch_api_key](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault_secret) | data source |
+| [azurerm_key_vault_secret.opsgenie_api_key](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault_secret) | data source |
+| [azurerm_key_vault_secret.slack_webhook_url](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault_secret) | data source |
 | [ec_deployment.deployment](https://registry.terraform.io/providers/elastic/ec/latest/docs/data-sources/deployment) | data source |
 | [ec_deployments.deployments](https://registry.terraform.io/providers/elastic/ec/latest/docs/data-sources/deployments) | data source |
 
@@ -79,6 +85,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_alert_channels"></a> [alert\_channels](#input\_alert\_channels) | Channels used to notify alerts | <pre>object({<br/>    opsgenie = bool<br/>    email    = bool<br/>    log      = bool<br/>    slack    = bool<br/>  })</pre> | <pre>{<br/>  "email": false,<br/>  "log": true,<br/>  "opsgenie": false,<br/>  "slack": true<br/>}</pre> | no |
 | <a name="input_default_ilm_elastic"></a> [default\_ilm\_elastic](#input\_default\_ilm\_elastic) | ILM used by default index templates via elastic@custom | `string` | n/a | yes |
 | <a name="input_default_ilm_logs"></a> [default\_ilm\_logs](#input\_default\_ilm\_logs) | ILM used by default index templates via logs@custom | `string` | n/a | yes |
 | <a name="input_default_ilm_metricbeat"></a> [default\_ilm\_metricbeat](#input\_default\_ilm\_metricbeat) | ILM used by default index templates via metricbeat@custom | `string` | n/a | yes |

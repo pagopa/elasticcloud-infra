@@ -76,14 +76,14 @@ variable "alert_channels" {
   description = "Channels used to notify alerts"
   type = object({
     opsgenie = bool
-    email = bool
-    log = bool
-    slack = bool
+    email    = bool
+    log      = bool
+    slack    = bool
   })
   default = {
-    log = true
-    slack = true
-    email = false
+    log      = true
+    slack    = true
+    email    = false
     opsgenie = false
   }
 }
