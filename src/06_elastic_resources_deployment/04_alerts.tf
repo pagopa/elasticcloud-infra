@@ -58,8 +58,8 @@ locals {
       name        = "Memory Usage (JVM)"
       description = "${title(var.env)} cluster nodes memory usage is high"
       params = {
-        threshold = 70
-        duration  = "10m"
+        threshold = 80
+        duration  = "20m"
       }
       rule_type_id      = "monitoring_alert_jvm_memory_usage"
       interval          = "5m"
