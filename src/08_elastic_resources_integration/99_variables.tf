@@ -92,3 +92,16 @@ variable "opentelemetry_operator_helm_version" {
 }
 
 
+variable "apm_sampling" {
+  type = object({
+    enabled       = bool
+    rate          = number
+    storage_limit = string
+  })
+  default = {
+    enabled       = false
+    rate          = 0.1
+    storage_limit = "3GB"
+  }
+}
+
