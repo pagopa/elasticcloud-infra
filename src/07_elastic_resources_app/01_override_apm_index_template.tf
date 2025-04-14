@@ -68,7 +68,7 @@ resource "elasticstack_elasticsearch_index_template" "logs_apm_index_template" {
   }
 
   metadata = jsonencode({
-    "description" = "Index template for ${local.prefix_env} logs-apm.app custom"
+    "description" = "Index template for ${local.prefix_env} logs-apm.app ${each.key}"
   })
 }
 
@@ -78,9 +78,9 @@ resource "elasticstack_elasticsearch_index_template" "metrics_apm_index_template
 
   name = "${local.prefix_env}-apm-metrics-${each.key}-idxtpl"
 
-  priority       = 500 # default template has priority 120
+  priority       = 500 # default template has priority 210
   index_patterns = ["metrics-apm.app.${replace(each.key, "-", "_")}-${local.prefix_env}"]
-  # does not use logs@custom, uses "logs-apm.app.${local.prefix_env}-${each.value}@custom" instead to customize specific ilm
+  # does not use metrics@custom, uses "metrics-apm.app.${local.prefix_env}-${each.value}@custom" instead to customize specific ilm
   composed_of    = [
     "metrics@mappings",
     "apm@mappings",
@@ -100,11 +100,11 @@ resource "elasticstack_elasticsearch_index_template" "metrics_apm_index_template
   }
 
   template {
-    mappings = file("${path.module}/default_library/index_template/logs_apm_mappings.json")
-    settings = file("${path.module}/default_library/index_template/logs_apm_settings.json")
+    mappings = file("${path.module}/default_library/index_template/metrics_apm_mappings.json")
+    settings = file("${path.module}/default_library/index_template/metrics_apm_settings.json")
   }
 
   metadata = jsonencode({
-    "description" = "Index template for ${local.prefix_env} logs-apm.app custom"
+    "description" = "Index template for ${local.prefix_env} metrics-apm.app ${each.key}"
   })
 }

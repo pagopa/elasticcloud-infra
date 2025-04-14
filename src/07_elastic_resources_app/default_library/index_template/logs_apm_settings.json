@@ -1,25 +1,6 @@
 {
-    "index": {
-      "mode": "standard",
-      "codec": "best_compression",
-      "routing": {
-        "allocation": {
-          "include": {
-            "_tier_preference": "data_hot"
-          }
-        }
-      },
-      "mapping": {
-        "total_fields": {
-          "ignore_dynamic_beyond_limit": "true"
-        },
-        "ignore_malformed": "true"
-      },
-      "final_pipeline": "apm@pipeline",
-      "default_pipeline": "logs-apm.app@default-pipeline",
-      "sort": {
-        "field": "@timestamp",
-        "order": "desc"
-      }
-    }
+  "index": {
+    "default_pipeline": "logs-apm.app@default-pipeline",
+    "final_pipeline": "apm@pipeline"
+  }
 }
