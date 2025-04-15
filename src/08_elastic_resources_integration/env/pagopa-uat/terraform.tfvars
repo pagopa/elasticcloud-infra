@@ -43,3 +43,10 @@ k8s_application_log_instance_names = [
   /* printit */ "print-payment-notice-service", "print-payment-notice-generator", "print-payment-notice-functions",
   /* checkout */ "pagopa-checkout-auth-service"
 ]
+
+
+apm_sampling = {
+  enabled       = true
+  rate          = 0.5
+  storage_limit = "30GB"
+}
