@@ -1,0 +1,6 @@
+{
+  "index": {
+    "default_pipeline": "logs-apm.app@default-pipeline",
+    "final_pipeline": "apm@pipeline"
+  }
+}
