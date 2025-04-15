@@ -28,11 +28,19 @@ ilm = {
   apiconfig            = "w2-c4-d7"
   bizevents            = "w2-c4-d7"
   afm                  = "w2-c4-d7"
-
 }
 
 apm_ilm = {
-  service_name = "w2-c4-d7"
+  pagopa-ecommerce-payment-methods-service        = "w2-c8-d90"
+  pagopa-ecommerce-transactions-service           = "w2-c8-d90"
+  pagopa-ecommerce-payment-requests-service       = "w2-c8-d90"
+  pagopa-ecommerce-user-stats-service             = "w2-c8-d90"
+  pagopa-ecommerce-event-dispatcher-service       = "w2-c8-d90"
+  pagopa-ecommerce-helpdesk-service               = "w2-c8-d90"
+  pagopa-ecommerce-transactions-scheduler-service = "w2-c8-d90"
+  pagopa-wallet-service                           = "w2-c8-d90"
+  pagopa-payment-wallet-cdc-service               = "w2-c8-d90"
+  pagopa-payment-wallet-event-dispatcher-service  = "w2-c8-d90"
 }
 
 ilm_delete_wait_for_snapshot = true

@@ -30,4 +30,7 @@ ilm = {
   afm                  = "w2-c4-d5"
 }
 
+apm_ilm = {
+}
+
 ilm_delete_wait_for_snapshot = false

@@ -31,7 +31,6 @@ ilm = {
 }
 
 apm_ilm = {
-  service_name = "w2-c4-d7"
 }
 
 ilm_delete_wait_for_snapshot = false

@@ -67,7 +67,7 @@ variable "ilm_delete_wait_for_snapshot" {
 variable "apm_ilm" {
   type        = map(string)
   description = "(Required) Map containing the service name which require a custom ilm for this environment associated to the related index lifecycle management policy to be used for that service. The allowed values are the file names in `default_library/ilm` folder"
-  default = {}
+  default     = {}
   validation {
     condition     = alltrue([for v in values(var.apm_ilm) : !strcontains(v, ".json")])
     error_message = "One or more ilm contains file extension. Use the file name only"

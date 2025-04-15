@@ -48,7 +48,11 @@ for details on how to configure a new space/application, please refer to the `co
 
 | Name | Type |
 |------|------|
+| [elasticstack_elasticsearch_component_template.apm_components_logs_custom_index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_component_template) | resource |
+| [elasticstack_elasticsearch_component_template.apm_components_metrics_custom_index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_component_template) | resource |
 | [elasticstack_elasticsearch_index_lifecycle.index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_index_lifecycle) | resource |
+| [elasticstack_elasticsearch_index_template.logs_apm_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_index_template) | resource |
+| [elasticstack_elasticsearch_index_template.metrics_apm_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_index_template) | resource |
 | [elasticstack_kibana_space.kibana_space](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/kibana_space) | resource |
 | [azurerm_key_vault.key_vault_org](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault) | data source |
 | [azurerm_key_vault.target_key_vault](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault) | data source |
@@ -63,6 +67,7 @@ for details on how to configure a new space/application, please refer to the `co
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_apm_ilm"></a> [apm\_ilm](#input\_apm\_ilm) | (Required) Map containing the service name which require a custom ilm for this environment associated to the related index lifecycle management policy to be used for that service. The allowed values are the file names in `default_library/ilm` folder | `map(string)` | `{}` | no |
 | <a name="input_deployment_name"></a> [deployment\_name](#input\_deployment\_name) | (Required) EC deployment name | `string` | n/a | yes |
 | <a name="input_env"></a> [env](#input\_env) | (Required) Environment name | `string` | n/a | yes |
 | <a name="input_env_short"></a> [env\_short](#input\_env\_short) | n/a | `string` | n/a | yes |

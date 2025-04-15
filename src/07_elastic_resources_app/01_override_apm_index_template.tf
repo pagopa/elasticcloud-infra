@@ -1,11 +1,13 @@
 locals {
 
-  custom_lifecycle_components = { for k, v in var.apm_ilm : k =>
+  custom_lifecycle_components = { for k, v in var.apm_ilm : replace(k, "-", "_") =>
     jsondecode(templatefile("${path.module}/default_library/index_component/basic-only-lifecycle@custom.json", {
       lifecycle = "${local.prefix_env}-${v}-ilm",
       name      = k
       }
   )) }
+
+  apm_ilm_underscore = { for k, v in var.apm_ilm : replace(k, "-", "_") => v }
 
 }
 
@@ -38,22 +40,21 @@ resource "elasticstack_elasticsearch_component_template" "apm_components_metrics
 
 resource "elasticstack_elasticsearch_index_template" "logs_apm_index_template" {
   depends_on = [elasticstack_elasticsearch_component_template.apm_components_logs_custom_index_lifecycle]
-  for_each = var.apm_ilm
+  for_each   = local.apm_ilm_underscore
 
   name = "${local.prefix_env}-apm-logs-${each.key}-idxtpl"
 
   priority       = 500 # default template has priority 120
-  index_patterns = ["logs-apm.app.${replace(each.key, "-", "_")}-${local.prefix_env}"]
+  index_patterns = ["logs-apm.app.${each.key}-${var.prefix}.${var.env}"]
   # does not use logs@custom, uses "logs-apm.app.${local.prefix_env}-${each.value}@custom" instead to customize specific ilm
-  composed_of    = [
+  composed_of = [
     "logs@mappings",
     "apm@mappings",
     "apm@settings",
-    "apm-10d@lifecycled",
+    "apm-10d@lifecycle",
     "logs-apm@settings",
     "logs-apm.app-fallback@ilm",
     "ecs@mappings",
-    "logs-apm.app@custom",
     "logs-apm.app.${each.key}-${local.prefix_env}@custom",
   ]
 
@@ -74,14 +75,14 @@ resource "elasticstack_elasticsearch_index_template" "logs_apm_index_template" {
 
 resource "elasticstack_elasticsearch_index_template" "metrics_apm_index_template" {
   depends_on = [elasticstack_elasticsearch_component_template.apm_components_metrics_custom_index_lifecycle]
-  for_each = var.apm_ilm
+  for_each   = local.apm_ilm_underscore
 
   name = "${local.prefix_env}-apm-metrics-${each.key}-idxtpl"
 
   priority       = 500 # default template has priority 210
-  index_patterns = ["metrics-apm.app.${replace(each.key, "-", "_")}-${local.prefix_env}"]
+  index_patterns = ["metrics-apm.app.${each.key}-${var.prefix}.${var.env}"]
   # does not use metrics@custom, uses "metrics-apm.app.${local.prefix_env}-${each.value}@custom" instead to customize specific ilm
-  composed_of    = [
+  composed_of = [
     "metrics@mappings",
     "apm@mappings",
     "apm@settings",
@@ -90,7 +91,6 @@ resource "elasticstack_elasticsearch_index_template" "metrics_apm_index_template
     "metrics-apm@settings",
     "metrics-apm.app-fallback@ilm",
     "ecs@mappings",
-    "metrics-apm.app@custom",
     "metrics-apm.app.${each.key}-${local.prefix_env}@custom",
   ]
 
