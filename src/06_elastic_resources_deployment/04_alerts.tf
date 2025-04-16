@@ -12,8 +12,8 @@ locals {
       name        = "Cluster health"
       description = "${title(var.env)} cluster health is red"
       params = {
-        threshold = 85
-        duration  = "1h"
+        threshold = var.alert_configuration.cluster_health.threshold
+        duration  = var.alert_configuration.cluster_health.duration
         "filterQueryText" : "cluster_state.status : \"red\"",
         "filterQuery" : "{\"bool\":{\"should\":[{\"term\":{\"cluster_state.status\":{\"value\":\"red\"}}}],\"minimum_should_match\":1}}"
       }
@@ -25,8 +25,8 @@ locals {
       name        = "Nodes changed"
       description = "${title(var.env)} cluster nodes changed"
       params = {
-        threshold = 85
-        duration  = "1h"
+        threshold = var.alert_configuration.node_changed.threshold
+        duration  = var.alert_configuration.node_changed.duration
       }
       rule_type_id      = "monitoring_alert_nodes_changed"
       interval          = "5m"
@@ -36,8 +36,8 @@ locals {
       name        = "CPU Usage"
       description = "${title(var.env)} cluster nodes CPU usage is high"
       params = {
-        threshold = 90
-        duration  = "30m"
+        threshold = var.alert_configuration.node_cpu_usage.threshold
+        duration  = var.alert_configuration.node_cpu_usage.duration
       }
       rule_type_id      = "monitoring_alert_cpu_usage"
       interval          = "10m"
@@ -47,8 +47,8 @@ locals {
       name        = "Disk Usage"
       description = "${title(var.env)} cluster nodes disk usage is high"
       params = {
-        threshold = 95
-        duration  = "5m"
+        threshold = var.alert_configuration.node_disk_usage.threshold
+        duration  = var.alert_configuration.node_disk_usage.duration
       }
       rule_type_id      = "monitoring_alert_disk_usage"
       interval          = "1m"
@@ -58,8 +58,8 @@ locals {
       name        = "Memory Usage (JVM)"
       description = "${title(var.env)} cluster nodes memory usage is high"
       params = {
-        threshold = 80
-        duration  = "20m"
+        threshold = var.alert_configuration.node_memory_usage.threshold
+        duration  = var.alert_configuration.node_memory_usage.duration
       }
       rule_type_id      = "monitoring_alert_jvm_memory_usage"
       interval          = "5m"
@@ -70,7 +70,7 @@ locals {
       description = "${title(var.env)} cluster shard size is high"
       params = {
         indexPattern = "-.*"
-        threshold    = 55
+        threshold    = var.alert_configuration.index_shard_size.threshold
       }
       rule_type_id      = "monitoring_shard_size"
       interval          = "1m"

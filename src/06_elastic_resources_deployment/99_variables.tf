@@ -89,4 +89,51 @@ variable "alert_channels" {
 }
 
 
+variable "alert_configuration" {
+  description = "Alert configuration parameters"
+  type = object({
+    cluster_health = optional(object({
+      threshold = optional(number, 85)
+      duration  = optional(string, "1h")
+      }), {
+      threshold = 85
+      duration  = "1h"
+    })
+    node_changed = optional(object({
+      threshold = optional(number, 85)
+      duration  = optional(string, "1h")
+      }), {
+      threshold = 85
+      duration  = "1h"
+    })
+    node_cpu_usage = optional(object({
+      threshold = optional(number, 90)
+      duration  = optional(string, "30m")
+      }), {
+      threshold = 90
+      duration  = "30m"
+    })
+    node_disk_usage = optional(object({
+      threshold = optional(number, 95)
+      duration  = optional(string, "5m")
+      }), {
+      threshold = 95
+      duration  = "5m"
+    })
+    node_memory_usage = optional(object({
+      threshold = optional(number, 80)
+      duration  = optional(string, "20m")
+      }), {
+      threshold = 80
+      duration  = "20m"
+    })
+    index_shard_size = optional(object({
+      threshold = optional(number, 55)
+      }), {
+      threshold = 55
+    })
+  })
+  default = {}
+}
+
 
