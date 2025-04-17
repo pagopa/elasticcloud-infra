@@ -18,6 +18,10 @@ locals {
       snapshot_policy = "cloud-snapshot-policy"
       ilm             = var.default_ilm_metricbeat
     }
+    elastic_monitoring = {
+      snapshot_policy = "cloud-snapshot-policy"
+      ilm             = var.default_ilm_elastic_monitoring
+    }
   }
 
   ilm_custom_policies = {
@@ -55,11 +59,14 @@ resource "elasticstack_elasticsearch_index_lifecycle" "index_lifecycle" {
     }
   }
 
-  cold {
-    min_age = each.value.cold.minAge
+  dynamic "cold" {
+    for_each = lookup(each.value, "cold", null) != null ? [1] : []
+    content {
+      min_age = each.value.cold.minAge
 
-    set_priority {
-      priority = each.value.cold.setPriority
+      set_priority {
+        priority = each.value.cold.setPriority
+      }
     }
   }
 
@@ -109,11 +116,14 @@ resource "elasticstack_elasticsearch_index_lifecycle" "deployment_index_lifecycl
     }
   }
 
-  cold {
-    min_age = each.value.cold.minAge
+  dynamic "cold" {
+    for_each = lookup(each.value, "cold", null) != null ? [1] : []
+    content {
+      min_age = each.value.cold.minAge
 
-    set_priority {
-      priority = each.value.cold.setPriority
+      set_priority {
+        priority = each.value.cold.setPriority
+      }
     }
   }
 
@@ -162,11 +172,14 @@ resource "elasticstack_elasticsearch_index_lifecycle" "custom_index_lifecycle" {
     }
   }
 
-  cold {
-    min_age = each.value.cold.minAge
+  dynamic "cold" {
+    for_each = lookup(each.value, "cold", null) != null ? [1] : []
+    content {
+      min_age = each.value.cold.minAge
 
-    set_priority {
-      priority = each.value.cold.setPriority
+      set_priority {
+        priority = each.value.cold.setPriority
+      }
     }
   }
 

@@ -5,6 +5,7 @@ locals {
     metrics : "${local.ilm_prefix}-${var.default_ilm_metrics}-ilm",
     elastic : "${local.ilm_prefix}-elastic-ilm"
     metricbeat : "${local.ilm_prefix}-metricbeat-ilm"
+    elastic_monitoring : "${local.ilm_prefix}-elastic_monitoring-ilm"
   }
 
   custom_lifecycle_components = { for k, v in local.custom_licecycle_idx : k =>
