@@ -1,0 +1,13 @@
+{
+  "index": {
+    "lifecycle": {
+      "name": ".monitoring-8-ilm-policy"
+    },
+    "auto_expand_replicas": "0-1",
+    "mapping": {
+      "total_fields": {
+        "limit": "2000"
+      }
+    }
+  }
+}

@@ -48,6 +48,11 @@ variable "default_ilm_metricbeat" {
   type        = string
   description = "ILM used by default index templates via metricbeat@custom"
 }
+variable "default_ilm_elastic_monitoring" {
+  type        = string
+  description = "ILM used by default index templates via elastic_monitoring@custom"
+}
+
 
 variable "kv_name_org_ec" {
   type = string

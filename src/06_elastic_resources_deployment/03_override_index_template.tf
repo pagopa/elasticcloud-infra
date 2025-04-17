@@ -50,3 +50,28 @@ resource "elasticstack_elasticsearch_index_template" "elastic_index_template" {
 }
 
 
+
+resource "elasticstack_elasticsearch_index_template" "monitoring_es_index_template" {
+  depends_on = [elasticstack_elasticsearch_component_template.custom_components_default_index_lifecycle]
+
+  name = "monitoring-es-idxtpl"
+
+  priority       = 500
+  index_patterns = [".monitoring-es-8-*"]
+  composed_of    = ["elastic_monitoring@custom"]
+
+  data_stream {
+    allow_custom_routing = false
+    hidden               = false
+  }
+
+  template {
+    mappings = file("${path.module}/custom_resources/index_template/monitoring_es_mappings.json")
+    settings = file("${path.module}/custom_resources/index_template/monitoring_es_settings.json")
+  }
+
+  metadata = jsonencode({
+    "description" = "Index template for elastic cloud logs"
+  })
+}
+
