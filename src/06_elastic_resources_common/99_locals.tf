@@ -6,9 +6,6 @@ locals {
   elastic_namespace = "${var.prefix}.${var.env}"
   prefix_env_short  = "${var.prefix}-${var.env_short}"
 
-  apm_indices = [
-    "traces-apm*-${local.elastic_namespace}", "traces-*.otel-*-${local.elastic_namespace}", "logs-apm*-${local.elastic_namespace}", "apm-*-${local.elastic_namespace}", "logs-*.otel-*-${local.elastic_namespace}", "metrics-apm*-${local.elastic_namespace}", "metrics-*.otel-*-${local.elastic_namespace}"
-  ]
 
   tags = {
     CreatedBy   = "Terraform"
