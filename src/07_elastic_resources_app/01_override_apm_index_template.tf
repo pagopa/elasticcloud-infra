@@ -64,7 +64,6 @@ resource "elasticstack_elasticsearch_index_template" "logs_apm_index_template" {
   }
 
   template {
-    mappings = file("${path.module}/default_library/index_template/logs_apm_mappings.json")
     settings = file("${path.module}/default_library/index_template/logs_apm_settings.json")
   }
 
@@ -100,7 +99,6 @@ resource "elasticstack_elasticsearch_index_template" "metrics_apm_index_template
   }
 
   template {
-    mappings = file("${path.module}/default_library/index_template/metrics_apm_mappings.json")
     settings = file("${path.module}/default_library/index_template/metrics_apm_settings.json")
   }
 
