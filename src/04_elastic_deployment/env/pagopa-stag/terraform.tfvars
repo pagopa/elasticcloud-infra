@@ -10,8 +10,8 @@ kv_rg_org_ec   = "paymon-u-ec-org-sec-rg"
 shared_env = ["pagopa-dev", "pagopa-uat"]
 
 hot_config = {
-  size       = "4g"
-  zone_count = 3
+  size       = "8g"
+  zone_count = 2
 }
 
 warm_config = {
