@@ -73,19 +73,17 @@ Here's an example of the file content:
   "indexTemplate": {
     "printit": {
       "indexPatterns": [
-        "logs-print-payment-notice-*"
+        "logs-printit"
       ],
       "customComponent": "basic-pipeline-lifecycle@custom",
       "ingestPipeline": "convert_responseTime_httpCode"
     }
   },
   "dataStream": [
-    "logs-print-payment-notice-service",
-    "logs-print-payment-notice-generator",
-    "logs-print-payment-notice-functions"
+    "logs-printit"
   ],
   "dataView": {
-    "indexIdentifiers": [ "logs-print-payment-*" ]
+    "indexIdentifiers": [ "logs-printit" ]
   }
 }
 ```
@@ -110,6 +108,66 @@ where:
   - `indexIdentifiers`: **required**, list of index identifiers used to create the data view; they will be appended to the default identifiers with a trailing `*`: eg: `traces-apm*print-payment*,apm-*print-payment*`
   By default it's `"traces-apm*,apm-*,traces-*.otel-*,logs-apm*,apm-*,logs-*.otel-*,metrics-apm*,apm-*,metrics-*.otel-*"`
 
+
+## How to configure `k8s_application_log_instance_names`
+
+This variable is a map of `elastic_data_stream_name` and `namespace_or_pod_name` to be used by the elastic agent to collect logs from the application.
+The data stream name must match the name used in the application `appSettings.json` file, while the namespace or pod name must be the one used in the application deployment.
+All the logs collected from the `namespace_or_pod_name` will be directed to the same `elastic_data_stream_name`
+
+
+Example: 
+
+`appSettings.json`
+```json
+{
+  "displayName": "eCommerce",
+  "indexTemplate": {
+    "ecommerce": {
+      "indexPatterns" : [
+        "logs-ecommerce" # index pattern matching the data stream name (or multiple data stream if necessary)
+      ],
+      "customComponent": "basic-pipeline-lifecycle@custom",
+     "ingestPipeline": "convert_responseTime_httpCode"
+    }
+  },
+  "dataStream": [
+    "logs-ecommerce" # data stream where the logs will be sent (plus "logs-" prefix
+  ],
+  "dataView": {
+    "indexIdentifiers": [
+      "logs-ecommerce" # index pattern to be included in the data view
+    ]
+  }
+
+}
+```
+
+`k8s_application_log_instance_names`
+        
+```hcl
+k8s_application_log_instance_names = {
+  ecommerce = [ # the data stream name
+    "pagopaecommerceeventdispatcherservice-microservice-chart",
+    "pagopaecommercepaymentmethodsservice-microservice-chart",
+    "pagopaecommercepaymentrequestsservice-microservice-chart",
+    "pagopaecommercetransactionsservice-microservice-chart",
+    "pagopaecommercetxschedulerservice-microservice-chart",
+    "pagopanotificationsservice-microservice-chart"
+  ]
+}
+```
+
+
+This configuration will send all the logs for the microservices listed in "ecommerce" to the "logs-ecommerce" data stream, they wil be affected by the same ingest pipeline and index lifecycle policy
+If different ingest pipeline or index lifecycle policy are needed, you need to create a new data stream with a different name and configure the application accordingly
+
+### Best practices
+
+#### Minimize the number of data streams
+
+The number of data streams should be kept to a minimum, in order to reduce the number of index and shards to be managed, which creates overload on nodes.
+So if an application is composed of multiple microservices, make sure to use the same log format in order to be able to use the same ingest pipeline and make the data converge on the same data stream
 
 ## FAQ
 

@@ -31,18 +31,76 @@ aks_config = [
   }
 ]
 
-k8s_application_log_instance_names = [
-  /* nodo */ "nodo", "nodoreplica", "nodocron", "nodocronreplica", "pagopawebbo", "pagopawfespwfesp", "pagopafdr", "pagopafdrnodo", "wispsoapconverter", "pagopawispconverter",
-  /* afm */ "pagopaafmcalculator-microservice-chart", "pagopaafmmarketplacebe-microservice-chart", "pagopaafmutils-microservice-chart",
-  /* bizevents */ "pagopabizeventsdatastore-microservice-chart", "pagopabizeventsservice-microservice-chart", "pagopanegativebizeventsdatastore-microservice-chart",
-  /* apiconfig */ "pagopaapiconfig-postgresql", "pagopaapiconfig-oracle", "apiconfig-selfcare-integration-microservice-chart", "cache-oracle", "cache-postgresql", "cache-replica-oracle", "cache-replica-postgresql",
-  /* ecommerce */ "pagopaecommerceeventdispatcherservice-microservice-chart", "pagopaecommercepaymentmethodsservice-microservice-chart", "pagopaecommercepaymentrequestsservice-microservice-chart", "pagopaecommercetransactionsservice-microservice-chart", "pagopaecommercetxschedulerservice-microservice-chart", "pagopanotificationsservice-microservice-chart",
-  /* selfcare backoffice*/ "pagopaselfcaremsbackofficebackend-microservice-chart", "backoffice-external",
-  /* gps */ "gpd-core-microservice-chart", "pagopagpdpayments-microservice-chart", "pagopareportingorgsenrollment-microservice-chart", "pagopaspontaneouspayments-microservice-chart", "gpd-payments-pull", "gpd-upload-microservice-chart", "pagopapagopagpdingestionmanager-microservice-chart",
-  /* fdr */ "fdr-nodo-fdrnodo", "pagopafdr-microservice-chart", "fdr-technicalsupport-microservice-chart", "pagopafdr-scheduler", "pagopafdrtoeventhub-fdr1-blobtrigger", "pagopafdrtoeventhub-fdr3-blobtrigger", "pagopafdrtoeventhub-recovery", "pagopa-fdr-2-event-hub", "pagopa-fdr-json-to-xml-functions", "pagopafdrxmltojson-blobtrigger", "pagopafdrxmltojson-httptrigger", "pagopafdrxmltojson-queuetrigger",
-  /* printit */ "print-payment-notice-service", "print-payment-notice-generator", "print-payment-notice-functions",
-  /* checkout */ "pagopa-checkout-auth-service"
-]
+k8s_application_log_instance_names = {
+  afm = [
+    "pagopaafmcalculator-microservice-chart",
+    "pagopaafmmarketplacebe-microservice-chart",
+    "pagopaafmutils-microservice-chart"
+  ]
+  apiconfig = [
+    "pagopaapiconfig-postgresql",
+    "pagopaapiconfig-oracle",
+    "apiconfig-selfcare-integration-microservice-chart",
+    "cache-oracle",
+    "cache-postgresql",
+    "cache-replica-oracle",
+    "cache-replica-postgresql"
+  ]
+  backoffice = [
+    "pagopaselfcaremsbackofficebackend-microservice-chart",
+    "backoffice-external"
+  ]
+  bizevents = [
+    "pagopabizeventsdatastore-microservice-chart",
+    "pagopabizeventsservice-microservice-chart",
+    "pagopanegativebizeventsdatastore-microservice-chart"
+  ]
+  checkout = ["pagopa-checkout-auth-service"]
+  ecommerce = [
+    "pagopaecommerceeventdispatcherservice-microservice-chart",
+    "pagopaecommercepaymentmethodsservice-microservice-chart",
+    "pagopaecommercepaymentrequestsservice-microservice-chart",
+    "pagopaecommercetransactionsservice-microservice-chart",
+    "pagopaecommercetxschedulerservice-microservice-chart",
+    "pagopanotificationsservice-microservice-chart"
+  ]
+  fdr = [
+    "fdr-nodo-fdrnodo",
+    "pagopafdr-microservice-chart",
+    "fdr-technicalsupport-microservice-chart",
+    "pagopafdr-scheduler",
+    "pagopafdrtoeventhub-fdr1-blobtrigger",
+    "pagopafdrtoeventhub-fdr3-blobtrigger",
+    "pagopafdrtoeventhub-recovery",
+    "pagopa-fdr-2-event-hub",
+    "pagopa-fdr-json-to-xml-functions",
+    "pagopafdrxmltojson-blobtrigger",
+    "pagopafdrxmltojson-httptrigger",
+    "pagopafdrxmltojson-queuetrigger"
+  ]
+  pagopapaymentspull = [
+    "gpd-core-microservice-chart",
+    "pagopagpdpayments-microservice-chart",
+    "pagopareportingorgsenrollment-microservice-chart",
+    "pagopaspontaneouspayments-microservice-chart",
+    "gpd-payments-pull",
+    "gpd-upload-microservice-chart",
+    "pagopapagopagpdingestionmanager-microservice-chart"
+  ]
+  nodo                    = ["nodo"]
+  nodocron                = ["nodocron"]
+  nodoreplica             = ["nodoreplica"]
+  nodocronreplica         = ["nodocronreplica"]
+  pagopawebbo             = ["pagopawebbo"]
+  pagopawfespwfesp        = ["pagopawfespwfesp"]
+  wispsoapconverter       = ["wispsoapconverter"]
+  pagopawispsoapconverter = ["pagopawispconverter"]
+  printit = [
+    "print-payment-notice-service",
+    "print-payment-notice-generator",
+    "print-payment-notice-functions"
+  ]
+}
 
 apm_sampling = {
   enabled       = true
