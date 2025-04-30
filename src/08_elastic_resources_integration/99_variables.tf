@@ -81,8 +81,8 @@ variable "k8s_kube_config_path_prefix" {
 }
 
 variable "k8s_application_log_instance_names" {
-  type        = list(string)
-  description = "(Required) List of app namespaces or pod names for which the elastic agent will send logs"
+  type        = map(list(string))
+  description = "(Required) Map of <elastic_datastream_name> - <namespace_or_pod_name> for which the logs will be collected by the elastic agent"
 }
 
 variable "opentelemetry_operator_helm_version" {

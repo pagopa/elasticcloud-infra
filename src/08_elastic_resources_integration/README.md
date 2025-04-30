@@ -18,6 +18,13 @@ export ELASTICSEARCH_API_KEY=<deployment api key from kibana portal>
 
 for details on how to configure a new space/application, please refer to the `config` folder README
 
+## How to configure `k8s_application_log_instance_names`
+
+This variable is a map of `elastic_data_stream_name` and `namespace_or_pod_name` to be used by the elastic agent to collect logs from the application.
+The data stream name must match the name used in the application `appSettings.json` file, while the namespace or pod name must be the one used in the application deployment.
+All the logs collected from the `namespace_or_pod_name` will be directed to the same `elastic_data_stream_name`
+
+Please, refer to [products readme](../07_elastic_resources_app/products/README.md) for more details
 
 <!-- markdownlint-disable -->
 <!-- BEGIN_TF_DOCS -->
@@ -46,7 +53,7 @@ for details on how to configure a new space/application, please refer to the `co
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module___v4__"></a> [\_\_v4\_\_](#module\_\_\_v4\_\_) | git::https://github.com/pagopa/terraform-azurerm-v4 | acb3f85a844294666dfe7f5f31c0fd3093418ae6 |
+| <a name="module___v4__"></a> [\_\_v4\_\_](#module\_\_\_v4\_\_) | git::https://github.com/pagopa/terraform-azurerm-v4 | 408f8b9d13edf51f1076f1052c297fe5f56c3a40 |
 | <a name="module_install_agent_cluster_1"></a> [install\_agent\_cluster\_1](#module\_install\_agent\_cluster\_1) | ./.terraform/modules/__v4__/elastic_cloud_agent | n/a |
 | <a name="module_install_agent_cluster_2"></a> [install\_agent\_cluster\_2](#module\_install\_agent\_cluster\_2) | ./.terraform/modules/__v4__/elastic_cloud_agent | n/a |
 | <a name="module_otel_cluster_1"></a> [otel\_cluster\_1](#module\_otel\_cluster\_1) | ./.terraform/modules/__v4__/open_telemetry | n/a |
@@ -99,7 +106,7 @@ for details on how to configure a new space/application, please refer to the `co
 | <a name="input_deployment_name"></a> [deployment\_name](#input\_deployment\_name) | (Required) EC deployment name | `string` | n/a | yes |
 | <a name="input_env"></a> [env](#input\_env) | (Required) Environment name | `string` | n/a | yes |
 | <a name="input_env_short"></a> [env\_short](#input\_env\_short) | n/a | `string` | n/a | yes |
-| <a name="input_k8s_application_log_instance_names"></a> [k8s\_application\_log\_instance\_names](#input\_k8s\_application\_log\_instance\_names) | (Required) List of app namespaces or pod names for which the elastic agent will send logs | `list(string)` | n/a | yes |
+| <a name="input_k8s_application_log_instance_names"></a> [k8s\_application\_log\_instance\_names](#input\_k8s\_application\_log\_instance\_names) | (Required) Map of <elastic\_datastream\_name> - <namespace\_or\_pod\_name> for which the logs will be collected by the elastic agent | `map(list(string))` | n/a | yes |
 | <a name="input_k8s_kube_config_path_prefix"></a> [k8s\_kube\_config\_path\_prefix](#input\_k8s\_kube\_config\_path\_prefix) | (Optional) path to the kube config folder | `string` | `"~/.kube"` | no |
 | <a name="input_opentelemetry_operator_helm_version"></a> [opentelemetry\_operator\_helm\_version](#input\_opentelemetry\_operator\_helm\_version) | Open telemetry operator version | `string` | `"0.24.3"` | no |
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | n/a | `string` | n/a | yes |
