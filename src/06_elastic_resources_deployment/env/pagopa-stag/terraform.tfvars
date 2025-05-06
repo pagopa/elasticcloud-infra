@@ -27,9 +27,3 @@ alert_channels = {
   opsgenie = false
 }
 
-alert_configuration = {
-  node_memory_usage = {
-    threshold = 85
-    duration  = "30m"
-  }
-}
