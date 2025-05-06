@@ -29,3 +29,4 @@ alert_channels = {
   email    = true
   opsgenie = true
 }
+

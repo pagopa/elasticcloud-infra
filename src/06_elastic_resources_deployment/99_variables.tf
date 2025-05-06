@@ -126,11 +126,11 @@ variable "alert_configuration" {
       duration  = "5m"
     })
     node_memory_usage = optional(object({
-      threshold = optional(number, 80)
-      duration  = optional(string, "20m")
+      threshold = optional(number, 85)
+      duration  = optional(string, "30m")
       }), {
-      threshold = 80
-      duration  = "20m"
+      threshold = 85
+      duration  = "30m"
     })
     index_shard_size = optional(object({
       threshold = optional(number, 55)
