@@ -1,17 +1,18 @@
 locals {
   custom_licecycle_idx = {
-    logs : "${local.ilm_prefix}-${var.default_ilm_logs}-ilm",
-    traces : "${local.ilm_prefix}-${var.default_ilm_traces}-ilm",
-    metrics : "${local.ilm_prefix}-${var.default_ilm_metrics}-ilm",
-    elastic : "${local.ilm_prefix}-elastic-ilm"
-    metricbeat : "${local.ilm_prefix}-metricbeat-ilm"
-    elastic_monitoring : "${local.ilm_prefix}-elastic_monitoring-ilm"
+    logs : {lifecycle: "${local.ilm_prefix}-${var.default_ilm_logs}-ilm"},
+    traces : {lifecycle: "${local.ilm_prefix}-${var.default_ilm_traces}-ilm", primary_shard_count = var.primary_shard_count},
+    metrics : {lifecycle: "${local.ilm_prefix}-${var.default_ilm_metrics}-ilm"},
+    elastic : {lifecycle: "${local.ilm_prefix}-elastic-ilm"},
+    metricbeat : {lifecycle: "${local.ilm_prefix}-metricbeat-ilm"},
+    elastic_monitoring : {lifecycle: "${local.ilm_prefix}-elastic_monitoring-ilm"}
   }
 
   custom_lifecycle_components = { for k, v in local.custom_licecycle_idx : k =>
-    jsondecode(templatefile("${path.module}/custom_resources/index_component/basic-only-lifecycle@custom.json", {
-      lifecycle = v,
+    jsondecode(templatefile("${path.module}/custom_resources/index_component/lifecycle-and-shard@custom.json", {
+      lifecycle = v.lifecycle,
       name      = k
+      primary_shard_count = try(v.primary_shard_count, 1)
       }
   )) }
 }

@@ -27,3 +27,5 @@ alert_channels = {
   opsgenie = false
 }
 
+primary_shard_count = 2
+

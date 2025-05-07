@@ -159,4 +159,10 @@ variable "app_connectors" {
   }
 }
 
+variable "primary_shard_count" {
+  type = number
+  description = "(Optional) Number of primary shards to be used for the index template. Default is 1. keep in mind to tune this value accordingly to the available number of nodes"
+  default = 1
+}
+
 

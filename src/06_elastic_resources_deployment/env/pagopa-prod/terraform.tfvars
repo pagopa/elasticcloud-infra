@@ -41,5 +41,7 @@ app_connectors = {
   }
 }
 
+primary_shard_count = 3
+
 
 
