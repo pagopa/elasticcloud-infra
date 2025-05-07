@@ -141,4 +141,22 @@ variable "alert_configuration" {
   default = {}
 }
 
+variable "app_connectors" {
+  type = map(object({
+    type       = string
+    secret_key = string
+  }))
+
+  description = "(optional) Map of <connector name>-<connector details> for additional connectors dedicated to app alerts. supports slack and opsgenie type"
+
+  default = {}
+
+  validation {
+    condition = (
+      alltrue([for i in var.app_connectors : contains(["slack", "opsgenie"], i.type)])
+    )
+    error_message = "Only 'slack' and 'opsgenie' types are supported"
+  }
+}
+
 

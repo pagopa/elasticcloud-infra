@@ -30,3 +30,16 @@ alert_channels = {
   opsgenie = true
 }
 
+app_connectors = {
+  "team-core-opsgenie" : {
+    type       = "opsgenie"
+    secret_key = "team-core-opsgenie-api-key"
+  },
+  "team-touchpoint-opsgenie" : {
+    type       = "opsgenie"
+    secret_key = "team-touchpoint-opsgenie-api-key"
+  }
+}
+
+
+
