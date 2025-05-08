@@ -15,7 +15,7 @@ resource "elasticstack_kibana_action_connector" "slack" {
 
 resource "elasticstack_kibana_action_connector" "opsgenie" {
   count             = var.alert_channels.opsgenie ? 1 : 0
-  name              = "opsgenie"
+  name              = "infra-opsgenie"
   connector_type_id = ".opsgenie"
   secrets = jsonencode({
     apiKey = data.azurerm_key_vault_secret.opsgenie_api_key.value
