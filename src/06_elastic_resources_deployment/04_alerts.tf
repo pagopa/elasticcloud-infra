@@ -138,7 +138,7 @@ resource "elasticstack_kibana_alerting_rule" "alert" {
           tags = [
             "{{rule.tags}}"
           ],
-          message     = "[${upper(var.prefix)}][infra][Elastic ${local.opsgenie_message_priority_mapping[each.value.opsgenie_priority]}] ${var.env} ${each.value.name}"
+          message     = "[ ${upper(var.prefix)} ][ infra ][ Elastic ${local.opsgenie_message_priority_mapping[each.value.opsgenie_priority]} ] ${var.env} ${each.value.name}"
           priority    = each.value.opsgenie_priority
           description = "{{context.internalFullMessage}}"
         }
