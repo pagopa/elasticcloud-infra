@@ -29,6 +29,8 @@ module "app_resources" {
 
   application_name = each.key
 
+  primary_shard_count = var.primary_shard_count
+
   depends_on = [elasticstack_elasticsearch_index_lifecycle.index_lifecycle]
 }
 

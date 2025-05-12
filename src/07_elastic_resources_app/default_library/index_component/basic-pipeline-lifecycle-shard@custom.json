@@ -1,0 +1,16 @@
+{
+  "template": {
+    "settings": {
+      "index": {
+        "number_of_shards": "${primary_shard_count}",
+        "lifecycle": {
+          "name": "${lifecycle}"
+        },
+        "default_pipeline": "${pipeline}"
+      }
+    }
+  },
+  "_meta": {
+    "description": "Settings for ${name}"
+  }
+}
