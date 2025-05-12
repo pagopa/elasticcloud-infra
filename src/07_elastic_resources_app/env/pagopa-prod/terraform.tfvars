@@ -44,3 +44,4 @@ apm_ilm = {
 }
 
 ilm_delete_wait_for_snapshot = true
+primary_shard_count          = 3
