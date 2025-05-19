@@ -4,6 +4,16 @@
 
 Elastic Cloud project infrastructure
 
+## Docs
+
+**Application resources**
+
+How to define elastic resources for your application [Here](./src/07_elastic_resources_app/README.md)
+
+**Elastic agent integration**
+
+How to define the elastic agent integration (if needed) for your application [Here](./src/08_elastic_resources_integration/README.md)
+
 ## Requirements
 
 ### 1. terraform
