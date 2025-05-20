@@ -87,14 +87,17 @@ k8s_application_log_instance_names = {
     "gpd-upload-microservice-chart",
     "pagopapagopagpdingestionmanager-microservice-chart"
   ]
-  nodo                    = ["nodo"]
-  nodocron                = ["nodocron"]
-  nodoreplica             = ["nodoreplica"]
-  nodocronreplica         = ["nodocronreplica"]
-  pagopawebbo             = ["pagopawebbo"]
-  pagopawfespwfesp        = ["pagopawfespwfesp"]
-  wispsoapconverter       = ["wispsoapconverter"]
-  pagopawispsoapconverter = ["pagopawispconverter"]
+  nodo              = ["nodo"]
+  nodocron          = ["nodocron"]
+  nodoreplica       = ["nodoreplica"]
+  nodocronreplica   = ["nodocronreplica"]
+  pagopawebbo       = ["pagopawebbo"]
+  pagopawfespwfesp  = ["pagopawfespwfesp"]
+  wispsoapconverter = ["wispsoapconverter"]
+  pagopawispconverter = [
+    "pagopawispconverter-microservice-chart",
+    "pagopawispconverterts-microservice-chart"
+  ]
   printit = [
     "print-payment-notice-service",
     "print-payment-notice-generator",
