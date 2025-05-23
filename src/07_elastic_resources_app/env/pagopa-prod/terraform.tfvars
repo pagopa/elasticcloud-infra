@@ -28,6 +28,8 @@ ilm = {
   apiconfig            = "w2-c4-d7"
   bizevents            = "w2-c4-d7"
   afm                  = "w2-c4-d7"
+  crusc8               = "w2-c4-d7"
+
 }
 
 apm_ilm = {
