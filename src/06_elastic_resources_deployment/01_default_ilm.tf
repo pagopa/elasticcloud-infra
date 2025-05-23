@@ -121,6 +121,13 @@ resource "elasticstack_elasticsearch_index_lifecycle" "deployment_index_lifecycl
     content {
       min_age = each.value.cold.minAge
 
+      dynamic "allocate" {
+        for_each = lookup(each.value.cold, "allocate", null) != null ? [1] : []
+        content {
+          number_of_replicas = each.value.cold.allocate.numberOfReplicas
+        }
+      }
+
       set_priority {
         priority = each.value.cold.setPriority
       }
