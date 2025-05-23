@@ -99,10 +99,10 @@ variable "alert_configuration" {
   type = object({
     cluster_health = optional(object({
       threshold = optional(number, 85)
-      duration  = optional(string, "1h")
+      duration  = optional(string, "30m")
       }), {
       threshold = 85
-      duration  = "1h"
+      duration  = "30m"
     })
     node_changed = optional(object({
       threshold = optional(number, 85)

@@ -21,6 +21,19 @@ locals {
       interval          = "1m"
       opsgenie_priority = "P1"
     },
+    "cluster_health_yellow" = {
+      name        = "Cluster health yellow"
+      description = "${title(var.env)} cluster health is yellow"
+      params = {
+        threshold = var.alert_configuration.cluster_health.threshold
+        duration  = var.alert_configuration.cluster_health.duration
+        "filterQueryText" : "cluster_state.status : \"yellow\"",
+        "filterQuery" : "{\"bool\":{\"should\":[{\"term\":{\"cluster_state.status\":{\"value\":\"yellow\"}}}],\"minimum_should_match\":1}}"
+      }
+      rule_type_id      = "monitoring_alert_cluster_health"
+      interval          = "1m"
+      opsgenie_priority = "P4"
+    }
     node_changed = {
       name        = "Nodes changed"
       description = "${title(var.env)} cluster nodes changed"
@@ -126,6 +139,25 @@ resource "elasticstack_kibana_alerting_rule" "alert" {
     }
   }
 
+  #email close
+  dynamic "actions" {
+    for_each = var.alert_channels.email ? [1] : []
+    content {
+      group = "recovered"
+      id    = "elastic-cloud-email"
+      params = jsonencode({
+        message = "Recovered ${each.key}"
+        to      = local.alert_notification_emails,
+        cc      = []
+        subject = "Elastic ${var.env} ${each.value.name} recovered"
+      })
+      frequency {
+        notify_when = "onActionGroupChange"
+        summary     = false
+      }
+    }
+  }
+
   #opsgenie create
   dynamic "actions" {
     for_each = var.alert_channels.opsgenie ? [1] : []
@@ -176,6 +208,22 @@ resource "elasticstack_kibana_alerting_rule" "alert" {
       id = elasticstack_kibana_action_connector.slack[0].connector_id
       params = jsonencode({
         "message" : "Cluster ${var.env}:\n\n{{context.internalFullMessage}}"
+      })
+      frequency {
+        notify_when = "onActionGroupChange"
+        summary     = false
+      }
+    }
+  }
+
+  #slack close
+  dynamic "actions" {
+    for_each = var.alert_channels.slack ? [1] : []
+    content {
+      group = "recovered"
+      id    = elasticstack_kibana_action_connector.slack[0].connector_id
+      params = jsonencode({
+        "message" : "Cluster ${var.env}:\n\n${each.key} recovered"
       })
       frequency {
         notify_when = "onActionGroupChange"
