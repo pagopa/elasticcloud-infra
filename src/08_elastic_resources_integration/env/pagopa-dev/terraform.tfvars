@@ -103,6 +103,9 @@ k8s_application_log_instance_names = {
     "print-payment-notice-generator",
     "print-payment-notice-functions"
   ]
+  crusc8 = [ # AKS deployment names
+    "pagopacruscottobackend-microservice-chart",
+  ]
 }
 
 apm_sampling = {
