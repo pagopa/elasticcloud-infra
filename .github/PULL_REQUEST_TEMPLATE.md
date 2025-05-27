@@ -15,6 +15,14 @@ Checklist based on the documentation provided [here](https://github.com/pagopa/e
 
 For any detail refer to the documentation linked above
 
+### Apply in your environment
+
+Once finished with your pr, you can apply the changes in your environment by running the appropriate pipeline in the correct order:
+the order is determined by the folder name, both on the project and the pipeline folder structure
+
+**[Here is the link to the pipelines](https://dev.azure.com/pagopaspa/paymon-iac/_build?view=folders)**
+
+
 
 ### List of changes
 
