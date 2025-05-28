@@ -2,8 +2,8 @@ locals {
 
   custom_lifecycle_components = { for k, v in var.apm_ilm : replace(k, "-", "_") =>
     jsondecode(templatefile("${path.module}/default_library/index_component/basic-lifecycle-shard@custom.json", {
-      lifecycle = "${local.prefix_env}-${v}-ilm",
-      name      = k
+      lifecycle           = "${local.prefix_env}-${v}-ilm",
+      name                = k
       primary_shard_count = var.primary_shard_count
       }
   )) }
