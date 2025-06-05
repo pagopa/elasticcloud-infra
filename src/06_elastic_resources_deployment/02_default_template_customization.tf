@@ -1,10 +1,10 @@
 locals {
   custom_licecycle_idx = {
-    logs : { lifecycle : "${local.ilm_prefix}-${var.default_ilm_logs}-ilm" },
+    logs : { lifecycle : "${local.ilm_prefix}-${var.default_ilm_logs}-ilm", primary_shard_count = var.primary_shard_count },
     traces : { lifecycle : "${local.ilm_prefix}-${var.default_ilm_traces}-ilm", primary_shard_count = var.primary_shard_count },
     metrics : { lifecycle : "${local.ilm_prefix}-${var.default_ilm_metrics}-ilm", primary_shard_count = var.primary_shard_count },
-    elastic : { lifecycle : "${local.ilm_prefix}-elastic-ilm" },
-    metricbeat : { lifecycle : "${local.ilm_prefix}-metricbeat-ilm" },
+    elastic : { lifecycle : "${local.ilm_prefix}-elastic-ilm", primary_shard_count = var.primary_shard_count },
+    metricbeat : { lifecycle : "${local.ilm_prefix}-metricbeat-ilm", primary_shard_count = var.primary_shard_count },
     elastic_monitoring : { lifecycle : "${local.ilm_prefix}-elastic_monitoring-ilm", primary_shard_count = var.primary_shard_count }
   }
 
