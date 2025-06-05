@@ -114,6 +114,15 @@ resource "elasticstack_elasticsearch_index_lifecycle" "deployment_index_lifecycl
     set_priority {
       priority = each.value.warm.setPriority
     }
+
+    dynamic "shrink" {
+      for_each = lookup(each.value.warm, "shrink", null) != null ? [1] : []
+
+      content {
+        allow_write_after_shrink = each.value.warm.shrink.allowWriteAfterShrink
+        number_of_shards         = each.value.warm.shrink.numberOfShards
+      }
+    }
   }
 
   dynamic "cold" {
