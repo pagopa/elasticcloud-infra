@@ -9,11 +9,11 @@ kv_rg_org_ec             = "paymon-u-ec-org-sec-rg"
 elastic_apikey_env_short = "u"
 elastic_apikey_env       = "uat"
 
-default_ilm_logs               = "w1-c3-d5-minsize"
-default_ilm_traces             = "w1-c3-d5-minsize"
-default_ilm_metrics            = "w1-c3-d5-minsize"
-default_ilm_elastic            = "w1-c3-d5-minsize"
-default_ilm_metricbeat         = "w1-c3-d5-minsize"
+default_ilm_logs               = "w1-c3-d5-minsize-shrink"
+default_ilm_traces             = "w1-c3-d5-minsize-shrink"
+default_ilm_metrics            = "w1-c3-d5-minsize-shrink"
+default_ilm_elastic            = "w1-c3-d5-minsize-shrink"
+default_ilm_metricbeat         = "w1-c3-d5-minsize-shrink"
 default_ilm_elastic_monitoring = "w0-d3-minsize"
 
 ilm_delete_wait_for_snapshot = false
