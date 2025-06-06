@@ -1,19 +1,11 @@
 locals {
-  custom_licecycle_idx = {
-    logs : { lifecycle : "${local.ilm_prefix}-${var.default_ilm_logs}-ilm", primary_shard_count = var.primary_shard_count, component = "lifecycle-and-shard@custom.json", total_shards_per_node = var.total_shards_per_node },
-    traces : { lifecycle : "${local.ilm_prefix}-${var.default_ilm_traces}-ilm", primary_shard_count = var.primary_shard_count, component = "lifecycle-and-shard-max@custom.json", total_shards_per_node = var.total_shards_per_node },
-    metrics : { lifecycle : "${local.ilm_prefix}-${var.default_ilm_metrics}-ilm", primary_shard_count = var.primary_shard_count, component = "lifecycle-and-shard@custom.json", total_shards_per_node = var.total_shards_per_node },
-    elastic : { lifecycle : "${local.ilm_prefix}-elastic-ilm", primary_shard_count = var.primary_shard_count, component = "lifecycle-and-shard@custom.json", total_shards_per_node = var.total_shards_per_node },
-    metricbeat : { lifecycle : "${local.ilm_prefix}-metricbeat-ilm", primary_shard_count = var.primary_shard_count, component = "lifecycle-and-shard@custom.json", total_shards_per_node = var.total_shards_per_node },
-    elastic_monitoring : { lifecycle : "${local.ilm_prefix}-elastic_monitoring-ilm", primary_shard_count = var.primary_shard_count, component = "lifecycle-and-shard@custom.json", total_shards_per_node = var.total_shards_per_node }
-  }
 
-  custom_lifecycle_components = { for k, v in local.custom_licecycle_idx : k =>
+  custom_lifecycle_components = { for k, v in var.default_idx_tpl_customization : k =>
     jsondecode(templatefile("${path.module}/custom_resources/index_component/${v.component}", {
-      lifecycle             = v.lifecycle,
+      lifecycle             = "${local.ilm_prefix}-${v.lifecycle}-ilm",
       name                  = k
-      primary_shard_count   = try(v.primary_shard_count, var.primary_shard_count)
-      total_shards_per_node = try(v.total_shards_per_node, var.total_shards_per_node)
+      primary_shard_count   = v.primary_shard_count
+      total_shards_per_node = v.total_shards_per_node
       }
   )) }
 }
