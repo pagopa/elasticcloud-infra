@@ -41,7 +41,7 @@ for details on how to configure a new space/application, please refer to the `co
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module___v4__"></a> [\_\_v4\_\_](#module\_\_\_v4\_\_) | git::https://github.com/pagopa/terraform-azurerm-v4 | 4811eadf8d4c201605ac5bef6fd7d321ddb8be49 |
+| <a name="module___v4__"></a> [\_\_v4\_\_](#module\_\_\_v4\_\_) | git::https://github.com/pagopa/terraform-azurerm-v4 | 37bb49e |
 | <a name="module_app_resources"></a> [app\_resources](#module\_app\_resources) | ./.terraform/modules/__v4__/elastic_app_resources | n/a |
 
 ## Resources
@@ -76,6 +76,7 @@ for details on how to configure a new space/application, please refer to the `co
 | <a name="input_lifecycle_policy_wait_for_snapshot"></a> [lifecycle\_policy\_wait\_for\_snapshot](#input\_lifecycle\_policy\_wait\_for\_snapshot) | (Optional) True if the index lifecycle policy has to wait for snapshots before deletion | `bool` | `true` | no |
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | n/a | `string` | n/a | yes |
 | <a name="input_primary_shard_count"></a> [primary\_shard\_count](#input\_primary\_shard\_count) | (Optional) Number of primary shards to be used for the index template. Default is 1. keep in mind to tune this value accordingly to the available number of nodes | `number` | `1` | no |
+| <a name="input_total_shards_per_node"></a> [total\_shards\_per\_node](#input\_total\_shards\_per\_node) | (Optional) Maximum number of shards (primary + replica) to be stored on a node for each index. Default is 2. | `number` | `2` | no |
 
 ## Outputs
 

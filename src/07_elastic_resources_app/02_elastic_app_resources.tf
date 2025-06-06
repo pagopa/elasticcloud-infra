@@ -29,7 +29,10 @@ module "app_resources" {
 
   application_name = each.key
 
-  primary_shard_count = var.primary_shard_count
+  custom_index_component_parameters = {
+    primary_shard_count   = var.primary_shard_count
+    total_shards_per_node = var.total_shards_per_node
+  }
 
   depends_on = [elasticstack_elasticsearch_index_lifecycle.index_lifecycle]
 }
