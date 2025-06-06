@@ -165,4 +165,10 @@ variable "primary_shard_count" {
   default     = 1
 }
 
+variable "total_shards_per_node" {
+  type        = number
+  description = "(Optional) Maximum number of  + replica shards to be stored on a node for each index. Default is 2."
+  default     = 2
+}
+
 

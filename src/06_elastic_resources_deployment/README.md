@@ -106,6 +106,7 @@ No modules.
 | <a name="input_kv_rg_org_ec"></a> [kv\_rg\_org\_ec](#input\_kv\_rg\_org\_ec) | n/a | `string` | n/a | yes |
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | n/a | `string` | n/a | yes |
 | <a name="input_primary_shard_count"></a> [primary\_shard\_count](#input\_primary\_shard\_count) | (Optional) Number of primary shards to be used for the index template. Default is 1. keep in mind to tune this value accordingly to the available number of nodes | `number` | `1` | no |
+| <a name="input_total_shards_per_node"></a> [total\_shards\_per\_node](#input\_total\_shards\_per\_node) | (Optional) Maximum number of  + replica shards to be stored on a node for each index. Default is 2. | `number` | `2` | no |
 
 ## Outputs
 
