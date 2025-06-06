@@ -11,7 +11,7 @@ resource "ec_deployment" "elastic_cloud" {
   alias                  = local.deployment_name
   region                 = "azure-${var.location}"
   version                = var.elasticsearch_version
-  deployment_template_id = "azure-storage-optimized"
+  deployment_template_id = var.hardware_profile
 
   integrations_server = {
     elasticsearch_cluster_ref_id = "main-elasticsearch"
@@ -22,7 +22,7 @@ resource "ec_deployment" "elastic_cloud" {
       symbols   = null
     }
     instance_configuration_id      = "azure.integrationsserver.fsv2"
-    instance_configuration_version = 2
+    instance_configuration_version = var.integration_server.configuration_version
     size                           = var.integration_server.size
     size_resource                  = var.integration_server.size_resource
     zone_count                     = var.integration_server.zones
