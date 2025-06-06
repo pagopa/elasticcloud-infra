@@ -15,7 +15,7 @@ hot_config = {
 }
 
 warm_config = {
-  size       = "4g"
+  size       = "2g"
   zone_count = 2
 }
 cold_config = {
