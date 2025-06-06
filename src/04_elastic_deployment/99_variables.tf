@@ -43,6 +43,12 @@ variable "shared_env" {
   description = "List of environments contained in this deployment"
 }
 
+variable "hardware_profile" {
+  type        = string
+  default     = "azure-storage-optimized"
+  description = "(Optional) Hardware profile for the deployment. Default is 'azure-storage-optimized'. Available options: https://www.elastic.co/docs/reference/cloud/cloud-hosted/ec-regions-templates-instances"
+}
+
 variable "hot_config" {
   type = object({
     size       = string
@@ -111,9 +117,10 @@ variable "elk_snapshot_sa" {
 
 variable "integration_server" {
   type = object({
-    size          = string
-    zones         = number
-    size_resource = optional(string, "memory")
+    size                  = string
+    zones                 = number
+    size_resource         = optional(string, "memory")
+    configuration_version = optional(string, "3")
   })
 }
 
