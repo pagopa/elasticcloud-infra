@@ -11,7 +11,7 @@
     "minAge": "2d",
     "setPriority": 50,
     "shrink": {
-      "numberOfShards": 1,
+      "maxPrimarySize": "50gb",
       "allowWriteAfterShrink": true
     }
   },

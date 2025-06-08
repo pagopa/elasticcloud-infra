@@ -64,7 +64,7 @@ resource "elasticstack_elasticsearch_index_lifecycle" "deployment_index_lifecycl
 
       content {
         allow_write_after_shrink = each.value.warm.shrink.allowWriteAfterShrink
-        number_of_shards         = each.value.warm.shrink.numberOfShards
+        max_primary_shard_size   = each.value.warm.shrink.maxPrimarySize
       }
     }
   }
