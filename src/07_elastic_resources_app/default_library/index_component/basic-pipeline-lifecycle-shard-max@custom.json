@@ -1,0 +1,21 @@
+{
+  "template": {
+    "settings": {
+      "index": {
+        "number_of_shards": "${primary_shard_count}",
+        "routing": {
+          "allocation": {
+            "total_shards_per_node": "${total_shards_per_node}"
+          }
+        },
+        "lifecycle": {
+          "name": "${lifecycle}"
+        },
+        "default_pipeline": "${pipeline}"
+      }
+    }
+  },
+  "_meta": {
+    "description": "Settings for ${name}"
+  }
+}

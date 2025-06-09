@@ -64,7 +64,8 @@ k8s_application_log_instance_names = {
     "pagopaecommercepaymentrequestsservice-microservice-chart",
     "pagopaecommercetransactionsservice-microservice-chart",
     "pagopaecommercetxschedulerservice-microservice-chart",
-    "pagopanotificationsservice-microservice-chart"
+    "pagopanotificationsservice-microservice-chart",
+    "pagopa-jwt-issuer-service"
   ]
   fdr = [
     "fdr-nodo-fdrnodo",
@@ -104,6 +105,9 @@ k8s_application_log_instance_names = {
     "print-payment-notice-service",
     "print-payment-notice-generator",
     "print-payment-notice-functions"
+  ]
+  crusc8 = [ # AKS deployment names
+    "pagopacruscottobackend-microservice-chart",
   ]
   anonymizer = ["pagopa-anonymizer"]
 

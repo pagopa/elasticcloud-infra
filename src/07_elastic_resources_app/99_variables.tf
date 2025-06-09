@@ -84,3 +84,9 @@ variable "primary_shard_count" {
   description = "(Optional) Number of primary shards to be used for the index template. Default is 1. keep in mind to tune this value accordingly to the available number of nodes"
   default     = 1
 }
+
+variable "total_shards_per_node" {
+  type        = number
+  description = "(Optional) Maximum number of shards (primary + replica) to be stored on a node for each index. Default is 2."
+  default     = 2
+}

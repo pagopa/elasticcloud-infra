@@ -12,7 +12,10 @@
   },
   "cold": {
     "minAge": "8d",
-    "setPriority": 0
+    "setPriority": 0,
+    "allocate": {
+      "numberOfReplicas": 0
+    }
   },
   "delete": {
     "minAge": "30d",

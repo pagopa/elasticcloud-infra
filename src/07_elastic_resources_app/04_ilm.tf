@@ -31,10 +31,27 @@ resource "elasticstack_elasticsearch_index_lifecycle" "index_lifecycle" {
     set_priority {
       priority = each.value.warm.setPriority
     }
+
+    dynamic "shrink" {
+      for_each = lookup(each.value.warm, "shrink", null) != null ? [1] : []
+
+      content {
+        allow_write_after_shrink = each.value.warm.shrink.allowWriteAfterShrink
+        max_primary_shard_size   = each.value.warm.shrink.maxPrimarySize
+
+      }
+    }
   }
 
   cold {
     min_age = each.value.cold.minAge
+
+    dynamic "allocate" {
+      for_each = lookup(each.value.cold, "allocate", null) != null ? [1] : []
+      content {
+        number_of_replicas = each.value.cold.allocate.numberOfReplicas
+      }
+    }
 
     set_priority {
       priority = each.value.cold.setPriority

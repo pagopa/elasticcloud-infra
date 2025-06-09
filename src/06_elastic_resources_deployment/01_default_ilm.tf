@@ -34,62 +34,6 @@ locals {
 
 }
 
-# kept for backward compatibility
-# the policy name not containing "deployment" is deprecated, should be kept until all indices using it are deleted, then it can be removed
-resource "elasticstack_elasticsearch_index_lifecycle" "index_lifecycle" {
-  for_each = local.ilm_all_policies
-
-  name = "${local.prefix_env}-${each.key}-ilm"
-
-  hot {
-    min_age = each.value.hot.minAge
-
-    rollover {
-      max_primary_shard_size = each.value.hot.rollover.maxPrimarySize
-      min_primary_shard_size = lookup(each.value.hot.rollover, "minPrimarySize", null)
-      max_age                = each.value.hot.rollover.maxAge
-    }
-  }
-
-  warm {
-    min_age = each.value.warm.minAge
-
-    set_priority {
-      priority = each.value.warm.setPriority
-    }
-  }
-
-  dynamic "cold" {
-    for_each = lookup(each.value, "cold", null) != null ? [1] : []
-    content {
-      min_age = each.value.cold.minAge
-
-      set_priority {
-        priority = each.value.cold.setPriority
-      }
-    }
-  }
-
-  delete {
-    min_age = each.value.delete.minAge
-
-    delete {
-      delete_searchable_snapshot = each.value.delete.deleteSearchableSnapshot
-    }
-
-    dynamic "wait_for_snapshot" {
-      for_each = var.ilm_delete_wait_for_snapshot ? [1] : []
-      content {
-        policy = each.value.delete.waitForSnapshot
-      }
-    }
-  }
-
-  metadata = jsonencode({
-    "managedBy" = "Terraform"
-  })
-}
-
 
 # new ilm naming convention; uses ilm_prefix which contains the "deployment" string
 # name changed to avoid conflicts with ilm defined in 07_elastic_resources_app
@@ -114,12 +58,28 @@ resource "elasticstack_elasticsearch_index_lifecycle" "deployment_index_lifecycl
     set_priority {
       priority = each.value.warm.setPriority
     }
+
+    dynamic "shrink" {
+      for_each = lookup(each.value.warm, "shrink", null) != null ? [1] : []
+
+      content {
+        allow_write_after_shrink = each.value.warm.shrink.allowWriteAfterShrink
+        max_primary_shard_size   = each.value.warm.shrink.maxPrimarySize
+      }
+    }
   }
 
   dynamic "cold" {
     for_each = lookup(each.value, "cold", null) != null ? [1] : []
     content {
       min_age = each.value.cold.minAge
+
+      dynamic "allocate" {
+        for_each = lookup(each.value.cold, "allocate", null) != null ? [1] : []
+        content {
+          number_of_replicas = each.value.cold.allocate.numberOfReplicas
+        }
+      }
 
       set_priority {
         priority = each.value.cold.setPriority

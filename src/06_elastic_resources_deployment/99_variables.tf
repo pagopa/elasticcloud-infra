@@ -27,19 +27,6 @@ variable "deployment_name" {
   type        = string
   description = "(Required) EC deployment name"
 }
-
-variable "default_ilm_logs" {
-  type        = string
-  description = "ILM used by default index templates via logs@custom"
-}
-variable "default_ilm_traces" {
-  type        = string
-  description = "ILM used by default index templates via traces@custom"
-}
-variable "default_ilm_metrics" {
-  type        = string
-  description = "ILM used by default index templates via metrics@custom"
-}
 variable "default_ilm_elastic" {
   type        = string
   description = "ILM used by default index templates via elastic@custom"
@@ -51,6 +38,16 @@ variable "default_ilm_metricbeat" {
 variable "default_ilm_elastic_monitoring" {
   type        = string
   description = "ILM used by default index templates via elastic_monitoring@custom"
+}
+
+variable "default_idx_tpl_customization" {
+  type = map(object({
+    lifecycle             = string
+    primary_shard_count   = number
+    component             = string,
+    total_shards_per_node = number
+  }))
+  description = "(Required) Map of <index type> - <index component template parameters> to be used for default index templates customization. The key is the index type, the value is an object containing the lifecycle name, primary shard count, component name and total shards per node. The index type can be logs, traces, metrics, elastic, metricbeat or elastic_monitoring."
 }
 
 
@@ -99,10 +96,10 @@ variable "alert_configuration" {
   type = object({
     cluster_health = optional(object({
       threshold = optional(number, 85)
-      duration  = optional(string, "1h")
+      duration  = optional(string, "30m")
       }), {
       threshold = 85
-      duration  = "1h"
+      duration  = "30m"
     })
     node_changed = optional(object({
       threshold = optional(number, 85)
@@ -158,11 +155,4 @@ variable "app_connectors" {
     error_message = "Only 'slack' and 'opsgenie' types are supported"
   }
 }
-
-variable "primary_shard_count" {
-  type        = number
-  description = "(Optional) Number of primary shards to be used for the index template. Default is 1. keep in mind to tune this value accordingly to the available number of nodes"
-  default     = 1
-}
-
 
