@@ -75,3 +75,27 @@ resource "elasticstack_elasticsearch_index_template" "monitoring_es_index_templa
   })
 }
 
+
+resource "elasticstack_elasticsearch_index_template" "monitoring_beats_index_template" {
+  depends_on = [elasticstack_elasticsearch_component_template.custom_components_default_index_lifecycle]
+
+  name = "monitoring-beats-idxtpl"
+
+  priority       = 600
+  index_patterns = [".monitoring-beats-8-*"]
+  composed_of    = ["monitoring_beats@custom"]
+
+  data_stream {
+    allow_custom_routing = false
+    hidden               = false
+  }
+
+  template {
+    mappings = file("${path.module}/custom_resources/index_template/monitoring_beats_mappings.json")
+    settings = file("${path.module}/custom_resources/index_template/monitoring_beats_settings.json")
+  }
+
+  metadata = jsonencode({
+    "description" = "Index template for monitoring beats logs"
+  })
+}
