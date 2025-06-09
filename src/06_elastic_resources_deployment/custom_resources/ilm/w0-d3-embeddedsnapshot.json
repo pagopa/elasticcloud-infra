@@ -8,11 +8,17 @@
   },
   "warm": {
     "minAge": "0ms",
-    "setPriority": 50
+    "setPriority": 50,
+    "forceMerge": {
+      "maxSegments": 1
+    },
+    "shrink": {
+      "maxPrimarySize": "50gb",
+      "allowWriteAfterShrink": true
+    }
   },
   "delete": {
     "minAge": "3d",
-    "deleteSearchableSnapshot": true,
-    "waitForSnapshot": "cloud-snapshot-policy"
+    "deleteSearchableSnapshot": true
   }
 }

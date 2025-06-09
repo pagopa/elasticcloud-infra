@@ -31,7 +31,6 @@ default_idx_tpl_customization = {
     primary_shard_count   = 2
     component             = "lifecycle-and-shard@custom.json"
     total_shards_per_node = 2
-
   }
   traces = {
     lifecycle             = "w1-c3-d5-minsize-shrink"
@@ -58,7 +57,13 @@ default_idx_tpl_customization = {
     total_shards_per_node = 2
   }
   elastic_monitoring = {
-    lifecycle             = "w0-d3-minsize-embeddedsnapshot"
+    lifecycle             = "w0-d3-minsize"
+    primary_shard_count   = 2
+    component             = "lifecycle-and-shard-max@custom.json"
+    total_shards_per_node = 2
+  }
+  monitoring_beats = {
+    lifecycle             = "w0-d3-minsize"
     primary_shard_count   = 2
     component             = "lifecycle-and-shard-max@custom.json"
     total_shards_per_node = 2
