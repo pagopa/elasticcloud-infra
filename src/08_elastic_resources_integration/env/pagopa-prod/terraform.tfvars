@@ -105,4 +105,6 @@ k8s_application_log_instance_names = {
     "print-payment-notice-generator",
     "print-payment-notice-functions"
   ]
+  anonymizer = ["pagopa-anonymizer"]
+
 }
