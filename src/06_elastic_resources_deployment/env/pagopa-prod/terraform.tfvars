@@ -59,23 +59,31 @@ default_idx_tpl_customization = {
     total_shards_per_node = 3
   }
   elastic = {
-    lifecycle             = "elastic" #custom lifecycle name, uses the embedded snapshot policy
+    lifecycle             = "w1-c3-d5-shrink-embeddedsnapshot"
     primary_shard_count   = 3
     component             = "lifecycle-and-shard-max@custom.json"
     total_shards_per_node = 3
   }
   metricbeat = {
-    lifecycle             = "metricbeat" #custom lifecycle name, uses the embedded snapshot policy
+    lifecycle             = "w1-c3-d5-shrink-embeddedsnapshot"
     primary_shard_count   = 3
     component             = "lifecycle-and-shard-max@custom.json"
     total_shards_per_node = 3
   }
   elastic_monitoring = {
-    lifecycle             = "elastic_monitoring" #custom lifecycle name, uses the embedded snapshot policy
+    lifecycle             = "w0-d3"
     primary_shard_count   = 3
     component             = "lifecycle-and-shard-max@custom.json"
     total_shards_per_node = 3
   }
+  monitoring_beats = {
+    lifecycle             = "w0-d3"
+    primary_shard_count   = 3
+    component             = "lifecycle-and-shard-max@custom.json"
+    total_shards_per_node = 3
+  }
+
+  #fixme configurare prod con shrink, eliminare variabili non usate
 }
 
 

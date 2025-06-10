@@ -61,7 +61,7 @@ resource "elasticstack_elasticsearch_index_lifecycle" "index_lifecycle" {
   delete {
     min_age = each.value.delete.minAge
     dynamic "wait_for_snapshot" {
-      for_each = var.ilm_delete_wait_for_snapshot ? [1] : []
+      for_each = var.ilm_delete_wait_for_snapshot && lookup(each.value.delete, "waitForSnapshot", null) != null ? [1] : []
       content {
         policy = each.value.delete.waitForSnapshot
       }
