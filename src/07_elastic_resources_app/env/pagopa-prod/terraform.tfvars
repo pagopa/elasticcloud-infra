@@ -29,6 +29,7 @@ ilm = {
   bizevents            = "w2-c4-d7-shrink"
   afm                  = "w2-c4-d7-shrink"
   crusc8               = "w2-c4-d7-shrink"
+  anonymizer           = "w2-c4-d7-shrink"
 
 }
 
