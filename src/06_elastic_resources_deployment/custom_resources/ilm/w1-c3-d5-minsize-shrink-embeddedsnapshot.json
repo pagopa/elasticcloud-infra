@@ -5,21 +5,27 @@
       "maxPrimarySize": "20gb",
       "maxAge": "1d",
       "minPrimarySize": "10gb"
+
     }
   },
   "warm": {
-    "minAge": "0ms",
+    "minAge": "1d",
     "setPriority": 50,
-    "forceMerge": {
-      "maxSegments": 1
-    },
     "shrink": {
       "maxPrimarySize": "50gb",
       "allowWriteAfterShrink": true
     }
   },
-  "delete": {
+  "cold": {
     "minAge": "3d",
-    "deleteSearchableSnapshot": true
+    "setPriority": 0,
+    "allocate": {
+      "numberOfReplicas": 0
+    }
+  },
+  "delete": {
+    "minAge": "5d",
+    "deleteSearchableSnapshot": true,
+    "waitForSnapshot": "cloud-snapshot-policy"
   }
 }

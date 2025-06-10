@@ -9,6 +9,8 @@ locals {
     }))
   }
 
+  # deprecated custom policies, use var.default_idx_tpl_customization
+  # will be removed as soon as existing are not used anymore
   ilm_custom_policy = {
     elastic = {
       snapshot_policy = "cloud-snapshot-policy"
@@ -61,10 +63,16 @@ resource "elasticstack_elasticsearch_index_lifecycle" "deployment_index_lifecycl
 
     dynamic "shrink" {
       for_each = lookup(each.value.warm, "shrink", null) != null ? [1] : []
-
       content {
         allow_write_after_shrink = each.value.warm.shrink.allowWriteAfterShrink
         max_primary_shard_size   = each.value.warm.shrink.maxPrimarySize
+      }
+    }
+
+    dynamic "forcemerge" {
+      for_each = lookup(each.value.warm, "forceMerge", null) != null ? [1] : []
+      content {
+        max_num_segments = each.value.warm.forceMerge.maxSegments
       }
     }
   }
@@ -95,7 +103,7 @@ resource "elasticstack_elasticsearch_index_lifecycle" "deployment_index_lifecycl
     }
 
     dynamic "wait_for_snapshot" {
-      for_each = var.ilm_delete_wait_for_snapshot ? [1] : []
+      for_each = var.ilm_delete_wait_for_snapshot && lookup(each.value.delete, "waitForSnapshot", null) != null ? [1] : []
       content {
         policy = each.value.delete.waitForSnapshot
       }
@@ -108,7 +116,7 @@ resource "elasticstack_elasticsearch_index_lifecycle" "deployment_index_lifecycl
 }
 
 
-
+#deprecated custom index lifecycle policies
 resource "elasticstack_elasticsearch_index_lifecycle" "custom_index_lifecycle" {
   for_each = local.ilm_custom_policies
 
@@ -151,7 +159,7 @@ resource "elasticstack_elasticsearch_index_lifecycle" "custom_index_lifecycle" {
     }
 
     dynamic "wait_for_snapshot" {
-      for_each = var.ilm_delete_wait_for_snapshot ? [1] : []
+      for_each = var.ilm_delete_wait_for_snapshot && can(each.value.delete.waitForSnapshot) ? [1] : []
       content {
         policy = each.value.delete.waitForSnapshot
       }
