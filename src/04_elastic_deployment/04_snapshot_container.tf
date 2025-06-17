@@ -17,6 +17,8 @@ resource "azurerm_storage_account" "ec_snapshot_sa" {
   account_replication_type        = var.elk_snapshot_sa.replication_type
   allow_nested_items_to_be_public = false
 
+  access_tier = "Cold"
+
   blob_properties {
     change_feed_enabled = var.elk_snapshot_sa.backup_enabled
     dynamic "container_delete_retention_policy" {

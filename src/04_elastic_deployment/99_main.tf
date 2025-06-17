@@ -6,7 +6,7 @@ terraform {
     }
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 4.16"
+      version = "~> 4.19"
     }
     ec = {
       source  = "elastic/ec"

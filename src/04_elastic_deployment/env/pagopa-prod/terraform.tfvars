@@ -31,7 +31,7 @@ kibana_config = {
 integration_server = {
   size                  = "1g"
   zones                 = 3
-  configuration_version = "2"
+  configuration_version = "3"
 }
 master_config = {
   size       = "2g"
