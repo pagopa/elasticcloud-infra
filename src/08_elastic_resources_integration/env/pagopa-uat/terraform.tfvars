@@ -79,7 +79,7 @@ k8s_application_log_instance_names = {
     "pagopafdrxmltojson-httptrigger",
     "pagopafdrxmltojson-queuetrigger"
   ]
-  pagopapaymentspull = [
+  gps = [
     "gpd-core-microservice-chart",
     "pagopagpdpayments-microservice-chart",
     "pagopareportingorgsenrollment-microservice-chart",
