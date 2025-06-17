@@ -39,6 +39,8 @@ master_config = {
 }
 coordinating_config = null
 
+hardware_profile = "azure-cpu-optimized"
+
 elk_snapshot_sa = {
   blob_versioning_enabled    = false
   blob_delete_retention_days = 0
