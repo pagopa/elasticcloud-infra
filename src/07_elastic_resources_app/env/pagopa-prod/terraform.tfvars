@@ -48,3 +48,4 @@ apm_ilm = {
 
 ilm_delete_wait_for_snapshot = true
 primary_shard_count          = 3
+total_shards_per_node        = 3
