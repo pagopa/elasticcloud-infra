@@ -3,7 +3,7 @@
     "minAge": "0ms",
     "rollover": {
       "maxPrimarySize": "10gb",
-      "maxAge": "3d"
+      "maxAge": "1d"
     }
   },
   "warm": {
@@ -18,7 +18,7 @@
     }
   },
   "delete": {
-    "minAge": "3d",
+    "minAge": "5d",
     "deleteSearchableSnapshot": true
   }
 }

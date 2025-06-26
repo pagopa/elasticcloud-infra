@@ -71,19 +71,151 @@ default_idx_tpl_customization = {
     total_shards_per_node = 3
   }
   elastic_monitoring = {
-    lifecycle             = "w0-d3"
+    lifecycle             = "w1-d5-shrink"
     primary_shard_count   = 3
     component             = "lifecycle-and-shard-max@custom.json"
     total_shards_per_node = 3
   }
   monitoring_beats = {
-    lifecycle             = "w0-d3"
+    lifecycle             = "w1-d5-shrink"
     primary_shard_count   = 3
     component             = "lifecycle-and-shard-max@custom.json"
     total_shards_per_node = 3
   }
+  # kubernetes metrics customization
+  "metrics-kubernetes.pod" = {
+    lifecycle             = "w0-c4-d7-shrink"
+    primary_shard_count   = 3
+    component             = "lifecycle-and-shard-noreplica@custom.json"
+    total_shards_per_node = 3
+  }
+  "metrics-kubernetes.container" = {
+    lifecycle             = "w0-c4-d7-shrink"
+    primary_shard_count   = 3
+    component             = "lifecycle-and-shard-noreplica@custom.json"
+    total_shards_per_node = 3
+  }
+  "metrics-kubernetes.apiserver" = {
+    lifecycle             = "w0-c4-d7-shrink"
+    primary_shard_count   = 3
+    component             = "lifecycle-and-shard-noreplica@custom.json"
+    total_shards_per_node = 3
+  }
+  "metrics-kubernetes.volume" = {
+    lifecycle             = "w0-c4-d7-shrink"
+    primary_shard_count   = 3
+    component             = "lifecycle-and-shard-noreplica@custom.json"
+    total_shards_per_node = 3
+  }
+  "metrics-kubernetes.state_container" = {
+    lifecycle             = "w0-c4-d7-shrink"
+    primary_shard_count   = 3
+    component             = "lifecycle-and-shard-noreplica@custom.json"
+    total_shards_per_node = 3
+  }
+  "metrics-kubernetes.state_replicaset" = {
+    lifecycle             = "w0-c4-d7-shrink"
+    primary_shard_count   = 3
+    component             = "lifecycle-and-shard-noreplica@custom.json"
+    total_shards_per_node = 3
+  }
+  "metrics-kubernetes.state_deployment" = {
+    lifecycle             = "w0-c4-d7-shrink"
+    primary_shard_count   = 3
+    component             = "lifecycle-and-shard-noreplica@custom.json"
+    total_shards_per_node = 3
+  }
+  "metrics-kubernetes.system" = {
+    lifecycle             = "w0-c4-d7-shrink"
+    primary_shard_count   = 3
+    component             = "lifecycle-and-shard-noreplica@custom.json"
+    total_shards_per_node = 3
+  }
+  "metrics-kubernetes.state_namespace" = {
+    lifecycle             = "w0-c4-d7-shrink"
+    primary_shard_count   = 3
+    component             = "lifecycle-and-shard-noreplica@custom.json"
+    total_shards_per_node = 3
+  }
+  "metrics-kubernetes.state_service" = {
+    lifecycle             = "w0-c4-d7-shrink"
+    primary_shard_count   = 3
+    component             = "lifecycle-and-shard-noreplica@custom.json"
+    total_shards_per_node = 3
+  }
+  "metrics-kubernetes.event" = {
+    lifecycle             = "w0-c4-d7-shrink"
+    primary_shard_count   = 3
+    component             = "lifecycle-and-shard-noreplica@custom.json"
+    total_shards_per_node = 3
+  }
+  "metrics-kubernetes.state_daemonset" = {
+    lifecycle             = "w0-c4-d7-shrink"
+    primary_shard_count   = 3
+    component             = "lifecycle-and-shard-noreplica@custom.json"
+    total_shards_per_node = 3
+  }
+  "metrics-kubernetes.node" = {
+    lifecycle             = "w0-c4-d7-shrink"
+    primary_shard_count   = 3
+    component             = "lifecycle-and-shard-noreplica@custom.json"
+    total_shards_per_node = 3
+  }
+  "metrics-kubernetes.state_node" = {
+    lifecycle             = "w0-c4-d7-shrink"
+    primary_shard_count   = 3
+    component             = "lifecycle-and-shard-noreplica@custom.json"
+    total_shards_per_node = 3
+  }
+  "metrics-kubernetes.state_storageclass" = {
+    lifecycle             = "w0-c4-d7-shrink"
+    primary_shard_count   = 3
+    component             = "lifecycle-and-shard-noreplica@custom.json"
+    total_shards_per_node = 3
+  }
+  "metrics-kubernetes.state_persistentvolume" = {
+    lifecycle             = "w0-c4-d7-shrink"
+    primary_shard_count   = 3
+    component             = "lifecycle-and-shard-noreplica@custom.json"
+    total_shards_per_node = 3
+  }
+  "metrics-kubernetes.state_persistentvolumeclaim" = {
+    lifecycle             = "w0-c4-d7-shrink"
+    primary_shard_count   = 3
+    component             = "lifecycle-and-shard-noreplica@custom.json"
+    total_shards_per_node = 3
+  }
+  "metrics-kubernetes.state_job" = {
+    lifecycle             = "w0-c4-d7-shrink"
+    primary_shard_count   = 3
+    component             = "lifecycle-and-shard-noreplica@custom.json"
+    total_shards_per_node = 3
+  }
+  "metrics-kubernetes.state_statefulset" = {
+    lifecycle             = "w0-c4-d7-shrink"
+    primary_shard_count   = 3
+    component             = "lifecycle-and-shard-noreplica@custom.json"
+    total_shards_per_node = 3
+  }
+  "metrics-kubernetes.state_cronjob" = {
+    lifecycle             = "w0-c4-d7-shrink"
+    primary_shard_count   = 3
+    component             = "lifecycle-and-shard-noreplica@custom.json"
+    total_shards_per_node = 3
+  }
+  "metrics-kubernetes.resourcequota" = {
+    lifecycle             = "w0-c4-d7-shrink"
+    primary_shard_count   = 3
+    component             = "lifecycle-and-shard-noreplica@custom.json"
+    total_shards_per_node = 3
+  }
+  "logs-system.syslog" = {
+    component = "noreplica@custom.json"
+  }
+  "metrics-elastic_agent.filebeat_input" = {
+    component = "noreplica@custom.json"
+  }
 
-  #fixme configurare prod con shrink, eliminare variabili non usate
 }
 
 
