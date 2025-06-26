@@ -2,7 +2,7 @@ locals {
 
   custom_lifecycle_components = { for k, v in var.default_idx_tpl_customization : k =>
     jsondecode(templatefile("${path.module}/custom_resources/index_component/${v.component}", {
-      lifecycle             = "${local.ilm_prefix}-${v.lifecycle}-ilm",
+      lifecycle             = try("${local.ilm_prefix}-${v.lifecycle}-ilm", ""),
       name                  = k
       primary_shard_count   = v.primary_shard_count
       total_shards_per_node = v.total_shards_per_node
