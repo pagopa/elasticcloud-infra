@@ -79,14 +79,15 @@ k8s_application_log_instance_names = {
     "pagopafdrxmltojson-httptrigger",
     "pagopafdrxmltojson-queuetrigger"
   ]
-  pagopapaymentspull = [
+  gps = [
     "gpd-core-microservice-chart",
     "pagopagpdpayments-microservice-chart",
     "pagopareportingorgsenrollment-microservice-chart",
     "pagopaspontaneouspayments-microservice-chart",
     "gpd-payments-pull",
     "gpd-upload-microservice-chart",
-    "pagopapagopagpdingestionmanager-microservice-chart"
+    "pagopa-gpd-ingestion-manager",
+    "pagopa-gpd-rtp"
   ]
   nodo              = ["nodo"]
   nodocron          = ["nodocron"]
