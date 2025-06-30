@@ -8,8 +8,8 @@ locals {
   }
 
   alerts = {
-    "cluster_health" = {
-      name        = "Cluster health"
+    "cluster_health_red" = {
+      name        = "Cluster health red"
       description = "${title(var.env)} cluster health is red"
       params = {
         threshold = var.alert_configuration.cluster_health.threshold
