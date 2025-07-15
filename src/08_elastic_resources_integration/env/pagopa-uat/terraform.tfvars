@@ -111,8 +111,9 @@ k8s_application_log_instance_names = {
   anonymizer = ["pagopa-anonymizer"]
 }
 
-apm_sampling = {
-  enabled       = false
-  rate          = 0.5
-  storage_limit = "30GB"
+sampling_configuration = {
+    enabled                    = true
+    probes_sampling_percentage = 10
+    sampling_percentage        = 50
+    probe_paths = ["/actuator/health/liveness", "/actuator/health/readiness", "/actuator/health/{*path}", "/health/liveness", "/health/readiness"]
 }
