@@ -12,6 +12,10 @@
     "shrink": {
       "maxPrimarySize": "50gb",
       "allowWriteAfterShrink": false
+    },
+    "forceMerge": {
+      "maxSegments": 1,
+      "indexCodec": "best_compression"
     }
   },
   "cold": {

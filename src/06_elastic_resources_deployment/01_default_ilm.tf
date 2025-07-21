@@ -73,6 +73,7 @@ resource "elasticstack_elasticsearch_index_lifecycle" "deployment_index_lifecycl
       for_each = lookup(each.value.warm, "forceMerge", null) != null ? [1] : []
       content {
         max_num_segments = each.value.warm.forceMerge.maxSegments
+        index_codec      = each.value.warm.forceMerge.indexCodec
       }
     }
   }
