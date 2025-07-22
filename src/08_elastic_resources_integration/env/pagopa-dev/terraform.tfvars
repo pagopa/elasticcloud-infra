@@ -113,8 +113,8 @@ k8s_application_log_instance_names = {
 
 
 sampling_configuration = {
-    enabled                    = true
-    probes_sampling_percentage = 5
-    sampling_percentage        = 30
-    probe_paths = ["/actuator/health/liveness", "/actuator/health/readiness", "/actuator/health/{*path}", "/health/liveness", "/health/readiness"]
+  enabled                    = true
+  probes_sampling_percentage = 5
+  sampling_percentage        = 30
+  probe_paths                = ["/actuator/health/liveness", "/actuator/health/readiness", "/actuator/health/{*path}", "/health/liveness", "/health/readiness"]
 }

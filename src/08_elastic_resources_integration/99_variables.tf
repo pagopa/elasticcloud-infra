@@ -104,7 +104,7 @@ variable "sampling_configuration" {
     enabled                    = false
     probes_sampling_percentage = 1
     sampling_percentage        = 50
-    probe_paths = []
+    probe_paths                = []
   }
 }
 

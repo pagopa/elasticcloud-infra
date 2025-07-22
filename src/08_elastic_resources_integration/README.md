@@ -53,7 +53,7 @@ Please, refer to [products readme](../07_elastic_resources_app/products/README.m
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module___v4__"></a> [\_\_v4\_\_](#module\_\_\_v4\_\_) | git::https://github.com/pagopa/terraform-azurerm-v4 | 408f8b9d13edf51f1076f1052c297fe5f56c3a40 |
+| <a name="module___v4__"></a> [\_\_v4\_\_](#module\_\_\_v4\_\_) | git::https://github.com/pagopa/terraform-azurerm-v4 | 873db3685d2b91fd4f2096f005fd6e6063b4aab3 |
 | <a name="module_install_agent_cluster_1"></a> [install\_agent\_cluster\_1](#module\_install\_agent\_cluster\_1) | ./.terraform/modules/__v4__/elastic_cloud_agent | n/a |
 | <a name="module_install_agent_cluster_2"></a> [install\_agent\_cluster\_2](#module\_install\_agent\_cluster\_2) | ./.terraform/modules/__v4__/elastic_cloud_agent | n/a |
 | <a name="module_otel_cluster_1"></a> [otel\_cluster\_1](#module\_otel\_cluster\_1) | ./.terraform/modules/__v4__/open_telemetry | n/a |
@@ -102,7 +102,6 @@ Please, refer to [products readme](../07_elastic_resources_app/products/README.m
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_aks_config"></a> [aks\_config](#input\_aks\_config) | (Required) list of aks cluster configurations where the elstic agent and otel will be installed. must not be empty, must not be more than 2 elements | <pre>list(object({<br/>    name = string<br/>    elastic_agent = object({<br/>      namespace = string<br/>      create_ns = bool<br/>      tolerated_taints = optional(list(object({<br/>        key    = string<br/>        effect = optional(string, "NoSchedule")<br/>      })), [])<br/>    })<br/>    otel = object({<br/>      namespace = string<br/>      create_ns = bool<br/>      affinity_selector = optional(object({<br/>        key   = string<br/>        value = string<br/>      }), null)<br/>      receiver_port = optional(string, "4317")<br/>    })<br/>  }))</pre> | n/a | yes |
-| <a name="input_apm_sampling"></a> [apm\_sampling](#input\_apm\_sampling) | n/a | <pre>object({<br/>    enabled       = bool<br/>    rate          = number<br/>    storage_limit = string<br/>  })</pre> | <pre>{<br/>  "enabled": false,<br/>  "rate": 0.1,<br/>  "storage_limit": "3GB"<br/>}</pre> | no |
 | <a name="input_deployment_name"></a> [deployment\_name](#input\_deployment\_name) | (Required) EC deployment name | `string` | n/a | yes |
 | <a name="input_env"></a> [env](#input\_env) | (Required) Environment name | `string` | n/a | yes |
 | <a name="input_env_short"></a> [env\_short](#input\_env\_short) | n/a | `string` | n/a | yes |
@@ -110,6 +109,7 @@ Please, refer to [products readme](../07_elastic_resources_app/products/README.m
 | <a name="input_k8s_kube_config_path_prefix"></a> [k8s\_kube\_config\_path\_prefix](#input\_k8s\_kube\_config\_path\_prefix) | (Optional) path to the kube config folder | `string` | `"~/.kube"` | no |
 | <a name="input_opentelemetry_operator_helm_version"></a> [opentelemetry\_operator\_helm\_version](#input\_opentelemetry\_operator\_helm\_version) | Open telemetry operator version | `string` | `"0.24.3"` | no |
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | n/a | `string` | n/a | yes |
+| <a name="input_sampling_configuration"></a> [sampling\_configuration](#input\_sampling\_configuration) | Sampling configuration for the OpenTelemetry collector traces | <pre>object({<br/>    enabled                    = bool<br/>    probes_sampling_percentage = optional(number, 1)<br/>    sampling_percentage        = optional(number, 50)<br/>    probe_paths                = optional(list(string), [])<br/>  })</pre> | <pre>{<br/>  "enabled": false,<br/>  "probe_paths": [],<br/>  "probes_sampling_percentage": 1,<br/>  "sampling_percentage": 50<br/>}</pre> | no |
 
 ## Outputs
 
