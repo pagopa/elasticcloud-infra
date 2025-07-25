@@ -34,16 +34,16 @@ ilm = {
 }
 
 apm_ilm = {
-  pagopa-ecommerce-payment-methods-service        = "w2-c8-d90-shrink"
-  pagopa-ecommerce-transactions-service           = "w2-c8-d90-shrink"
-  pagopa-ecommerce-payment-requests-service       = "w2-c8-d90-shrink"
-  pagopa-ecommerce-user-stats-service             = "w2-c8-d90-shrink"
-  pagopa-ecommerce-event-dispatcher-service       = "w2-c8-d90-shrink"
-  pagopa-ecommerce-helpdesk-service               = "w2-c8-d90-shrink"
-  pagopa-ecommerce-transactions-scheduler-service = "w2-c8-d90-shrink"
-  pagopa-wallet-service                           = "w2-c8-d90-shrink"
-  pagopa-payment-wallet-cdc-service               = "w2-c8-d90-shrink"
-  pagopa-payment-wallet-event-dispatcher-service  = "w2-c8-d90-shrink"
+  pagopa-ecommerce-payment-methods-service        = "w2-c8-d30-shrink"
+  pagopa-ecommerce-transactions-service           = "w2-c8-d30-shrink"
+  pagopa-ecommerce-payment-requests-service       = "w2-c8-d30-shrink"
+  pagopa-ecommerce-user-stats-service             = "w2-c8-d30-shrink"
+  pagopa-ecommerce-event-dispatcher-service       = "w2-c8-d30-shrink"
+  pagopa-ecommerce-helpdesk-service               = "w2-c8-d30-shrink"
+  pagopa-ecommerce-transactions-scheduler-service = "w2-c8-d30-shrink"
+  pagopa-wallet-service                           = "w2-c8-d30-shrink"
+  pagopa-payment-wallet-cdc-service               = "w2-c8-d30-shrink"
+  pagopa-payment-wallet-event-dispatcher-service  = "w2-c8-d30-shrink"
 }
 
 ilm_delete_wait_for_snapshot = true
