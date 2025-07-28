@@ -20,6 +20,7 @@ locals {
       rule_type_id      = "monitoring_alert_cluster_health"
       interval          = "1m"
       opsgenie_priority = "P1"
+      consecutive_runs  = 3
     },
     "cluster_health_yellow" = {
       name        = "Cluster health yellow"
@@ -103,6 +104,9 @@ resource "elasticstack_kibana_alerting_rule" "alert" {
   rule_type_id = each.value.rule_type_id
   interval     = each.value.interval
   enabled      = true
+
+  alert_delay = lookup(each.value, "consecutive_runs", null)
+
 
   #serverlog
   dynamic "actions" {
