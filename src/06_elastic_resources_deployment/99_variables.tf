@@ -130,9 +130,9 @@ variable "alert_configuration" {
       duration  = "30m"
     })
     index_shard_size = optional(object({
-      threshold = optional(number, 55)
+      threshold = optional(number, 70)
       }), {
-      threshold = 55
+      threshold = 70
     })
   })
   default = {}
