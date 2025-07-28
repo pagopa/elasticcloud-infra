@@ -14,7 +14,7 @@
       "indexCodec": "best_compression"
     },
     "shrink": {
-      "maxPrimarySize": "50gb",
+      "maxPrimarySize": "65gb",
       "allowWriteAfterShrink": true
     }
   },

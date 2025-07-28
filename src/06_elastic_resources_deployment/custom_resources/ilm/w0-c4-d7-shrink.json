@@ -10,7 +10,7 @@
     "minAge": "0ms",
     "setPriority": 50,
     "shrink": {
-      "maxPrimarySize": "50gb",
+      "maxPrimarySize": "65gb",
       "allowWriteAfterShrink": true
     },
     "forceMerge": {
