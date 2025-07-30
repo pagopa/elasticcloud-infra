@@ -47,3 +47,5 @@ integration_server = {
   size  = "1g"
   zones = 1
 }
+
+hardware_profile = "azure-general-purpose"
