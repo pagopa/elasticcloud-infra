@@ -34,6 +34,7 @@ locals {
       rule_type_id      = "monitoring_alert_cluster_health"
       interval          = "1m"
       opsgenie_priority = "P4"
+      consecutive_runs  = 3
     }
     node_changed = {
       name        = "Nodes changed"
