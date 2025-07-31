@@ -13,10 +13,8 @@ terraform {
       version = "~> 0.12.2"
     }
     elasticstack = {
-      source = "elastic/elasticstack"
-      # version required to avoid a bug on integration policy: https://github.com/elastic/terraform-provider-elasticstack/issues/999
-      # version documented here https://github.com/elastic/terraform-provider-elasticstack/issues/836
-      version = "0.11.7"
+      source  = "elastic/elasticstack"
+      version = "0.11.17"
     }
   }
 
