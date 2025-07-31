@@ -44,15 +44,15 @@ You can check them in this PR:
 | <a name="requirement_azuread"></a> [azuread](#requirement\_azuread) | ~> 3.1 |
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 4.16 |
 | <a name="requirement_ec"></a> [ec](#requirement\_ec) | ~> 0.12.2 |
-| <a name="requirement_elasticstack"></a> [elasticstack](#requirement\_elasticstack) | 0.11.7 |
+| <a name="requirement_elasticstack"></a> [elasticstack](#requirement\_elasticstack) | 0.11.17 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 4.20.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 4.38.0 |
 | <a name="provider_ec"></a> [ec](#provider\_ec) | 0.12.2 |
-| <a name="provider_elasticstack"></a> [elasticstack](#provider\_elasticstack) | 0.11.7 |
+| <a name="provider_elasticstack"></a> [elasticstack](#provider\_elasticstack) | 0.11.17 |
 
 ## Modules
 
@@ -62,18 +62,18 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [elasticstack_elasticsearch_component_template.custom_components_default_index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_component_template) | resource |
-| [elasticstack_elasticsearch_index_lifecycle.custom_index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_index_lifecycle) | resource |
-| [elasticstack_elasticsearch_index_lifecycle.deployment_index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_index_lifecycle) | resource |
-| [elasticstack_elasticsearch_index_template.elastic_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_index_template) | resource |
-| [elasticstack_elasticsearch_index_template.metricbeat_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_index_template) | resource |
-| [elasticstack_elasticsearch_index_template.monitoring_beats_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_index_template) | resource |
-| [elasticstack_elasticsearch_index_template.monitoring_es_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_index_template) | resource |
-| [elasticstack_kibana_action_connector.app_connector](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/kibana_action_connector) | resource |
-| [elasticstack_kibana_action_connector.log](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/kibana_action_connector) | resource |
-| [elasticstack_kibana_action_connector.opsgenie](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/kibana_action_connector) | resource |
-| [elasticstack_kibana_action_connector.slack](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/kibana_action_connector) | resource |
-| [elasticstack_kibana_alerting_rule.alert](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/kibana_alerting_rule) | resource |
+| [elasticstack_elasticsearch_component_template.custom_components_default_index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.11.17/docs/resources/elasticsearch_component_template) | resource |
+| [elasticstack_elasticsearch_index_lifecycle.custom_index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.11.17/docs/resources/elasticsearch_index_lifecycle) | resource |
+| [elasticstack_elasticsearch_index_lifecycle.deployment_index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.11.17/docs/resources/elasticsearch_index_lifecycle) | resource |
+| [elasticstack_elasticsearch_index_template.elastic_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.11.17/docs/resources/elasticsearch_index_template) | resource |
+| [elasticstack_elasticsearch_index_template.metricbeat_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.11.17/docs/resources/elasticsearch_index_template) | resource |
+| [elasticstack_elasticsearch_index_template.monitoring_beats_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.11.17/docs/resources/elasticsearch_index_template) | resource |
+| [elasticstack_elasticsearch_index_template.monitoring_es_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.11.17/docs/resources/elasticsearch_index_template) | resource |
+| [elasticstack_kibana_action_connector.app_connector](https://registry.terraform.io/providers/elastic/elasticstack/0.11.17/docs/resources/kibana_action_connector) | resource |
+| [elasticstack_kibana_action_connector.log](https://registry.terraform.io/providers/elastic/elasticstack/0.11.17/docs/resources/kibana_action_connector) | resource |
+| [elasticstack_kibana_action_connector.opsgenie](https://registry.terraform.io/providers/elastic/elasticstack/0.11.17/docs/resources/kibana_action_connector) | resource |
+| [elasticstack_kibana_action_connector.slack](https://registry.terraform.io/providers/elastic/elasticstack/0.11.17/docs/resources/kibana_action_connector) | resource |
+| [elasticstack_kibana_alerting_rule.alert](https://registry.terraform.io/providers/elastic/elasticstack/0.11.17/docs/resources/kibana_alerting_rule) | resource |
 | [azurerm_key_vault.key_vault](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault) | data source |
 | [azurerm_key_vault.key_vault_org](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault) | data source |
 | [azurerm_key_vault_secret.app_connector_secret_key](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault_secret) | data source |
