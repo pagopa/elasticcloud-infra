@@ -3,14 +3,15 @@
     "minAge": "0ms",
     "rollover": {
       "maxPrimarySize": "20gb",
-      "maxAge": "1d"
+      "maxAge": "1d",
+      "minPrimarySize": "10gb"
     }
   },
   "warm": {
-    "minAge": "2d",
+    "minAge": "0ms",
     "setPriority": 50,
     "shrink": {
-      "maxPrimarySize": "65gb",
+      "maxPrimarySize": "50gb",
       "allowWriteAfterShrink": true
     },
     "forceMerge": {
@@ -18,15 +19,8 @@
       "indexCodec": "best_compression"
     }
   },
-  "cold": {
-    "minAge": "4d",
-    "setPriority": 0,
-    "allocate": {
-      "numberOfReplicas": 0
-    }
-  },
   "delete": {
-    "minAge": "7d",
+    "minAge": "5d",
     "deleteSearchableSnapshot": true,
     "waitForSnapshot": "${snapshot_policy}"
   }

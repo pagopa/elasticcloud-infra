@@ -10,8 +10,12 @@
     "minAge": "2d",
     "setPriority": 50,
     "shrink": {
-      "maxPrimarySize": "50gb",
+      "maxPrimarySize": "65gb",
       "allowWriteAfterShrink": true
+    },
+    "forceMerge": {
+      "maxSegments": 1,
+      "indexCodec": "best_compression"
     }
   },
   "cold": {
