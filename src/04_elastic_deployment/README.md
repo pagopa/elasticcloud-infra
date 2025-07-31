@@ -54,7 +54,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_cold_config"></a> [cold\_config](#input\_cold\_config) | Cold storage node configuration | <pre>object({<br/>    size       = string<br/>    zone_count = number<br/>  })</pre> | n/a | yes |
+| <a name="input_cold_config"></a> [cold\_config](#input\_cold\_config) | Cold storage node configuration | <pre>object({<br/>    size       = string<br/>    zone_count = number<br/>  })</pre> | `null` | no |
 | <a name="input_coordinating_config"></a> [coordinating\_config](#input\_coordinating\_config) | ES Coordinating node configuration | <pre>object({<br/>    size       = string<br/>    zone_count = number<br/>  })</pre> | n/a | yes |
 | <a name="input_elasticsearch_version"></a> [elasticsearch\_version](#input\_elasticsearch\_version) | n/a | `string` | n/a | yes |
 | <a name="input_elk_snapshot_sa"></a> [elk\_snapshot\_sa](#input\_elk\_snapshot\_sa) | n/a | <pre>object({<br/>    blob_delete_retention_days = number<br/>    backup_enabled             = bool<br/>    blob_versioning_enabled    = bool<br/>    advanced_threat_protection = bool<br/>    replication_type           = optional(string, "LRS")<br/>  })</pre> | <pre>{<br/>  "advanced_threat_protection": true,<br/>  "backup_enabled": true,<br/>  "blob_delete_retention_days": 30,<br/>  "blob_versioning_enabled": true,<br/>  "replication_type": "GZRS"<br/>}</pre> | no |
@@ -68,7 +68,7 @@ No modules.
 | <a name="input_kv_rg_org_ec"></a> [kv\_rg\_org\_ec](#input\_kv\_rg\_org\_ec) | n/a | `string` | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | One of westeurope, northeurope | `string` | n/a | yes |
 | <a name="input_location_short"></a> [location\_short](#input\_location\_short) | One of wue, neu | `string` | n/a | yes |
-| <a name="input_master_config"></a> [master\_config](#input\_master\_config) | ES Master node configuration | <pre>object({<br/>    size       = string<br/>    zone_count = number<br/>  })</pre> | n/a | yes |
+| <a name="input_master_config"></a> [master\_config](#input\_master\_config) | ES Master node configuration | <pre>object({<br/>    size       = string<br/>    zone_count = number<br/>  })</pre> | `null` | no |
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | n/a | `string` | n/a | yes |
 | <a name="input_shared_env"></a> [shared\_env](#input\_shared\_env) | List of environments contained in this deployment | `list(string)` | n/a | yes |
 | <a name="input_warm_config"></a> [warm\_config](#input\_warm\_config) | Warm storage node configuration | <pre>object({<br/>    size       = string<br/>    zone_count = number<br/>  })</pre> | n/a | yes |

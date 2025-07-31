@@ -18,18 +18,12 @@ warm_config = {
   size       = "2g"
   zone_count = 2
 }
-cold_config = {
-  size       = "2g"
-  zone_count = 2
-}
+
 kibana_config = {
   size       = "2g"
   zone_count = 2
 }
-master_config = {
-  size       = "2g"
-  zone_count = 3
-}
+
 
 coordinating_config = null
 
