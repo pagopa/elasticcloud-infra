@@ -4,7 +4,7 @@
     "rollover": {
       "maxPrimarySize": "20gb",
       "maxAge": "1d",
-      "minPrimarySize": "10gb"
+      "minPrimarySize": "5gb"
 
     }
   },
