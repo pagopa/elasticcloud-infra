@@ -9,8 +9,8 @@ kv_rg_org_ec             = "paymon-u-ec-org-sec-rg"
 elastic_apikey_env_short = "u"
 elastic_apikey_env       = "uat"
 
-default_ilm_elastic            = "w1-c3-d5-minsize-shrink"
-default_ilm_metricbeat         = "w1-c3-d5-minsize-shrink"
+default_ilm_elastic            = "w1-d5"
+default_ilm_metricbeat         = "w1-d5"
 default_ilm_elastic_monitoring = "w0-d3-minsize"
 
 ilm_delete_wait_for_snapshot = false
@@ -27,31 +27,31 @@ alert_channels = {
 
 default_idx_tpl_customization = {
   logs = {
-    lifecycle             = "w1-c3-d5-minsize-shrink"
+    lifecycle             = "w1-d5"
     primary_shard_count   = 2
     component             = "lifecycle-and-shard@custom.json"
     total_shards_per_node = 2
   }
   traces = {
-    lifecycle             = "w1-c3-d5-minsize-shrink"
+    lifecycle             = "w1-d5"
     primary_shard_count   = 2
     component             = "lifecycle-and-shard-max@custom.json"
     total_shards_per_node = 2
   }
   metrics = {
-    lifecycle             = "w1-c3-d5-minsize-shrink"
+    lifecycle             = "w1-d5"
     primary_shard_count   = 2
     component             = "lifecycle-and-shard@custom.json"
     total_shards_per_node = 2
   }
   elastic = {
-    lifecycle             = "w1-c3-d5-minsize-shrink-embeddedsnapshot"
+    lifecycle             = "w1-d5-embeddedsnapshot"
     primary_shard_count   = 2
     component             = "lifecycle-and-shard-max@custom.json"
     total_shards_per_node = 2
   }
   metricbeat = {
-    lifecycle             = "w1-c3-d5-minsize-shrink-embeddedsnapshot"
+    lifecycle             = "w1-d5-embeddedsnapshot"
     primary_shard_count   = 2
     component             = "lifecycle-and-shard-max@custom.json"
     total_shards_per_node = 2
