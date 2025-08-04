@@ -28,43 +28,43 @@ alert_channels = {
 default_idx_tpl_customization = {
   logs = {
     lifecycle             = "w1-d5"
-    primary_shard_count   = 2
+    primary_shard_count   = 1
     component             = "lifecycle-and-shard@custom.json"
     total_shards_per_node = 2
   }
   traces = {
     lifecycle             = "w1-d5"
-    primary_shard_count   = 2
+    primary_shard_count   = 1
     component             = "lifecycle-and-shard-max@custom.json"
     total_shards_per_node = 2
   }
   metrics = {
     lifecycle             = "w1-d5"
-    primary_shard_count   = 2
+    primary_shard_count   = 1
     component             = "lifecycle-and-shard@custom.json"
     total_shards_per_node = 2
   }
   elastic = {
     lifecycle             = "w1-d5-embeddedsnapshot"
-    primary_shard_count   = 2
+    primary_shard_count   = 1
     component             = "lifecycle-and-shard-max@custom.json"
     total_shards_per_node = 2
   }
   metricbeat = {
     lifecycle             = "w1-d5-embeddedsnapshot"
-    primary_shard_count   = 2
+    primary_shard_count   = 1
     component             = "lifecycle-and-shard-max@custom.json"
     total_shards_per_node = 2
   }
   elastic_monitoring = {
     lifecycle             = "w0-d3-minsize"
-    primary_shard_count   = 2
+    primary_shard_count   = 1
     component             = "lifecycle-and-shard-max@custom.json"
     total_shards_per_node = 2
   }
   monitoring_beats = {
     lifecycle             = "w0-d3-minsize"
-    primary_shard_count   = 2
+    primary_shard_count   = 1
     component             = "lifecycle-and-shard-max@custom.json"
     total_shards_per_node = 2
   }
