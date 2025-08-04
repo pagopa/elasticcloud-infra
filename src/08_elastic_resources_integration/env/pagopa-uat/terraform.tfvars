@@ -89,7 +89,7 @@ k8s_application_log_instance_names = {
     "pagopa-gpd-ingestion-manager",
     "pagopa-gpd-rtp"
   ]
-  nodo              = ["nodo"]
+  nodo              = ["nodopagamenti"]
   nodocron          = ["nodocron"]
   nodoreplica       = ["nodoreplica"]
   nodocronreplica   = ["nodocronreplica"]
