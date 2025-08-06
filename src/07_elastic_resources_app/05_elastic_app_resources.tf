@@ -1,12 +1,3 @@
-resource "elasticstack_kibana_space" "kibana_space" {
-  for_each          = local.spaces
-  space_id          = "${each.value}-${var.env}"
-  name              = "${each.value}-${var.env}"
-  description       = "Space for ${each.value}-${var.env}"
-  disabled_features = []
-}
-
-
 module "app_resources" {
   source   = "./.terraform/modules/__v4__/elastic_app_resources"
   for_each = local.configurations
@@ -36,7 +27,4 @@ module "app_resources" {
 
   depends_on = [elasticstack_elasticsearch_index_lifecycle.index_lifecycle]
 }
-
-
-
 

@@ -49,3 +49,15 @@ apm_logs_metrics_ilm = {
 ilm_delete_wait_for_snapshot = true
 primary_shard_count          = 3
 total_shards_per_node        = 3
+
+
+app_connectors = {
+  "team-core-opsgenie" = {
+    type       = "opsgenie"
+    secret_key = "team-core-opsgenie-api-key"
+  }
+  "team-touchpoint-opsgenie" = {
+    type       = "opsgenie"
+    secret_key = "team-touchpoint-opsgenie-api-key"
+  }
+}
