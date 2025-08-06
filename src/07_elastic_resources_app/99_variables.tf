@@ -64,17 +64,17 @@ variable "ilm_delete_wait_for_snapshot" {
   description = "Wheather or not the delete phase of every lifecycle policy for this environment needs to wait for snapshot policy to run or not"
 }
 
-variable "apm_ilm" {
+variable "apm_logs_metrics_ilm" {
   type        = map(string)
   description = "(Required) Map containing the service name which require a custom ilm for this environment associated to the related index lifecycle management policy to be used for that service. The allowed values are the file names in `default_library/ilm` folder"
   default     = {}
   validation {
-    condition     = alltrue([for v in values(var.apm_ilm) : !strcontains(v, ".json")])
+    condition     = alltrue([for v in values(var.apm_logs_metrics_ilm) : !strcontains(v, ".json")])
     error_message = "One or more ilm contains file extension. Use the file name only"
   }
 
   validation {
-    condition     = alltrue([for v in values(var.apm_ilm) : fileexists("${path.module}/default_library/ilm/${v}.json")])
+    condition     = alltrue([for v in values(var.apm_logs_metrics_ilm) : fileexists("${path.module}/default_library/ilm/${v}.json")])
     error_message = "One or more ilm defined does not have the corresponding file configured in the library"
   }
 }

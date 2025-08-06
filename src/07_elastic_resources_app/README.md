@@ -67,7 +67,7 @@ for details on how to configure a new space/application, please refer to the `co
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_apm_ilm"></a> [apm\_ilm](#input\_apm\_ilm) | (Required) Map containing the service name which require a custom ilm for this environment associated to the related index lifecycle management policy to be used for that service. The allowed values are the file names in `default_library/ilm` folder | `map(string)` | `{}` | no |
+| <a name="input_apm_logs_metrics_ilm"></a> [apm\_logs\_metrics\_ilm](#input\_apm\_logs\_metrics\_ilm) | (Required) Map containing the service name which require a custom ilm for this environment associated to the related index lifecycle management policy to be used for that service. The allowed values are the file names in `default_library/ilm` folder | `map(string)` | `{}` | no |
 | <a name="input_deployment_name"></a> [deployment\_name](#input\_deployment\_name) | (Required) EC deployment name | `string` | n/a | yes |
 | <a name="input_env"></a> [env](#input\_env) | (Required) Environment name | `string` | n/a | yes |
 | <a name="input_env_short"></a> [env\_short](#input\_env\_short) | n/a | `string` | n/a | yes |
