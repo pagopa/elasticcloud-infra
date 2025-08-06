@@ -26,7 +26,7 @@
     }
   },
   "delete": {
-    "minAge": "90d",
+    "minAge": "70d",
     "deleteSearchableSnapshot": true,
     "waitForSnapshot": "${snapshot_policy}"
   }

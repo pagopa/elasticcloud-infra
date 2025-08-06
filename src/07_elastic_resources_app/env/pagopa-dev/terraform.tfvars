@@ -32,7 +32,7 @@ ilm = {
   anonymizer           = "w1-d5"
 }
 
-apm_ilm = {
+apm_logs_metrics_ilm = {
 }
 
 ilm_delete_wait_for_snapshot = false
