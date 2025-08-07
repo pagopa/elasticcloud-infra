@@ -18,7 +18,7 @@ locals {
         "filterQuery" : "{\"bool\":{\"should\":[{\"term\":{\"cluster_state.status\":{\"value\":\"red\"}}}],\"minimum_should_match\":1}}"
       }
       rule_type_id      = "monitoring_alert_cluster_health"
-      interval          = "1m"
+      interval          = "5m"
       opsgenie_priority = "P1"
       consecutive_runs  = 3
     },
@@ -32,7 +32,7 @@ locals {
         "filterQuery" : "{\"bool\":{\"should\":[{\"term\":{\"cluster_state.status\":{\"value\":\"yellow\"}}}],\"minimum_should_match\":1}}"
       }
       rule_type_id      = "monitoring_alert_cluster_health"
-      interval          = "1m"
+      interval          = "5m"
       opsgenie_priority = "P4"
       consecutive_runs  = 3
     }
@@ -66,8 +66,9 @@ locals {
         duration  = var.alert_configuration.node_disk_usage.duration
       }
       rule_type_id      = "monitoring_alert_disk_usage"
-      interval          = "1m"
+      interval          = "5m"
       opsgenie_priority = "P2"
+      consecutive_runs  = 3
     },
     node_memory_usage = {
       name        = "Memory Usage (JVM)"
@@ -88,8 +89,9 @@ locals {
         threshold    = var.alert_configuration.index_shard_size.threshold
       }
       rule_type_id      = "monitoring_shard_size"
-      interval          = "1m"
+      interval          = "60m"
       opsgenie_priority = "P3"
+      consecutive_runs  = 3
     }
     # Add other alerts here...
   }
