@@ -24,6 +24,20 @@ locals {
     }
   }
   spaces = toset([for f in local.config_files : split("/", dirname(f))[2]]) #get space name from structure products/<product>/<space_name>/<application_name>
+
+
+  space_connectors = {for elem in flatten([
+          for space in local.spaces : [
+            for connector_name, connector in var.app_connectors :  {
+              key = "${space}-${connector_name}"
+              space_name = space
+              connector  = connector_name
+              type       = connector.type
+            }
+          ]
+        ]) : elem.key => elem
+  }
+
 }
 
 
