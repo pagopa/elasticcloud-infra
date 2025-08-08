@@ -18,12 +18,14 @@ config
     ├── ecommerce # kibana space folder
     │ └── ecommerce # application folder
     │     ├── appSettings.json # application configuration
-    │     └── dashboards # application dashboards. use "${data_view}" placeholder instead of the data_view_id, ${apm_data_view} instead of 'apm_static_index_pattern_id'
-    │         ├── ActivationNearToPaymentTokenExpiration.ndjson # saved object format
-    │         ├── DeadLetterDashboard.ndjson
-    │         ├── NodoFaultCode.ndjson
-    │         ├── NpgMonitoringDashboard.ndjson
-    │         └── UpdateStatusDashboard.ndjson
+    │     ├── dashboard # application dashboards. use "${data_view}" placeholder instead of the data_view_id, ${apm_data_view} instead of 'apm_static_index_pattern_id'
+    │     │   ├── ActivationNearToPaymentTokenExpiration.ndjson # saved object format
+    │     │   ├── DeadLetterDashboard.ndjson
+    │     │   ├── NodoFaultCode.ndjson
+    │     │   ├── NpgMonitoringDashboard.ndjson
+    │     │   └── UpdateStatusDashboard.ndjson
+    │     └── alert # application 1 alerts
+    │         └── myalert.yml # alert definition
     ├── ndp # another kibana space
     │ ├── nodo # application 1
     │ │ ├── appSettings.json # application 1 configuration
@@ -57,6 +59,7 @@ First of all you need to create the correct folder structure, starting from the 
 - **required**, create a file names `appSettings.json`, otherwise no resources will be created
 - **if needed**, create a folder for your dashboards named `dashboard`. Save here all the exported dashboard in ndjson format. **NB:** replace the `data_view_id` value with `"${data_view}"` and `apm_static_index_pattern_id` or `apm_static_index_pattern_id_<your-env>`with `"${apm_data_view}"` to make it dynamic
 - **if needed**, create a folder for your saved queries named `query`. Save here all the exported queries in ndjson format
+- **if needed**, create a folder for your alerts `alert`. Save here all the alert definition in yml format (see alert paragraph for more details)
 - **required & needs approval**, define the index lifecycle policy to be used for your indexes in `env/<your_env>` variable file, variable `ilm`. Add here a new entry with your application identifier adn the ilm to use, choosing between one of the provided ilm in the `default_library/ilm` folder
 - **if needed**, add your application instance name in the `08_elastic_resources_integration/env/<your_env>` `k8s_application_log_instance_names` variable if that application is supposed to be monitored using **elastic agent**
 
@@ -161,6 +164,72 @@ k8s_application_log_instance_names = {
 
 This configuration will send all the logs for the microservices listed in "ecommerce" to the "logs-ecommerce" data stream, they wil be affected by the same ingest pipeline and index lifecycle policy
 If different ingest pipeline or index lifecycle policy are needed, you need to create a new data stream with a different name and configure the application accordingly
+
+
+## How to configure alerts
+
+If you want to create alerts for your application, you need to create a folder named `alert` in your application folder and add the alert definition in yml format.
+
+Here's an example of the alert definition:
+
+```yaml
+name: Redis error
+source_data_view_type: logs
+schedule: 5m
+window:
+  size: 5
+  unit: m
+trigger_after_consecutive_runs: 3
+threshold:
+  level: 10
+  comparator: >
+aggregation:
+  type: count
+  query: "log.level.keyword: ERROR AND error.message: \"Redis command timed out\""
+exclude_hits_from_previous_run: true
+enabled: true #optional, default true. overrides global value
+notification_channels:
+  opsgenie:
+    connector_name: team-core-opsgenie
+    priority: P1
+  email:
+    recipient_list_name: team-core-emails
+  slack:
+    connector_name: my-slack-connector-name
+```
+
+where:
+- `name`: **required** name of the alert
+- `source_data_view_type`: **required** type of the data view to be used for the alert. It can be `logs` or `apm`, depending on where your application sends the logs
+- `schedule`: **required** schedule for the alert to be executed. It can be a cron expression or a duration (e.g. `5m` for every 5 minutes)
+- `window`: **required** time window evaluated by the alert. It can be a duration 
+  - `size`: **required** size of the time window
+  - `unit`: **required** unit of the time window, it can be `m`, `h`, `d` or `w`
+- `trigger_after_consecutive_runs`: **optional** number of consecutive runs after which the alert will be triggered 
+- `threshold`: **required** threshold for the alert to be triggered. 
+  - `level`: **required** level of the threshold, it can be `info`, `warning`, `error` or `critical`
+  - `comparator`: **required** comparator to be used for the threshold, it can be `>`, `<`, `>=`, `<=`, `==` or `!=`
+- `aggregation`: **required** aggregation to be used for the alert. It can be a type (e.g. `count`) and a query to be executed on the data view (e.g. `log.level.keyword: ERROR AND error.message: "Redis command timed out"`). The query must be in the format used by the data view, so it can be a Lucene query or a KQL query, depending on the data view configuration
+  - `type`: **required** type of the aggregation, it can be `count`, `sum`, `avg`, `min`, `max` or `cardinality`
+  - `query`: **required** KQL query to be executed on the data view
+- `exclude_hits_from_previous_run`: **required** if set to `true`, the alert will exclude hits from the previous run, so it will only consider new hits
+- `enabled`: **optional** if set to `false`, the alert will be disabled. Default is `true`
+- `notification_channels`: **required** list of notification channels to be used for the alert.
+  - `opsgenie`: **required** if you want to send the alert to OpsGenie, you need to specify the connector name and the priority of the alert
+    - `connector_name`: **required** name of the OpsGenie connector to be used for the alert
+    - `priority`: **required** priority of the alert, it can be `P1`, `P2`, `P3`, `P4` or `P5`.
+  - `email`: **required** if you want to send the alert to an email address
+    - `recipient_list_name`: **required** name of the recipient list to be used for the email notification
+  - `slack`: **required** if you want to send the alert to a Slack channel, you need to specify the connector name
+    - `connector_name`: **required** name of the OpsGenie connector to be used for the alert
+
+
+### An important note on notification channels
+
+The notification channels are defined on the alert file, but this does not mean that on every environment the same notification channels will be used.
+This configuration is merged with the `var.alert_channels` variable and will be evaluated only if the channel is enabled; so that only the channels enabled on a specific environment will be used.
+If your application does not use a channel at all (in any environment), the corresponding notification channel from the alert file can be removed
+
 
 ### Best practices
 

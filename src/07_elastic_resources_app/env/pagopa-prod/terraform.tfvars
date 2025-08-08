@@ -61,3 +61,16 @@ app_connectors = {
     secret_key = "team-touchpoint-opsgenie-api-key"
   }
 }
+
+email_recipients = {
+  "team-core-emails" = [
+  ]
+  "team-touchpoint-emails" = [
+  ]
+}
+
+alert_channels = {
+    email    = false
+    slack    = false
+    opsgenie = false
+}

@@ -1,3 +1,8 @@
+locals {
+  slack_connector_names    = [ for connector_name, connector in var.app_connectors: connector_name if connector.type == "slack" ]
+  opsgenie_connector_names = [ for connector_name, connector in var.app_connectors: connector_name if connector.type == "opsgenie" ]
+}
+
 module "app_resources" {
   source   = "./.terraform/modules/__v4__/elastic_app_resources"
   for_each = local.configurations
@@ -17,6 +22,26 @@ module "app_resources" {
 
   query_folder     = each.value.query_folder
   dashboard_folder = each.value.dashboard_folder
+  alert_folder = each.value.alert_folder
+
+  alert_channels = {
+    email    = {
+        enabled = var.alert_channels.email
+        recipients = var.email_recipients
+    }
+    slack    = {
+        enabled = var.alert_channels.slack
+        connectors = {
+          for connector_name in local.slack_connector_names : connector_name => elasticstack_kibana_action_connector.app_connector[local.space_connectors["${each.value.space_name}-${connector_name}"].key].connector_id
+        }
+    }
+    opsgenie = {
+      enabled = var.alert_channels.opsgenie
+      connectors = {
+        for connector_name in local.opsgenie_connector_names : connector_name => elasticstack_kibana_action_connector.app_connector[local.space_connectors["${each.value.space_name}-${connector_name}"].key].connector_id
+      }
+    }
+  }
 
   application_name = each.key
 
