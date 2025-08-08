@@ -109,3 +109,24 @@ variable "app_connectors" {
     error_message = "Only 'slack' and 'opsgenie' types are supported"
   }
 }
+
+variable "email_recipients" {
+  type        = map(list(string))
+  description = "(Optional) Map of List of email recipients associated to a name. to be used for email alerts. Default is empty"
+  default     = {}
+}
+
+variable "alert_channels" {
+  type = object({
+    email  = bool
+    slack  = bool
+    opsgenie = bool
+  })
+
+  description = "(Optional) Map of alert channels to be used for alerts. Default is all false"
+  default = {
+    email    = false
+    slack    = false
+    opsgenie = false
+  }
+}
