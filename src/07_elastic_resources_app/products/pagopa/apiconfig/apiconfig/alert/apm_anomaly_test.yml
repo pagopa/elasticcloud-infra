@@ -1,8 +1,14 @@
-name: APM test
+name: APM anomaly test
 apm_metric:
   filter: "service.name: pagopa-gpd-core"
-  metric: failed_transactions
-  threshold: 10
+  metric: anomaly
+  anomaly:
+    service: "pagopa-gpd-core"
+    detectors:
+      - latency
+      - throughput
+      - failures
+    severity_type: critical
 schedule: 5m
 window:
   size: 5

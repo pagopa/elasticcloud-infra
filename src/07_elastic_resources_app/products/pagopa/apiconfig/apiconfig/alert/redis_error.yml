@@ -5,7 +5,8 @@ window:
   unit: m
 log_query:
   aggregation:
-    type: count
+    type: sum
+    field: "http_code"
   query: "log.level.keyword: ERROR AND error.message: \"Redis command timed out\""
   data_view: logs
   exclude_hits_from_previous_run: true
