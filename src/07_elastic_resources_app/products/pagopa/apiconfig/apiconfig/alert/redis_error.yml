@@ -1,17 +1,19 @@
 name: Redis error
-source_data_view_type: logs
 schedule: 5m
 window:
   size: 5
   unit: m
-trigger_after_consecutive_runs: 3
-threshold:
-  level: 10
-  comparator: >
-aggregation:
-  type: count
+log_query:
+  aggregation:
+    type: count
   query: "log.level.keyword: ERROR AND error.message: \"Redis command timed out\""
-exclude_hits_from_previous_run: true
+  data_view: logs
+  exclude_hits_from_previous_run: true
+  threshold:
+    values:
+      - 10
+    comparator: ">"
+trigger_after_consecutive_runs: 3
 enabled: true #optional, default true. overrides global value
 notification_channels:
   opsgenie:
@@ -19,5 +21,5 @@ notification_channels:
     priority: P1
   email:
     recipient_list_name: team-core-emails
-#  slack:
-#    connector_name: "stoca"
+  slack:
+    connector_name: "stoca"
