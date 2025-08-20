@@ -30,8 +30,8 @@ locals {
   space_connectors = {
     for elem in flatten([
       for space in local.spaces : [
-        for connector_name, connector in var.app_connectors :  {
-          key = "${space}-${connector_name}"
+        for connector_name, connector in var.app_connectors : {
+          key        = "${space}-${connector_name}"
           space_name = space
           connector  = connector_name
           type       = connector.type

@@ -118,8 +118,8 @@ variable "email_recipients" {
 
 variable "alert_channels" {
   type = object({
-    email  = bool
-    slack  = bool
+    email    = bool
+    slack    = bool
     opsgenie = bool
   })
 

@@ -13,6 +13,6 @@ resource "elasticstack_kibana_action_connector" "app_connector" {
   secrets = jsonencode(
     each.value.type == "opsgenie" ? { apiKey = data.azurerm_key_vault_secret.app_connector_secret_key[each.value.connector].value } : { webhookUrl = data.azurerm_key_vault_secret.app_connector_secret_key[each.value.connector].value }
   )
-  config = var.app_connectors[each.value.connector].type == "opsgenie" ? jsonencode({ apiUrl = "https://api.opsgenie.com" }) : null
+  config   = var.app_connectors[each.value.connector].type == "opsgenie" ? jsonencode({ apiUrl = "https://api.opsgenie.com" }) : null
   space_id = elasticstack_kibana_space.kibana_space[each.value.space_name].space_id
 }

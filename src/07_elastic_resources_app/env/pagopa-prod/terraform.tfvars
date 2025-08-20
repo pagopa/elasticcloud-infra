@@ -70,7 +70,7 @@ email_recipients = {
 }
 
 alert_channels = {
-    email    = false
-    slack    = false
-    opsgenie = false
+  email    = false
+  slack    = false
+  opsgenie = false
 }
