@@ -1,0 +1,24 @@
+name: Redis error
+schedule: 5m
+window:
+  size: 5
+  unit: m
+log_query:
+  aggregation:
+    type: sum
+    field: "http_code"
+  query: "log.level.keyword: ERROR AND error.message: \"Redis command timed out\""
+  data_view: logs
+  exclude_hits_from_previous_run: true
+  threshold:
+    values:
+      - 10
+    comparator: ">"
+trigger_after_consecutive_runs: 3
+enabled: true #optional, default true. overrides global value
+notification_channels:
+  opsgenie:
+    connector_name: team-core-opsgenie
+    priority: P1
+  email:
+    recipient_list_name: team-core-emails

@@ -90,3 +90,43 @@ variable "total_shards_per_node" {
   description = "(Optional) Maximum number of shards (primary + replica) to be stored on a node for each index. Default is 2."
   default     = 2
 }
+
+
+variable "app_connectors" {
+  type = map(object({
+    type       = string
+    secret_key = string
+  }))
+
+  description = "(optional) Map of <connector name>-<connector details> for additional connectors dedicated to app alerts. supports slack and opsgenie type"
+
+  default = {}
+
+  validation {
+    condition = (
+      alltrue([for i in var.app_connectors : contains(["slack", "opsgenie"], i.type)])
+    )
+    error_message = "Only 'slack' and 'opsgenie' types are supported"
+  }
+}
+
+variable "email_recipients" {
+  type        = map(list(string))
+  description = "(Optional) Map of List of email recipients associated to a name. to be used for email alerts. Default is empty"
+  default     = {}
+}
+
+variable "alert_channels" {
+  type = object({
+    email    = bool
+    slack    = bool
+    opsgenie = bool
+  })
+
+  description = "(Optional) Map of alert channels to be used for alerts. Default is all false"
+  default = {
+    email    = false
+    slack    = false
+    opsgenie = false
+  }
+}
