@@ -64,14 +64,13 @@ app_connectors = {
 
 email_recipients = {
   "team-core-emails" = [
-    "marco.mari@pagopa.it"
   ]
   "team-touchpoint-emails" = [
   ]
 }
 
 alert_channels = {
-    email    = true
+    email    = false
     slack    = false
     opsgenie = false
 }
