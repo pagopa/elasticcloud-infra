@@ -1,0 +1,26 @@
+{
+  "hot": {
+    "minAge": "0ms",
+    "rollover": {
+      "maxPrimarySize": "10gb",
+      "maxAge": "1d",
+      "minPrimarySize": "3gb"
+    }
+  },
+  "warm": {
+    "minAge": "0ms",
+    "setPriority": 50,
+    "forceMerge": {
+      "maxSegments": 1,
+      "indexCodec": "best_compression"
+    },
+    "shrink": {
+      "maxPrimarySize": "50gb",
+      "allowWriteAfterShrink": true
+    }
+  },
+  "delete": {
+    "minAge": "3d",
+    "deleteSearchableSnapshot": true
+  }
+}
