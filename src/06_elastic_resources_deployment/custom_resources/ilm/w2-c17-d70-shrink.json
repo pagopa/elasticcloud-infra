@@ -7,7 +7,7 @@
     }
   },
   "warm": {
-    "minAge": "2d",
+    "minAge": "1d",
     "setPriority": 50,
     "shrink": {
       "maxPrimarySize": "65gb",
