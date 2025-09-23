@@ -47,7 +47,7 @@ default_idx_tpl_customization = {
     total_shards_per_node = 3
   }
   traces = {
-    lifecycle             = "w1-c14-d70-shrink"
+    lifecycle             = "w1-c10-d70-shrink"
     primary_shard_count   = 3
     component             = "lifecycle-and-shard-max@custom.json"
     total_shards_per_node = 3
