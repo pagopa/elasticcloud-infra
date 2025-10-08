@@ -308,6 +308,7 @@ where:
   - `cloudo`: **optional** if you want to trigger a runbook automation using ClouDO for this alert
     - `connector_name`: **required** name of the webhook (to ClouDO) connector to be used for the alert
     - `type`: **required** type of the ClouDO runbook to be triggered. It can be `aks`
+    - `rule`: **required** rule identifier for the ClouDO runbook
     - `attributes`: **optional** map of attributes to be sent to ClouDO
       - `namespace`: **required** namespace where the application is deployed
 ### An important note on alert notification_channels
