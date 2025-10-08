@@ -220,6 +220,11 @@ notification_channels:
     recipient_list_name: team-core-emails
   slack:
     connector_name: team-core-slack
+  cloudo:
+    connector_name: "my-cloudo-connector-name"
+    type: "aks"
+    attributes:
+        namespace: "api-config"
 ```
 
 where:
@@ -257,15 +262,18 @@ where:
 ---
 **notification channels**
 - `notification_channels`: **required** list of notification channels to be used for the alert.
-  - `opsgenie`: **required** if you want to send the alert to OpsGenie, you need to specify the connector name and the priority of the alert
+  - `opsgenie`: **optional** if you want to send the alert to OpsGenie, you need to specify the connector name and the priority of the alert
     - `connector_name`: **required** name of the OpsGenie connector to be used for the alert
     - `priority`: **required** priority of the alert, it can be `P1`, `P2`, `P3`, `P4` or `P5`.
-  - `email`: **required** if you want to send the alert to an email address
+  - `email`: **optional** if you want to send the alert to an email address
     - `recipient_list_name`: **required** name of the recipient list to be used for the email notification
-  - `slack`: **required** if you want to send the alert to a Slack channel, you need to specify the connector name
+  - `slack`: **optional** if you want to send the alert to a Slack channel, you need to specify the connector name
     - `connector_name`: **required** name of the OpsGenie connector to be used for the alert
-
-
+  - `cloudo`: **optional** if you want to trigger a runbook automation using ClouDO for this alert
+    - `connector_name`: **required** name of the webhook (to ClouDO) connector to be used for the alert
+    - `type`: **required** type of the ClouDO runbook to be triggered. It can be `aks`
+    - `attributes`: **optional** map of attributes to be sent to ClouDO
+      - `namespace`: **required** namespace where the application is deployed
 ### An important note on alert notification_channels
 
 The notification channels are defined on the alert file, but this does not mean that on every environment the same notification channels will be used.
@@ -280,6 +288,7 @@ alert_channels = {
     email    = true
     slack    = false
     opsgenie = false
+    cloudo   = false
 }
 ```
 
@@ -292,6 +301,11 @@ notification_channels:
     priority: P1
   slack:
     connector_name: "my-slack-connector-name"
+  cloudo:
+    connector_name: "my-cloudo-connector-name"
+    type: "aks"
+    attributes:
+        namespace: "application-namespace"
 ```
 
 In the above case the only enabled channel is `email`, but the alert does not define it, so the alert will not be sent to any channel.

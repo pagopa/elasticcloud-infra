@@ -1,6 +1,7 @@
 locals {
   slack_connector_names    = [for connector_name, connector in var.app_connectors : connector_name if connector.type == "slack"]
   opsgenie_connector_names = [for connector_name, connector in var.app_connectors : connector_name if connector.type == "opsgenie"]
+  webhook_connector_names = [for connector_name, connector in var.app_connectors : connector_name if connector.type == "webhook"]
 }
 
 module "app_resources" {
@@ -39,6 +40,12 @@ module "app_resources" {
       enabled = var.alert_channels.opsgenie
       connectors = {
         for connector_name in local.opsgenie_connector_names : connector_name => elasticstack_kibana_action_connector.app_connector[local.space_connectors["${each.value.space_name}-${connector_name}"].key].connector_id
+      }
+    }
+    cloudo = {
+      enabled = var.alert_channels.cloudo
+      connectors = {
+        for connector_name in local.webhook_connector_names : connector_name => elasticstack_kibana_action_connector.app_connector[local.space_connectors["${each.value.space_name}-${connector_name}"].key].connector_id
       }
     }
   }

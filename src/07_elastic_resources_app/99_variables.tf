@@ -98,15 +98,15 @@ variable "app_connectors" {
     secret_key = string
   }))
 
-  description = "(optional) Map of <connector name>-<connector details> for additional connectors dedicated to app alerts. supports slack and opsgenie type"
+  description = "(optional) Map of <connector name>-<connector details> for additional connectors dedicated to app alerts. supports slack and opsgenie and cloudo type"
 
   default = {}
 
   validation {
     condition = (
-      alltrue([for i in var.app_connectors : contains(["slack", "opsgenie"], i.type)])
+      alltrue([for i in var.app_connectors : contains(["slack", "opsgenie", "webhook"], i.type)])
     )
-    error_message = "Only 'slack' and 'opsgenie' types are supported"
+    error_message = "Only 'slack', 'opsgenie' and 'webhook' types are supported"
   }
 }
 
@@ -121,6 +121,7 @@ variable "alert_channels" {
     email    = bool
     slack    = bool
     opsgenie = bool
+    cloudo  = bool
   })
 
   description = "(Optional) Map of alert channels to be used for alerts. Default is all false"
@@ -128,5 +129,6 @@ variable "alert_channels" {
     email    = false
     slack    = false
     opsgenie = false
+    cloudo  = false
   }
 }
