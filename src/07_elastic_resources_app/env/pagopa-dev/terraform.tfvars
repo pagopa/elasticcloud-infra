@@ -37,3 +37,11 @@ apm_logs_metrics_ilm = {
 }
 
 ilm_delete_wait_for_snapshot = false
+
+
+app_connectors = {
+  "team-core-slack" = {
+    type       = "slack"
+    secret_key = "team-core-slack-webhook-url"
+  }
+}

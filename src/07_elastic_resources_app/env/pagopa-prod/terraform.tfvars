@@ -60,6 +60,10 @@ app_connectors = {
     type       = "opsgenie"
     secret_key = "team-touchpoint-opsgenie-api-key"
   }
+  "team-core-slack" = {
+    type       = "slack"
+    secret_key = "team-core-slack-webhook-url"
+  }
 }
 
 email_recipients = {
@@ -71,6 +75,6 @@ email_recipients = {
 
 alert_channels = {
   email    = false
-  slack    = false
+  slack    = true
   opsgenie = false
 }
