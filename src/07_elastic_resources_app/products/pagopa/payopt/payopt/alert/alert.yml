@@ -1,4 +1,4 @@
-name: Redis error
+name: Payment Options - EC response validation error
 schedule: 5m
 window:
   size: 5
@@ -7,7 +7,7 @@ window:
 log_query:
   aggregation:
     type: count
-  query: "log.level: \"ERROR\" AND error.message: \"[Payment Options] [Alert] Organization with fiscal code\""
+  query: "service.name: \"payment-options-service\" log.level: \"ERROR\" AND error.message: \"[Payment Options] [Alert] Organization with fiscal code\""
   data_view: logs
   exclude_hits_from_previous_run: true
   threshold:
