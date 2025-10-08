@@ -6,9 +6,7 @@ window:
 # use this to create an alert on logs (or apm) data view with a KQL query
 log_query:
   aggregation:
-    type: sum
-    field: "http_code"
-  query: "log.level: \"ERROR\" AND error.message: \"[Payment Options] [Alert] Organization invoked with path\""
+  query: "log.level: \"ERROR\" AND error.message: \"[Payment Options] [Alert] Organization with fiscal code\""
   data_view: logs
   exclude_hits_from_previous_run: true
   threshold:
