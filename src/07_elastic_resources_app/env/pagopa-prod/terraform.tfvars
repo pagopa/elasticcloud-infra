@@ -30,7 +30,7 @@ ilm = {
   crusc8               = "w1-d7-shrink"
   anonymizer           = "w1-d7-shrink"
   backoffice           = "w1-d7-shrink"
-
+  payopt               = "w1-d7-shrink"
 }
 
 apm_logs_metrics_ilm = {

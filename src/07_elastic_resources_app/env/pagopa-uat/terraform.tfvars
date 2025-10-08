@@ -30,7 +30,7 @@ ilm = {
   afm                  = "w1-d5-lowsize"
   crusc8               = "w1-d5-lowsize"
   anonymizer           = "w1-d5-lowsize"
-
+  payopt               = "w1-d5-lowsize"
 }
 
 apm_logs_metrics_ilm = {
