@@ -69,6 +69,10 @@ app_connectors = {
     type       = "slack"
     secret_key = "ecommerce-status-slack-webhook-url"
   }
+  "cloudo-webhook" = {
+    type       = "webhook"
+    secret_key = "cloudo-webhook-url"
+  }
 }
 
 email_recipients = {
