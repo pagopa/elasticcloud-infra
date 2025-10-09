@@ -22,9 +22,12 @@ notification_channels:
     priority: P1
   email:
     recipient_list_name: team-core-emails
-#  cloudo:
-#    connector_name: cloudo-webhook
-#    type: aks
-#    attributes:
-#      namespace: api-config
+  cloudo:
+    connector_name: cloudo-webhook
+    type: aks
+    severity: Sev1
+    rule: restart-pod
+    attributes:
+      namespace: api-config
+      region: westeurope
 
