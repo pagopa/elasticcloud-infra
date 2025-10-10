@@ -32,6 +32,15 @@
       }
     },
     {
+      "convert": {
+        "field": "mdc.args",
+        "type": "string",
+        "target_field": "args",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
       "json": {
         "field": "mdc.response",
         "target_field": "response",
