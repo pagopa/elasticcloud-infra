@@ -103,6 +103,7 @@ k8s_application_log_instance_names = {
     "pagopawispconverter-microservice-chart",
     "pagopawispconverterts-microservice-chart"
   ]
+  payopt = ["payment-options"]
   printit = [
     "print-payment-notice-service",
     "print-payment-notice-generator",

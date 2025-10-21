@@ -1,0 +1,22 @@
+name: Payment Options - EC response validation error
+schedule: 5m
+window:
+  size: 5
+  unit: m
+# use this to create an alert on logs (or apm) data view with a KQL query
+log_query:
+  aggregation:
+    type: count
+  query: "service.name: \"payment-options-service\" AND log.level: \"ERROR\" AND error.message: \"[Payment Options] [Alert] Organization with fiscal code\""
+  data_view: logs
+  exclude_hits_from_previous_run: true
+  threshold:
+    values:
+      - 1
+    comparator: ">="
+# -----------------
+trigger_after_consecutive_runs: 1
+enabled: true #optional, default true. overrides global value
+notification_channels:
+  slack:
+    connector_name: team-core-slack

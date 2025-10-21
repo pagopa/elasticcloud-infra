@@ -30,9 +30,18 @@ ilm = {
   afm                  = "w1-d5-lowsize"
   crusc8               = "w1-d5-lowsize"
   anonymizer           = "w1-d5-lowsize"
+  payopt               = "w1-d5-lowsize"
 }
 
 apm_logs_metrics_ilm = {
 }
 
 ilm_delete_wait_for_snapshot = false
+
+
+app_connectors = {
+  "team-core-slack" = {
+    type       = "slack"
+    secret_key = "team-core-slack-webhook-url"
+  }
+}
