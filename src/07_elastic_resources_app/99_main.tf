@@ -45,6 +45,6 @@ provider "elasticstack" {
 
 
 module "__v4__" {
-  # 7.28.0
-  source = "git::https://github.com/pagopa/terraform-azurerm-v4?ref=200dc075ed1f95628ac7177b3a129dc9f3e60631"
+  # 7.42.0
+  source = "git::https://github.com/pagopa/terraform-azurerm-v4?ref=c75765102e77026cb603ea4c33984d2d688bd56b"
 }
