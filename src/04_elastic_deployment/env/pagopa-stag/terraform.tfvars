@@ -18,18 +18,12 @@ warm_config = {
   size       = "2g"
   zone_count = 2
 }
-cold_config = {
-  size       = "2g"
-  zone_count = 2
-}
+
 kibana_config = {
   size       = "2g"
   zone_count = 2
 }
-master_config = {
-  size       = "2g"
-  zone_count = 3
-}
+
 
 coordinating_config = null
 
@@ -47,3 +41,5 @@ integration_server = {
   size  = "1g"
   zones = 1
 }
+
+hardware_profile = "azure-general-purpose"

@@ -71,6 +71,7 @@ variable "cold_config" {
     zone_count = number
   })
   description = "Cold storage node configuration"
+  default     = null
 }
 
 
@@ -88,6 +89,7 @@ variable "master_config" {
     zone_count = number
   })
   description = "ES Master node configuration"
+  default     = null
 }
 variable "coordinating_config" {
   type = object({

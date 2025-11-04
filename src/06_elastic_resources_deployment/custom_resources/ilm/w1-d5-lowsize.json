@@ -2,25 +2,22 @@
   "hot": {
     "minAge": "0ms",
     "rollover": {
-      "maxPrimarySize": "20gb",
+      "maxPrimarySize": "10gb",
       "maxAge": "1d",
-      "minPrimarySize": "10gb"
+      "minPrimarySize": "3gb"
 
     }
   },
   "warm": {
-    "minAge": "1d",
+    "minAge": "0ms",
     "setPriority": 50,
     "shrink": {
-      "maxPrimarySize": "50gb",
+      "maxPrimarySize": "65gb",
       "allowWriteAfterShrink": true
-    }
-  },
-  "cold": {
-    "minAge": "3d",
-    "setPriority": 0,
-    "allocate": {
-      "numberOfReplicas": 0
+    },
+    "forceMerge": {
+      "maxSegments": 1,
+      "indexCodec": "best_compression"
     }
   },
   "delete": {

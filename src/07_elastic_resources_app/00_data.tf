@@ -34,3 +34,10 @@ data "azurerm_key_vault_secret" "elastic_cloud_api_key" {
   name         = "elastic-cloud-api-key"
   key_vault_id = data.azurerm_key_vault.key_vault_org.id
 }
+
+
+data "azurerm_key_vault_secret" "app_connector_secret_key" {
+  for_each     = var.app_connectors
+  name         = each.value.secret_key
+  key_vault_id = data.azurerm_key_vault.target_key_vault.id
+}

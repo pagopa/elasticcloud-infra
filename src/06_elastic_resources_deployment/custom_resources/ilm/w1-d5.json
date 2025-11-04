@@ -4,19 +4,20 @@
     "rollover": {
       "maxPrimarySize": "20gb",
       "maxAge": "1d",
-      "minPrimarySize": "10gb"
+      "minPrimarySize": "5gb"
 
     }
   },
   "warm": {
-    "minAge": "1d",
-    "setPriority": 50
-  },
-  "cold": {
-    "minAge": "3d",
-    "setPriority": 0,
-    "allocate": {
-      "numberOfReplicas": 0
+    "minAge": "0ms",
+    "setPriority": 50,
+    "shrink": {
+      "maxPrimarySize": "65gb",
+      "allowWriteAfterShrink": true
+    },
+    "forceMerge": {
+      "maxSegments": 1,
+      "indexCodec": "best_compression"
     }
   },
   "delete": {

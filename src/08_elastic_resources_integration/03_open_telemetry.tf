@@ -10,6 +10,8 @@ module "otel_cluster_1" {
   deployment_env                      = var.env
   elastic_namespace                   = "${var.prefix}.${var.env}"
 
+  sampling = var.sampling_configuration
+
   affinity_selector = var.aks_config[0].otel.affinity_selector
 
   providers = {
@@ -27,11 +29,13 @@ module "otel_cluster_2" {
   opentelemetry_operator_helm_version = var.opentelemetry_operator_helm_version
   otel_kube_namespace                 = var.aks_config[1].otel.namespace
   create_namespace                    = var.aks_config[1].otel.create_ns
-  grpc_receiver_port                  = var.aks_config[0].otel.receiver_port
+  grpc_receiver_port                  = var.aks_config[1].otel.receiver_port
   deployment_env                      = var.env
   elastic_namespace                   = "${var.prefix}.${var.env}"
 
   affinity_selector = var.aks_config[1].otel.affinity_selector
+
+  sampling = var.sampling_configuration
 
   providers = {
     kubectl = kubectl.cluster_2

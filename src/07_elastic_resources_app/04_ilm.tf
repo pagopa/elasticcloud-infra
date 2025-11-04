@@ -43,18 +43,22 @@ resource "elasticstack_elasticsearch_index_lifecycle" "index_lifecycle" {
     }
   }
 
-  cold {
-    min_age = each.value.cold.minAge
 
-    dynamic "allocate" {
-      for_each = lookup(each.value.cold, "allocate", null) != null ? [1] : []
-      content {
-        number_of_replicas = each.value.cold.allocate.numberOfReplicas
+  dynamic "cold" {
+    for_each = lookup(each.value, "cold", null) != null ? [1] : []
+    content {
+      min_age = each.value.cold.minAge
+
+      dynamic "allocate" {
+        for_each = lookup(each.value.cold, "allocate", null) != null ? [1] : []
+        content {
+          number_of_replicas = each.value.cold.allocate.numberOfReplicas
+        }
       }
-    }
 
-    set_priority {
-      priority = each.value.cold.setPriority
+      set_priority {
+        priority = each.value.cold.setPriority
+      }
     }
   }
 

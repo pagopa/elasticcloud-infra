@@ -92,16 +92,19 @@ variable "opentelemetry_operator_helm_version" {
 }
 
 
-variable "apm_sampling" {
+variable "sampling_configuration" {
   type = object({
-    enabled       = bool
-    rate          = number
-    storage_limit = string
+    enabled                    = bool
+    probes_sampling_percentage = optional(number, 1)
+    sampling_percentage        = optional(number, 50)
+    probe_paths                = optional(list(string), [])
   })
+  description = "Sampling configuration for the OpenTelemetry collector traces"
   default = {
-    enabled       = false
-    rate          = 0.1
-    storage_limit = "3GB"
+    enabled                    = false
+    probes_sampling_percentage = 1
+    sampling_percentage        = 50
+    probe_paths                = []
   }
 }
 

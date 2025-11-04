@@ -96,10 +96,10 @@ variable "alert_configuration" {
   type = object({
     cluster_health = optional(object({
       threshold = optional(number, 85)
-      duration  = optional(string, "30m")
+      duration  = optional(string, "5m")
       }), {
       threshold = 85
-      duration  = "30m"
+      duration  = "5m"
     })
     node_changed = optional(object({
       threshold = optional(number, 85)
@@ -130,9 +130,9 @@ variable "alert_configuration" {
       duration  = "30m"
     })
     index_shard_size = optional(object({
-      threshold = optional(number, 55)
+      threshold = optional(number, 70)
       }), {
-      threshold = 55
+      threshold = 70
     })
   })
   default = {}

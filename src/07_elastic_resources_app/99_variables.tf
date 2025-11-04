@@ -64,17 +64,17 @@ variable "ilm_delete_wait_for_snapshot" {
   description = "Wheather or not the delete phase of every lifecycle policy for this environment needs to wait for snapshot policy to run or not"
 }
 
-variable "apm_ilm" {
+variable "apm_logs_metrics_ilm" {
   type        = map(string)
   description = "(Required) Map containing the service name which require a custom ilm for this environment associated to the related index lifecycle management policy to be used for that service. The allowed values are the file names in `default_library/ilm` folder"
   default     = {}
   validation {
-    condition     = alltrue([for v in values(var.apm_ilm) : !strcontains(v, ".json")])
+    condition     = alltrue([for v in values(var.apm_logs_metrics_ilm) : !strcontains(v, ".json")])
     error_message = "One or more ilm contains file extension. Use the file name only"
   }
 
   validation {
-    condition     = alltrue([for v in values(var.apm_ilm) : fileexists("${path.module}/default_library/ilm/${v}.json")])
+    condition     = alltrue([for v in values(var.apm_logs_metrics_ilm) : fileexists("${path.module}/default_library/ilm/${v}.json")])
     error_message = "One or more ilm defined does not have the corresponding file configured in the library"
   }
 }
@@ -89,4 +89,44 @@ variable "total_shards_per_node" {
   type        = number
   description = "(Optional) Maximum number of shards (primary + replica) to be stored on a node for each index. Default is 2."
   default     = 2
+}
+
+
+variable "app_connectors" {
+  type = map(object({
+    type       = string
+    secret_key = string
+  }))
+
+  description = "(optional) Map of <connector name>-<connector details> for additional connectors dedicated to app alerts. supports slack and opsgenie type"
+
+  default = {}
+
+  validation {
+    condition = (
+      alltrue([for i in var.app_connectors : contains(["slack", "opsgenie"], i.type)])
+    )
+    error_message = "Only 'slack' and 'opsgenie' types are supported"
+  }
+}
+
+variable "email_recipients" {
+  type        = map(list(string))
+  description = "(Optional) Map of List of email recipients associated to a name. to be used for email alerts. Default is empty"
+  default     = {}
+}
+
+variable "alert_channels" {
+  type = object({
+    email    = bool
+    slack    = bool
+    opsgenie = bool
+  })
+
+  description = "(Optional) Map of alert channels to be used for alerts. Default is all false"
+  default = {
+    email    = false
+    slack    = false
+    opsgenie = false
+  }
 }

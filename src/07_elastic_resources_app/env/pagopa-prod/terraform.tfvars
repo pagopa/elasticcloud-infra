@@ -5,48 +5,77 @@ env       = "prod"
 deployment_name = "pagopa-p-weu-ec"
 
 ilm = {
-  nodo                 = "w2-c4-d7-shrink"
-  nodocron             = "w2-c4-d7-shrink"
-  nodoreplica          = "w2-c4-d7-shrink"
-  nodocronreplica      = "w2-c4-d7-shrink"
-  pagopastandinmanager = "w2-c4-d7-shrink"
-  pagopawebbo          = "w2-c4-d7-shrink"
-  pagopawfespwfesp     = "w2-c4-d7-shrink"
-  pagopawfespwfesp     = "w2-c4-d7-shrink"
-  pagopawispconverter  = "w2-c4-d7-shrink"
-  tech-support         = "w2-c4-d7-shrink"
-  wispsoapconverter    = "w2-c4-d7-shrink"
-  ecommerce            = "w2-c4-d7-shrink"
-  gps                  = "w2-c4-d7-shrink"
-  pagopa               = "w2-c4-d7-shrink"
-  paywallet            = "w2-c4-d7-shrink"
-  printit              = "w2-c4-d7-shrink"
-  receipts             = "w2-c4-d7-shrink"
-  fdr                  = "w2-c4-d7-shrink"
-  fdrnodo              = "w2-c4-d7-shrink"
-  checkout             = "w2-c4-d7-shrink"
-  backoffice           = "w2-c8-d30-shrink"
-  apiconfig            = "w2-c4-d7-shrink"
-  bizevents            = "w2-c4-d7-shrink"
-  afm                  = "w2-c4-d7-shrink"
-  crusc8               = "w2-c4-d7-shrink"
-  anonymizer           = "w2-c4-d7-shrink"
-
+  nodo                 = "w1-d7-shrink"
+  nodocron             = "w1-d7-shrink"
+  nodoreplica          = "w1-d7-shrink"
+  nodocronreplica      = "w1-d7-shrink"
+  pagopastandinmanager = "w1-d7-shrink"
+  pagopawebbo          = "w1-d7-shrink"
+  pagopawfespwfesp     = "w1-d7-shrink"
+  pagopawfespwfesp     = "w1-d7-shrink"
+  pagopawispconverter  = "w1-d7-shrink"
+  tech-support         = "w1-d7-shrink"
+  wispsoapconverter    = "w1-d7-shrink"
+  ecommerce            = "w1-d7-shrink"
+  gps                  = "w1-d7-shrink"
+  pagopa               = "w1-d7-shrink"
+  paywallet            = "w1-d7-shrink"
+  printit              = "w1-d7-shrink"
+  receipts             = "w1-d7-shrink"
+  fdr                  = "w1-d7-shrink"
+  fdrnodo              = "w1-d7-shrink"
+  checkout             = "w1-d7-shrink"
+  apiconfig            = "w1-d7-shrink"
+  bizevents            = "w1-d7-shrink"
+  afm                  = "w1-d7-shrink"
+  crusc8               = "w1-d7-shrink"
+  anonymizer           = "w1-d7-shrink"
+  backoffice           = "w1-d7-shrink"
+  payopt               = "w1-d7-shrink"
 }
 
-apm_ilm = {
-  pagopa-ecommerce-payment-methods-service        = "w2-c8-d90-shrink"
-  pagopa-ecommerce-transactions-service           = "w2-c8-d90-shrink"
-  pagopa-ecommerce-payment-requests-service       = "w2-c8-d90-shrink"
-  pagopa-ecommerce-user-stats-service             = "w2-c8-d90-shrink"
-  pagopa-ecommerce-event-dispatcher-service       = "w2-c8-d90-shrink"
-  pagopa-ecommerce-helpdesk-service               = "w2-c8-d90-shrink"
-  pagopa-ecommerce-transactions-scheduler-service = "w2-c8-d90-shrink"
-  pagopa-wallet-service                           = "w2-c8-d90-shrink"
-  pagopa-payment-wallet-cdc-service               = "w2-c8-d90-shrink"
-  pagopa-payment-wallet-event-dispatcher-service  = "w2-c8-d90-shrink"
+apm_logs_metrics_ilm = {
+  pagopa-ecommerce-payment-methods-service        = "w1-d7-shrink"
+  pagopa-ecommerce-transactions-service           = "w1-d7-shrink"
+  pagopa-ecommerce-payment-requests-service       = "w1-d7-shrink"
+  pagopa-ecommerce-user-stats-service             = "w1-d7-shrink"
+  pagopa-ecommerce-event-dispatcher-service       = "w1-d7-shrink"
+  pagopa-ecommerce-helpdesk-service               = "w1-d7-shrink"
+  pagopa-ecommerce-transactions-scheduler-service = "w1-d7-shrink"
+  pagopa-wallet-service                           = "w1-d7-shrink"
+  pagopa-payment-wallet-cdc-service               = "w1-d7-shrink"
+  pagopa-payment-wallet-event-dispatcher-service  = "w1-d7-shrink"
 }
 
 ilm_delete_wait_for_snapshot = true
 primary_shard_count          = 3
 total_shards_per_node        = 3
+
+
+app_connectors = {
+  "team-core-opsgenie" = {
+    type       = "opsgenie"
+    secret_key = "team-core-opsgenie-api-key"
+  }
+  "team-touchpoint-opsgenie" = {
+    type       = "opsgenie"
+    secret_key = "team-touchpoint-opsgenie-api-key"
+  }
+  "team-core-slack" = {
+    type       = "slack"
+    secret_key = "team-core-slack-webhook-url"
+  }
+}
+
+email_recipients = {
+  "team-core-emails" = [
+  ]
+  "team-touchpoint-emails" = [
+  ]
+}
+
+alert_channels = {
+  email    = false
+  slack    = true
+  opsgenie = false
+}

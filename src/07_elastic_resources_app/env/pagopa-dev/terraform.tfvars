@@ -5,35 +5,44 @@ env_short = "d"
 deployment_name = "pagopa-s-weu-ec"
 
 ilm = {
-  nodo                 = "w2-c4-d5-minsize-shrink"
-  nodocron             = "w2-c4-d5-minsize-shrink"
-  nodoreplica          = "w2-c4-d5-minsize-shrink"
-  nodocronreplica      = "w2-c4-d5-minsize-shrink"
-  pagopastandinmanager = "w2-c4-d5-minsize-shrink"
-  pagopawebbo          = "w2-c4-d5-minsize-shrink"
-  pagopawfespwfesp     = "w2-c4-d5-minsize-shrink"
-  pagopawfespwfesp     = "w2-c4-d5-minsize-shrink"
-  pagopawispconverter  = "w2-c4-d5-minsize-shrink"
-  tech-support         = "w2-c4-d5-minsize-shrink"
-  wispsoapconverter    = "w2-c4-d5-minsize-shrink"
-  ecommerce            = "w2-c4-d5-minsize-shrink"
-  gps                  = "w2-c4-d5-minsize-shrink"
-  pagopa               = "w2-c4-d5-minsize-shrink"
-  paywallet            = "w2-c4-d5-minsize-shrink"
-  printit              = "w2-c4-d5-minsize-shrink"
-  receipts             = "w2-c4-d5-minsize-shrink"
-  fdr                  = "w2-c4-d5-minsize-shrink"
-  fdrnodo              = "w2-c4-d5-minsize-shrink"
-  checkout             = "w2-c4-d5-minsize-shrink"
-  backoffice           = "w2-c4-d5-minsize-shrink"
-  apiconfig            = "w2-c4-d5-minsize-shrink"
-  bizevents            = "w2-c4-d5-minsize-shrink"
-  afm                  = "w2-c4-d5-minsize-shrink"
-  crusc8               = "w2-c4-d5-minsize-shrink"
-  anonymizer           = "w2-c4-d5-minsize-shrink"
+  nodo                 = "w1-d5-lowsize"
+  nodocron             = "w1-d5-lowsize"
+  nodoreplica          = "w1-d5-lowsize"
+  nodocronreplica      = "w1-d5-lowsize"
+  pagopastandinmanager = "w1-d5-lowsize"
+  pagopawebbo          = "w1-d5-lowsize"
+  pagopawfespwfesp     = "w1-d5-lowsize"
+  pagopawfespwfesp     = "w1-d5-lowsize"
+  pagopawispconverter  = "w1-d5-lowsize"
+  tech-support         = "w1-d5-lowsize"
+  wispsoapconverter    = "w1-d5-lowsize"
+  ecommerce            = "w1-d5-lowsize"
+  gps                  = "w1-d5-lowsize"
+  pagopa               = "w1-d5-lowsize"
+  paywallet            = "w1-d5-lowsize"
+  printit              = "w1-d5-lowsize"
+  receipts             = "w1-d5-lowsize"
+  fdr                  = "w1-d5-lowsize"
+  fdrnodo              = "w1-d5-lowsize"
+  checkout             = "w1-d5-lowsize"
+  backoffice           = "w1-d5-lowsize"
+  apiconfig            = "w1-d5-lowsize"
+  bizevents            = "w1-d5-lowsize"
+  afm                  = "w1-d5-lowsize"
+  crusc8               = "w1-d5-lowsize"
+  anonymizer           = "w1-d5-lowsize"
+  payopt               = "w1-d5-lowsize"
 }
 
-apm_ilm = {
+apm_logs_metrics_ilm = {
 }
 
 ilm_delete_wait_for_snapshot = false
+
+
+app_connectors = {
+  "team-core-slack" = {
+    type       = "slack"
+    secret_key = "team-core-slack-webhook-url"
+  }
+}

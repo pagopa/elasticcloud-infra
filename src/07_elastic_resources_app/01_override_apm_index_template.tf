@@ -1,6 +1,6 @@
 locals {
 
-  custom_lifecycle_components = { for k, v in var.apm_ilm : replace(k, "-", "_") =>
+  custom_lifecycle_components = { for k, v in var.apm_logs_metrics_ilm : replace(k, "-", "_") =>
     jsondecode(templatefile("${path.module}/default_library/index_component/basic-lifecycle-shard@custom.json", {
       lifecycle           = "${local.prefix_env}-${v}-ilm",
       name                = k
@@ -8,7 +8,7 @@ locals {
       }
   )) }
 
-  apm_ilm_underscore = { for k, v in var.apm_ilm : replace(k, "-", "_") => v }
+  apm_ilm_underscore = { for k, v in var.apm_logs_metrics_ilm : replace(k, "-", "_") => v }
 
 }
 

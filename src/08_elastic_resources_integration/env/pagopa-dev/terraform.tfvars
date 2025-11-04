@@ -63,7 +63,8 @@ k8s_application_log_instance_names = {
     "pagopaecommercetransactionsservice-microservice-chart",
     "pagopaecommercetxschedulerservice-microservice-chart",
     "pagopanotificationsservice-microservice-chart",
-    "pagopa-jwt-issuer-service"
+    "pagopa-jwt-issuer-service",
+    "pagopa-ecommerce-payment-methods-handler"
   ]
   fdr = [
     "fdr-nodo-fdrnodo",
@@ -89,7 +90,7 @@ k8s_application_log_instance_names = {
     "pagopa-gpd-ingestion-manager",
     "pagopa-gpd-rtp"
   ]
-  nodo              = ["nodo"]
+  nodo              = ["nodopagamenti"]
   nodocron          = ["nodocron"]
   nodoreplica       = ["nodoreplica"]
   nodocronreplica   = ["nodocronreplica"]
@@ -100,6 +101,7 @@ k8s_application_log_instance_names = {
     "pagopawispconverter-microservice-chart",
     "pagopawispconverterts-microservice-chart"
   ]
+  payopt = ["payment-options"]
   printit = [
     "print-payment-notice-service",
     "print-payment-notice-generator",
@@ -118,8 +120,10 @@ k8s_application_log_instance_names = {
   anonymizer = ["pagopa-anonymizer"]
 }
 
-apm_sampling = {
-  enabled       = true
-  rate          = 0.3
-  storage_limit = "10GB"
+
+sampling_configuration = {
+  enabled                    = true
+  probes_sampling_percentage = 5
+  sampling_percentage        = 30
+  probe_paths                = ["/actuator/health/liveness", "/actuator/health/readiness", "/actuator/health/{*path}", "/health/liveness", "/health/readiness"]
 }
