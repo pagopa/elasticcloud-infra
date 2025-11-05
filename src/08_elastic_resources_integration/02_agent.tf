@@ -189,6 +189,12 @@ module "install_agent_cluster_1" {
   elasticsearch_host           = replace(data.ec_deployment.deployment.elasticsearch[0].https_endpoint, ".es.", ".")
   target                       = "${var.prefix}-${var.env}"
   target_namespace             = "${var.prefix}.${var.env}"
+
+  enabled_metric_collection = {
+    k8s           = var.elastic_agent_metric_collection.k8s
+    system        = var.elastic_agent_metric_collection.system
+    elastic_agent = var.elastic_agent_metric_collection.elastic_agent
+  }
 }
 
 
@@ -225,6 +231,12 @@ module "install_agent_cluster_2" {
   elasticsearch_host           = replace(data.ec_deployment.deployment.elasticsearch[0].https_endpoint, ".es.", ".")
   target                       = "${var.prefix}-${var.env}"
   target_namespace             = "${var.prefix}.${var.env}"
+
+  enabled_metric_collection = {
+    k8s           = var.elastic_agent_metric_collection.k8s
+    system        = var.elastic_agent_metric_collection.system
+    elastic_agent = var.elastic_agent_metric_collection.elastic_agent
+  }
 }
 
 

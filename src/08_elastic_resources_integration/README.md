@@ -53,7 +53,7 @@ Please, refer to [products readme](../07_elastic_resources_app/products/README.m
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module___v4__"></a> [\_\_v4\_\_](#module\_\_\_v4\_\_) | git::https://github.com/pagopa/terraform-azurerm-v4 | 873db3685d2b91fd4f2096f005fd6e6063b4aab3 |
+| <a name="module___v4__"></a> [\_\_v4\_\_](#module\_\_\_v4\_\_) | git::https://github.com/pagopa/terraform-azurerm-v4 | a642b207162b8fa6fa38878c5bf8276871df8765 |
 | <a name="module_install_agent_cluster_1"></a> [install\_agent\_cluster\_1](#module\_install\_agent\_cluster\_1) | ./.terraform/modules/__v4__/elastic_cloud_agent | n/a |
 | <a name="module_install_agent_cluster_2"></a> [install\_agent\_cluster\_2](#module\_install\_agent\_cluster\_2) | ./.terraform/modules/__v4__/elastic_cloud_agent | n/a |
 | <a name="module_otel_cluster_1"></a> [otel\_cluster\_1](#module\_otel\_cluster\_1) | ./.terraform/modules/__v4__/open_telemetry | n/a |
@@ -103,6 +103,7 @@ Please, refer to [products readme](../07_elastic_resources_app/products/README.m
 |------|-------------|------|---------|:--------:|
 | <a name="input_aks_config"></a> [aks\_config](#input\_aks\_config) | (Required) list of aks cluster configurations where the elstic agent and otel will be installed. must not be empty, must not be more than 2 elements | <pre>list(object({<br/>    name = string<br/>    elastic_agent = object({<br/>      namespace = string<br/>      create_ns = bool<br/>      tolerated_taints = optional(list(object({<br/>        key    = string<br/>        effect = optional(string, "NoSchedule")<br/>      })), [])<br/>    })<br/>    otel = object({<br/>      namespace = string<br/>      create_ns = bool<br/>      affinity_selector = optional(object({<br/>        key   = string<br/>        value = string<br/>      }), null)<br/>      receiver_port = optional(string, "4317")<br/>    })<br/>  }))</pre> | n/a | yes |
 | <a name="input_deployment_name"></a> [deployment\_name](#input\_deployment\_name) | (Required) EC deployment name | `string` | n/a | yes |
+| <a name="input_elastic_agent_metric_collection"></a> [elastic\_agent\_metric\_collection](#input\_elastic\_agent\_metric\_collection) | Enables metric collection for the elastic agent and its integrations | <pre>object({<br/>    k8s           = bool<br/>    system        = bool<br/>    elastic_agent = bool<br/>  })</pre> | <pre>{<br/>  "elastic_agent": true,<br/>  "k8s": true,<br/>  "system": true<br/>}</pre> | no |
 | <a name="input_env"></a> [env](#input\_env) | (Required) Environment name | `string` | n/a | yes |
 | <a name="input_env_short"></a> [env\_short](#input\_env\_short) | n/a | `string` | n/a | yes |
 | <a name="input_k8s_application_log_instance_names"></a> [k8s\_application\_log\_instance\_names](#input\_k8s\_application\_log\_instance\_names) | (Required) Map of <elastic\_datastream\_name> - <namespace\_or\_pod\_name> for which the logs will be collected by the elastic agent | `map(list(string))` | n/a | yes |

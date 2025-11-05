@@ -108,3 +108,17 @@ variable "sampling_configuration" {
   }
 }
 
+variable "elastic_agent_metric_collection" {
+  type = object({
+    k8s           = bool
+    system        = bool
+    elastic_agent = bool
+  })
+  description = "Enables metric collection for the elastic agent and its integrations"
+  default = {
+    k8s           = true
+    system        = true
+    elastic_agent = true
+  }
+}
+
