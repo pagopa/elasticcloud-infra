@@ -21,6 +21,7 @@ ilm = {
   pagopa               = "w1-d5-lowsize"
   paywallet            = "w1-d5-lowsize"
   printit              = "w1-d5-lowsize"
+  receipts             = "w1-d5-lowsize"
   fdr                  = "w1-d5-lowsize"
   fdrnodo              = "w1-d5-lowsize"
   checkout             = "w1-d5-lowsize"
