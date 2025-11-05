@@ -127,3 +127,9 @@ sampling_configuration = {
   sampling_percentage        = 30
   probe_paths                = ["/actuator/health/liveness", "/actuator/health/readiness", "/actuator/health/{*path}", "/health/liveness", "/health/readiness"]
 }
+
+elastic_agent_metric_collection = {
+  k8s           = false
+  system        = false
+  elastic_agent = false
+}

@@ -191,9 +191,9 @@ module "install_agent_cluster_1" {
   target_namespace             = "${var.prefix}.${var.env}"
 
   enabled_metric_collection = {
-    k8s = true
-    system = true
-    elastic_agent = true
+    k8s           = var.elastic_agent_metric_collection.k8s
+    system        = var.elastic_agent_metric_collection.system
+    elastic_agent = var.elastic_agent_metric_collection.elastic_agent
   }
 }
 
@@ -233,9 +233,9 @@ module "install_agent_cluster_2" {
   target_namespace             = "${var.prefix}.${var.env}"
 
   enabled_metric_collection = {
-    k8s = false
-    system = false
-    elastic_agent = false
+    k8s           = var.elastic_agent_metric_collection.k8s
+    system        = var.elastic_agent_metric_collection.system
+    elastic_agent = var.elastic_agent_metric_collection.elastic_agent
   }
 }
 
