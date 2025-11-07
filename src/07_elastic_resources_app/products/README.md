@@ -209,6 +209,26 @@ log_query:
     values:
       - 10
     comparator: ">"
+# ----------------- 
+# use this to create an alert on logs (or apm) data view with a custom threshold calculation
+custom_threshold:
+  data_view: apm
+  query: labels.updateTransactionStatus_type:"AUTHORIZATION_OUTCOME"
+  aggregations:
+    - name: A
+      aggregation: count
+    - name: B
+      aggregation: count
+      filter: "NOT labels.updateTransactionStatus_gateway_outcome : (OK or EXECUTED)"
+  equation: "(B/A)*100"
+  label: "Error Rate"
+  threshold:
+    values:
+      - 10
+    comparator: ">"
+  group_by:
+    - "labels.updateTransactionStatus_paymentMethodTypeCode"
+  alert_on_no_data: false  
 # -----------------    
 trigger_after_consecutive_runs: 3
 enabled: true #optional, default true. overrides global value
@@ -254,6 +274,22 @@ where:
     - `service`: **required** service name to be used for the anomaly detection
     - `detectors`: **required** list of detectors to be used for the anomaly detection. Alowed values: 'latency', 'throughput', 'failures'
     - `severity_type`: **required** severity type to be used for the anomaly detection. One of "critical", "major", "minor", "warning"
+---
+**custom threshold properties**
+- `data_view`: **required** data view to be used for the alert. It can be `logs` or `apm`, depending on where your application sends the logs of if it sends traces
+- `query`: **required** KQL query to be executed on the data view, applied to all aggregations
+- `aggregations`: **required** list of aggregations to be used for the alert
+  - `name`: **required** name of the aggregation, used in the equation
+  - `aggregation`: **required** type of the aggregation, it can be 'count', 'sum', 'avg', 'min', 'max', 'cardinality', 
+  - `field`: **optional** Required if the `aggregation` is not `count`. The field to be used for the aggregation
+  - `filter`: **optional** allowed only in `count` aggregations. KQL filter to be applied to this aggregation only in addition to the main query, allowed only to 'count' aggregations
+- `equation`: **required** equation to be used to calculate the final value for the alert. Use the aggregation names defined above
+- `label`: **required** label for the calculated value, used in the alert message
+- `threshold`: **required** threshold for the alert to be triggered. 
+    - `values`: **required** list of values used by the comparator. Multiple values accepted for range comparators
+    - `comparator`: **required** comparator to be used for the threshold, it can be '>', '>=', '<', '<=', 'between', 'notBetween'
+- `group_by`: **optional** list of fields to be used to group the results
+- `alert_on_no_data`: **optional** if set to `true`, the alert will be triggered if no data is found for the query. Default is `true`
 ---
 **notification channels**
 - `notification_channels`: **required** list of notification channels to be used for the alert.
