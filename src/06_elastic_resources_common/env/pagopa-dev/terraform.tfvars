@@ -6,7 +6,7 @@ deployment_name = "pagopa-s-weu-ec"
 
 role_mappings = {
   pagopa-d-adgroup-admin      = ["admin"]
-  pagopa-d-adgroup-developers = ["editor"]
+  pagopa-d-adgroup-developers = ["admin"]
   pagopa-d-adgroup-externals  = ["viewer"]
   pagopa-d-adgroup-operations = ["viewer"]
 }

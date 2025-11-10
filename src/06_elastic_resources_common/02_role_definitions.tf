@@ -1,6 +1,6 @@
 resource "elasticstack_elasticsearch_security_role" "admin_role" {
   name    = "${local.prefix_env}-admin-role"
-  cluster = null
+  cluster = ["manage_ingest_pipelines"]
 
   indices {
     names = ["*-${local.elastic_namespace}"]
@@ -43,7 +43,6 @@ resource "elasticstack_elasticsearch_security_role" "editor_role" {
       "index", "maintenance", "monitor", "read", "view_index_metadata", "write"
     ]
   }
-
 
   dynamic "applications" {
     for_each = toset([
