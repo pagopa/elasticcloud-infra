@@ -1,0 +1,26 @@
+name: migration-error-rate
+schedule: 15m
+window:
+  size: 15
+  unit: m
+custom_threshold:
+  data_view: logs
+  query: "service.name: \"pagopa-ecommerce-transactions-scheduler-service\" and log.level : \"ERROR\" and ( message : (*migration* or *TTL*))"
+  aggregations:
+    - name: A
+      aggregation: count
+  equation: "A"
+  label: "Error rate"
+  threshold:
+    values:
+      - 100
+    comparator: ">"
+  group_by:
+    - "labels.eCommerce_migration_source"
+  alert_on_no_data: false
+trigger_after_consecutive_runs: 2
+enabled: true
+notification_channels:
+  opsgenie:
+    connector_name: team-touchpoint-opsgenie
+    priority: P1
