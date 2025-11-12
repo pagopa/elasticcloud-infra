@@ -3,14 +3,13 @@ schedule: 15m
 window:
   size: 15
   unit: m
-custom_threshold:
+log_query:
   data_view: logs
+  exclude_hits_from_previous_run: true
   query: "service.name: \"pagopa-ecommerce-transactions-scheduler-service\" and log.level : \"ERROR\" and ( message : (*migration* or *TTL*))"
   aggregations:
     - name: A
       aggregation: count
-  equation: "A"
-  label: "Error rate"
   threshold:
     values:
       - 100
