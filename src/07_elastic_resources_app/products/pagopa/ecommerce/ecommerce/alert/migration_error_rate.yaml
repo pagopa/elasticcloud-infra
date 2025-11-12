@@ -15,8 +15,6 @@ custom_threshold:
     values:
       - 100
     comparator: ">"
-  group_by:
-    - "labels.eCommerce_migration_source"
   alert_on_no_data: false
 trigger_after_consecutive_runs: 2
 enabled: true
