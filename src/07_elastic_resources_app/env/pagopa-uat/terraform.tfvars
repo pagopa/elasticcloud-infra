@@ -45,4 +45,8 @@ app_connectors = {
     type       = "slack"
     secret_key = "team-core-slack-webhook-url"
   }
+  "pagopa-status-slack" = {
+    type       = "slack"
+    secret_key = "pagopa-status-slack-webhook-url"
+  }
 }
