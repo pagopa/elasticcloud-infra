@@ -9,7 +9,7 @@ custom_threshold:
   aggregations:
     - name: A
       aggregation: avg
-      filter: "numeric_labels.eCommerce_migration_iterationElapsedTimeMs"
+      field: "numeric_labels.eCommerce_migration_iterationElapsedTimeMs"
   equation: "A"
   label: "Latency"
   threshold:
