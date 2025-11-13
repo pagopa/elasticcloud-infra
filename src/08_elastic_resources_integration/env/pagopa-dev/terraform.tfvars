@@ -108,7 +108,8 @@ k8s_application_log_instance_names = {
     "print-payment-notice-functions"
   ]
   receipts = [
-    "pagopapagopareceiptpdfgenerator-microservice-chart",
+    "pagopa-receipt-pdf-generator",
+    "pagopa-receipt-pdf-generator-cart",
     "pagopapagopareceiptpdfhelpdesk-microservice-chart",
     "pagopapagopareceiptpdfservice-microservice-chart",
     "pagopapagopareceiptpdfdatastore-microservice-chart",
