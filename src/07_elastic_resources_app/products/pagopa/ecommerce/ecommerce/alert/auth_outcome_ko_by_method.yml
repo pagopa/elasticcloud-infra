@@ -16,7 +16,7 @@ custom_threshold:
   label: "Error Rate"
   threshold:
     values:
-      - 20
+      - 35
     comparator: ">"
   group_by:
     - "labels.updateTransactionStatus_paymentMethodTypeCode"
@@ -24,3 +24,5 @@ custom_threshold:
 trigger_after_consecutive_runs: 2
 enabled: true
 notification_channels:
+  slack:
+    connector_name: "pagopa-status-slack"
