@@ -8,7 +8,7 @@ custom_threshold:
   query: "span.name:\"eCommerceMigration\""
   aggregations:
     - name: A
-      aggregation: average
+      aggregation: avg
       filter: "numeric_labels.eCommerce_migration_iterationElapsedTimeMs"
   equation: "A"
   label: "Latency"
