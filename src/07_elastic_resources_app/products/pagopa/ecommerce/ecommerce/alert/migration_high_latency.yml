@@ -1,0 +1,27 @@
+name: migration-high-latency
+schedule: 15m
+window:
+  size: 15
+  unit: m
+custom_threshold:
+  data_view: apm
+  query: "span.name:\"eCommerceMigration\""
+  aggregations:
+    - name: A
+      aggregation: avg
+      field: "numeric_labels.eCommerce_migration_iterationElapsedTimeMs"
+  equation: "A"
+  label: "Latency"
+  threshold:
+    values:
+      - 10000
+    comparator: ">"
+  group_by:
+    - "labels.eCommerce_migration_source"
+  alert_on_no_data: false
+trigger_after_consecutive_runs: 2
+enabled: true
+notification_channels:
+  opsgenie:
+    connector_name: team-touchpoint-opsgenie
+    priority: P1
