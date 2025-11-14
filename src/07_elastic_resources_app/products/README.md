@@ -292,13 +292,13 @@ where:
 - `alert_on_no_data`: **optional** if set to `true`, the alert will be triggered if no data is found for the query. Default is `true`
 ---
 **notification channels**
-- `notification_channels`: **required** list of notification channels to be used for the alert.
-  - `opsgenie`: **required** if you want to send the alert to OpsGenie, you need to specify the connector name and the priority of the alert
+- `notification_channels`: **optional** list of notification channels to be used for the alert.
+  - `opsgenie`: **optional** if you want to send the alert to OpsGenie, you need to specify the connector name and the priority of the alert
     - `connector_name`: **required** name of the OpsGenie connector to be used for the alert
     - `priority`: **required** priority of the alert, it can be `P1`, `P2`, `P3`, `P4` or `P5`.
-  - `email`: **required** if you want to send the alert to an email address
+  - `email`: **optional** if you want to send the alert to an email address
     - `recipient_list_name`: **required** name of the recipient list to be used for the email notification
-  - `slack`: **required** if you want to send the alert to a Slack channel, you need to specify the connector name
+  - `slack`: **optional** if you want to send the alert to a Slack channel, you need to specify the connector name
     - `connector_name`: **required** name of the OpsGenie connector to be used for the alert
 
 

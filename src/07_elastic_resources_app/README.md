@@ -41,7 +41,7 @@ for details on how to configure a new space/application, please refer to the `co
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module___v4__"></a> [\_\_v4\_\_](#module\_\_\_v4\_\_) | git::https://github.com/pagopa/terraform-azurerm-v4 | 485eb11f1facc0df1d7ba770003e86c071995466 |
+| <a name="module___v4__"></a> [\_\_v4\_\_](#module\_\_\_v4\_\_) | git::https://github.com/pagopa/terraform-azurerm-v4 | f8d7e6ad3de4efa20bcf3b78abb56e17829a4408 |
 | <a name="module_app_resources"></a> [app\_resources](#module\_app\_resources) | ./.terraform/modules/__v4__/elastic_app_resources | n/a |
 
 ## Resources
