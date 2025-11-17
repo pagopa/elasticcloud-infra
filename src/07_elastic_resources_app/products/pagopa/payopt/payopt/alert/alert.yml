@@ -16,7 +16,7 @@ log_query:
     comparator: ">="
 # -----------------
 trigger_after_consecutive_runs: 1
-enabled: true #optional, default true. overrides global value
+enabled: false #optional, default true. overrides global value
 notification_channels:
   slack:
     connector_name: team-core-slack
