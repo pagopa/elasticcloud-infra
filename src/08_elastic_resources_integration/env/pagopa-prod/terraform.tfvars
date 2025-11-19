@@ -66,7 +66,8 @@ k8s_application_log_instance_names = {
     "pagopaecommercetxschedulerservice-microservice-chart",
     "pagopanotificationsservice-microservice-chart",
     "pagopa-jwt-issuer-service",
-    "pagopa-ecommerce-payment-methods-handler"
+    "pagopa-ecommerce-payment-methods-handler",
+    "pagopa-ecommerce-cdc-service"
   ]
   fdr = [
     "fdr-nodo-fdrnodo",
