@@ -115,7 +115,7 @@ k8s_application_log_instance_names = {
     "pagopapagopareceiptpdfhelpdesk-microservice-chart",
     "pagopapagopareceiptpdfservice-microservice-chart",
     "pagopapagopareceiptpdfdatastore-microservice-chart",
-    "pagopapagopareceiptpdfnotifier-microservice-chart"
+    "pagopa-receipt-pdf-notifier"
   ]
   crusc8 = [ # AKS deployment names
     "pagopacruscottobackend-microservice-chart",
