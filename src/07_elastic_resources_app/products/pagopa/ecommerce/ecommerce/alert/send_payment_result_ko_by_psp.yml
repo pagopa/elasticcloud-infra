@@ -22,7 +22,7 @@ custom_threshold:
     - "labels.updateTransactionStatus_pspId"
   alert_on_no_data: false
 trigger_after_consecutive_runs: 2
-enabled: false
+enabled: true
 notification_channels:
   slack:
     connector_name: "ecommerce-status-slack"
