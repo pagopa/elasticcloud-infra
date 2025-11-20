@@ -50,3 +50,9 @@ app_connectors = {
     secret_key = "ecommerce-status-slack-webhook-url"
   }
 }
+
+alert_channels = {
+  email    = false
+  slack    = true
+  opsgenie = false
+}
