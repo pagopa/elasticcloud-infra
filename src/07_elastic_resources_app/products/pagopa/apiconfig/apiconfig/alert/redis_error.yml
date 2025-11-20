@@ -15,7 +15,7 @@ log_query:
       - 10
     comparator: ">"
 trigger_after_consecutive_runs: 3
-enabled: false #optional, default true. overrides global value
+enabled: true #optional, default true. overrides global value
 notification_channels:
   opsgenie:
     connector_name: team-core-opsgenie
