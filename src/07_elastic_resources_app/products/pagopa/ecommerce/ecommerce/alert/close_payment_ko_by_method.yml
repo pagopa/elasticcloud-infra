@@ -1,0 +1,28 @@
+name: close-payment-ko-by-method
+schedule: 15m
+window:
+  size: 15
+  unit: m
+custom_threshold:
+  data_view: apm
+  query: labels.updateTransactionStatus_type:"CLOSE_PAYMENT_OUTCOME"
+  aggregations:
+    - name: A
+      aggregation: count
+    - name: B
+      aggregation: count
+      filter: "labels.updateTransactionStatus_gateway_outcome : KO"
+  equation: "(B/A)*100"
+  label: "Error Rate"
+  threshold:
+    values:
+      - 3
+    comparator: ">"
+  group_by:
+    - "labels.updateTransactionStatus_paymentMethodTypeCode"
+  alert_on_no_data: false
+trigger_after_consecutive_runs: 2
+enabled: true
+notification_channels:
+  slack:
+    connector_name: "ecommerce-status-slack"

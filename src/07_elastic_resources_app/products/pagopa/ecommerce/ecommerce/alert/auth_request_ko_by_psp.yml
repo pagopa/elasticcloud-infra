@@ -1,0 +1,28 @@
+name: auth-request-ko-by-psp
+schedule: 15m
+window:
+  size: 15
+  unit: m
+custom_threshold:
+  data_view: apm
+  query: labels.updateTransactionStatus_type:"AUTHORIZATION_REQUESTED"
+  aggregations:
+    - name: A
+      aggregation: count
+    - name: B
+      aggregation: count
+      filter: "labels.updateTransactionStatus_gateway_outcome : KO"
+  equation: "(B/A)*100"
+  label: "Error Rate"
+  threshold:
+    values:
+      - 5
+    comparator: ">"
+  group_by:
+    - "labels.updateTransactionStatus_pspId"
+  alert_on_no_data: false
+trigger_after_consecutive_runs: 2
+enabled: true
+notification_channels:
+  slack:
+    connector_name: "ecommerce-status-slack"

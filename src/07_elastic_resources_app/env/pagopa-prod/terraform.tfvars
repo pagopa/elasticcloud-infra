@@ -65,6 +65,10 @@ app_connectors = {
     type       = "slack"
     secret_key = "team-core-slack-webhook-url"
   }
+  "ecommerce-status-slack" = {
+    type       = "slack"
+    secret_key = "ecommerce-status-slack-webhook-url"
+  }
 }
 
 email_recipients = {
