@@ -20,7 +20,8 @@ resource "elasticstack_elasticsearch_snapshot_lifecycle" "default_snapshot_polic
   repository    = elasticstack_elasticsearch_snapshot_repository.snapshot_repository.name
 
   indices = [
-    "*-${var.prefix}.${var.env}"
+    "*-${var.prefix}.${var.env}",
+    "*-default"
   ]
   ignore_unavailable   = true
   include_global_state = true
