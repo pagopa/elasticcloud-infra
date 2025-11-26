@@ -81,5 +81,5 @@ email_recipients = {
 alert_channels = {
   email    = false
   slack    = true
-  opsgenie = false
+  opsgenie = true
 }
