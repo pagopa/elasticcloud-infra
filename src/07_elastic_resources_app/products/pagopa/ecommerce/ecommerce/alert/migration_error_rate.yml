@@ -15,7 +15,7 @@ log_query:
     comparator: ">"
   alert_on_no_data: false
 trigger_after_consecutive_runs: 2
-enabled: true
+enabled: false
 notification_channels:
   opsgenie:
     connector_name: team-touchpoint-opsgenie
