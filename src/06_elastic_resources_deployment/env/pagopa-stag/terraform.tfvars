@@ -9,8 +9,8 @@ kv_rg_org_ec             = "paymon-u-ec-org-sec-rg"
 elastic_apikey_env_short = "u"
 elastic_apikey_env       = "uat"
 
-default_ilm_elastic            = "w1-d5-lowsize"
-default_ilm_metricbeat         = "w1-d5-lowsize"
+default_ilm_elastic            = "w5-d5-lowsize"
+default_ilm_metricbeat         = "w5-d5-lowsize"
 default_ilm_elastic_monitoring = "w0-d3-lowsize"
 
 ilm_delete_wait_for_snapshot = false
@@ -27,19 +27,19 @@ alert_channels = {
 
 default_idx_tpl_customization = {
   logs = {
-    lifecycle             = "w1-d5-lowsize"
+    lifecycle             = "w5-d5-lowsize"
     primary_shard_count   = 1
     component             = "lifecycle-and-shard@custom.json"
     total_shards_per_node = 2
   }
   traces = {
-    lifecycle             = "w1-d5-lowsize"
+    lifecycle             = "w5-d5-lowsize"
     primary_shard_count   = 1
     component             = "lifecycle-and-shard-max@custom.json"
     total_shards_per_node = 2
   }
   metrics = {
-    lifecycle             = "w1-d5-lowsize"
+    lifecycle             = "w5-d5-lowsize"
     primary_shard_count   = 1
     component             = "lifecycle-and-shard@custom.json"
     total_shards_per_node = 2
