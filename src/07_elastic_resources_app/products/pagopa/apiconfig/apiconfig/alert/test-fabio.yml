@@ -23,5 +23,8 @@ notification_channels:
     severity: Sev1
     rule: restart-pod
     attributes:
-      namespace: api-config
+      namespace: apiconfig
       region: westeurope
+      resourcename: pagopa-d-weu-dev-aks
+      resourcegroup: pagopa-d-weu-dev-aks-rg
+      deployment: cache-postgresql
