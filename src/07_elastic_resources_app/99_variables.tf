@@ -121,7 +121,7 @@ variable "alert_channels" {
     email    = bool
     slack    = bool
     opsgenie = bool
-    cloudo  = bool
+    cloudo   = bool
   })
 
   description = "(Optional) Map of alert channels to be used for alerts. Default is all false"
@@ -129,6 +129,6 @@ variable "alert_channels" {
     email    = false
     slack    = false
     opsgenie = false
-    cloudo  = false
+    cloudo   = false
   }
 }

@@ -305,12 +305,12 @@ where:
     - `recipient_list_name`: **required** name of the recipient list to be used for the email notification
   - `slack`: **optional** if you want to send the alert to a Slack channel, you need to specify the connector name
     - `connector_name`: **required** name of the OpsGenie connector to be used for the alert
-  - `cloudo`: **optional** if you want to trigger a runbook automation using ClouDO for this alert
+  - `cloudo`: _(preview)_ **optional** if you want to trigger a runbook automation using ClouDO for this alert
     - `connector_name`: **required** name of the webhook (to ClouDO) connector to be used for the alert
     - `type`: **required** type of the ClouDO runbook to be triggered. It can be `aks`
     - `rule`: **required** rule identifier for the ClouDO runbook
     - `severity`: **required** severity level for the ClouDO runbook. It can be `Sev0`, `Sev1`, `Sev2`, `Sev3`, `Sev4`
-    - `attributes`: **optional** map of attributes to be sent to ClouDO
+    - `attributes`: **optional** map of arbitraryattributes to be sent to ClouDO
       - `namespace`: **required** namespace where the application is deployed, if alert type is `aks`
       - `region`: **required** region where the application is deployed, if alert type is `aks`
 

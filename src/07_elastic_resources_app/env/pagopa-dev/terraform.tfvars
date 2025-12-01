@@ -58,7 +58,7 @@ app_connectors = {
 
 alert_channels = {
   email    = false
-    slack    = false
-    opsgenie = false
-    cloudo  = true
+  slack    = false
+  opsgenie = false
+  cloudo   = true
 }

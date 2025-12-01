@@ -1,7 +1,7 @@
 locals {
   slack_connector_names    = [for connector_name, connector in var.app_connectors : connector_name if connector.type == "slack"]
   opsgenie_connector_names = [for connector_name, connector in var.app_connectors : connector_name if connector.type == "opsgenie"]
-  webhook_connector_names = [for connector_name, connector in var.app_connectors : connector_name if connector.type == "webhook"]
+  webhook_connector_names  = [for connector_name, connector in var.app_connectors : connector_name if connector.type == "webhook"]
 }
 
 module "app_resources" {
