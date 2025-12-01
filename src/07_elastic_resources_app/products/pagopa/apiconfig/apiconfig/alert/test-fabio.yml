@@ -1,0 +1,27 @@
+name: Test fabio
+schedule: 5m
+window:
+  size: 5
+  unit: m
+log_query:
+  aggregation:
+    type: sum
+    field: "http_code"
+  query: "log.level: \"ERROR\""
+  data_view: logs
+  exclude_hits_from_previous_run: true
+  threshold:
+    values:
+      - 1
+    comparator: ">"
+trigger_after_consecutive_runs: 3
+enabled: true #optional, default true. overrides global value
+notification_channels:
+  cloudo:
+    connector_name: cloudo-webhook
+    type: aks
+    severity: Sev1
+    rule: restart-pod
+    attributes:
+      namespace: api-config
+      region: westeurope
