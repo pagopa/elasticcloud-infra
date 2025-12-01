@@ -86,4 +86,5 @@ alert_channels = {
   email    = false
   slack    = true
   opsgenie = true
+  cloudo   = false
 }
