@@ -63,6 +63,8 @@ First of all you need to create the correct folder structure, starting from the 
 - **required & needs approval**, define the index lifecycle policy to be used for your indexes in `env/<your_env>` variable file, variable `ilm`. Add here a new entry with your application identifier adn the ilm to use, choosing between one of the provided ilm in the `default_library/ilm` folder
 - **if needed**, add your application instance name in the `08_elastic_resources_integration/env/<your_env>` `k8s_application_log_instance_names` variable if that application is supposed to be monitored using **elastic agent**
 
+**NB:** dashboards and queries are elaborated using terraform template file, so keep in mind that some characters may need to be escaped following the [terraform template syntax](https://developer.hashicorp.com/terraform/language/expressions/strings#escape-sequences)
+
 ### appSettings.json
 
 The appSettings content relies on the contents of `default_library` folder in order to reuse components definitions; in this file you will be referencing the file names 
