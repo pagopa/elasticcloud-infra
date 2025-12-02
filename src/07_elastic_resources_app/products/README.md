@@ -316,6 +316,23 @@ where:
       - `namespace`: **required** namespace where the application is deployed, if alert type is `aks`
       - `region`: **required** region where the application is deployed, if alert type is `aks`
 
+
+This `yml` file is parsed using the terraform templatefile function, so make sure to escape any special character as per [terraform template syntax](https://developer.hashicorp.com/terraform/language/expressions/strings#escape-sequences)
+Available variables are:
+- `env`: <`dev`|`uat`|`prod`> the target environment name
+- `env_short`: the first letter of the `env` variable
+
+Usage example:
+```yml
+notification_channels:
+  cloudo:
+    connector_name: "my-cloudo-connector-name"
+    type: "aks"
+    attributes:
+        environment: "${env}"
+```
+
+
 ### How to configure an alert channel
 
 The available alert channels and email recipient list must be defined in the TF environment variable files
