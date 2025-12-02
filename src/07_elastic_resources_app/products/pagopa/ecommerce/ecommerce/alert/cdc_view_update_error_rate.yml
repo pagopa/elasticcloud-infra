@@ -20,7 +20,7 @@ custom_threshold:
     comparator: ">"
   alert_on_no_data: true
 trigger_after_consecutive_runs: 2
-enabled: true
+enabled: false
 notification_channels:
   slack:
     connector_name: "ecommerce-status-slack"
