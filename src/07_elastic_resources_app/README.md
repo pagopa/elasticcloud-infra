@@ -41,7 +41,7 @@ for details on how to configure a new space/application, please refer to the `co
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module___v4__"></a> [\_\_v4\_\_](#module\_\_\_v4\_\_) | git::https://github.com/pagopa/terraform-azurerm-v4 | f8d7e6ad3de4efa20bcf3b78abb56e17829a4408 |
+| <a name="module___v4__"></a> [\_\_v4\_\_](#module\_\_\_v4\_\_) | git::https://github.com/pagopa/terraform-azurerm-v4 | 551081b0330faeb7af38c97cc1d01248143ca9b2 |
 | <a name="module_app_resources"></a> [app\_resources](#module\_app\_resources) | ./.terraform/modules/__v4__/elastic_app_resources | n/a |
 
 ## Resources
@@ -69,9 +69,9 @@ for details on how to configure a new space/application, please refer to the `co
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_alert_channels"></a> [alert\_channels](#input\_alert\_channels) | (Optional) Map of alert channels to be used for alerts. Default is all false | <pre>object({<br/>    email    = bool<br/>    slack    = bool<br/>    opsgenie = bool<br/>  })</pre> | <pre>{<br/>  "email": false,<br/>  "opsgenie": false,<br/>  "slack": false<br/>}</pre> | no |
+| <a name="input_alert_channels"></a> [alert\_channels](#input\_alert\_channels) | (Optional) Map of alert channels to be used for alerts. Default is all false | <pre>object({<br/>    email    = bool<br/>    slack    = bool<br/>    opsgenie = bool<br/>    cloudo   = bool<br/>  })</pre> | <pre>{<br/>  "cloudo": false,<br/>  "email": false,<br/>  "opsgenie": false,<br/>  "slack": false<br/>}</pre> | no |
 | <a name="input_apm_logs_metrics_ilm"></a> [apm\_logs\_metrics\_ilm](#input\_apm\_logs\_metrics\_ilm) | (Required) Map containing the service name which require a custom ilm for this environment associated to the related index lifecycle management policy to be used for that service. The allowed values are the file names in `default_library/ilm` folder | `map(string)` | `{}` | no |
-| <a name="input_app_connectors"></a> [app\_connectors](#input\_app\_connectors) | (optional) Map of <connector name>-<connector details> for additional connectors dedicated to app alerts. supports slack and opsgenie type | <pre>map(object({<br/>    type       = string<br/>    secret_key = string<br/>  }))</pre> | `{}` | no |
+| <a name="input_app_connectors"></a> [app\_connectors](#input\_app\_connectors) | (optional) Map of <connector name>-<connector details> for additional connectors dedicated to app alerts. supports slack and opsgenie and cloudo type | <pre>map(object({<br/>    type       = string<br/>    secret_key = string<br/>  }))</pre> | `{}` | no |
 | <a name="input_deployment_name"></a> [deployment\_name](#input\_deployment\_name) | (Required) EC deployment name | `string` | n/a | yes |
 | <a name="input_email_recipients"></a> [email\_recipients](#input\_email\_recipients) | (Optional) Map of List of email recipients associated to a name. to be used for email alerts. Default is empty | `map(list(string))` | `{}` | no |
 | <a name="input_env"></a> [env](#input\_env) | (Required) Environment name | `string` | n/a | yes |
