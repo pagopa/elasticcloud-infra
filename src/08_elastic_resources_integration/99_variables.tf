@@ -122,3 +122,9 @@ variable "elastic_agent_metric_collection" {
   }
 }
 
+variable "otel_exporter_queue_size" {
+  type = number
+  description = "(Optional) Size of the OTEL exporter queue"
+  default = 1000
+}
+

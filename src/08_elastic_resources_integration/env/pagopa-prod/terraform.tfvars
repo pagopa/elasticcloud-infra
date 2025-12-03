@@ -129,3 +129,5 @@ sampling_configuration = {
   sampling_percentage        = 80
   probe_paths                = ["/actuator/health/liveness", "/actuator/health/readiness", "/actuator/health/{*path}", "/health/liveness", "/health/readiness"]
 }
+
+otel_exporter_queue_size = 1500
