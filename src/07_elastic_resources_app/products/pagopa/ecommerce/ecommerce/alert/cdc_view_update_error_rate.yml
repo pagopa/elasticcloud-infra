@@ -20,7 +20,8 @@ custom_threshold:
     comparator: ">"
   alert_on_no_data: true
 trigger_after_consecutive_runs: 2
-enabled: false
+enabled: true
 notification_channels:
-  slack:
-    connector_name: "ecommerce-status-slack"
+  opsgenie:
+    connector_name: team-touchpoint-opsgenie
+    priority: P3
