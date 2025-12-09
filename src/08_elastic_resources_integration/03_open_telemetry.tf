@@ -10,7 +10,8 @@ module "otel_cluster_1" {
   deployment_env                      = var.env
   elastic_namespace                   = "${var.prefix}.${var.env}"
 
-  sampling = var.sampling_configuration
+  sampling             = var.sampling_configuration
+  otlp_exporter_config = var.otel_exporter_config
 
   affinity_selector = var.aks_config[0].otel.affinity_selector
 
@@ -35,7 +36,8 @@ module "otel_cluster_2" {
 
   affinity_selector = var.aks_config[1].otel.affinity_selector
 
-  sampling = var.sampling_configuration
+  sampling             = var.sampling_configuration
+  otlp_exporter_config = var.otel_exporter_config
 
   providers = {
     kubectl = kubectl.cluster_2
