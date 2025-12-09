@@ -14,7 +14,7 @@ log_query:
     values:
       - 1
     comparator: ">"
-trigger_after_consecutive_runs: 3
+trigger_after_consecutive_runs: 1
 enabled: true #optional, default true. overrides global value
 notification_channels:
   cloudo:
