@@ -1,0 +1,27 @@
+name: cdc-view-update-error-rate
+schedule: 15m
+window:
+  size: 15
+  unit: m
+custom_threshold:
+  data_view: apm
+  query: transaction.name:eventstoreCDCEvent
+  aggregations:
+    - name: A
+      aggregation: count
+    - name: B
+      aggregation: count
+      filter: labels.ecommerce_cdc_processedEvent_outcome:ERROR
+  equation: "(B/A)*100"
+  label: "Error Rate"
+  threshold:
+    values:
+      - 10
+    comparator: ">"
+  alert_on_no_data: true
+trigger_after_consecutive_runs: 2
+enabled: true
+notification_channels:
+  opsgenie:
+    connector_name: team-touchpoint-opsgenie
+    priority: P3

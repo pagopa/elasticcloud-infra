@@ -24,4 +24,4 @@ enabled: true
 notification_channels:
   opsgenie:
     connector_name: team-touchpoint-opsgenie
-    priority: P1
+    priority: P3

@@ -66,7 +66,8 @@ k8s_application_log_instance_names = {
     "pagopaecommercetxschedulerservice-microservice-chart",
     "pagopanotificationsservice-microservice-chart",
     "pagopa-jwt-issuer-service",
-    "pagopa-ecommerce-payment-methods-handler"
+    "pagopa-ecommerce-payment-methods-handler",
+    "pagopa-ecommerce-cdc-service"
   ]
   fdr = [
     "fdr-nodo-fdrnodo",
@@ -134,6 +135,12 @@ k8s_application_log_instance_names = {
 sampling_configuration = {
   enabled                    = true
   probes_sampling_percentage = 10
-  sampling_percentage        = 80
+  sampling_percentage        = 70
   probe_paths                = ["/actuator/health/liveness", "/actuator/health/readiness", "/actuator/health/{*path}", "/health/liveness", "/health/readiness"]
+}
+
+otel_exporter_config = {
+  queue_size       = 40000
+  consumers        = 100
+  memory_limit_mib = 3072
 }

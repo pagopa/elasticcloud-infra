@@ -57,11 +57,13 @@ First of all you need to create the correct folder structure, starting from the 
 - **if needed**, create a folder for your desired kibana space; the name of the folder will be the name of the kibana space, prepended to the `<env>` tag (i.e.: myspace-dev). Use an existing folder otherwise to create objects attached to that space
 - **required**,  create a folder for your application, the folder name will be used as an identifier in the ES resource creation process, so **it must be unique within the product folder**
 - **required**, create a file names `appSettings.json`, otherwise no resources will be created
-- **if needed**, create a folder for your dashboards named `dashboard`. Save here all the exported dashboard in ndjson format. **NB:** replace the `data_view_id` value with `"${data_view}"` and `apm_static_index_pattern_id` or `apm_static_index_pattern_id_<your-env>`with `"${apm_data_view}"` to make it dynamic
+- **if needed**, create a folder for your dashboards named `dashboard`. Save here all the exported dashboard in ndjson format. **NB:** replace the `data_view_id` value with `"${data_view}"` and `apm_static_index_pattern_id` or `apm_static_index_pattern_id_<your-env>`with `"${apm_data_view}"` to make it dynamic. The `${namespace}` variable, containing the elastic namespace such as `pagopa.dev`, can be used to define custom index patterns (used in `ES|QL` queries)
 - **if needed**, create a folder for your saved queries named `query`. Save here all the exported queries in ndjson format
 - **if needed**, create a folder for your alerts `alert`. Save here all the alert definition in yml format (see alert paragraph for more details)
 - **required & needs approval**, define the index lifecycle policy to be used for your indexes in `env/<your_env>` variable file, variable `ilm`. Add here a new entry with your application identifier adn the ilm to use, choosing between one of the provided ilm in the `default_library/ilm` folder
 - **if needed**, add your application instance name in the `08_elastic_resources_integration/env/<your_env>` `k8s_application_log_instance_names` variable if that application is supposed to be monitored using **elastic agent**
+
+**NB:** dashboards and queries are elaborated using terraform template file, so keep in mind that some characters may need to be escaped following the [terraform template syntax](https://developer.hashicorp.com/terraform/language/expressions/strings#escape-sequences)
 
 ### appSettings.json
 
@@ -240,6 +242,11 @@ notification_channels:
     recipient_list_name: team-core-emails
   slack:
     connector_name: team-core-slack
+  cloudo:
+    connector_name: "my-cloudo-connector-name"
+    type: "aks"
+    attributes:
+        namespace: "api-config"
 ```
 
 where:
@@ -300,6 +307,66 @@ where:
     - `recipient_list_name`: **required** name of the recipient list to be used for the email notification
   - `slack`: **optional** if you want to send the alert to a Slack channel, you need to specify the connector name
     - `connector_name`: **required** name of the OpsGenie connector to be used for the alert
+  - `cloudo`: _(preview)_ **optional** if you want to trigger a runbook automation using ClouDO for this alert
+    - `connector_name`: **required** name of the webhook (to ClouDO) connector to be used for the alert
+    - `type`: **required** type of the ClouDO runbook to be triggered. It can be `aks`
+    - `rule`: **required** rule identifier for the ClouDO runbook
+    - `severity`: **required** severity level for the ClouDO runbook. It can be `Sev0`, `Sev1`, `Sev2`, `Sev3`, `Sev4`
+    - `attributes`: **optional** map of arbitraryattributes to be sent to ClouDO
+      - `namespace`: **required** namespace where the application is deployed, if alert type is `aks`
+      - `region`: **required** region where the application is deployed, if alert type is `aks`
+
+
+This `yml` file is parsed using the terraform templatefile function, so make sure to escape any special character as per [terraform template syntax](https://developer.hashicorp.com/terraform/language/expressions/strings#escape-sequences)
+Available variables are:
+- `env`: <`dev`|`uat`|`prod`> the target environment name
+- `env_short`: the first letter of the `env` variable
+
+Usage example:
+```yml
+notification_channels:
+  cloudo:
+    connector_name: "my-cloudo-connector-name"
+    type: "aks"
+    attributes:
+        environment: "${env}"
+```
+
+
+### How to configure an alert channel
+
+The available alert channels and email recipient list must be defined in the TF environment variable files
+
+The email recipients must be simply defined as follows for each environment where you intend to use them
+```hcl
+email_recipients = {
+  "team-core-emails" = [
+    # your emails here
+  ]
+  "team-touchpoint-emails" = [
+    # your emails here
+  ]
+  # any other team
+}
+```
+
+The alert connectors (opsgenie, slack, ClouDO) must be defined in the following format, where the `secret_key` is the name of the secret in the vault containing the actual secret value (opsgenie api key, slack webhook url, cloudo webhook url) defined in the `05_elastic_secret` module, and must be configured with the help of a [sys admin](https://github.com/orgs/pagopa/teams/payments-cloud-admin)
+```hcl
+app_connectors = {
+  "team-core-opsgenie" = {
+    type       = "opsgenie"
+    secret_key = "team-core-opsgenie-api-key"
+  }
+  "team-touchpoint-opsgenie" = {
+    type       = "opsgenie"
+    secret_key = "team-touchpoint-opsgenie-api-key"
+  }
+  "cloudo-webhook" = {
+    type       = "webhook"
+    secret_key = "cloudo-webhook-url"
+  }
+}
+```
 
 
 ### An important note on alert notification_channels
@@ -316,6 +383,7 @@ alert_channels = {
     email    = true
     slack    = false
     opsgenie = false
+    cloudo   = false
 }
 ```
 
@@ -328,6 +396,11 @@ notification_channels:
     priority: P1
   slack:
     connector_name: "my-slack-connector-name"
+  cloudo:
+    connector_name: "my-cloudo-connector-name"
+    type: "aks"
+    attributes:
+        namespace: "application-namespace"
 ```
 
 In the above case the only enabled channel is `email`, but the alert does not define it, so the alert will not be sent to any channel.
