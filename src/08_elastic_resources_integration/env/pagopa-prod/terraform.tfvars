@@ -111,11 +111,10 @@ k8s_application_log_instance_names = {
   ]
   receipts = [
     # --- OLD to delete -------
-    "pagopa-receipt-pdf-generator",
-    "pagopa-receipt-pdf-generator-cart",
+    "pagopapagopareceiptpdfgenerator-microservice-chart",
     "pagopapagopareceiptpdfhelpdesk-microservice-chart",
     "pagopapagopareceiptpdfservice-microservice-chart",
-    "pagopa-receipt-pdf-datastore",
+    "pagopapagopareceiptpdfdatastore-microservice-chart",
     "pagopapagopareceiptpdfnotifier-microservice-chart",
     #--------------------------
     "pagopa-receipt-pdf-generator",
