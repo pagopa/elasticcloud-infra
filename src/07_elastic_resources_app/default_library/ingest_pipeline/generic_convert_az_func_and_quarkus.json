@@ -1,0 +1,158 @@
+{
+  "processors": [
+    {
+      "json": {
+        "field": "message",
+        "add_to_root": true
+      }
+    },
+    {
+      "convert": {
+        "field": "responseTime",
+        "type": "long",
+        "target_field": "response_time",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "convert": {
+        "field": "httpCode",
+        "type": "integer",
+        "target_field": "http_code",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "json": {
+        "field": "args",
+        "target_field": "arguments",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "json": {
+        "field": "response",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "convert": {
+        "field": "mdc.responseTime",
+        "type": "long",
+        "target_field": "response_time",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "convert": {
+        "field": "mdc.httpCode",
+        "type": "integer",
+        "target_field": "http_code",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "json": {
+        "field": "mdc.args",
+        "target_field": "arguments",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "convert": {
+        "field": "mdc.args",
+        "type": "string",
+        "target_field": "args",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "json": {
+        "field": "mdc.response",
+        "target_field": "response",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "convert": {
+        "field": "mdc.startTime",
+        "type": "string",
+        "target_field": "startTime",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "convert": {
+        "field": "mdc.method",
+        "type": "string",
+        "target_field": "method",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "convert": {
+        "field": "mdc.status",
+        "type": "string",
+        "target_field": "status",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "convert": {
+        "field": "mdc.faultCode",
+        "type": "string",
+        "target_field": "faultCode",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "convert": {
+        "field": "mdc.faultDetail",
+        "type": "string",
+        "target_field": "faultDetail",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "convert": {
+        "field": "mdc.requestId",
+        "type": "string",
+        "target_field": "requestId",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "convert": {
+        "field": "mdc.operationId",
+        "type": "string",
+        "target_field": "operationId",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    }
+  ],
+  "onFailure": [
+    {
+      "set": {
+        "field": "ingest_failure",
+        "value": "true"
+      }
+    }
+  ]
+
+}
