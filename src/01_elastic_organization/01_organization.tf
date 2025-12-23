@@ -11,9 +11,6 @@ resource "ec_organization" "admin_elastic_cloud_organization" {
     },
     "fabio.felici@pagopa.it" = {
       organization_role = "organization-admin"
-    },
-    "diego.lagosmorales@pagopa.it" = {
-      organization_role = "organization-admin"
     }
   }
 }
