@@ -1,0 +1,15 @@
+# 2. Missing property in biz-event
+name: pagopa-missing-bizevent-property-alert
+schedule: 15m
+window:
+  size: 15
+  unit: m
+log_query:
+  data_view: logs
+  query: 'service.name: "pagopareceiptpdfgenerator" and message: "Error mapping bizEvent data to template, missing property"'
+  aggregation:
+    type: count
+  threshold:
+    values: [20]
+    comparator: ">="
+enabled: true

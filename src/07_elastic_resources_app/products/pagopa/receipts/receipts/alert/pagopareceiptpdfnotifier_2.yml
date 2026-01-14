@@ -1,0 +1,15 @@
+# 2. Failed to notify receipt to IO (UNABLE_TO_SEND)
+name: pagopa-unable-to-send-notify
+schedule: 15m
+window:
+  size: 15
+  unit: m
+log_query:
+  data_view: logs
+  query: 'service.name: "pagopareceiptpdfnotifier" and message: "Receipt updated with status UNABLE_TO_SEND"'
+  aggregation:
+    type: count
+  threshold:
+    values: [20]
+    comparator: ">="
+enabled: true

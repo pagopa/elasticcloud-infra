@@ -1,0 +1,16 @@
+# 3. PDF Engine response KO
+name: pagopa-pdf-engine-response-ko
+schedule: 15m
+window:
+  size: 15
+  unit: m
+log_query:
+  data_view: logs
+  query: 'service.name: "pagopareceiptpdfgenerator" and message: "PDF-Engine response KO"'
+  aggregation:
+    type: count
+  threshold:
+    values: [50]
+    comparator: ">="
+enabled: true
+

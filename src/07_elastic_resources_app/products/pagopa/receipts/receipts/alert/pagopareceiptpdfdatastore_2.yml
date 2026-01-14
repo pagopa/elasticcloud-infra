@@ -1,0 +1,15 @@
+# 2. Receipt instance NOT_QUEUE_SENT
+name: pagopa-receiptsdatastore-not-sent-to-queue-alert
+schedule: 15m
+window:
+  size: 15
+  unit: m
+log_query:
+  data_view: logs
+  query: 'service.name: "pagopareceiptpdfdatastore" and message: "Error sending message to queue"'
+  aggregation:
+    type: count
+  threshold:
+    values: [20]
+    comparator: ">="
+enabled: true
