@@ -1,12 +1,11 @@
-# 1. ManageReceiptPoisonQueueProcessor saving new error
-name: pagopa-receipt-in-error-alert
+name: pagopa-receipt-pdf-generator-alert
 schedule: 15m
 window:
   size: 15
   unit: m
 log_query:
   data_view: logs
-  query: 'service.name: "pagopareceiptpdfgenerator" and message: "saving new entry to the retry error to review"'
+  query: 'service.name: "pagopa-receipt-pdf-generator" and log.level: "ERROR"'
   aggregation:
     type: count
   threshold:

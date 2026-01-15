@@ -1,12 +1,11 @@
-# 1. Exception while executing function (CosmosDB errors)
-name: pagopa-receipt-in-poison-queue-alert
+name: pagopa-receipt-pdf-datastore-alert
 schedule: 15m
 window:
   size: 15
   unit: m
 log_query:
   data_view: logs
-  query: 'service.name: "pagopareceiptpdfdatastore" and message: "Exception while executing function: Functions.BizEventToReceiptProcessor"'
+  query: 'service.name: "pagopa-receipt-pdf-datastore" and log.level: "ERROR"'
   aggregation:
     type: count
   threshold:

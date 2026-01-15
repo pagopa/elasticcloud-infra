@@ -1,12 +1,11 @@
-# 1. NotifierRetry function called
-name: pagopa-notify-in-error-retry
+name: pagopa-receipt-pdf-notifier-alert
 schedule: 15m
 window:
   size: 15
   unit: m
 log_query:
   data_view: logs
-  query: 'service.name: "pagopareceiptpdfnotifier" and message: "[NotifierRetryProcessor] function called at"'
+  query: 'service.name: "pagopa-receipt-pdf-notifier" and log.level: "ERROR"'
   aggregation:
     type: count
   threshold:
