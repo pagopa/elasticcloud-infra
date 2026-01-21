@@ -22,20 +22,20 @@ locals {
       opsgenie_priority = "P1"
       consecutive_runs  = 3
     },
-    "cluster_health_yellow" = {
-      name        = "Cluster health yellow"
-      description = "${title(var.env)} cluster health is yellow"
-      params = {
-        threshold = var.alert_configuration.cluster_health.threshold
-        duration  = var.alert_configuration.cluster_health.duration
-        "filterQueryText" : "cluster_state.status : \"yellow\"",
-        "filterQuery" : "{\"bool\":{\"should\":[{\"term\":{\"cluster_state.status\":{\"value\":\"yellow\"}}}],\"minimum_should_match\":1}}"
-      }
-      rule_type_id      = "monitoring_alert_cluster_health"
-      interval          = "5m"
-      opsgenie_priority = "P4"
-      consecutive_runs  = 3
-    }
+    # "cluster_health_yellow" = {
+    #   name        = "Cluster health yellow"
+    #   description = "${title(var.env)} cluster health is yellow"
+    #   params = {
+    #     threshold = var.alert_configuration.cluster_health.threshold
+    #     duration  = var.alert_configuration.cluster_health.duration
+    #     "filterQueryText" : "cluster_state.status : \"yellow\"",
+    #     "filterQuery" : "{\"bool\":{\"should\":[{\"term\":{\"cluster_state.status\":{\"value\":\"yellow\"}}}],\"minimum_should_match\":1}}"
+    #   }
+    #   rule_type_id      = "monitoring_alert_cluster_health"
+    #   interval          = "5m"
+    #   opsgenie_priority = "P4"
+    #   consecutive_runs  = 3
+    # }
     node_changed = {
       name        = "Nodes changed"
       description = "${title(var.env)} cluster nodes changed"
