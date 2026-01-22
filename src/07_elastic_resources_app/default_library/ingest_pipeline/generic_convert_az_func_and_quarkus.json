@@ -28,7 +28,6 @@
       "json": {
         "field": "args",
         "target_field": "arguments",
-        "ignore_missing": true,
         "ignore_failure": true
       }
     },
