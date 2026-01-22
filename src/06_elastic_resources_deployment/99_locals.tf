@@ -11,8 +11,7 @@ locals {
     "marco.mari@pagopa.it",
     "umberto.coppolabottazzi@pagopa.it",
     "matteo.alongi@pagopa.it",
-    "fabio.felici@pagopa.it",
-    "diego.lagosmorales@pagopa.it"
+    "fabio.felici@pagopa.it"
   ]
 
   tags = {

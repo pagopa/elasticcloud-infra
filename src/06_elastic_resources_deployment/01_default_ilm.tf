@@ -24,28 +24,47 @@ resource "elasticstack_elasticsearch_index_lifecycle" "deployment_index_lifecycl
       min_primary_shard_size = lookup(each.value.hot.rollover, "minPrimarySize", null)
       max_age                = each.value.hot.rollover.maxAge
     }
-  }
-
-  warm {
-    min_age = each.value.warm.minAge
-
-    set_priority {
-      priority = each.value.warm.setPriority
-    }
 
     dynamic "shrink" {
-      for_each = lookup(each.value.warm, "shrink", null) != null ? [1] : []
+      for_each = lookup(each.value.hot, "shrink", null) != null ? [1] : []
       content {
-        allow_write_after_shrink = each.value.warm.shrink.allowWriteAfterShrink
-        max_primary_shard_size   = each.value.warm.shrink.maxPrimarySize
+        allow_write_after_shrink = each.value.hot.shrink.allowWriteAfterShrink
+        max_primary_shard_size   = each.value.hot.shrink.maxPrimarySize
       }
     }
 
     dynamic "forcemerge" {
-      for_each = lookup(each.value.warm, "forceMerge", null) != null ? [1] : []
+      for_each = lookup(each.value.hot, "forceMerge", null) != null ? [1] : []
       content {
-        max_num_segments = each.value.warm.forceMerge.maxSegments
-        index_codec      = each.value.warm.forceMerge.indexCodec
+        max_num_segments = each.value.hot.forceMerge.maxSegments
+        index_codec      = each.value.hot.forceMerge.indexCodec
+      }
+    }
+  }
+
+  dynamic "warm" {
+    for_each = lookup(each.value, "warm", null) != null ? [1] : []
+    content {
+      min_age = each.value.warm.minAge
+
+      set_priority {
+        priority = each.value.warm.setPriority
+      }
+
+      dynamic "shrink" {
+        for_each = lookup(each.value.warm, "shrink", null) != null ? [1] : []
+        content {
+          allow_write_after_shrink = each.value.warm.shrink.allowWriteAfterShrink
+          max_primary_shard_size   = each.value.warm.shrink.maxPrimarySize
+        }
+      }
+
+      dynamic "forcemerge" {
+        for_each = lookup(each.value.warm, "forceMerge", null) != null ? [1] : []
+        content {
+          max_num_segments = each.value.warm.forceMerge.maxSegments
+          index_codec      = each.value.warm.forceMerge.indexCodec
+        }
       }
     }
   }
