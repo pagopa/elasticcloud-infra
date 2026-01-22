@@ -109,11 +109,19 @@ k8s_application_log_instance_names = {
     "print-payment-notice-functions"
   ]
   receipts = [
-    "pagopapagopareceiptpdfgenerator-microservice-chart",
-    "pagopapagopareceiptpdfhelpdesk-microservice-chart",
-    "pagopapagopareceiptpdfservice-microservice-chart",
-    "pagopapagopareceiptpdfdatastore-microservice-chart",
-    "pagopapagopareceiptpdfnotifier-microservice-chart"
+    "pagopa-receipt-pdf-generator",
+    "pagopa-receipt-pdf-generator-cart",
+    "pagopa-receipt-pdf-generator-helpdesk",
+
+    "pagopa-receipt-pdf-helpdesk",
+
+    "pagopa-receipt-pdf-service",
+    "pagopa-receipt-pdf-service-helpdesk",
+
+    "pagopa-receipt-pdf-datastore",
+    "pagopa-receipt-pdf-datastore-helpdesk",
+
+    "pagopa-receipt-pdf-notifier",
   ]
   crusc8 = [ # AKS deployment names
     "pagopacruscottobackend-microservice-chart",
