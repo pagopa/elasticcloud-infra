@@ -35,7 +35,6 @@
     {
       "json": {
         "field": "response",
-        "ignore_missing": true,
         "ignore_failure": true
       }
     },
@@ -61,7 +60,6 @@
       "json": {
         "field": "mdc.args",
         "target_field": "arguments",
-        "ignore_missing": true,
         "ignore_failure": true
       }
     },
@@ -78,7 +76,6 @@
       "json": {
         "field": "mdc.response",
         "target_field": "response",
-        "ignore_missing": true,
         "ignore_failure": true
       }
     },
