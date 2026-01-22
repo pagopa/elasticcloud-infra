@@ -1,0 +1,14 @@
+name: pagopa-receipt-pdf-datastore-helpdesk-alert
+schedule: 15m
+window:
+  size: 15
+  unit: m
+log_query:
+  data_view: logs
+  query: 'service.name: "pagopa-receipt-pdf-datastore-helpdesk" and log.level: "ERROR"'
+  aggregation:
+    type: count
+  threshold:
+    values: [50]
+    comparator: ">="
+enabled: true
