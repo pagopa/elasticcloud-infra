@@ -1,0 +1,15 @@
+name: pagopa-receipt-pdf-service-alert
+schedule: 15m
+window:
+  size: 15
+  unit: m
+log_query:
+  data_view: logs
+  query: 'service.name: "pagopa-receipt-pdf-service" and log.level: "ERROR"'
+  exclude_hits_from_previous_run: true
+  aggregation:
+    type: count
+  threshold:
+    values: [20]
+    comparator: ">="
+enabled: true
