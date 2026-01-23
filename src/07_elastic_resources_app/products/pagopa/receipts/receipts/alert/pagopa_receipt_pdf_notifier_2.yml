@@ -6,6 +6,7 @@ window:
 log_query:
   data_view: logs
   query: 'service.name: "pagopa-receipt-pdf-notifier"" and message: "Receipt updated with status UNABLE_TO_SEND"'
+  exclude_hits_from_previous_run: true
   aggregation:
     type: count
   threshold:
