@@ -1,0 +1,21 @@
+name: no-payment-methods-available
+schedule: 15m
+window:
+  size: 15
+  unit: m
+log_query:
+  data_view: logs
+  exclude_hits_from_previous_run: true
+  query: "service.name : \"pagopa-afm-calculator\" and response.paymentMethods.status : * and NOT response.paymentMethods.status : \"ENABLED\""
+  aggregation:
+      type: count
+  threshold:
+    values:
+      - 0
+    comparator: ">"
+  alert_on_no_data: false
+trigger_after_consecutive_runs: 1
+enabled: true
+notification_channels:
+  slack:
+    connector_name: team-core-slack
