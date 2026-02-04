@@ -23,6 +23,14 @@ resource "elasticstack_elasticsearch_index_lifecycle" "index_lifecycle" {
       min_primary_shard_size = lookup(each.value.hot.rollover, "minPrimarySize", null)
       max_age                = each.value.hot.rollover.maxAge
     }
+
+    dynamic "forcemerge" {
+      for_each = lookup(each.value.hot, "forceMerge", null) != null ? [1] : []
+      content {
+        max_num_segments = each.value.hot.forceMerge.maxSegments
+        index_codec      = each.value.hot.forceMerge.indexCodec
+      }
+    }
   }
 
   warm {
@@ -41,6 +49,15 @@ resource "elasticstack_elasticsearch_index_lifecycle" "index_lifecycle" {
 
       }
     }
+
+    dynamic "forcemerge" {
+      for_each = lookup(each.value.warm, "forceMerge", null) != null ? [1] : []
+      content {
+        max_num_segments = each.value.warm.forceMerge.maxSegments
+        index_codec      = each.value.warm.forceMerge.indexCodec
+      }
+    }
+
   }
 
 
