@@ -15,13 +15,13 @@ log_query:
       - 1
     comparator: ">"
 trigger_after_consecutive_runs: 1
-enabled: true #optional, default true. overrides global value
+enabled: false #optional, default true. overrides global value
 notification_channels:
   cloudo:
     connector_name: cloudo-webhook
     type: aks
-    severity: Sev1
-    rule: restart-pod
+    severity: Sev2
+    rule: fix-fdr-cache
     attributes:
       namespace: apiconfig
       region: westeurope
