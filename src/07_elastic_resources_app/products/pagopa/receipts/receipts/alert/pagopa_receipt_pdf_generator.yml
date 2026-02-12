@@ -13,3 +13,6 @@ log_query:
     values: [20]
     comparator: ">="
 enabled: true
+notification_channels:
+  slack:
+    connector_name: team-core-opsgenie
