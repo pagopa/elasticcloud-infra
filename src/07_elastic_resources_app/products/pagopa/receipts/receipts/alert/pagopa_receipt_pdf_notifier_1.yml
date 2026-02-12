@@ -13,3 +13,7 @@ log_query:
     values: [150]
     comparator: ">="
 enabled: true
+notification_channels:
+  opsgenie:
+    connector_name: team-core-opsgenie
+    priority: P2
