@@ -1,0 +1,18 @@
+name: pagopa-receipt-pdf-generator-missing-config-for-psp-alert
+schedule: 15m
+window:
+  size: 15
+  unit: m
+log_query:
+  data_view: logs
+  query: '(service.name: "pagopa-receipt-pdf-generator" or service.name: "pagopa-receipt-pdf-generator-cart" or service.name: "pagopa-receipt-pdf-generator-helpdesk") and log.level: "ERROR" and error.message: "Error mapping bizEvent data to template, because PSP"'
+  exclude_hits_from_previous_run: true
+  aggregation:
+    type: count
+  threshold:
+    values: [1]
+    comparator: ">="
+enabled: true
+notification_channels:
+  slack:
+    connector_name: team-core-slack
