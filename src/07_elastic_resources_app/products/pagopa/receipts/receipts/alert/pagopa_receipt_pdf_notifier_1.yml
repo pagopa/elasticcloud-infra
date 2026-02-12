@@ -14,5 +14,6 @@ log_query:
     comparator: ">="
 enabled: true
 notification_channels:
-  slack:
+  opsgenie:
     connector_name: team-core-opsgenie
+    priority: P2
