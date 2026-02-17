@@ -40,7 +40,7 @@ k8s_application_log_instance_names = {
   apiconfig = [
     "pagopaapiconfig-postgresql",
     "pagopaapiconfig-oracle",
-    "apiconfig-selfcare-integration-microservice-chart",
+    "apiconfig-selfcare-integration-postgresql",
     "cache-oracle",
     "cache-postgresql",
     "cache-replica-oracle",
