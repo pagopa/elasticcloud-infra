@@ -1,0 +1,30 @@
+name: Test fabio
+schedule: 5m
+window:
+  size: 5
+  unit: m
+log_query:
+  aggregation:
+    type: sum
+    field: "http_code"
+  query: "log.level: \"ERROR\""
+  data_view: logs
+  exclude_hits_from_previous_run: true
+  threshold:
+    values:
+      - 1
+    comparator: ">"
+trigger_after_consecutive_runs: 1
+enabled: false #optional, default true. overrides global value
+notification_channels:
+  cloudo:
+    connector_name: cloudo-webhook
+    type: aks
+    severity: Sev2
+    rule: fix-fdr-cache
+    attributes:
+      namespace: apiconfig
+      region: westeurope
+      resourcename: pagopa-d-weu-dev-aks
+      resourcegroup: pagopa-d-weu-dev-aks-rg
+      deployment: cache-postgresql
