@@ -35,7 +35,7 @@ elk_snapshot_sa = {
   replication_type           = "ZRS"
 }
 
-elasticsearch_version = "8.17.0"
+elasticsearch_version = "9.3.1"
 
 integration_server = {
   size  = "1g"
