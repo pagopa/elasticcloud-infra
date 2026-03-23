@@ -49,7 +49,7 @@ elk_snapshot_sa = {
   replication_type           = "ZRS"
 }
 
-elasticsearch_version = "9.3.1"
+elasticsearch_version = "9.3.2"
 
 
 
