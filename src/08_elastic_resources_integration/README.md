@@ -1,5 +1,7 @@
 # elastic cloud resources
 
+test delete
+
 ## EC deployment id
 
 This module requires to know the deployment id where to create the elastic resources; to do so you need to configure the `deployment_name` 
