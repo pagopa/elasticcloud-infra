@@ -88,7 +88,7 @@ variable "k8s_application_log_instance_names" {
 variable "opentelemetry_operator_helm_version" {
   type        = string
   description = "Open telemetry operator version"
-  default     = "0.27.0"
+  default     = "0.109.0"
 }
 
 
