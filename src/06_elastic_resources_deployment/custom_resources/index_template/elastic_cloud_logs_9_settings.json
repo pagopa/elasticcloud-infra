@@ -1,7 +1,6 @@
 {
   "index": {
     "lifecycle": {
-      "name": "elastic-cloud-logs",
       "rollover_alias": "elastic-cloud-logs-9"
     },
     "refresh_interval": "5s",
