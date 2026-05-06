@@ -21,8 +21,9 @@ aks_config = [
   {
     name = "pagopa-p-itn-prod-aks"
     elastic_agent = {
-      namespace = "elastic-cloud-agent"
-      create_ns = true
+      namespace        = "elastic-cloud-agent"
+      create_ns        = true
+      tolerated_taints = [{ key = "dedicated" }, { key = "paymentWalletOnly" }]
     }
     otel = {
       namespace = "otel"
