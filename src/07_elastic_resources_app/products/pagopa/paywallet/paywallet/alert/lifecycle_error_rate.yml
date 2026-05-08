@@ -4,7 +4,7 @@ window:
   size: 30
   unit: m
 log_query:
-  data_view: logs
+  data_view: apm
   exclude_hits_from_previous_run: true
   query: "service.name: \"pagopa-payment-wallet-scheduler-service\" and log.level : \"ERROR\" and message : *lifecycle* and NOT error.message : Lock*"
   aggregation:
