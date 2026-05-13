@@ -32,9 +32,13 @@ variable "snapshot_lifecycle_default" {
   description = "(Required) Identifier for the default snapshot lifecycle policy of the EC deployment."
   type = object({
     expire_after = string
+    min_count    = optional(number, 5)
+    max_count    = optional(number, 50)
   })
   default = {
     expire_after = "30d"
+    min_count    = 5
+    max_count    = 50
   }
 }
 

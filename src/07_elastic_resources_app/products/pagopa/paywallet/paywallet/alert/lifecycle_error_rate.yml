@@ -1,0 +1,22 @@
+name: lifecycle-error-rate
+schedule: 30m
+window:
+  size: 30
+  unit: m
+log_query:
+  data_view: apm
+  exclude_hits_from_previous_run: true
+  query: "service.name: \"pagopa-payment-wallet-scheduler-service\" and log.level : \"ERROR\" and message : *lifecycle* and NOT error.message : Lock*"
+  aggregation:
+    type: count
+  threshold:
+    values:
+      - 10
+    comparator: ">"
+  alert_on_no_data: false
+trigger_after_consecutive_runs: 2
+enabled: true
+notification_channels:
+  opsgenie:
+    connector_name: team-touchpoint-opsgenie
+    priority: P3
