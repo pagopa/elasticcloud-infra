@@ -27,6 +27,6 @@ resource "elasticstack_elasticsearch_snapshot_lifecycle" "default_snapshot_polic
   include_global_state = true
 
   expire_after = var.snapshot_lifecycle_default.expire_after
-  min_count    = 5
-  max_count    = 50
+  min_count    = var.snapshot_lifecycle_default.min_count
+  max_count    = var.snapshot_lifecycle_default.max_count
 }
