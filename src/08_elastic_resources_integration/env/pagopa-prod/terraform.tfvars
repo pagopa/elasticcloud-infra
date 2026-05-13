@@ -52,7 +52,8 @@ k8s_application_log_instance_names = {
     "backoffice-external"
   ]
   bizevents = [
-    "pagopabizeventsdatastore-microservice-chart",
+    "pagopabizeventsdatastore-pagopa-biz-events-datastore",
+    "pagopabizeventsdatastore-pagopa-biz-events-view",
     "pagopabizeventsservice-microservice-chart",
     "pagopanegativebizeventsdatastore-microservice-chart"
   ]
