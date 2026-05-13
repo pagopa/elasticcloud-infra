@@ -18,6 +18,8 @@ default_snapshot_policy = {
 
 snapshot_lifecycle_default = {
   expire_after = "90d"
+  min_count    = 5
+  max_count    = 100
 }
 
 
