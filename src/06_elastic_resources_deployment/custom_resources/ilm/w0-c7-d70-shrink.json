@@ -9,10 +9,6 @@
   "warm": {
     "minAge": "0ms",
     "setPriority": 50,
-    "shrink": {
-      "maxPrimarySize": "65gb",
-      "allowWriteAfterShrink": false
-    },
     "forceMerge": {
       "maxSegments": 1,
       "indexCodec": "best_compression"
