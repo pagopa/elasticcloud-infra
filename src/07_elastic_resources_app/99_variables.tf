@@ -118,17 +118,17 @@ variable "email_recipients" {
 
 variable "alert_channels" {
   type = object({
-    email    = bool
-    slack    = bool
-    jsm      = bool
-    cloudo   = bool
+    email  = bool
+    slack  = bool
+    jsm    = bool
+    cloudo = bool
   })
 
   description = "(Optional) Map of alert channels to be used for alerts. Default is all false"
   default = {
-    email    = false
-    slack    = false
-    jsm      = false
-    cloudo   = false
+    email  = false
+    slack  = false
+    jsm    = false
+    cloudo = false
   }
 }

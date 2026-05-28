@@ -83,8 +83,8 @@ email_recipients = {
 }
 
 alert_channels = {
-  email    = false
-  slack    = true
-  jsm      = true
-  cloudo   = false
+  email  = false
+  slack  = true
+  jsm    = true
+  cloudo = false
 }

@@ -1,7 +1,7 @@
 locals {
-  slack_connector_names    = [for connector_name, connector in var.app_connectors : connector_name if connector.type == "slack"]
-  jsm_connector_names = [for connector_name, connector in var.app_connectors : connector_name if connector.type == "jsm"]
-  webhook_connector_names  = [for connector_name, connector in var.app_connectors : connector_name if connector.type == "webhook"]
+  slack_connector_names   = [for connector_name, connector in var.app_connectors : connector_name if connector.type == "slack"]
+  jsm_connector_names     = [for connector_name, connector in var.app_connectors : connector_name if connector.type == "jira-service-management"]
+  webhook_connector_names = [for connector_name, connector in var.app_connectors : connector_name if connector.type == "webhook"]
 }
 
 module "app_resources" {
