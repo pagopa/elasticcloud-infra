@@ -17,10 +17,10 @@ locals {
         "filterQueryText" : "cluster_state.status : \"red\"",
         "filterQuery" : "{\"bool\":{\"should\":[{\"term\":{\"cluster_state.status\":{\"value\":\"red\"}}}],\"minimum_should_match\":1}}"
       }
-      rule_type_id      = "monitoring_alert_cluster_health"
-      interval          = "5m"
-      jsm_priority = "P1"
-      consecutive_runs  = 3
+      rule_type_id     = "monitoring_alert_cluster_health"
+      interval         = "5m"
+      jsm_priority     = "P1"
+      consecutive_runs = 3
     },
     # "cluster_health_yellow" = {
     #   name        = "Cluster health yellow"
@@ -43,8 +43,8 @@ locals {
         threshold = var.alert_configuration.node_changed.threshold
         duration  = var.alert_configuration.node_changed.duration
       }
-      rule_type_id      = "monitoring_alert_nodes_changed"
-      interval          = "5m"
+      rule_type_id = "monitoring_alert_nodes_changed"
+      interval     = "5m"
       jsm_priority = "P3"
     },
     node_cpu_usage = {
@@ -54,8 +54,8 @@ locals {
         threshold = var.alert_configuration.node_cpu_usage.threshold
         duration  = var.alert_configuration.node_cpu_usage.duration
       }
-      rule_type_id      = "monitoring_alert_cpu_usage"
-      interval          = "10m"
+      rule_type_id = "monitoring_alert_cpu_usage"
+      interval     = "10m"
       jsm_priority = "P3"
     },
     node_disk_usage = {
@@ -65,10 +65,10 @@ locals {
         threshold = var.alert_configuration.node_disk_usage.threshold
         duration  = var.alert_configuration.node_disk_usage.duration
       }
-      rule_type_id      = "monitoring_alert_disk_usage"
-      interval          = "5m"
-      jsm_priority = "P2"
-      consecutive_runs  = 3
+      rule_type_id     = "monitoring_alert_disk_usage"
+      interval         = "5m"
+      jsm_priority     = "P2"
+      consecutive_runs = 3
     },
     node_memory_usage = {
       name        = "Memory Usage (JVM)"
@@ -77,8 +77,8 @@ locals {
         threshold = var.alert_configuration.node_memory_usage.threshold
         duration  = var.alert_configuration.node_memory_usage.duration
       }
-      rule_type_id      = "monitoring_alert_jvm_memory_usage"
-      interval          = "5m"
+      rule_type_id = "monitoring_alert_jvm_memory_usage"
+      interval     = "5m"
       jsm_priority = "P3"
     },
     index_shard_size = {
@@ -88,10 +88,10 @@ locals {
         indexPattern = "-.*"
         threshold    = var.alert_configuration.index_shard_size.threshold
       }
-      rule_type_id      = "monitoring_shard_size"
-      interval          = "60m"
-      jsm_priority = "P3"
-      consecutive_runs  = 3
+      rule_type_id     = "monitoring_shard_size"
+      interval         = "60m"
+      jsm_priority     = "P3"
+      consecutive_runs = 3
     }
     # Add other alerts here...
   }

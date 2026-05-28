@@ -77,16 +77,16 @@ variable "ilm_delete_wait_for_snapshot" {
 variable "alert_channels" {
   description = "Channels used to notify alerts"
   type = object({
-    jsm      = bool
-    email    = bool
-    log      = bool
-    slack    = bool
+    jsm   = bool
+    email = bool
+    log   = bool
+    slack = bool
   })
   default = {
-    log      = true
-    slack    = true
-    email    = false
-    jsm      = false
+    log   = true
+    slack = true
+    email = false
+    jsm   = false
   }
 }
 
