@@ -98,15 +98,15 @@ variable "app_connectors" {
     secret_key = string
   }))
 
-  description = "(optional) Map of <connector name>-<connector details> for additional connectors dedicated to app alerts. supports slack and opsgenie and cloudo type"
+  description = "(optional) Map of <connector name>-<connector details> for additional connectors dedicated to app alerts. supports slack and jsm and cloudo type"
 
   default = {}
 
   validation {
     condition = (
-      alltrue([for i in var.app_connectors : contains(["slack", "opsgenie", "webhook"], i.type)])
+      alltrue([for i in var.app_connectors : contains(["slack", "jira-service-management", "webhook"], i.type)])
     )
-    error_message = "Only 'slack', 'opsgenie' and 'webhook' types are supported"
+    error_message = "Only 'slack', 'jira-service-management' and 'webhook' types are supported"
   }
 }
 
@@ -120,7 +120,7 @@ variable "alert_channels" {
   type = object({
     email    = bool
     slack    = bool
-    opsgenie = bool
+    jsm      = bool
     cloudo   = bool
   })
 
@@ -128,7 +128,7 @@ variable "alert_channels" {
   default = {
     email    = false
     slack    = false
-    opsgenie = false
+    jsm      = false
     cloudo   = false
   }
 }

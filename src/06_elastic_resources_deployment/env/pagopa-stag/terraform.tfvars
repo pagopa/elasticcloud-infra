@@ -21,7 +21,7 @@ alert_channels = {
   log      = true
   slack    = true
   email    = false
-  opsgenie = false
+  jsm      = false
 }
 
 

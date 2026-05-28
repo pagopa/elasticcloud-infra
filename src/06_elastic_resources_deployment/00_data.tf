@@ -21,8 +21,8 @@ data "azurerm_key_vault_secret" "elasticsearch_api_key" {
   key_vault_id = data.azurerm_key_vault.key_vault.id
 }
 
-data "azurerm_key_vault_secret" "opsgenie_api_key" {
-  name         = "opsgenie-api-key"
+data "azurerm_key_vault_secret" "jsm_api_key" {
+  name         = "jsm-api-key"
   key_vault_id = data.azurerm_key_vault.key_vault.id
 }
 

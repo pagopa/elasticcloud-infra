@@ -1,5 +1,5 @@
 locals {
-  opsgenie_message_priority_mapping = {
+  jsm_message_priority_mapping = {
     P1 = "Sev0"
     P2 = "Sev1"
     P3 = "Sev2"
@@ -19,7 +19,7 @@ locals {
       }
       rule_type_id      = "monitoring_alert_cluster_health"
       interval          = "5m"
-      opsgenie_priority = "P1"
+      jsm_priority = "P1"
       consecutive_runs  = 3
     },
     # "cluster_health_yellow" = {
@@ -33,7 +33,7 @@ locals {
     #   }
     #   rule_type_id      = "monitoring_alert_cluster_health"
     #   interval          = "5m"
-    #   opsgenie_priority = "P4"
+    #   jsm_priority = "P4"
     #   consecutive_runs  = 3
     # }
     node_changed = {
@@ -45,7 +45,7 @@ locals {
       }
       rule_type_id      = "monitoring_alert_nodes_changed"
       interval          = "5m"
-      opsgenie_priority = "P3"
+      jsm_priority = "P3"
     },
     node_cpu_usage = {
       name        = "CPU Usage"
@@ -56,7 +56,7 @@ locals {
       }
       rule_type_id      = "monitoring_alert_cpu_usage"
       interval          = "10m"
-      opsgenie_priority = "P3"
+      jsm_priority = "P3"
     },
     node_disk_usage = {
       name        = "Disk Usage"
@@ -67,7 +67,7 @@ locals {
       }
       rule_type_id      = "monitoring_alert_disk_usage"
       interval          = "5m"
-      opsgenie_priority = "P2"
+      jsm_priority = "P2"
       consecutive_runs  = 3
     },
     node_memory_usage = {
@@ -79,7 +79,7 @@ locals {
       }
       rule_type_id      = "monitoring_alert_jvm_memory_usage"
       interval          = "5m"
-      opsgenie_priority = "P3"
+      jsm_priority = "P3"
     },
     index_shard_size = {
       name        = "Shard size"
@@ -90,7 +90,7 @@ locals {
       }
       rule_type_id      = "monitoring_shard_size"
       interval          = "60m"
-      opsgenie_priority = "P3"
+      jsm_priority = "P3"
       consecutive_runs  = 3
     }
     # Add other alerts here...
@@ -165,11 +165,11 @@ resource "elasticstack_kibana_alerting_rule" "alert" {
     }
   }
 
-  #opsgenie create
+  #jsm create
   dynamic "actions" {
-    for_each = var.alert_channels.opsgenie ? [1] : []
+    for_each = var.alert_channels.jsm ? [1] : []
     content {
-      id = elasticstack_kibana_action_connector.opsgenie[0].connector_id
+      id = elasticstack_kibana_action_connector.jsm[0].connector_id
       params = jsonencode({
         subAction = "createAlert"
         subActionParams = {
@@ -177,8 +177,8 @@ resource "elasticstack_kibana_alerting_rule" "alert" {
           tags = [
             "{{rule.tags}}"
           ],
-          message     = "[ ${upper(var.prefix)} ][ infra ][ Elastic ${local.opsgenie_message_priority_mapping[each.value.opsgenie_priority]} ] ${var.env} ${each.value.name}"
-          priority    = each.value.opsgenie_priority
+          message     = "[ ${upper(var.prefix)} ][ infra ][ Elastic ${local.jsm_message_priority_mapping[each.value.jsm_priority]} ] ${var.env} ${each.value.name}"
+          priority    = each.value.jsm_priority
           description = "{{context.internalFullMessage}}"
         }
       })
@@ -189,12 +189,12 @@ resource "elasticstack_kibana_alerting_rule" "alert" {
     }
   }
 
-  #opsgenie close alert
+  #jsm close alert
   dynamic "actions" {
-    for_each = var.alert_channels.opsgenie ? [1] : []
+    for_each = var.alert_channels.jsm ? [1] : []
     content {
       group = "recovered"
-      id    = elasticstack_kibana_action_connector.opsgenie[0].connector_id
+      id    = elasticstack_kibana_action_connector.jsm[0].connector_id
       params = jsonencode({
         subAction = "closeAlert"
         subActionParams = {

@@ -77,7 +77,7 @@ variable "ilm_delete_wait_for_snapshot" {
 variable "alert_channels" {
   description = "Channels used to notify alerts"
   type = object({
-    opsgenie = bool
+    jsm      = bool
     email    = bool
     log      = bool
     slack    = bool
@@ -86,7 +86,7 @@ variable "alert_channels" {
     log      = true
     slack    = true
     email    = false
-    opsgenie = false
+    jsm      = false
   }
 }
 
@@ -144,15 +144,15 @@ variable "app_connectors" {
     secret_key = string
   }))
 
-  description = "(optional) Map of <connector name>-<connector details> for additional connectors dedicated to app alerts. supports slack and opsgenie type"
+  description = "(optional) Map of <connector name>-<connector details> for additional connectors dedicated to app alerts. supports slack and jsm type"
 
   default = {}
 
   validation {
     condition = (
-      alltrue([for i in var.app_connectors : contains(["slack", "opsgenie"], i.type)])
+      alltrue([for i in var.app_connectors : contains(["slack", "jira-service-management"], i.type)])
     )
-    error_message = "Only 'slack' and 'opsgenie' types are supported"
+    error_message = "Only 'slack' and 'jira-service-management' types are supported"
   }
 }
 
