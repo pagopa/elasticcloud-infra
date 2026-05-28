@@ -1,0 +1,26 @@
+name: Cache postgres error
+schedule: 5m
+window:
+  size: 5
+  unit: m
+log_query:
+  aggregation:
+    type: count
+  query: "service.name: pagopa-api-config-cache AND log.level: ERROR AND message: \"HikariPool\" AND message: \"Connection is not available\""
+  data_view: logs
+  exclude_hits_from_previous_run: true
+  threshold:
+    values:
+      - 2
+    comparator: ">"
+trigger_after_consecutive_runs: 1
+enabled: true #optional, default true. overrides global value
+notification_channels:
+  cloudo:
+    connector_name: **required** name of the webhook (to ClouDO) connector to be used for the alert
+    type: aks
+    rule: **required** rule identifier for the ClouDO runbook
+    severity: Sev1
+    attributes:
+      namespace: "api-config"
+      region: westeurope
