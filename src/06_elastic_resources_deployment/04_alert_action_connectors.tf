@@ -13,15 +13,15 @@ resource "elasticstack_kibana_action_connector" "slack" {
   })
 }
 
-resource "elasticstack_kibana_action_connector" "opsgenie" {
-  count             = var.alert_channels.opsgenie ? 1 : 0
-  name              = "infra-opsgenie"
-  connector_type_id = ".opsgenie"
+resource "elasticstack_kibana_action_connector" "jsm" {
+  count             = var.alert_channels.jsm ? 1 : 0
+  name              = "infra-jsm"
+  connector_type_id = ".jira-service-management"
   secrets = jsonencode({
-    apiKey = data.azurerm_key_vault_secret.opsgenie_api_key.value
+    apiKey = data.azurerm_key_vault_secret.jsm_api_key.value
   })
   config = jsonencode({
-    apiUrl = "https://api.opsgenie.com"
+    apiUrl = "https://api.atlassian.com"
   })
 }
 
@@ -31,7 +31,7 @@ resource "elasticstack_kibana_action_connector" "app_connector" {
   name              = each.key
   connector_type_id = ".${each.value.type}"
   secrets = jsonencode(
-    each.value.type == "opsgenie" ? { apiKey = data.azurerm_key_vault_secret.app_connector_secret_key[each.key].value } : { webhookUrl = data.azurerm_key_vault_secret.app_connector_secret_key[each.key].value }
+    each.value.type == "jira-service-management" ? { apiKey = data.azurerm_key_vault_secret.app_connector_secret_key[each.key].value } : { webhookUrl = data.azurerm_key_vault_secret.app_connector_secret_key[each.key].value }
   )
-  config = each.value.type == "opsgenie" ? jsonencode({ apiUrl = "https://api.opsgenie.com" }) : null
+  config = each.value.type == "jira-service-management" ? jsonencode({ apiUrl = "https://api.atlassian.com" }) : null
 }

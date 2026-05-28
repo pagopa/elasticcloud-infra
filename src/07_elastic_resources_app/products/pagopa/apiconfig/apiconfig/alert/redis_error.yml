@@ -17,8 +17,8 @@ log_query:
 trigger_after_consecutive_runs: 3
 enabled: true #optional, default true. overrides global value
 notification_channels:
-  opsgenie:
-    connector_name: team-core-opsgenie
+  jsm:
+    connector_name: team-core-jsm
     priority: P1
   email:
     recipient_list_name: team-core-emails

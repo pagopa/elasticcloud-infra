@@ -14,6 +14,6 @@ log_query:
     comparator: ">="
 enabled: true
 notification_channels:
-  opsgenie:
-    connector_name: team-core-opsgenie
+  jsm:
+    connector_name: team-core-jsm
     priority: P2

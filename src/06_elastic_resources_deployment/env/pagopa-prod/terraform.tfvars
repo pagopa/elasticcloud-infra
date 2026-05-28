@@ -21,20 +21,20 @@ deployment_name = "pagopa-p-weu-ec"
 ilm_delete_wait_for_snapshot = true
 
 alert_channels = {
-  log      = true
-  slack    = false
-  email    = true
-  opsgenie = true
+  log   = true
+  slack = false
+  email = true
+  jsm   = true
 }
 
 app_connectors = {
-  "team-core-opsgenie" = {
-    type       = "opsgenie"
-    secret_key = "team-core-opsgenie-api-key"
+  "team-core-jsm" = {
+    type       = "jira-service-management"
+    secret_key = "team-core-jsm-api-key"
   }
-  "team-touchpoint-opsgenie" = {
-    type       = "opsgenie"
-    secret_key = "team-touchpoint-opsgenie-api-key"
+  "team-touchpoint-jsm" = {
+    type       = "jira-service-management"
+    secret_key = "team-touchpoint-jsm-api-key"
   }
 }
 
