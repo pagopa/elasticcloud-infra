@@ -10,8 +10,6 @@ terraform {
     }
     elasticstack = {
       source = "elastic/elasticstack"
-      # version required to avoid a bug on integration policy: https://github.com/elastic/terraform-provider-elasticstack/issues/999
-      # version documented here https://github.com/elastic/terraform-provider-elasticstack/issues/836
       version = "0.16.0"
     }
 
