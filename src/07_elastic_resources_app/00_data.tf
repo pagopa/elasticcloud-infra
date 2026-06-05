@@ -41,3 +41,9 @@ data "azurerm_key_vault_secret" "app_connector_secret_key" {
   name         = each.value.secret_key
   key_vault_id = data.azurerm_key_vault.target_key_vault.id
 }
+
+data "azurerm_key_vault_secret" "app_connector_secret_headers" {
+  for_each     = local.app_connector_secret_headers
+  name         = each.value
+  key_vault_id = data.azurerm_key_vault.target_key_vault.id
+}

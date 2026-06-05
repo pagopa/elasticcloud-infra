@@ -314,7 +314,8 @@ where:
     - `severity`: **required** severity level for the ClouDO runbook. It can be `Sev0`, `Sev1`, `Sev2`, `Sev3`, `Sev4`
     - `attributes`: **optional** map of arbitraryattributes to be sent to ClouDO
       - `namespace`: **required** namespace where the application is deployed, if alert type is `aks`
-      - `region`: **required** region where the application is deployed, if alert type is `aks`
+      - `cluster_name`: **required** cluster name where the deployment is, if alert type is `aks`
+      - `cluster_rg_name`: **required** cluster resource group name where the deployment is, if alert type is `aks`
 
 
 This `yml` file is parsed using the terraform templatefile function, so make sure to escape any special character as per [terraform template syntax](https://developer.hashicorp.com/terraform/language/expressions/strings#escape-sequences)
@@ -329,7 +330,9 @@ notification_channels:
     connector_name: "my-cloudo-connector-name"
     type: "aks"
     attributes:
-        environment: "${env}"
+        namespace: "ecommerce"
+        cluster_name: "pagopa-${env_short}-weu-${env}-aks"
+        cluster_rg_name: "pagopa-${env_short}-weu-${env}-aks-rg"
 ```
 
 
@@ -351,6 +354,7 @@ email_recipients = {
 ```
 
 The alert connectors (jsm, slack, ClouDO) must be defined in the following format, where the `secret_key` is the name of the secret in the vault containing the actual secret value (jsm api key, slack webhook url, cloudo webhook url) defined in the `05_elastic_secret` module, and must be configured with the help of a [sys admin](https://github.com/orgs/pagopa/teams/payments-cloud-admin)
+Optionally a map of headers can be defined, fetching the header value from a secret in the vault as well, in that case the `secret_headers` field must be defined with the header name and the corresponding secret key for each header
 ```hcl
 app_connectors = {
   "team-core-jsm" = {
@@ -364,6 +368,10 @@ app_connectors = {
   "cloudo-webhook" = {
     type       = "webhook"
     secret_key = "cloudo-webhook-url"
+    secret_headers = { 
+      "ocp-apim-subscription-key" = "cloudo-subscription-key"
+      "x-cloudo-key"              = "cloudo-api-key"
+    }
   }
 }
 ```
@@ -401,6 +409,8 @@ notification_channels:
     type: "aks"
     attributes:
         namespace: "application-namespace"
+        cluster_name: "pagopa-${env_short}-weu-${env}-aks"
+        cluster_rg_name: "pagopa-${env_short}-weu-${env}-aks-rg"
 ```
 
 In the above case the only enabled channel is `email`, but the alert does not define it, so the alert will not be sent to any channel.
