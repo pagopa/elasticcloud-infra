@@ -94,8 +94,9 @@ variable "total_shards_per_node" {
 
 variable "app_connectors" {
   type = map(object({
-    type       = string
-    secret_key = string
+    type           = string
+    secret_key     = string
+    secret_headers = optional(map(string), {}) #key is the header name, value is the key vault secret name containing the header value
   }))
 
   description = "(optional) Map of <connector name>-<connector details> for additional connectors dedicated to app alerts. supports slack and jsm and cloudo type"

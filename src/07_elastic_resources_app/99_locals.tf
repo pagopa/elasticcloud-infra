@@ -40,6 +40,18 @@ locals {
     ]) : elem.key => elem
   }
 
+  app_connector_secret_headers = {
+    for elem in flatten([
+      for connector_name in keys(var.app_connectors) : [
+        for header_name, secret_name in var.app_connectors[connector_name].secret_headers :
+        {
+          key   = "${connector_name}-${header_name}"
+          value = secret_name
+        }
+      ]
+    ]) : elem.key => elem.value
+  }
+
 }
 
 
