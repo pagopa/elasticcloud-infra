@@ -1,0 +1,28 @@
+name: Cache postgres error
+schedule: 5m
+window:
+  size: 30
+  unit: m
+log_query:
+  aggregation:
+    type: count
+  query: "service.name: pagopa-api-config-cache AND log.level: ERROR AND message: \"HikariPool\" AND message: \"Connection is not available\""
+  data_view: logs
+  exclude_hits_from_previous_run: true
+  threshold:
+    values:
+      - 2
+    comparator: ">"
+trigger_after_consecutive_runs: 1
+enabled: true #optional, default true. overrides global value
+notification_channels:
+  cloudo:
+    connector_name: cloudo-webhook
+    type: aks
+    rule: elastic-cache-postgres-error
+    severity: Sev1
+    attributes:
+      namespace: "apiconfig"
+      cluster_name: "pagopa-${env_short}-weu-${env}-aks"
+      cluster_rg_name: "pagopa-${env_short}-weu-${env}-aks-rg"
+      deployment: "cache-postgresql"
