@@ -1,7 +1,7 @@
 name: Cache postgres error
 schedule: 5m
 window:
-  size: 30
+  size: 5
   unit: m
 log_query:
   aggregation:
