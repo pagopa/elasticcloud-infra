@@ -20,7 +20,7 @@ locals {
       rule_type_id     = "monitoring_alert_cluster_health"
       interval         = "5m"
       jsm_priority     = "P1"
-      cloudo_severity = "Sev1"
+      cloudo_severity  = "Sev1"
       consecutive_runs = 3
     },
     # "cluster_health_yellow" = {
@@ -244,7 +244,7 @@ resource "elasticstack_kibana_alerting_rule" "alert" {
   dynamic "actions" {
     for_each = var.alert_channels.cloudo && lookup(each.value, "cloudo_severity", null) != null ? [1] : []
     content {
-      id    = elasticstack_kibana_action_connector.cloudo[0].connector_id
+      id = elasticstack_kibana_action_connector.cloudo[0].connector_id
       params = jsonencode({
         "body" : "{ \"source\": \"elastic\",  \"rule\": \"${each.key}\",      \"severity\": \"${each.value.cloudo_severity}\",      \"monitorCondition\": \"Fired\",        \"payload\" : { \"type\": \"elastic\", \"attributes\": {}  }      }"
       })

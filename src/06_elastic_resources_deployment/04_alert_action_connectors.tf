@@ -29,7 +29,7 @@ resource "elasticstack_kibana_action_connector" "cloudo" {
   count             = var.alert_channels.cloudo ? 1 : 0
   name              = "infra-cloudo"
   connector_type_id = ".webhook"
-  secrets = jsonencode({ webhookUrl = data.azurerm_key_vault_secret.cloudo_webhook_url.value })
+  secrets           = jsonencode({ webhookUrl = data.azurerm_key_vault_secret.cloudo_webhook_url.value })
   config = jsonencode(
     {
       hasAuth = false,
@@ -38,7 +38,7 @@ resource "elasticstack_kibana_action_connector" "cloudo" {
         "ocp-apim-subscription-key" = data.azurerm_key_vault_secret.cloudo_subscription_key.value
         "x-cloudo-key"              = data.azurerm_key_vault_secret.cloudo_api_key.value
       },
-      url     = data.azurerm_key_vault_secret.cloudo_webhook_url.value
+      url = data.azurerm_key_vault_secret.cloudo_webhook_url.value
     }
   )
 }
