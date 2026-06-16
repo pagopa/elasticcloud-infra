@@ -25,13 +25,21 @@ resource "elasticstack_kibana_action_connector" "jsm" {
   })
 }
 
-
-resource "elasticstack_kibana_action_connector" "app_connector" {
-  for_each          = var.app_connectors
-  name              = each.key
-  connector_type_id = ".${each.value.type}"
-  secrets = jsonencode(
-    each.value.type == "jira-service-management" ? { apiKey = data.azurerm_key_vault_secret.app_connector_secret_key[each.key].value } : { webhookUrl = data.azurerm_key_vault_secret.app_connector_secret_key[each.key].value }
+resource "elasticstack_kibana_action_connector" "cloudo" {
+  count             = var.alert_channels.cloudo ? 1 : 0
+  name              = "infra-cloudo"
+  connector_type_id = ".webhook"
+  secrets = jsonencode({ webhookUrl = data.azurerm_key_vault_secret.cloudo_webhook_url.value })
+  config = jsonencode(
+    {
+      hasAuth = false,
+      method  = "post",
+      headers = {
+        "ocp-apim-subscription-key" = data.azurerm_key_vault_secret.cloudo_subscription_key.value
+        "x-cloudo-key"              = data.azurerm_key_vault_secret.cloudo_api_key.value
+      },
+      url     = data.azurerm_key_vault_secret.cloudo_webhook_url.value
+    }
   )
-  config = each.value.type == "jira-service-management" ? jsonencode({ apiUrl = "https://api.atlassian.com" }) : null
 }
+

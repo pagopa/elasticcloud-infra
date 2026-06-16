@@ -22,6 +22,7 @@ alert_channels = {
   slack = true
   email = false
   jsm   = false
+  cloudo = true
 }
 
 

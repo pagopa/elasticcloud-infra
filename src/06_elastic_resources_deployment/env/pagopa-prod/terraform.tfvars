@@ -25,19 +25,8 @@ alert_channels = {
   slack = false
   email = true
   jsm   = true
+  cloudo = true
 }
-
-app_connectors = {
-  "team-core-jsm" = {
-    type       = "jira-service-management"
-    secret_key = "team-core-jsm-api-key"
-  }
-  "team-touchpoint-jsm" = {
-    type       = "jira-service-management"
-    secret_key = "team-touchpoint-jsm-api-key"
-  }
-}
-
 
 default_idx_tpl_customization = {
   logs = {
