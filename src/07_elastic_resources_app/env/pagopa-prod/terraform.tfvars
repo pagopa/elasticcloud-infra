@@ -72,6 +72,10 @@ app_connectors = {
   "cloudo-webhook" = {
     type       = "webhook"
     secret_key = "cloudo-webhook-url"
+    secret_headers = {
+      "ocp-apim-subscription-key" = "cloudo-subscription-key"
+      "x-cloudo-key"              = "cloudo-api-key"
+    }
   }
 }
 
