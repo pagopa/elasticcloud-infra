@@ -49,6 +49,14 @@ app_connectors = {
     type       = "slack"
     secret_key = "ecommerce-status-slack-webhook-url"
   }
+  "cloudo-webhook" = {
+    type       = "webhook"
+    secret_key = "cloudo-webhook-url"
+    secret_headers = {
+      "ocp-apim-subscription-key" = "cloudo-subscription-key"
+      "x-cloudo-key"              = "cloudo-api-key"
+    }
+  }
 }
 
 alert_channels = {
