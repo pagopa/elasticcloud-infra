@@ -21,23 +21,12 @@ deployment_name = "pagopa-p-weu-ec"
 ilm_delete_wait_for_snapshot = true
 
 alert_channels = {
-  log      = true
-  slack    = false
-  email    = true
-  opsgenie = true
+  log    = true
+  slack  = false
+  email  = true
+  jsm    = true
+  cloudo = true
 }
-
-app_connectors = {
-  "team-core-opsgenie" = {
-    type       = "opsgenie"
-    secret_key = "team-core-opsgenie-api-key"
-  }
-  "team-touchpoint-opsgenie" = {
-    type       = "opsgenie"
-    secret_key = "team-touchpoint-opsgenie-api-key"
-  }
-}
-
 
 default_idx_tpl_customization = {
   logs = {

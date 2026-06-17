@@ -53,13 +53,13 @@ total_shards_per_node        = 3
 
 
 app_connectors = {
-  "team-core-opsgenie" = {
-    type       = "opsgenie"
-    secret_key = "team-core-opsgenie-api-key"
+  "team-core-jsm" = {
+    type       = "jira-service-management"
+    secret_key = "team-core-jsm-api-key"
   }
-  "team-touchpoint-opsgenie" = {
-    type       = "opsgenie"
-    secret_key = "team-touchpoint-opsgenie-api-key"
+  "team-touchpoint-jsm" = {
+    type       = "jira-service-management"
+    secret_key = "team-touchpoint-jsm-api-key"
   }
   "team-core-slack" = {
     type       = "slack"
@@ -69,10 +69,14 @@ app_connectors = {
     type       = "slack"
     secret_key = "ecommerce-status-slack-webhook-url"
   }
-  # "cloudo-webhook" = {
-  #   type       = "webhook"
-  #   secret_key = "cloudo-webhook-url"
-  # }
+  "cloudo-webhook" = {
+    type       = "webhook"
+    secret_key = "cloudo-webhook-url"
+    secret_headers = {
+      "ocp-apim-subscription-key" = "cloudo-subscription-key"
+      "x-cloudo-key"              = "cloudo-api-key"
+    }
+  }
 }
 
 email_recipients = {
@@ -83,8 +87,8 @@ email_recipients = {
 }
 
 alert_channels = {
-  email    = false
-  slack    = true
-  opsgenie = true
-  cloudo   = false
+  email  = false
+  slack  = true
+  jsm    = true
+  cloudo = true
 }
