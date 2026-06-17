@@ -5,10 +5,11 @@ env       = "uat"
 deployment_name = "pagopa-s-weu-ec"
 
 role_mappings = {
-  pagopa-u-adgroup-admin      = ["admin"]
-  pagopa-u-adgroup-developers = ["admin"]
-  pagopa-u-adgroup-externals  = ["viewer"]
-  pagopa-u-adgroup-operations = ["viewer"]
+  pagopa-u-adgroup-admin               = ["admin"]
+  pagopa-u-adgroup-developers          = ["admin"]
+  pagopa-u-adgroup-externals           = ["viewer"]
+  pagopa-u-adgroup-developer-externals = ["viewer"]
+  pagopa-u-adgroup-operations          = ["viewer"]
 }
 
 default_snapshot_policy = {
