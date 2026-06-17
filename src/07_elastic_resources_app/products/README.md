@@ -312,16 +312,23 @@ where:
     - `type`: **required** type of the ClouDO runbook to be triggered. It can be `aks`
     - `rule`: **required** rule identifier for the ClouDO runbook
     - `severity`: **required** severity level for the ClouDO runbook. It can be `Sev0`, `Sev1`, `Sev2`, `Sev3`, `Sev4`
-    - `attributes`: **optional** map of arbitraryattributes to be sent to ClouDO
-      - `namespace`: **required** namespace where the application is deployed, if alert type is `aks`
-      - `cluster_name`: **required** cluster name where the deployment is, if alert type is `aks`
-      - `cluster_rg_name`: **required** cluster resource group name where the deployment is, if alert type is `aks`
+    - `attributes`: **optional** map of arbitrary attributes to be sent to ClouDO. For more details check the table below
+
 
 
 This `yml` file is parsed using the terraform templatefile function, so make sure to escape any special character as per [terraform template syntax](https://developer.hashicorp.com/terraform/language/expressions/strings#escape-sequences)
 Available variables are:
 - `env`: <`dev`|`uat`|`prod`> the target environment name
 - `env_short`: the first letter of the `env` variable
+
+Here's a list of allowed alert types and the corresponding allowed attributes. Fields in bold are required for that alert type
+
+Cloudo Attributes by type
+===
+|  Alert type  | Allowed fields     (required fields in bold)                                                      |
+|:------------:|:--------------------------------------------------------------------------------------------------|
+|     aks      | **namespace** <br/> **cluster_name** <br/> **cluster_rg_name** <br/>deployment <br/>hpa <br/>job  |
+
 
 Usage example:
 ```yml
