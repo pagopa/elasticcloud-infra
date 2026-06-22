@@ -23,20 +23,20 @@ locals {
       cloudo_severity  = "Sev1"
       consecutive_runs = 3
     },
-    # "cluster_health_yellow" = {
-    #   name        = "Cluster health yellow"
-    #   description = "${title(var.env)} cluster health is yellow"
-    #   params = {
-    #     threshold = var.alert_configuration.cluster_health.threshold
-    #     duration  = var.alert_configuration.cluster_health.duration
-    #     "filterQueryText" : "cluster_state.status : \"yellow\"",
-    #     "filterQuery" : "{\"bool\":{\"should\":[{\"term\":{\"cluster_state.status\":{\"value\":\"yellow\"}}}],\"minimum_should_match\":1}}"
-    #   }
-    #   rule_type_id      = "monitoring_alert_cluster_health"
-    #   interval          = "5m"
-    #   jsm_priority = "P4"
-    #   consecutive_runs  = 3
-    # }
+    "cluster_health_yellow" = {
+      name        = "Cluster health yellow"
+      description = "${title(var.env)} cluster health is yellow"
+      params = {
+        threshold = var.alert_configuration.cluster_health.threshold
+        duration  = var.alert_configuration.cluster_health.duration
+        "filterQueryText" : "cluster_state.status : \"yellow\"",
+        "filterQuery" : "{\"bool\":{\"should\":[{\"term\":{\"cluster_state.status\":{\"value\":\"yellow\"}}}],\"minimum_should_match\":1}}"
+      }
+      rule_type_id     = "monitoring_alert_cluster_health"
+      interval         = "5m"
+      cloudo_severity  = "Sev3"
+      consecutive_runs = 3
+    }
     node_changed = {
       name        = "Nodes changed"
       description = "${title(var.env)} cluster nodes changed"
@@ -168,7 +168,7 @@ resource "elasticstack_kibana_alerting_rule" "alert" {
 
   #jsm create
   dynamic "actions" {
-    for_each = var.alert_channels.jsm ? [1] : []
+    for_each = var.alert_channels.jsm && lookup(each.value, "jsm_priority", null) != null ? [1] : []
     content {
       id = elasticstack_kibana_action_connector.jsm[0].connector_id
       params = jsonencode({
@@ -192,7 +192,7 @@ resource "elasticstack_kibana_alerting_rule" "alert" {
 
   #jsm close alert
   dynamic "actions" {
-    for_each = var.alert_channels.jsm ? [1] : []
+    for_each = var.alert_channels.jsm && lookup(each.value, "jsm_priority", null) != null ? [1] : []
     content {
       group = "recovered"
       id    = elasticstack_kibana_action_connector.jsm[0].connector_id
