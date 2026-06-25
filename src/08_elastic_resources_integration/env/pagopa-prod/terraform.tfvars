@@ -53,7 +53,6 @@ k8s_application_log_instance_names = {
   bizevents = [
     "pagopabizeventsdatastore-microservice-chart",
     "pagopabizeventsservice-microservice-chart",
-    "pagopabizeventsservice-canary",
     "pagopanegativebizeventsdatastore-microservice-chart"
   ]
   checkout = [
