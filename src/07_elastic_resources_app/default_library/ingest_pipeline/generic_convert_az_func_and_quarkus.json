@@ -56,6 +56,24 @@
       }
     },
     {
+      "convert": {
+        "field": "mdc.perf.elapsedMs",
+        "type": "long",
+        "target_field": "perf_elapsedMs",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "convert": {
+        "field": "mdc.perf.cartSize",
+        "type": "long",
+        "target_field": "perf_cartSize",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
       "json": {
         "field": "mdc.args",
         "target_field": "arguments",
