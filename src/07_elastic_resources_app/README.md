@@ -27,51 +27,52 @@ for details on how to configure a new space/application, please refer to the `co
 |------|---------|
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 4.16 |
 | <a name="requirement_ec"></a> [ec](#requirement\_ec) | ~> 0.12.2 |
-| <a name="requirement_elasticstack"></a> [elasticstack](#requirement\_elasticstack) | 0.11.7 |
+| <a name="requirement_elasticstack"></a> [elasticstack](#requirement\_elasticstack) | 0.16.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 4.19.0 |
-| <a name="provider_ec"></a> [ec](#provider\_ec) | 0.12.2 |
-| <a name="provider_elasticstack"></a> [elasticstack](#provider\_elasticstack) | 0.11.7 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 4.74.0 |
+| <a name="provider_ec"></a> [ec](#provider\_ec) | 0.12.5 |
+| <a name="provider_elasticstack"></a> [elasticstack](#provider\_elasticstack) | 0.16.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module___v4__"></a> [\_\_v4\_\_](#module\_\_\_v4\_\_) | git::https://github.com/pagopa/terraform-azurerm-v4 | 551081b0330faeb7af38c97cc1d01248143ca9b2 |
+| <a name="module___v4__"></a> [\_\_v4\_\_](#module\_\_\_v4\_\_) | git::https://github.com/pagopa/terraform-azurerm-v4 | 7dfe0ccdf72d5693e1deb75a12fe37d8f2c80a5e |
 | <a name="module_app_resources"></a> [app\_resources](#module\_app\_resources) | ./.terraform/modules/__v4__/elastic_app_resources | n/a |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [elasticstack_elasticsearch_component_template.apm_components_logs_custom_index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_component_template) | resource |
-| [elasticstack_elasticsearch_component_template.apm_components_metrics_custom_index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_component_template) | resource |
-| [elasticstack_elasticsearch_index_lifecycle.index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_index_lifecycle) | resource |
-| [elasticstack_elasticsearch_index_template.logs_apm_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_index_template) | resource |
-| [elasticstack_elasticsearch_index_template.metrics_apm_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_index_template) | resource |
-| [elasticstack_kibana_action_connector.app_connector](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/kibana_action_connector) | resource |
-| [elasticstack_kibana_space.kibana_space](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/kibana_space) | resource |
+| [elasticstack_elasticsearch_component_template.apm_components_logs_custom_index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/resources/elasticsearch_component_template) | resource |
+| [elasticstack_elasticsearch_component_template.apm_components_metrics_custom_index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/resources/elasticsearch_component_template) | resource |
+| [elasticstack_elasticsearch_index_lifecycle.index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/resources/elasticsearch_index_lifecycle) | resource |
+| [elasticstack_elasticsearch_index_template.logs_apm_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/resources/elasticsearch_index_template) | resource |
+| [elasticstack_elasticsearch_index_template.metrics_apm_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/resources/elasticsearch_index_template) | resource |
+| [elasticstack_kibana_action_connector.app_connector](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/resources/kibana_action_connector) | resource |
+| [elasticstack_kibana_space.kibana_space](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/resources/kibana_space) | resource |
 | [azurerm_key_vault.key_vault_org](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault) | data source |
 | [azurerm_key_vault.target_key_vault](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault) | data source |
+| [azurerm_key_vault_secret.app_connector_secret_headers](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault_secret) | data source |
 | [azurerm_key_vault_secret.app_connector_secret_key](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault_secret) | data source |
 | [azurerm_key_vault_secret.elastic_cloud_api_key](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault_secret) | data source |
 | [azurerm_key_vault_secret.elasticsearch_api_key](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault_secret) | data source |
 | [ec_deployment.deployment](https://registry.terraform.io/providers/elastic/ec/latest/docs/data-sources/deployment) | data source |
 | [ec_deployments.deployments](https://registry.terraform.io/providers/elastic/ec/latest/docs/data-sources/deployments) | data source |
-| [elasticstack_fleet_integration.kubernetes](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/data-sources/fleet_integration) | data source |
-| [elasticstack_fleet_integration.system](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/data-sources/fleet_integration) | data source |
+| [elasticstack_fleet_integration.kubernetes](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/data-sources/fleet_integration) | data source |
+| [elasticstack_fleet_integration.system](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/data-sources/fleet_integration) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_alert_channels"></a> [alert\_channels](#input\_alert\_channels) | (Optional) Map of alert channels to be used for alerts. Default is all false | <pre>object({<br/>    email    = bool<br/>    slack    = bool<br/>    opsgenie = bool<br/>    cloudo   = bool<br/>  })</pre> | <pre>{<br/>  "cloudo": false,<br/>  "email": false,<br/>  "opsgenie": false,<br/>  "slack": false<br/>}</pre> | no |
+| <a name="input_alert_channels"></a> [alert\_channels](#input\_alert\_channels) | (Optional) Map of alert channels to be used for alerts. Default is all false | <pre>object({<br/>    email  = bool<br/>    slack  = bool<br/>    jsm    = bool<br/>    cloudo = bool<br/>  })</pre> | <pre>{<br/>  "cloudo": false,<br/>  "email": false,<br/>  "jsm": false,<br/>  "slack": false<br/>}</pre> | no |
 | <a name="input_apm_logs_metrics_ilm"></a> [apm\_logs\_metrics\_ilm](#input\_apm\_logs\_metrics\_ilm) | (Required) Map containing the service name which require a custom ilm for this environment associated to the related index lifecycle management policy to be used for that service. The allowed values are the file names in `default_library/ilm` folder | `map(string)` | `{}` | no |
-| <a name="input_app_connectors"></a> [app\_connectors](#input\_app\_connectors) | (optional) Map of <connector name>-<connector details> for additional connectors dedicated to app alerts. supports slack and opsgenie and cloudo type | <pre>map(object({<br/>    type       = string<br/>    secret_key = string<br/>  }))</pre> | `{}` | no |
+| <a name="input_app_connectors"></a> [app\_connectors](#input\_app\_connectors) | (optional) Map of <connector name>-<connector details> for additional connectors dedicated to app alerts. supports slack and jsm and cloudo type | <pre>map(object({<br/>    type           = string<br/>    secret_key     = string<br/>    secret_headers = optional(map(string), {}) #key is the header name, value is the key vault secret name containing the header value<br/>  }))</pre> | `{}` | no |
 | <a name="input_deployment_name"></a> [deployment\_name](#input\_deployment\_name) | (Required) EC deployment name | `string` | n/a | yes |
 | <a name="input_email_recipients"></a> [email\_recipients](#input\_email\_recipients) | (Optional) Map of List of email recipients associated to a name. to be used for email alerts. Default is empty | `map(list(string))` | `{}` | no |
 | <a name="input_env"></a> [env](#input\_env) | (Required) Environment name | `string` | n/a | yes |

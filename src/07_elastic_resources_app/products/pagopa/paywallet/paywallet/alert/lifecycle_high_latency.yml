@@ -1,23 +1,21 @@
-name: migration-high-latency
+name: lifecycle-high-latency
 schedule: 15m
 window:
   size: 15
   unit: m
 custom_threshold:
   data_view: apm
-  query: "span.name:\"eCommerceMigration\""
+  query: "span.name:\"payWalletLifeCycleSession\""
   aggregations:
     - name: A
       aggregation: avg
-      field: "numeric_labels.eCommerce_migration_iterationElapsedTimeMs"
+      field: "numeric_labels.payWallet_lifeCycle_session_elapsedTime"
   equation: "A"
   label: "Latency"
   threshold:
     values:
       - 10000
     comparator: ">"
-  group_by:
-    - "labels.eCommerce_migration_source"
   alert_on_no_data: false
 trigger_after_consecutive_runs: 2
 enabled: true

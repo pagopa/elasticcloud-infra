@@ -235,8 +235,8 @@ custom_threshold:
 trigger_after_consecutive_runs: 3
 enabled: true #optional, default true. overrides global value
 notification_channels:
-  opsgenie:
-    connector_name: team-core-opsgenie
+  jsm:
+    connector_name: team-core-jsm
     priority: P1
   email:
     recipient_list_name: team-core-emails
@@ -300,27 +300,35 @@ where:
 ---
 **notification channels**
 - `notification_channels`: **optional** list of notification channels to be used for the alert.
-  - `opsgenie`: **optional** if you want to send the alert to OpsGenie, you need to specify the connector name and the priority of the alert
-    - `connector_name`: **required** name of the OpsGenie connector to be used for the alert
+  - `jsm`: **optional** if you want to send the alert to JSM, you need to specify the connector name and the priority of the alert
+    - `connector_name`: **required** name of the JSM connector to be used for the alert
     - `priority`: **required** priority of the alert, it can be `P1`, `P2`, `P3`, `P4` or `P5`.
   - `email`: **optional** if you want to send the alert to an email address
     - `recipient_list_name`: **required** name of the recipient list to be used for the email notification
   - `slack`: **optional** if you want to send the alert to a Slack channel, you need to specify the connector name
-    - `connector_name`: **required** name of the OpsGenie connector to be used for the alert
+    - `connector_name`: **required** name of the slack connector to be used for the alert
   - `cloudo`: _(preview)_ **optional** if you want to trigger a runbook automation using ClouDO for this alert
     - `connector_name`: **required** name of the webhook (to ClouDO) connector to be used for the alert
     - `type`: **required** type of the ClouDO runbook to be triggered. It can be `aks`
     - `rule`: **required** rule identifier for the ClouDO runbook
     - `severity`: **required** severity level for the ClouDO runbook. It can be `Sev0`, `Sev1`, `Sev2`, `Sev3`, `Sev4`
-    - `attributes`: **optional** map of arbitraryattributes to be sent to ClouDO
-      - `namespace`: **required** namespace where the application is deployed, if alert type is `aks`
-      - `region`: **required** region where the application is deployed, if alert type is `aks`
+    - `attributes`: **optional** map of arbitrary attributes to be sent to ClouDO. For more details check the table below
+
 
 
 This `yml` file is parsed using the terraform templatefile function, so make sure to escape any special character as per [terraform template syntax](https://developer.hashicorp.com/terraform/language/expressions/strings#escape-sequences)
 Available variables are:
 - `env`: <`dev`|`uat`|`prod`> the target environment name
 - `env_short`: the first letter of the `env` variable
+
+Here's a list of allowed alert types and the corresponding allowed attributes. Fields in bold are required for that alert type
+
+Cloudo Attributes by type
+===
+|  Alert type  | Allowed fields     (required fields in bold)                                                      |
+|:------------:|:--------------------------------------------------------------------------------------------------|
+|     aks      | **namespace** <br/> **cluster_name** <br/> **cluster_rg_name** <br/>deployment <br/>hpa <br/>job  |
+
 
 Usage example:
 ```yml
@@ -329,7 +337,9 @@ notification_channels:
     connector_name: "my-cloudo-connector-name"
     type: "aks"
     attributes:
-        environment: "${env}"
+        namespace: "ecommerce"
+        cluster_name: "pagopa-${env_short}-weu-${env}-aks"
+        cluster_rg_name: "pagopa-${env_short}-weu-${env}-aks-rg"
 ```
 
 
@@ -350,20 +360,25 @@ email_recipients = {
 }
 ```
 
-The alert connectors (opsgenie, slack, ClouDO) must be defined in the following format, where the `secret_key` is the name of the secret in the vault containing the actual secret value (opsgenie api key, slack webhook url, cloudo webhook url) defined in the `05_elastic_secret` module, and must be configured with the help of a [sys admin](https://github.com/orgs/pagopa/teams/payments-cloud-admin)
+The alert connectors (jsm, slack, ClouDO) must be defined in the following format, where the `secret_key` is the name of the secret in the vault containing the actual secret value (jsm api key, slack webhook url, cloudo webhook url) defined in the `05_elastic_secret` module, and must be configured with the help of a [sys admin](https://github.com/orgs/pagopa/teams/payments-cloud-admin)
+Optionally a map of headers can be defined, fetching the header value from a secret in the vault as well, in that case the `secret_headers` field must be defined with the header name and the corresponding secret key for each header
 ```hcl
 app_connectors = {
-  "team-core-opsgenie" = {
-    type       = "opsgenie"
-    secret_key = "team-core-opsgenie-api-key"
+  "team-core-jsm" = {
+    type       = "jsm"
+    secret_key = "team-core-jsm-api-key"
   }
-  "team-touchpoint-opsgenie" = {
-    type       = "opsgenie"
-    secret_key = "team-touchpoint-opsgenie-api-key"
+  "team-touchpoint-jsm" = {
+    type       = "jsm"
+    secret_key = "team-touchpoint-jsm-api-key"
   }
   "cloudo-webhook" = {
     type       = "webhook"
     secret_key = "cloudo-webhook-url"
+    secret_headers = { 
+      "ocp-apim-subscription-key" = "cloudo-subscription-key"
+      "x-cloudo-key"              = "cloudo-api-key"
+    }
   }
 }
 ```
@@ -382,7 +397,7 @@ Example;
 alert_channels = {
     email    = true
     slack    = false
-    opsgenie = false
+    jsm = false
     cloudo   = false
 }
 ```
@@ -391,8 +406,8 @@ alert_channels = {
 ```yaml
 [...]
 notification_channels:
-  opsgenie:
-    connector_name: "my-opsgenie-connector-name"
+  jsm:
+    connector_name: "my-jsm-connector-name"
     priority: P1
   slack:
     connector_name: "my-slack-connector-name"
@@ -401,10 +416,12 @@ notification_channels:
     type: "aks"
     attributes:
         namespace: "application-namespace"
+        cluster_name: "pagopa-${env_short}-weu-${env}-aks"
+        cluster_rg_name: "pagopa-${env_short}-weu-${env}-aks-rg"
 ```
 
 In the above case the only enabled channel is `email`, but the alert does not define it, so the alert will not be sent to any channel.
-The other channels `slack`and `opsgenie` defined in the alert file are disabled for that environment, so they will not be used.
+The other channels `slack`and `jsm` defined in the alert file are disabled for that environment, so they will not be used.
 IF the email notification chanel was defined in the alert file, it would be used to send the alert
 
 

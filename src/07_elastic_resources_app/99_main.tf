@@ -9,10 +9,8 @@ terraform {
       version = "~> 0.12.2"
     }
     elasticstack = {
-      source = "elastic/elasticstack"
-      # version required to avoid a bug on integration policy: https://github.com/elastic/terraform-provider-elasticstack/issues/999
-      # version documented here https://github.com/elastic/terraform-provider-elasticstack/issues/836
-      version = "0.11.7"
+      source  = "elastic/elasticstack"
+      version = "0.16.0"
     }
 
   }
@@ -45,6 +43,6 @@ provider "elasticstack" {
 
 
 module "__v4__" {
-  # 7.55.0
-  source = "git::https://github.com/pagopa/terraform-azurerm-v4?ref=551081b0330faeb7af38c97cc1d01248143ca9b2"
+  # 10.16.1
+  source = "git::https://github.com/pagopa/terraform-azurerm-v4?ref=7dfe0ccdf72d5693e1deb75a12fe37d8f2c80a5e"
 }

@@ -21,8 +21,9 @@ aks_config = [
   {
     name = "pagopa-p-itn-prod-aks"
     elastic_agent = {
-      namespace = "elastic-cloud-agent"
-      create_ns = true
+      namespace        = "elastic-cloud-agent"
+      create_ns        = true
+      tolerated_taints = [{ key = "dedicated" }, { key = "paymentWalletOnly" }]
     }
     otel = {
       namespace = "otel"
@@ -51,7 +52,8 @@ k8s_application_log_instance_names = {
     "backoffice-external"
   ]
   bizevents = [
-    "pagopabizeventsdatastore-microservice-chart",
+    "pagopabizeventsdatastore-pagopa-biz-events-datastore",
+    "pagopabizeventsdatastore-pagopa-biz-events-view",
     "pagopabizeventsservice-microservice-chart",
     "pagopanegativebizeventsdatastore-microservice-chart"
   ]
@@ -129,7 +131,7 @@ k8s_application_log_instance_names = {
 sampling_configuration = {
   enabled                    = true
   probes_sampling_percentage = 10
-  sampling_percentage        = 70
+  sampling_percentage        = 60
   probe_paths                = ["/actuator/health/liveness", "/actuator/health/readiness", "/actuator/health/{*path}", "/health/liveness", "/health/readiness"]
 }
 

@@ -1,11 +1,11 @@
-name: migration-execution-rate
+name: lifecycle-execution-rate
 schedule: 30m
 window:
   size: 30
   unit: m
 custom_threshold:
   data_view: apm
-  query: "span.name: \"eCommerceMigration\""
+  query: "span.name: \"payWalletLifeCycleSession\""
   aggregations:
     - name: A
       aggregation: count
@@ -13,10 +13,8 @@ custom_threshold:
   label: "Number of job iterations"
   threshold:
     values:
-      - 50
+      - 10
     comparator: "<"
-  group_by:
-    - "labels.eCommerce_migration_source"
   alert_on_no_data: false
 trigger_after_consecutive_runs: 1
 enabled: true

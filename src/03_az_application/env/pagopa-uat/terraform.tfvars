@@ -8,5 +8,7 @@ federated_entra_groups = [
   "pagopa-u-adgroup-admin",
   "pagopa-u-adgroup-developers",
   "pagopa-u-adgroup-externals",
-  "pagopa-u-adgroup-operations"
+  "pagopa-u-adgroup-operations",
+  "pagopa-u-adgroup-developer-externals"
+
 ]

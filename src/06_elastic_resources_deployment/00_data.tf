@@ -21,8 +21,8 @@ data "azurerm_key_vault_secret" "elasticsearch_api_key" {
   key_vault_id = data.azurerm_key_vault.key_vault.id
 }
 
-data "azurerm_key_vault_secret" "opsgenie_api_key" {
-  name         = "opsgenie-api-key"
+data "azurerm_key_vault_secret" "jsm_api_key" {
+  name         = "jsm-api-key"
   key_vault_id = data.azurerm_key_vault.key_vault.id
 }
 
@@ -30,6 +30,12 @@ data "azurerm_key_vault_secret" "slack_webhook_url" {
   name         = "slack-webhook-url"
   key_vault_id = data.azurerm_key_vault.key_vault.id
 }
+
+data "azurerm_key_vault_secret" "cloudo_webhook_url" {
+  name         = "cloudo-webhook-url"
+  key_vault_id = data.azurerm_key_vault.key_vault.id
+}
+
 
 data "azurerm_key_vault" "key_vault_org" {
   name                = var.kv_name_org_ec
@@ -41,8 +47,12 @@ data "azurerm_key_vault_secret" "elastic_cloud_api_key" {
   key_vault_id = data.azurerm_key_vault.key_vault_org.id
 }
 
-data "azurerm_key_vault_secret" "app_connector_secret_key" {
-  for_each     = var.app_connectors
-  name         = each.value.secret_key
+data "azurerm_key_vault_secret" "cloudo_api_key" {
+  name         = "cloudo-api-key"
+  key_vault_id = data.azurerm_key_vault.key_vault.id
+}
+
+data "azurerm_key_vault_secret" "cloudo_subscription_key" {
+  name         = "cloudo-subscription-key"
   key_vault_id = data.azurerm_key_vault.key_vault.id
 }

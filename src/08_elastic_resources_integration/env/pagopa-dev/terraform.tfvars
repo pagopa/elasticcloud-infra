@@ -21,8 +21,9 @@ aks_config = [
   {
     name = "pagopa-d-itn-dev-aks"
     elastic_agent = {
-      namespace = "elastic-cloud-agent"
-      create_ns = true
+      namespace        = "elastic-cloud-agent"
+      create_ns        = true
+      tolerated_taints = [{ key = "dedicated" }, { key = "paymentWalletOnly" }]
     }
     otel = {
       namespace = "otel"
@@ -51,7 +52,8 @@ k8s_application_log_instance_names = {
     "backoffice-external"
   ]
   bizevents = [
-    "pagopabizeventsdatastore-microservice-chart",
+    "pagopabizeventsdatastore-pagopa-biz-events-datastore",
+    "pagopabizeventsdatastore-pagopa-biz-events-view",
     "pagopabizeventsservice-microservice-chart",
     "pagopanegativebizeventsdatastore-microservice-chart"
   ]
