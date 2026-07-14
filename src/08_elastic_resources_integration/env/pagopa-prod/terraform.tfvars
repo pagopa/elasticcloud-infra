@@ -92,6 +92,7 @@ k8s_application_log_instance_names = {
     "pagopaspontaneouspayments-microservice-chart",
     "gpd-payments-pull",
     "gpd-upload-microservice-chart",
+    "gpd-upload-function-microservice-chart",
     "pagopa-gpd-ingestion-manager",
     "pagopa-gpd-rtp"
   ]
