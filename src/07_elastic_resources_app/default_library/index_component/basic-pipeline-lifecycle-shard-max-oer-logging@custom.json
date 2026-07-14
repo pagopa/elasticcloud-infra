@@ -13,13 +13,13 @@
         },
         "default_pipeline": "${pipeline}"
       }
-    }
-  },
-  "mappings": {
-    "properties": {
-      "ctx.details": {
-        "type": "text",
-        "index": false
+    },
+    "mappings": {
+      "properties": {
+        "ctx.details": {
+          "type": "text",
+          "index": false
+        }
       }
     }
   },
