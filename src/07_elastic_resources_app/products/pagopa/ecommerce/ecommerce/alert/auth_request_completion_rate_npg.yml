@@ -1,0 +1,27 @@
+name: auth-request-completion-rate-npg
+schedule: 15m
+window:
+  size: 15
+  unit: m
+custom_threshold:
+  data_view: apm
+  query: labels.updateTransactionStatus_trigger:"NPG" and labels.updateTransactionStatus_outcome:OK
+  aggregations:
+    - name: A
+      aggregation: count
+      filter: "labels.updateTransactionStatus_type:AUTHORIZATION_REQUESTED"
+    - name: B
+      aggregation: count
+      filter: "labels.updateTransactionStatus_type:AUTHORIZATION_OUTCOME"
+  equation: "(B/A)*100"
+  label: "Completion Rate"
+  threshold:
+    values:
+      - 95
+    comparator: "<"
+  alert_on_no_data: false
+trigger_after_consecutive_runs: 2
+enabled: true
+notification_channels:
+  slack:
+    connector_name: "ecommerce-status-slack" #TODO: replace with JSM connector after alert tuning
