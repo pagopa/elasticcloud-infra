@@ -13,6 +13,7 @@ locals {
   }
 
   default_snapshot_container_name = "snapshotblob"
+  frozen_container_name           = "frozen"
 
   shared_env_application_id = { for idx, env in var.shared_env : env => {
     client_id = data.azuread_application.ec_application[env].client_id

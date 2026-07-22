@@ -25,6 +25,8 @@ these values are required to properly configure a snapshot repository client.
 
 **NB:** By convention, the requested name must be `<prefix><env_short>`, such as `pagopad`
 
+In addition to per-environment clients, add one deployment-wide client with the name `<prefix><deployment_short>` to be used for cross-environment snapshots.
+
 
 - [how to configure anzure blob storage snapshot repo](https://www.elastic.co/guide/en/cloud/current/ec-azure-snapshotting.html)
 - [more details on azure repository](https://www.elastic.co/guide/en/elasticsearch/reference/8.17/repository-azure.html)
@@ -72,6 +74,7 @@ You can check them in this PR:
 | [elasticstack_elasticsearch_security_role_mapping.custom_role_mappings](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_security_role_mapping) | resource |
 | [elasticstack_elasticsearch_security_role_mapping.kibana_admin](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_security_role_mapping) | resource |
 | [elasticstack_elasticsearch_snapshot_lifecycle.default_snapshot_policy](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_snapshot_lifecycle) | resource |
+| [elasticstack_elasticsearch_snapshot_repository.frozen_env_repository](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_snapshot_repository) | resource |
 | [elasticstack_elasticsearch_snapshot_repository.snapshot_repository](https://registry.terraform.io/providers/elastic/elasticstack/0.11.7/docs/resources/elasticsearch_snapshot_repository) | resource |
 | [azuread_group.adgroup](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/group) | data source |
 | [azurerm_key_vault.key_vault](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault) | data source |

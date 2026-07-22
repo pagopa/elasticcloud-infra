@@ -69,6 +69,7 @@ No modules.
 | [elasticstack_elasticsearch_index_template.metricbeat_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/resources/elasticsearch_index_template) | resource |
 | [elasticstack_elasticsearch_index_template.monitoring_beats_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/resources/elasticsearch_index_template) | resource |
 | [elasticstack_elasticsearch_index_template.monitoring_es_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/resources/elasticsearch_index_template) | resource |
+| [elasticstack_elasticsearch_snapshot_repository.frozen_deployment_repository](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/resources/elasticsearch_snapshot_repository) | resource |
 | [elasticstack_kibana_action_connector.cloudo](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/resources/kibana_action_connector) | resource |
 | [elasticstack_kibana_action_connector.jsm](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/resources/kibana_action_connector) | resource |
 | [elasticstack_kibana_action_connector.log](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/resources/kibana_action_connector) | resource |
