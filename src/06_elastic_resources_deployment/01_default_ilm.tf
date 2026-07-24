@@ -12,13 +12,13 @@ locals {
 
 
 resource "elasticstack_elasticsearch_snapshot_repository" "frozen_deployment_repository" {
-  name = "${local.prefix_env_short}-frozen"
+  name = var.frozen_repo_settings.name
 
   azure {
     container  = "frozen"
     chunk_size = "32MB"
     compress   = true
-    client     = replace("${local.prefix_env_short}-frz", "-", "")
+    client     = var.frozen_repo_settings.client_name
   }
 }
 

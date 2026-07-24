@@ -12,9 +12,6 @@ elastic_apikey_env_short = "p"
 elastic_apikey_env       = "prod"
 
 
-default_ilm_elastic            = "w1-c3-d5-shrink"
-default_ilm_metricbeat         = "w1-c3-d5-shrink"
-default_ilm_elastic_monitoring = "w0-d3"
 
 deployment_name = "pagopa-p-weu-ec"
 
@@ -207,4 +204,8 @@ default_idx_tpl_customization = {
 
 }
 
+frozen_repo_settings = {
+  name            = "pagopa-prod-frozen"
+  client_name     = "pagopaprodfrz"
+}
 
