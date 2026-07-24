@@ -11,6 +11,17 @@ locals {
 }
 
 
+resource "elasticstack_elasticsearch_snapshot_repository" "frozen_deployment_repository" {
+  name = var.frozen_repo_settings.name
+
+  azure {
+    container  = "frozen"
+    chunk_size = "32MB"
+    compress   = true
+    client     = var.frozen_repo_settings.client_name
+  }
+}
+
 resource "elasticstack_elasticsearch_index_lifecycle" "deployment_index_lifecycle" {
   for_each = local.ilm_all_policies
 
@@ -83,6 +94,17 @@ resource "elasticstack_elasticsearch_index_lifecycle" "deployment_index_lifecycl
 
       set_priority {
         priority = each.value.cold.setPriority
+      }
+    }
+  }
+
+  dynamic "frozen" {
+    for_each = lookup(each.value, "frozen", null) != null ? [1] : []
+    content {
+      min_age = each.value.frozen.minAge
+
+      searchable_snapshot {
+        snapshot_repository = elasticstack_elasticsearch_snapshot_repository.frozen_deployment_repository.name
       }
     }
   }

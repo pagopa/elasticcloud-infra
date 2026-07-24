@@ -9,10 +9,6 @@ kv_rg_org_ec             = "paymon-u-ec-org-sec-rg"
 elastic_apikey_env_short = "u"
 elastic_apikey_env       = "uat"
 
-default_ilm_elastic            = "w5-d5-lowsize"
-default_ilm_metricbeat         = "w5-d5-lowsize"
-default_ilm_elastic_monitoring = "w0-d3-lowsize"
-
 ilm_delete_wait_for_snapshot = false
 
 deployment_name = "pagopa-s-weu-ec"
@@ -202,4 +198,9 @@ default_idx_tpl_customization = {
   "metrics-elastic_agent.filebeat_input" = {
     component = "noreplica@custom.json"
   }
+}
+
+frozen_repo_settings = {
+  name        = "pagopa-s-frozen"
+  client_name = "pagopasfrz"
 }
