@@ -130,8 +130,8 @@ variable "alert_configuration" {
 
 variable "frozen_repo_settings" {
   type = object({
-    name            = string
-    client_name     = string
+    name        = string
+    client_name = string
   })
   description = "Settings for the frozen snapshot repository"
 }

@@ -205,7 +205,7 @@ default_idx_tpl_customization = {
 }
 
 frozen_repo_settings = {
-  name            = "pagopa-prod-frozen"
-  client_name     = "pagopaprodfrz"
+  name        = "pagopa-prod-frozen"
+  client_name = "pagopaprodfrz"
 }
 
