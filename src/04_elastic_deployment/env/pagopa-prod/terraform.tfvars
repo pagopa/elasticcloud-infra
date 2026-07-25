@@ -20,10 +20,7 @@ warm_config = {
   size       = "4g"
   zone_count = 3
 }
-cold_config = {
-  size       = "8g"
-  zone_count = 3
-}
+
 frozen_config = {
   size       = "4g"
   zone_count = 2
