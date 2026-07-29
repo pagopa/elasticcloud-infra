@@ -231,6 +231,24 @@ custom_threshold:
   group_by:
     - "labels.updateTransactionStatus_paymentMethodTypeCode"
   alert_on_no_data: false  
+# ----------------- 
+# use this to create an alert on any index using ES|QL query
+esql_query:
+  query: ' 
+    FROM traces-apm*-${namespace}
+    | WHERE transaction.name == "eventstoreCDCEvent"
+    | DISSECT labels.ecommerce_cdc_processedEvent_eventCreationDate "%%{clean_date_string}[%%{ignore}]"
+    | EVAL timestamp = TO_DATETIME(clean_date_string)
+    | KEEP labels.ecommerce_cdc_processedEvent_transactionId, labels.ecommerce_cdc_processedEvent_eventCode, timestamp
+    | STATS
+        time_start = MIN(CASE(labels.ecommerce_cdc_processedEvent_eventCode == "TRANSACTION_AUTHORIZATION_REQUESTED_EVENT", timestamp, null)),
+        time_end = MIN(CASE(labels.ecommerce_cdc_processedEvent_eventCode == "TRANSACTION_AUTHORIZATION_COMPLETED_EVENT", timestamp, null))
+        BY labels.ecommerce_cdc_processedEvent_transactionId
+    | WHERE time_start IS NOT NULL AND time_end IS NOT NULL
+    | EVAL duration = DATE_DIFF("ms", time_start, time_end)
+    | STATS  AUTHORIZATION_REQUESTED_to_AUTHORIZATION_COMPLETED = ROUND(AVG(duration), 0)'
+  exclude_hits_from_previous_run: true
+  group_by: row 
 # -----------------    
 trigger_after_consecutive_runs: 3
 enabled: true #optional, default true. overrides global value
@@ -298,6 +316,11 @@ where:
 - `group_by`: **optional** list of fields to be used to group the results
 - `alert_on_no_data`: **optional** if set to `true`, the alert will be triggered if no data is found for the query. Default is `true`
 ---
+**ES|QL properties**
+- `query`: **required** ES|QL query to be executed. Use the placeholder `${namespace}` to refer to the elastic namespace (e.g. `pagopa.dev`). Escape `%{parameters}` using double `%` eg: `%%{parameter}`
+- `group_by`: **required** allowed values are `row` or `all`. If set to `row`, the alert will be triggered for each row returned by the query. If set to `all`, the alert will be triggered only once if any row is returned
+- `exclude_hits_from_previous_run`: **optional** if set to `true`, the alert will be triggered if no data is found for the query. Default is `true`
+---
 **notification channels**
 - `notification_channels`: **optional** list of notification channels to be used for the alert.
   - `jsm`: **optional** if you want to send the alert to JSM, you need to specify the connector name and the priority of the alert
@@ -320,6 +343,7 @@ This `yml` file is parsed using the terraform templatefile function, so make sur
 Available variables are:
 - `env`: <`dev`|`uat`|`prod`> the target environment name
 - `env_short`: the first letter of the `env` variable
+- `namespace`: the elastic namespace where the alert will be created (e.g. `pagopa.dev`)
 
 Here's a list of allowed alert types and the corresponding allowed attributes. Fields in bold are required for that alert type
 
