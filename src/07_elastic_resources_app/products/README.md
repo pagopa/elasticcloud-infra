@@ -235,7 +235,7 @@ custom_threshold:
 # use this to create an alert on any index using ES|QL query
 esql_query:
   query: ' 
-    FROM traces-apm*-${namespace}
+    FROM traces-apm-${namespace}
     | WHERE transaction.name == "eventstoreCDCEvent"
     | DISSECT labels.ecommerce_cdc_processedEvent_eventCreationDate "%%{clean_date_string}[%%{ignore}]"
     | EVAL timestamp = TO_DATETIME(clean_date_string)
