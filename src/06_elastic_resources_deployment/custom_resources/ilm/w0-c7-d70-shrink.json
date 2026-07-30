@@ -14,12 +14,8 @@
       "indexCodec": "best_compression"
     }
   },
-  "cold": {
-    "minAge": "7d",
-    "setPriority": 0,
-    "allocate": {
-      "numberOfReplicas": 0
-    }
+  "frozen": {
+    "minAge": "7d"
   },
   "delete": {
     "minAge": "70d",

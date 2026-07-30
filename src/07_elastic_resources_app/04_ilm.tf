@@ -33,33 +33,34 @@ resource "elasticstack_elasticsearch_index_lifecycle" "index_lifecycle" {
     }
   }
 
-  warm {
-    min_age = each.value.warm.minAge
+  dynamic "warm" {
+    for_each = lookup(each.value, "warm", null) != null ? [1] : []
+    content {
+      min_age = each.value.warm.minAge
 
-    set_priority {
-      priority = each.value.warm.setPriority
-    }
+      dynamic "shrink" {
+        for_each = lookup(each.value.warm, "shrink", null) != null ? [1] : []
 
-    dynamic "shrink" {
-      for_each = lookup(each.value.warm, "shrink", null) != null ? [1] : []
+        content {
+          allow_write_after_shrink = each.value.warm.shrink.allowWriteAfterShrink
+          max_primary_shard_size   = each.value.warm.shrink.maxPrimarySize
 
-      content {
-        allow_write_after_shrink = each.value.warm.shrink.allowWriteAfterShrink
-        max_primary_shard_size   = each.value.warm.shrink.maxPrimarySize
+        }
+      }
 
+      dynamic "forcemerge" {
+        for_each = lookup(each.value.warm, "forceMerge", null) != null ? [1] : []
+        content {
+          max_num_segments = each.value.warm.forceMerge.maxSegments
+          index_codec      = each.value.warm.forceMerge.indexCodec
+        }
+      }
+
+      set_priority {
+        priority = each.value.warm.setPriority
       }
     }
-
-    dynamic "forcemerge" {
-      for_each = lookup(each.value.warm, "forceMerge", null) != null ? [1] : []
-      content {
-        max_num_segments = each.value.warm.forceMerge.maxSegments
-        index_codec      = each.value.warm.forceMerge.indexCodec
-      }
-    }
-
   }
-
 
   dynamic "cold" {
     for_each = lookup(each.value, "cold", null) != null ? [1] : []
@@ -75,6 +76,17 @@ resource "elasticstack_elasticsearch_index_lifecycle" "index_lifecycle" {
 
       set_priority {
         priority = each.value.cold.setPriority
+      }
+    }
+  }
+
+  dynamic "frozen" {
+    for_each = lookup(each.value, "frozen", null) != null ? [1] : []
+    content {
+      min_age = each.value.frozen.minAge
+
+      searchable_snapshot {
+        snapshot_repository = "${local.prefix_env_short}-frozen"
       }
     }
   }

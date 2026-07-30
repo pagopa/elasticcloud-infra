@@ -8,17 +8,8 @@
 
     }
   },
-  "warm": {
-    "minAge": "0ms",
-    "setPriority": 50,
-    "shrink": {
-      "maxPrimarySize": "65gb",
-      "allowWriteAfterShrink": true
-    },
-    "forceMerge": {
-      "maxSegments": 1,
-      "indexCodec": "best_compression"
-    }
+  "frozen": {
+    "minAge": "0ms"
   },
   "delete": {
     "minAge": "5d",

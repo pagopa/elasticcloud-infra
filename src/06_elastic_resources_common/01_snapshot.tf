@@ -30,3 +30,16 @@ resource "elasticstack_elasticsearch_snapshot_lifecycle" "default_snapshot_polic
   min_count    = var.snapshot_lifecycle_default.min_count
   max_count    = var.snapshot_lifecycle_default.max_count
 }
+
+resource "elasticstack_elasticsearch_snapshot_repository" "frozen_env_repository" {
+  name = "${local.prefix_env_short}-frozen"
+
+  azure {
+    container  = "frozen"
+    base_path  = ""
+    chunk_size = "32MB"
+    compress   = true
+    client     = replace("${local.prefix_env_short}-frz", "-", "")
+  }
+}
+

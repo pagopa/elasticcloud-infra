@@ -47,6 +47,11 @@ resource "ec_deployment" "elastic_cloud" {
       zone_count  = var.cold_config.zone_count
     } : null
 
+    frozen = var.frozen_config != null ? {
+      autoscaling = {}
+      size        = var.frozen_config.size
+      zone_count  = var.frozen_config.zone_count
+    } : null
 
     config = {
       user_settings_yaml = templatefile("./configs/es.yml.tpl", {

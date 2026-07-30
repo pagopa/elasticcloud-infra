@@ -63,6 +63,7 @@ variable "warm_config" {
     zone_count = number
   })
   description = "Warm storage node configuration"
+  default     = null
 }
 
 variable "cold_config" {
@@ -74,6 +75,14 @@ variable "cold_config" {
   default     = null
 }
 
+variable "frozen_config" {
+  type = object({
+    size       = string
+    zone_count = number
+  })
+  description = "Frozen storage node configuration"
+  default     = null
+}
 
 variable "kibana_config" {
   type = object({

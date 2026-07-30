@@ -40,8 +40,13 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [azurerm_resource_group.ec_deployment_rg](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group) | resource |
 | [azurerm_resource_group.ec_rg](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group) | resource |
 | [azurerm_storage_account.ec_snapshot_sa](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account) | resource |
+| [azurerm_storage_account.frozen_deployment_tier_sa](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account) | resource |
+| [azurerm_storage_account.frozen_env_tier_sa](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account) | resource |
+| [azurerm_storage_container.frozen_container](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
+| [azurerm_storage_container.frozen_deployment_container](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
 | [azurerm_storage_container.snapshot_container](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
 | [ec_deployment.elastic_cloud](https://registry.terraform.io/providers/elastic/ec/latest/docs/resources/deployment) | resource |
 | [azuread_application.ec_application](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/application) | data source |
@@ -60,6 +65,7 @@ No modules.
 | <a name="input_elk_snapshot_sa"></a> [elk\_snapshot\_sa](#input\_elk\_snapshot\_sa) | n/a | <pre>object({<br/>    blob_delete_retention_days = number<br/>    backup_enabled             = bool<br/>    blob_versioning_enabled    = bool<br/>    advanced_threat_protection = bool<br/>    replication_type           = optional(string, "LRS")<br/>  })</pre> | <pre>{<br/>  "advanced_threat_protection": true,<br/>  "backup_enabled": true,<br/>  "blob_delete_retention_days": 30,<br/>  "blob_versioning_enabled": true,<br/>  "replication_type": "GZRS"<br/>}</pre> | no |
 | <a name="input_env"></a> [env](#input\_env) | n/a | `string` | n/a | yes |
 | <a name="input_env_short"></a> [env\_short](#input\_env\_short) | n/a | `string` | n/a | yes |
+| <a name="input_frozen_config"></a> [frozen\_config](#input\_frozen\_config) | Frozen storage node configuration | <pre>object({<br/>    size       = string<br/>    zone_count = number<br/>  })</pre> | `null` | no |
 | <a name="input_hardware_profile"></a> [hardware\_profile](#input\_hardware\_profile) | (Optional) Hardware profile for the deployment. Default is 'azure-storage-optimized'. Available options: https://www.elastic.co/docs/reference/cloud/cloud-hosted/ec-regions-templates-instances | `string` | `"azure-storage-optimized"` | no |
 | <a name="input_hot_config"></a> [hot\_config](#input\_hot\_config) | Hot storage node configuration | <pre>object({<br/>    size       = string<br/>    zone_count = number<br/>  })</pre> | n/a | yes |
 | <a name="input_integration_server"></a> [integration\_server](#input\_integration\_server) | n/a | <pre>object({<br/>    size                  = string<br/>    zones                 = number<br/>    size_resource         = optional(string, "memory")<br/>    configuration_version = optional(string, "3")<br/>  })</pre> | n/a | yes |
@@ -71,7 +77,7 @@ No modules.
 | <a name="input_master_config"></a> [master\_config](#input\_master\_config) | ES Master node configuration | <pre>object({<br/>    size       = string<br/>    zone_count = number<br/>  })</pre> | `null` | no |
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | n/a | `string` | n/a | yes |
 | <a name="input_shared_env"></a> [shared\_env](#input\_shared\_env) | List of environments contained in this deployment | `list(string)` | n/a | yes |
-| <a name="input_warm_config"></a> [warm\_config](#input\_warm\_config) | Warm storage node configuration | <pre>object({<br/>    size       = string<br/>    zone_count = number<br/>  })</pre> | n/a | yes |
+| <a name="input_warm_config"></a> [warm\_config](#input\_warm\_config) | Warm storage node configuration | <pre>object({<br/>    size       = string<br/>    zone_count = number<br/>  })</pre> | `null` | no |
 
 ## Outputs
 

@@ -27,18 +27,6 @@ variable "deployment_name" {
   type        = string
   description = "(Required) EC deployment name"
 }
-variable "default_ilm_elastic" {
-  type        = string
-  description = "ILM used by default index templates via elastic@custom"
-}
-variable "default_ilm_metricbeat" {
-  type        = string
-  description = "ILM used by default index templates via metricbeat@custom"
-}
-variable "default_ilm_elastic_monitoring" {
-  type        = string
-  description = "ILM used by default index templates via elastic_monitoring@custom"
-}
 
 variable "default_idx_tpl_customization" {
   type = map(object({
@@ -138,4 +126,12 @@ variable "alert_configuration" {
     })
   })
   default = {}
+}
+
+variable "frozen_repo_settings" {
+  type = object({
+    name        = string
+    client_name = string
+  })
+  description = "Settings for the frozen snapshot repository"
 }

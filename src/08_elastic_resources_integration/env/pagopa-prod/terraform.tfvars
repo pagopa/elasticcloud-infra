@@ -124,6 +124,8 @@ k8s_application_log_instance_names = {
   ]
   crusc8 = [ # AKS deployment names
     "pagopacruscottobackend-microservice-chart",
+    "pagopacruscottoingestor-microservice-chart",
+    "pagopacruscottosertbackend-microservice-chart"
   ]
   anonymizer = ["pagopa-anonymizer"]
 
