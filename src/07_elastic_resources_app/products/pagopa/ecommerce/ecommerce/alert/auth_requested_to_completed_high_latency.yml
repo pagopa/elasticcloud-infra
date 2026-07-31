@@ -5,7 +5,7 @@ window:
   unit: m
 esql_query:
   query: ' 
-    FROM traces-apm*-pagopa.prod
+    FROM traces-apm*-${namespace}
     | WHERE transaction.name == "eventstoreCDCEvent"
     | DISSECT labels.ecommerce_cdc_processedEvent_eventCreationDate "%%{clean_date_string}[%%{ignore}]"
     | EVAL timestamp = TO_DATETIME(clean_date_string)
