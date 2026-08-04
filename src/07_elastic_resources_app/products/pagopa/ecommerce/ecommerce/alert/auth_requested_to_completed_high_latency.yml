@@ -1,0 +1,28 @@
+name: auth-requested-to-completed-high-latency
+schedule: 15m
+window:
+  size: 15
+  unit: m
+esql_query:
+  query: ' 
+    FROM traces-apm*-${namespace}
+    | WHERE transaction.name == "eventstoreCDCEvent"
+    | DISSECT labels.ecommerce_cdc_processedEvent_eventCreationDate "%%{clean_date_string}[%%{ignore}]"
+    | EVAL timestamp = TO_DATETIME(clean_date_string)
+    | KEEP labels.ecommerce_cdc_processedEvent_transactionId, labels.ecommerce_cdc_processedEvent_eventCode, timestamp
+    | STATS 
+        time_start = MIN(CASE(labels.ecommerce_cdc_processedEvent_eventCode == "TRANSACTION_AUTHORIZATION_REQUESTED_EVENT", timestamp, null)),
+        time_end = MIN(CASE(labels.ecommerce_cdc_processedEvent_eventCode == "TRANSACTION_AUTHORIZATION_COMPLETED_EVENT", timestamp, null))
+      BY labels.ecommerce_cdc_processedEvent_transactionId
+    | WHERE time_start IS NOT NULL AND time_end IS NOT NULL
+    | EVAL duration = DATE_DIFF("ms", time_start, time_end)
+    | STATS 
+        AUTHORIZATION_REQUESTED_to_AUTHORIZATION_COMPLETED = ROUND(AVG(duration), 0)
+    | WHERE AUTHORIZATION_REQUESTED_to_AUTHORIZATION_COMPLETED >= 180000'
+  exclude_hits_from_previous_run: false
+  group_by: all
+trigger_after_consecutive_runs: 2
+enabled: true
+notification_channels:
+  slack:
+    connector_name: "ecommerce-status-slack"
