@@ -6,7 +6,7 @@ window:
 log_query:
   aggregation:
     type: count
-  query: "service.name: pagopa-api-config-cache AND log.level: ERROR AND message: \"HikariPool\" AND message: \"Connection is not available\""
+  query: "service.name: \"pagopa-api-config-cache\" AND log.level: ERROR AND message: \"HikariPool\" AND message: \"Connection is not available\""
   data_view: logs
   exclude_hits_from_previous_run: true
   threshold:
