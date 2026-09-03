@@ -158,6 +158,24 @@
         "ignore_missing": true,
         "ignore_failure": true
       }
+    },
+    {
+      "convert": {
+        "field": "ctx.batch_duration_ms",
+        "type": "long",
+        "target_field": "ctx.batch_duration_ms",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "convert": {
+        "field": "ctx.trigger_lag_p95_ms",
+        "type": "long",
+        "target_field": "ctx.trigger_lag_p95_ms",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
     }
   ],
   "onFailure": [
