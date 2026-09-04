@@ -163,7 +163,7 @@
       "convert": {
         "field": "ctx.batch_duration_ms",
         "type": "long",
-        "target_field": "ctx.batch_duration_ms",
+        "target_field": "ctx.batch_duration_ms_long",
         "ignore_missing": true,
         "ignore_failure": true
       }
@@ -172,7 +172,7 @@
       "convert": {
         "field": "ctx.trigger_lag_p95_ms",
         "type": "long",
-        "target_field": "ctx.trigger_lag_p95_ms",
+        "target_field": "ctx.trigger_lag_p95_ms_long",
         "ignore_missing": true,
         "ignore_failure": true
       }
