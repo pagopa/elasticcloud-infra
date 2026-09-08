@@ -1,0 +1,28 @@
+{
+  "template": {
+    "settings": {
+      "index": {
+        "number_of_shards": "${primary_shard_count}",
+        "lifecycle": {
+          "name": "${lifecycle}"
+        },
+        "default_pipeline": "${pipeline}"
+      }
+    },
+    "mappings": {
+      "properties": {
+        "ctx.details": {
+          "type": "text",
+          "index": false
+        },
+        "ctx_details": {
+          "type": "text",
+          "index": false
+        }
+      }
+    }
+  },
+  "_meta": {
+    "description": "Settings for ${name}"
+  }
+}
