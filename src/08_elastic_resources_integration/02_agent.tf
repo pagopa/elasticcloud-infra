@@ -190,6 +190,10 @@ module "install_agent_cluster_1" {
   target                       = "${var.prefix}-${var.env}"
   target_namespace             = "${var.prefix}.${var.env}"
 
+  elastic_agent_version          = var.elastic_agent_configuration.version
+  output_worker                  = var.elastic_agent_configuration.output_worker
+  output_idle_connection_timeout = var.elastic_agent_configuration.output_idle_connection_timeout
+
   enabled_metric_collection = {
     k8s           = var.elastic_agent_metric_collection.k8s
     system        = var.elastic_agent_metric_collection.system
@@ -231,6 +235,10 @@ module "install_agent_cluster_2" {
   elasticsearch_host           = replace(data.ec_deployment.deployment.elasticsearch[0].https_endpoint, ".es.", ".")
   target                       = "${var.prefix}-${var.env}"
   target_namespace             = "${var.prefix}.${var.env}"
+
+  elastic_agent_version          = var.elastic_agent_configuration.version
+  output_worker                  = var.elastic_agent_configuration.output_worker
+  output_idle_connection_timeout = var.elastic_agent_configuration.output_idle_connection_timeout
 
   enabled_metric_collection = {
     k8s           = var.elastic_agent_metric_collection.k8s
