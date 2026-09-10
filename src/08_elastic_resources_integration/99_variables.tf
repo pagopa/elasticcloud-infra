@@ -136,3 +136,17 @@ variable "otel_exporter_config" {
   }
 }
 
+variable "elastic_agent_configuration" {
+  type = object({
+    version                        = string
+    output_worker                  = optional(number, 1)
+    output_idle_connection_timeout = optional(string, "3s")
+  })
+  description = "(Optional) Configuration for the elastic agent"
+  default = {
+    output_worker                  = 1
+    output_idle_connection_timeout = "3s"
+    version                        = "9.3.2"
+  }
+}
+

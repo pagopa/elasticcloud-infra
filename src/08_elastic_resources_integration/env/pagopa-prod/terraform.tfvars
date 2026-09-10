@@ -143,3 +143,9 @@ otel_exporter_config = {
   consumers        = 100
   memory_limit_mib = 3072
 }
+
+elastic_agent_configuration = {
+  version                        = "9.3.2"
+  output_worker                  = 2
+  output_idle_connection_timeout = "30s"
+}
