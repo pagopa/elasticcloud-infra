@@ -13,7 +13,7 @@ custom_threshold:
       aggregation: count
       filter: "http.response.status_code: 200"
   equation: "(B/A)*100"
-  label: "Error Rate"
+  label: "Success Rate"
   threshold:
     values:
       - 98
