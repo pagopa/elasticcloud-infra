@@ -1,0 +1,27 @@
+name: jwt-issuer-get-keys-availability
+schedule: 15m
+window:
+  size: 15
+  unit: m
+custom_threshold:
+  data_view: apm
+  query: "service.name: \"pagopa-ecommerce-jwt-issuer-service\" AND transaction.name: \"GET /tokens/keys\""
+  aggregations:
+    - name: A
+      aggregation: count
+    - name: B
+      aggregation: count
+      filter: "http.response.status_code: 200"
+  equation: "(B/A)*100"
+  label: "Success Rate"
+  threshold:
+    values:
+      - 99
+    comparator: ">"
+  alert_on_no_data: false
+trigger_after_consecutive_runs: 1
+enabled: true
+notification_channels:
+  jsm:
+    connector_name: team-touchpoint-jsm
+    priority: P3
