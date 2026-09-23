@@ -126,6 +126,10 @@ k8s_application_log_instance_names = {
     "pagopacruscottosertbackend-microservice-chart"
   ]
   anonymizer = ["pagopa-anonymizer"]
+  ebollo = [
+    "pagopa-mbd-service",
+    "pagopa-gps-mbd-service"
+  ]
 }
 
 
