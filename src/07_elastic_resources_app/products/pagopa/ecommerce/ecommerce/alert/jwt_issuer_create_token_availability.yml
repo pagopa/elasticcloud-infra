@@ -17,7 +17,7 @@ custom_threshold:
   threshold:
     values:
       - 99
-    comparator: ">"
+    comparator: "<"
   alert_on_no_data: false
 trigger_after_consecutive_runs: 1
 enabled: true
