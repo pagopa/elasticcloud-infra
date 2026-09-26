@@ -93,8 +93,8 @@ k8s_application_log_instance_names = {
     "gpd-payments-pull",
     "gpd-upload-microservice-chart",
     "gpd-upload-function-microservice-chart",
-    "pagopa-gpd-ingestion-manager",
-    "pagopa-gpd-rtp"
+    "pagopa-gpd-ingestion-manager"
+    # "pagopa-gpd-rtp"
   ]
   nodo = ["nodopagamenti", "nodocron", "wispsoapconverter"]
   pagopawispconverter = [
@@ -127,7 +127,7 @@ k8s_application_log_instance_names = {
     "pagopacruscottoingestor-microservice-chart",
     "pagopacruscottosertbackend-microservice-chart"
   ]
-  anonymizer = ["pagopa-anonymizer"]
+  # anonymizer = ["pagopa-anonymizer"]
   ebollo = [
     "pagopa-mbd-service",
     "pagopa-gps-mbd-service"
