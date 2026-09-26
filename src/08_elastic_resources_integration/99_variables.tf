@@ -88,7 +88,7 @@ variable "k8s_application_log_instance_names" {
 variable "opentelemetry_operator_helm_version" {
   type        = string
   description = "Open telemetry operator version"
-  default     = "0.109.0"
+  default     = "0.123.1"
 }
 
 
@@ -127,6 +127,9 @@ variable "otel_exporter_config" {
     queue_size       = optional(number, 1000)
     consumers        = optional(number, 10)
     memory_limit_mib = optional(number, 2000)
+    batch_timeout = optional(string, "1s")
+    batch_size = optional(number, 1024)
+    batch_max_size = optional(number, 2048)
   })
   description = "(Optional) Size of the OTEL exporter queue"
   default = {

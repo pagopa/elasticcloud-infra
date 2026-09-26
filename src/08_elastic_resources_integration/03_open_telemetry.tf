@@ -2,7 +2,7 @@ module "otel_cluster_1" {
   source = "./.terraform/modules/__v4__/open_telemetry"
 
   elasticsearch_api_key               = data.azurerm_key_vault_secret.elasticsearch_api_key.value
-  elasticsearch_apm_host              = data.ec_deployment.deployment.integrations_server[0].https_endpoint
+  elasticsearch_apm_host              = "https://pagopa-p-weu-ec.apm.westeurope.azure.elastic-cloud.com" #data.ec_deployment.deployment.integrations_server[0].https_endpoint
   opentelemetry_operator_helm_version = var.opentelemetry_operator_helm_version
   otel_kube_namespace                 = var.aks_config[0].otel.namespace
   create_namespace                    = var.aks_config[0].otel.create_ns
@@ -26,7 +26,7 @@ module "otel_cluster_2" {
   count  = length(var.aks_config) > 1 ? 1 : 0
 
   elasticsearch_api_key               = data.azurerm_key_vault_secret.elasticsearch_api_key.value
-  elasticsearch_apm_host              = data.ec_deployment.deployment.integrations_server[0].https_endpoint
+  elasticsearch_apm_host              = "https://pagopa-p-weu-ec.apm.westeurope.azure.elastic-cloud.com" #data.ec_deployment.deployment.integrations_server[0].https_endpoint
   opentelemetry_operator_helm_version = var.opentelemetry_operator_helm_version
   otel_kube_namespace                 = var.aks_config[1].otel.namespace
   create_namespace                    = var.aks_config[1].otel.create_ns

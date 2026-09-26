@@ -49,7 +49,7 @@ apm_logs_metrics_ilm = {
 }
 
 ilm_delete_wait_for_snapshot = true
-primary_shard_count          = 3
+primary_shard_count          = 1
 total_shards_per_node        = 3
 
 

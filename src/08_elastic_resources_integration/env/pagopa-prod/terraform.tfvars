@@ -142,13 +142,22 @@ sampling_configuration = {
 }
 
 otel_exporter_config = {
-  queue_size       = 40000
+  queue_size       = 80000
   consumers        = 100
-  memory_limit_mib = 3072
+  memory_limit_mib = 4096
+  batch_timeout = "1s"
+  batch_size = 8192
+  batch_max_size = 16384
 }
 
 elastic_agent_configuration = {
   version                        = "9.3.2"
   output_worker                  = 2
   output_idle_connection_timeout = "30s"
+}
+
+elastic_agent_metric_collection = {
+  k8s           = false
+  system        = false
+  elastic_agent = false
 }
