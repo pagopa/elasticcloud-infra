@@ -134,7 +134,7 @@ k8s_application_log_instance_names = {
   ]
 }
 
-sampling_configuration = {
+tail_sampling_configuration = {
   enabled                    = true
   probes_sampling_percentage = 10
   sampling_percentage        = 60
@@ -142,12 +142,26 @@ sampling_configuration = {
 }
 
 otel_exporter_config = {
-  queue_size       = 80000
-  consumers        = 100
-  memory_limit_mib = 4096
-  batch_timeout = "1s"
-  batch_size = 8192
+  queue_size     = 80000
+  consumers      = 100
+  batch_timeout  = "1s"
+  batch_size     = 8192
   batch_max_size = 16384
+}
+
+otel_collector_memory_limiter = {
+  memory_limit_mib = 4096
+  spike_limit_mib  = 1024
+  check_interval   = "1s"
+}
+
+otel_collector_resources = {
+  limits = {
+    cpu = "2000m"
+  }
+  requests = {
+    cpu = "1000m"
+  }
 }
 
 elastic_agent_configuration = {

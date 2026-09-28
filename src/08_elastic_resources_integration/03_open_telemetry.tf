@@ -2,7 +2,7 @@ module "otel_cluster_1" {
   source = "./.terraform/modules/__v4__/open_telemetry"
 
   elasticsearch_api_key               = data.azurerm_key_vault_secret.elasticsearch_api_key.value
-  elasticsearch_apm_host              = "https://pagopa-p-weu-ec.apm.westeurope.azure.elastic-cloud.com" #data.ec_deployment.deployment.integrations_server[0].https_endpoint
+  elasticsearch_apm_host              = data.ec_deployment.deployment.integrations_server[0].https_endpoint
   opentelemetry_operator_helm_version = var.opentelemetry_operator_helm_version
   otel_kube_namespace                 = var.aks_config[0].otel.namespace
   create_namespace                    = var.aks_config[0].otel.create_ns
@@ -10,8 +10,11 @@ module "otel_cluster_1" {
   deployment_env                      = var.env
   elastic_namespace                   = "${var.prefix}.${var.env}"
 
-  sampling             = var.sampling_configuration
+  tail_sampling        = var.tail_sampling_configuration
+  head_sampling        = var.head_sampling_configuration
   otlp_exporter_config = var.otel_exporter_config
+  memory_limiter       = var.otel_collector_memory_limiter
+  resources            = var.otel_collector_resources
 
   affinity_selector = var.aks_config[0].otel.affinity_selector
 
@@ -26,7 +29,7 @@ module "otel_cluster_2" {
   count  = length(var.aks_config) > 1 ? 1 : 0
 
   elasticsearch_api_key               = data.azurerm_key_vault_secret.elasticsearch_api_key.value
-  elasticsearch_apm_host              = "https://pagopa-p-weu-ec.apm.westeurope.azure.elastic-cloud.com" #data.ec_deployment.deployment.integrations_server[0].https_endpoint
+  elasticsearch_apm_host              = data.ec_deployment.deployment.integrations_server[0].https_endpoint
   opentelemetry_operator_helm_version = var.opentelemetry_operator_helm_version
   otel_kube_namespace                 = var.aks_config[1].otel.namespace
   create_namespace                    = var.aks_config[1].otel.create_ns
@@ -36,8 +39,11 @@ module "otel_cluster_2" {
 
   affinity_selector = var.aks_config[1].otel.affinity_selector
 
-  sampling             = var.sampling_configuration
+  tail_sampling        = var.tail_sampling_configuration
+  head_sampling        = var.head_sampling_configuration
   otlp_exporter_config = var.otel_exporter_config
+  memory_limiter       = var.otel_collector_memory_limiter
+  resources            = var.otel_collector_resources
 
   providers = {
     kubectl = kubectl.cluster_2
