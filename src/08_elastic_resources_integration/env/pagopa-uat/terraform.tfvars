@@ -132,7 +132,7 @@ k8s_application_log_instance_names = {
   ]
 }
 
-sampling_configuration = {
+tail_sampling_configuration = {
   enabled                    = true
   probes_sampling_percentage = 10
   sampling_percentage        = 50
