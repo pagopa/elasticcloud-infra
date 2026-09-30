@@ -93,8 +93,8 @@ k8s_application_log_instance_names = {
     "gpd-payments-pull",
     "gpd-upload-microservice-chart",
     "gpd-upload-function-microservice-chart",
-    "pagopa-gpd-ingestion-manager",
-    "pagopa-gpd-rtp"
+    "pagopa-gpd-ingestion-manager"
+    # "pagopa-gpd-rtp"
   ]
   nodo = ["nodopagamenti", "nodocron", "wispsoapconverter"]
   pagopawispconverter = [
@@ -127,14 +127,14 @@ k8s_application_log_instance_names = {
     "pagopacruscottoingestor-microservice-chart",
     "pagopacruscottosertbackend-microservice-chart"
   ]
-  anonymizer = ["pagopa-anonymizer"]
+  # anonymizer = ["pagopa-anonymizer"]
   ebollo = [
     "pagopa-mbd-service",
     "pagopa-gps-mbd-service"
   ]
 }
 
-sampling_configuration = {
+tail_sampling_configuration = {
   enabled                    = true
   probes_sampling_percentage = 10
   sampling_percentage        = 60
@@ -142,13 +142,36 @@ sampling_configuration = {
 }
 
 otel_exporter_config = {
-  queue_size       = 40000
-  consumers        = 100
-  memory_limit_mib = 3072
+  queue_size     = 80000
+  consumers      = 100
+  batch_timeout  = "1s"
+  batch_size     = 8192
+  batch_max_size = 16384
+}
+
+otel_collector_memory_limiter = {
+  memory_limit_mib = 4096
+  spike_limit_mib  = 1024
+  check_interval   = "1s"
+}
+
+otel_collector_resources = {
+  limits = {
+    cpu = "2000m"
+  }
+  requests = {
+    cpu = "1000m"
+  }
 }
 
 elastic_agent_configuration = {
   version                        = "9.3.2"
   output_worker                  = 2
   output_idle_connection_timeout = "30s"
+}
+
+elastic_agent_metric_collection = {
+  k8s           = false
+  system        = false
+  elastic_agent = false
 }
