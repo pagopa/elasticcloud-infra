@@ -25,3 +25,53 @@ resource "elasticstack_kibana_action_connector" "app_connector" {
   ) : null)
   space_id = elasticstack_kibana_space.kibana_space[each.value.space_name].space_id
 }
+
+
+#
+# Infra connectors for system alerting
+#
+resource "elasticstack_kibana_action_connector" "infra_connector_slack" {
+  for_each          = var.infra_alert_channels.slack ? local.spaces : []
+  name              = local.system_connector_names.slack
+  connector_type_id = ".slack"
+  space_id = elasticstack_kibana_space.kibana_space[each.value].space_id
+
+  secrets = jsonencode({
+    webhookUrl = data.azurerm_key_vault_secret.infra_slack_webhook_url.value
+  })
+}
+
+resource "elasticstack_kibana_action_connector" "infra_connector_jsm" {
+  for_each          = var.infra_alert_channels.jsm ? local.spaces : []
+  name              = local.system_connector_names.jsm
+  connector_type_id = ".jira-service-management"
+    space_id = elasticstack_kibana_space.kibana_space[each.value].space_id
+
+  secrets = jsonencode({
+    apiKey = data.azurerm_key_vault_secret.infra_jsm_api_key.value
+  })
+  config = jsonencode({
+    apiUrl = "https://api.atlassian.com"
+  })
+}
+
+resource "elasticstack_kibana_action_connector" "infra_connector_cloudo" {
+  for_each          = var.infra_alert_channels.cloudo ? local.spaces : []
+  name              = local.system_connector_names.cloudo
+  connector_type_id = ".webhook"
+    space_id = elasticstack_kibana_space.kibana_space[each.value].space_id
+
+  secrets           = jsonencode({})
+  config = jsonencode(
+    {
+      hasAuth = false,
+      method  = "post",
+      headers = {
+        "ocp-apim-subscription-key" = data.azurerm_key_vault_secret.infra_cloudo_subscription_key.value
+        "x-cloudo-key"              = data.azurerm_key_vault_secret.infra_cloudo_api_key.value
+      },
+      url = data.azurerm_key_vault_secret.infra_cloudo_webhook_url.value
+    }
+  )
+}
+

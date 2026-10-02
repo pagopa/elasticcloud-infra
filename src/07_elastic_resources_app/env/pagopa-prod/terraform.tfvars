@@ -3,6 +3,8 @@ env_short = "p"
 env       = "prod"
 
 deployment_name = "pagopa-p-weu-ec"
+elastic_deployment_env = "prod"
+elastic_deployment_env_short = "p"
 
 ilm = {
   nodo                 = "w1-d7-shrink"
@@ -90,6 +92,14 @@ email_recipients = {
 alert_channels = {
   email  = false
   slack  = true
+  jsm    = true
+  cloudo = true
+}
+
+infra_alert_channels = {
+  log    = true
+  slack  = false
+  email  = true
   jsm    = true
   cloudo = true
 }

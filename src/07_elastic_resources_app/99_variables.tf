@@ -33,6 +33,7 @@ variable "env_short" {
   }
 }
 
+
 variable "deployment_name" {
   type        = string
   description = "(Required) EC deployment name"
@@ -111,6 +112,25 @@ variable "app_connectors" {
   }
 }
 
+variable "system_connectors" {
+  type = map(object({
+    type           = string
+    secret_key     = string
+    secret_headers = optional(map(string), {}) #key is the header name, value is the key vault secret name containing the header value
+  }))
+
+  description = "(optional) Map of <connector name>-<connector details> for additional connectors dedicated to system alerts. supports slack and jsm and cloudo type"
+
+  default = {}
+
+  validation {
+    condition = (
+      alltrue([for i in var.system_connectors : contains(["slack", "jira-service-management", "webhook"], i.type)])
+    )
+    error_message = "Only 'slack', 'jira-service-management' and 'webhook' types are supported"
+  }
+}
+
 variable "email_recipients" {
   type        = map(list(string))
   description = "(Optional) Map of List of email recipients associated to a name. to be used for email alerts. Default is empty"
@@ -129,6 +149,24 @@ variable "alert_channels" {
   default = {
     email  = false
     slack  = false
+    jsm    = false
+    cloudo = false
+  }
+}
+
+variable "infra_alert_channels" {
+  description = "Channels used to notify alerts to infra team"
+  type = object({
+    jsm    = bool
+    email  = bool
+    log    = bool
+    slack  = bool
+    cloudo = bool
+  })
+  default = {
+    log    = true
+    slack  = true
+    email  = false
     jsm    = false
     cloudo = false
   }

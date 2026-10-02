@@ -3,6 +3,8 @@ env_short = "u"
 env       = "uat"
 
 deployment_name = "pagopa-s-weu-ec"
+elastic_deployment_env = "uat"
+elastic_deployment_env_short = "u"
 
 ilm = {
   nodo                 = "w5-d5-lowsize"
@@ -65,4 +67,12 @@ alert_channels = {
   slack  = false
   jsm    = false
   cloudo = false
+}
+
+infra_alert_channels = {
+  log    = true
+  slack  = true
+  email  = false
+  jsm    = false
+  cloudo = true
 }
