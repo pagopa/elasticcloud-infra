@@ -27,44 +27,52 @@ for details on how to configure a new space/application, please refer to the `co
 |------|---------|
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 4.16 |
 | <a name="requirement_ec"></a> [ec](#requirement\_ec) | ~> 0.12.2 |
-| <a name="requirement_elasticstack"></a> [elasticstack](#requirement\_elasticstack) | 0.16.0 |
+| <a name="requirement_elasticstack"></a> [elasticstack](#requirement\_elasticstack) | 0.16.5 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 4.74.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 4.81.0 |
 | <a name="provider_ec"></a> [ec](#provider\_ec) | 0.12.5 |
-| <a name="provider_elasticstack"></a> [elasticstack](#provider\_elasticstack) | 0.16.0 |
+| <a name="provider_elasticstack"></a> [elasticstack](#provider\_elasticstack) | 0.16.5 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module___v4__"></a> [\_\_v4\_\_](#module\_\_\_v4\_\_) | git::https://github.com/pagopa/terraform-azurerm-v4 | 303c861813e984b63cf853faee525791ac36efd5 |
+| <a name="module___v4__"></a> [\_\_v4\_\_](#module\_\_\_v4\_\_) | git::https://github.com/pagopa/terraform-azurerm-v4 | 3df0021a1f46f076e392f1735c937ae1885ef70c |
 | <a name="module_app_resources"></a> [app\_resources](#module\_app\_resources) | ./.terraform/modules/__v4__/elastic_app_resources | n/a |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [elasticstack_elasticsearch_component_template.apm_components_logs_custom_index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/resources/elasticsearch_component_template) | resource |
-| [elasticstack_elasticsearch_component_template.apm_components_metrics_custom_index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/resources/elasticsearch_component_template) | resource |
-| [elasticstack_elasticsearch_index_lifecycle.index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/resources/elasticsearch_index_lifecycle) | resource |
-| [elasticstack_elasticsearch_index_template.logs_apm_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/resources/elasticsearch_index_template) | resource |
-| [elasticstack_elasticsearch_index_template.metrics_apm_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/resources/elasticsearch_index_template) | resource |
-| [elasticstack_kibana_action_connector.app_connector](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/resources/kibana_action_connector) | resource |
-| [elasticstack_kibana_space.kibana_space](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/resources/kibana_space) | resource |
+| [elasticstack_elasticsearch_component_template.apm_components_logs_custom_index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.16.5/docs/resources/elasticsearch_component_template) | resource |
+| [elasticstack_elasticsearch_component_template.apm_components_metrics_custom_index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.16.5/docs/resources/elasticsearch_component_template) | resource |
+| [elasticstack_elasticsearch_index_lifecycle.index_lifecycle](https://registry.terraform.io/providers/elastic/elasticstack/0.16.5/docs/resources/elasticsearch_index_lifecycle) | resource |
+| [elasticstack_elasticsearch_index_template.logs_apm_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.16.5/docs/resources/elasticsearch_index_template) | resource |
+| [elasticstack_elasticsearch_index_template.metrics_apm_index_template](https://registry.terraform.io/providers/elastic/elasticstack/0.16.5/docs/resources/elasticsearch_index_template) | resource |
+| [elasticstack_kibana_action_connector.app_connector](https://registry.terraform.io/providers/elastic/elasticstack/0.16.5/docs/resources/kibana_action_connector) | resource |
+| [elasticstack_kibana_action_connector.infra_connector_cloudo](https://registry.terraform.io/providers/elastic/elasticstack/0.16.5/docs/resources/kibana_action_connector) | resource |
+| [elasticstack_kibana_action_connector.infra_connector_jsm](https://registry.terraform.io/providers/elastic/elasticstack/0.16.5/docs/resources/kibana_action_connector) | resource |
+| [elasticstack_kibana_action_connector.infra_connector_slack](https://registry.terraform.io/providers/elastic/elasticstack/0.16.5/docs/resources/kibana_action_connector) | resource |
+| [elasticstack_kibana_space.kibana_space](https://registry.terraform.io/providers/elastic/elasticstack/0.16.5/docs/resources/kibana_space) | resource |
 | [azurerm_key_vault.key_vault_org](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault) | data source |
 | [azurerm_key_vault.target_key_vault](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault) | data source |
 | [azurerm_key_vault_secret.app_connector_secret_headers](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault_secret) | data source |
 | [azurerm_key_vault_secret.app_connector_secret_key](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault_secret) | data source |
 | [azurerm_key_vault_secret.elastic_cloud_api_key](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault_secret) | data source |
 | [azurerm_key_vault_secret.elasticsearch_api_key](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault_secret) | data source |
+| [azurerm_key_vault_secret.infra_cloudo_api_key](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault_secret) | data source |
+| [azurerm_key_vault_secret.infra_cloudo_subscription_key](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault_secret) | data source |
+| [azurerm_key_vault_secret.infra_cloudo_webhook_url](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault_secret) | data source |
+| [azurerm_key_vault_secret.infra_jsm_api_key](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault_secret) | data source |
+| [azurerm_key_vault_secret.infra_slack_webhook_url](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault_secret) | data source |
 | [ec_deployment.deployment](https://registry.terraform.io/providers/elastic/ec/latest/docs/data-sources/deployment) | data source |
 | [ec_deployments.deployments](https://registry.terraform.io/providers/elastic/ec/latest/docs/data-sources/deployments) | data source |
-| [elasticstack_fleet_integration.kubernetes](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/data-sources/fleet_integration) | data source |
-| [elasticstack_fleet_integration.system](https://registry.terraform.io/providers/elastic/elasticstack/0.16.0/docs/data-sources/fleet_integration) | data source |
+| [elasticstack_fleet_integration.kubernetes](https://registry.terraform.io/providers/elastic/elasticstack/0.16.5/docs/data-sources/fleet_integration) | data source |
+| [elasticstack_fleet_integration.system](https://registry.terraform.io/providers/elastic/elasticstack/0.16.5/docs/data-sources/fleet_integration) | data source |
 
 ## Inputs
 
@@ -79,9 +87,12 @@ for details on how to configure a new space/application, please refer to the `co
 | <a name="input_env_short"></a> [env\_short](#input\_env\_short) | n/a | `string` | n/a | yes |
 | <a name="input_ilm"></a> [ilm](#input\_ilm) | (Required) Map containing all the application name for this environment associated to the related index lifecycle management policy to be used for that application. The allowed values are the file names in `default_library/ilm` folder | `map(string)` | n/a | yes |
 | <a name="input_ilm_delete_wait_for_snapshot"></a> [ilm\_delete\_wait\_for\_snapshot](#input\_ilm\_delete\_wait\_for\_snapshot) | Wheather or not the delete phase of every lifecycle policy for this environment needs to wait for snapshot policy to run or not | `bool` | n/a | yes |
+| <a name="input_infra_alert_channels"></a> [infra\_alert\_channels](#input\_infra\_alert\_channels) | Channels used to notify alerts to infra team | <pre>object({<br/>    jsm    = bool<br/>    email  = bool<br/>    slack  = bool<br/>    cloudo = bool<br/>  })</pre> | <pre>{<br/>  "cloudo": false,<br/>  "email": false,<br/>  "jsm": false,<br/>  "slack": true<br/>}</pre> | no |
 | <a name="input_lifecycle_policy_wait_for_snapshot"></a> [lifecycle\_policy\_wait\_for\_snapshot](#input\_lifecycle\_policy\_wait\_for\_snapshot) | (Optional) True if the index lifecycle policy has to wait for snapshots before deletion | `bool` | `true` | no |
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | n/a | `string` | n/a | yes |
 | <a name="input_primary_shard_count"></a> [primary\_shard\_count](#input\_primary\_shard\_count) | (Optional) Number of primary shards to be used for the index template. Default is 1. keep in mind to tune this value accordingly to the available number of nodes | `number` | `1` | no |
+| <a name="input_system_connectors"></a> [system\_connectors](#input\_system\_connectors) | (optional) Map of <connector name>-<connector details> for additional connectors dedicated to system alerts. supports slack and jsm and cloudo type | <pre>map(object({<br/>    type           = string<br/>    secret_key     = string<br/>    secret_headers = optional(map(string), {}) #key is the header name, value is the key vault secret name containing the header value<br/>  }))</pre> | `{}` | no |
+| <a name="input_system_overlog_alert_configuration"></a> [system\_overlog\_alert\_configuration](#input\_system\_overlog\_alert\_configuration) | Configuration for system overlog alerting | <pre>object({<br/>    lookback_comparison_hours = number<br/>    threshold                 = number<br/>    window_size_hours         = number<br/>  })</pre> | <pre>{<br/>  "lookback_comparison_hours": 24,<br/>  "threshold": 20,<br/>  "window_size_hours": 1<br/>}</pre> | no |
 | <a name="input_total_shards_per_node"></a> [total\_shards\_per\_node](#input\_total\_shards\_per\_node) | (Optional) Maximum number of shards (primary + replica) to be stored on a node for each index. Default is 2. | `number` | `2` | no |
 
 ## Outputs

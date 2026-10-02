@@ -2,7 +2,9 @@ prefix    = "pagopa"
 env_short = "u"
 env       = "uat"
 
-deployment_name = "pagopa-s-weu-ec"
+deployment_name              = "pagopa-s-weu-ec"
+elastic_deployment_env       = "uat"
+elastic_deployment_env_short = "u"
 
 ilm = {
   nodo                 = "w5-d5-lowsize"
@@ -65,4 +67,17 @@ alert_channels = {
   slack  = false
   jsm    = false
   cloudo = false
+}
+
+infra_alert_channels = {
+  slack  = true
+  email  = false
+  jsm    = false
+  cloudo = false
+}
+
+system_overlog_alert_configuration = {
+  lookback_comparison_hours = 24
+  threshold                 = 40
+  window_size_hours         = 1
 }

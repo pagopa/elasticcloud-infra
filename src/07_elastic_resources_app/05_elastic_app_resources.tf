@@ -12,6 +12,7 @@ module "app_resources" {
   configuration = each.value.conf
   target_env    = var.env
   space_id      = elasticstack_kibana_space.kibana_space[each.value.space_name].space_id
+  space_name    = each.value.space_name
 
   ilm_name = var.ilm[each.key]
 
@@ -50,6 +51,25 @@ module "app_resources" {
     }
   }
 
+  system_alert_channels = {
+    email = {
+      enabled    = var.infra_alert_channels.email
+      recipients = var.email_recipients
+    }
+    slack = {
+      enabled    = var.infra_alert_channels.slack
+      connectors = var.infra_alert_channels.slack ? { (local.system_connector_names.slack) : elasticstack_kibana_action_connector.infra_connector_slack[each.value.space_name].connector_id } : {}
+    }
+    jsm = {
+      enabled    = var.infra_alert_channels.jsm
+      connectors = var.infra_alert_channels.jsm ? { (local.system_connector_names.jsm) : elasticstack_kibana_action_connector.infra_connector_jsm[each.value.space_name].connector_id } : {}
+    }
+    cloudo = {
+      enabled    = var.infra_alert_channels.cloudo
+      connectors = var.infra_alert_channels.cloudo ? { (local.system_connector_names.cloudo) : elasticstack_kibana_action_connector.infra_connector_cloudo[each.value.space_name].connector_id } : {}
+    }
+  }
+
   application_name = each.key
 
   custom_index_component_parameters = {
@@ -57,6 +77,24 @@ module "app_resources" {
     total_shards_per_node = var.total_shards_per_node
   }
 
+  system_alert = {
+    overlog = {
+      window_size_hours         = var.system_overlog_alert_configuration.window_size_hours
+      threshold_percentage      = var.system_overlog_alert_configuration.threshold
+      lookback_comparison_hours = var.system_overlog_alert_configuration.lookback_comparison_hours
+    }
+    notification_channels = {
+      slack = {
+        connector_name = local.system_connector_names.slack
+      },
+      jsm = {
+        connector_name = local.system_connector_names.jsm
+        priority       = "P2"
+      }
+    }
+  }
+
   depends_on = [elasticstack_elasticsearch_index_lifecycle.index_lifecycle]
 }
+
 

@@ -2,7 +2,9 @@ prefix    = "pagopa"
 env       = "dev"
 env_short = "d"
 
-deployment_name = "pagopa-s-weu-ec"
+deployment_name              = "pagopa-s-weu-ec"
+elastic_deployment_env       = "uat" # deployment is shared between dev and uat env, and it's stored in uat subscription
+elastic_deployment_env_short = "u"   # deployment is shared between dev and uat env, and it's stored in uat subscription
 
 ilm = {
   nodo                 = "w5-d5-lowsize"
@@ -60,10 +62,23 @@ app_connectors = {
   }
 }
 
-
 alert_channels = {
   email  = false
   slack  = false
   jsm    = false
   cloudo = true
+}
+
+infra_alert_channels = {
+  slack  = false
+  email  = false
+  jsm    = false
+  cloudo = false
+}
+
+
+system_overlog_alert_configuration = {
+  lookback_comparison_hours = 24
+  threshold                 = 40
+  window_size_hours         = 1
 }

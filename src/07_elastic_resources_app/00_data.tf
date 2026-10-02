@@ -47,3 +47,31 @@ data "azurerm_key_vault_secret" "app_connector_secret_headers" {
   name         = each.value
   key_vault_id = data.azurerm_key_vault.target_key_vault.id
 }
+
+
+
+
+data "azurerm_key_vault_secret" "infra_jsm_api_key" {
+  name         = "jsm-api-key"
+  key_vault_id = data.azurerm_key_vault.target_key_vault.id
+}
+
+data "azurerm_key_vault_secret" "infra_slack_webhook_url" {
+  name         = "slack-webhook-url"
+  key_vault_id = data.azurerm_key_vault.target_key_vault.id
+}
+
+data "azurerm_key_vault_secret" "infra_cloudo_webhook_url" {
+  name         = "cloudo-webhook-url"
+  key_vault_id = data.azurerm_key_vault.target_key_vault.id
+}
+
+data "azurerm_key_vault_secret" "infra_cloudo_subscription_key" {
+  name         = "cloudo-subscription-key"
+  key_vault_id = data.azurerm_key_vault.target_key_vault.id
+}
+
+data "azurerm_key_vault_secret" "infra_cloudo_api_key" {
+  name         = "cloudo-api-key"
+  key_vault_id = data.azurerm_key_vault.target_key_vault.id
+}

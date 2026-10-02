@@ -265,6 +265,11 @@ notification_channels:
     type: "aks"
     attributes:
         namespace: "api-config"
+investigation: # optional, visualized in the alert detail page in Kibana
+  message: |
+    Alert investigation message: what could be useful to do to investigate the alert, or to mitigate it
+  dashboards:  # list of dashboards associated to this alert. identified by the file name (without the .ndjson extension)
+    - logs-by-service
 ```
 
 where:
@@ -337,7 +342,11 @@ where:
     - `severity`: **required** severity level for the ClouDO runbook. It can be `Sev0`, `Sev1`, `Sev2`, `Sev3`, `Sev4`
     - `attributes`: **optional** map of arbitrary attributes to be sent to ClouDO. For more details check the table below
 
-
+**investigation properties**
+- `investigation`: **optional** visualized in the alert detail page in Kibana
+  - `message`: **optional** message to be displayed in the alert detail page in Kibana, useful to provide instructions for the investigation of the alert
+  - `dashboards`: **optional**  list of dashboards names associated to this alert. identified by the file name (without the `.ndjson` extension)
+    
 
 This `yml` file is parsed using the terraform templatefile function, so make sure to escape any special character as per [terraform template syntax](https://developer.hashicorp.com/terraform/language/expressions/strings#escape-sequences)
 Available variables are:

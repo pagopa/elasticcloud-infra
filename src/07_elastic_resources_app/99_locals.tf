@@ -40,6 +40,20 @@ locals {
     ]) : elem.key => elem
   }
 
+  system_connectors = {
+    for elem in flatten([
+      for space in local.spaces : [
+        for connector_name, connector in var.system_connectors : {
+          key        = "${space}-${connector_name}"
+          space_name = space
+          connector  = connector_name
+          type       = connector.type
+        }
+      ]
+    ]) : elem.key => elem
+  }
+
+
   app_connector_secret_headers = {
     for elem in flatten([
       for connector_name in keys(var.app_connectors) : [
@@ -50,6 +64,12 @@ locals {
         }
       ]
     ]) : elem.key => elem.value
+  }
+
+  system_connector_names = {
+    slack  = "infra-slack"
+    jsm    = "infra-jsm"
+    cloudo = "infra-cloudo"
   }
 
 }

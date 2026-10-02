@@ -10,7 +10,7 @@ terraform {
     }
     elasticstack = {
       source  = "elastic/elasticstack"
-      version = "0.16.0"
+      version = "0.16.5"
     }
 
   }
@@ -43,6 +43,6 @@ provider "elasticstack" {
 
 
 module "__v4__" {
-  # 10.16.1
-  source = "git::https://github.com/pagopa/terraform-azurerm-v4?ref=303c861813e984b63cf853faee525791ac36efd5"
+  # 10.38.2
+  source = "git::https://github.com/pagopa/terraform-azurerm-v4?ref=3df0021a1f46f076e392f1735c937ae1885ef70c"
 }
