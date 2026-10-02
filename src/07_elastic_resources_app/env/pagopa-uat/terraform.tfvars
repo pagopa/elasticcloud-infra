@@ -70,7 +70,7 @@ alert_channels = {
 }
 
 infra_alert_channels = {
-  slack  = true
+  slack  = false
   email  = false
   jsm    = false
   cloudo = false
