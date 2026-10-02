@@ -21,7 +21,7 @@ alert_channels = {
   cloudo = true
 }
 
-
+default_refresh_interval = "60s"
 default_idx_tpl_customization = {
   logs = {
     lifecycle             = "w5-d5-lowsize"
