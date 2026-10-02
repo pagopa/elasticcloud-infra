@@ -2,8 +2,8 @@ prefix    = "pagopa"
 env_short = "p"
 env       = "prod"
 
-deployment_name = "pagopa-p-weu-ec"
-elastic_deployment_env = "prod"
+deployment_name              = "pagopa-p-weu-ec"
+elastic_deployment_env       = "prod"
 elastic_deployment_env_short = "p"
 
 ilm = {
@@ -87,6 +87,9 @@ email_recipients = {
   ]
   "team-touchpoint-emails" = [
   ]
+  "team-infra-emails" = [
+    "payments-cloud@pagopa.it"
+  ]
 }
 
 alert_channels = {
@@ -97,9 +100,14 @@ alert_channels = {
 }
 
 infra_alert_channels = {
-  log    = true
-  slack  = false
+  slack  = true
   email  = true
-  jsm    = true
-  cloudo = true
+  jsm    = false
+  cloudo = false
+}
+
+system_overlog_alert_configuration = {
+  lookback_comparison_hours = 24
+  threshold                 = 30
+  window_size_hours         = 1
 }

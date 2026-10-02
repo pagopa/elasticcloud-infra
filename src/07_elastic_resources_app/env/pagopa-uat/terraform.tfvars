@@ -2,8 +2,8 @@ prefix    = "pagopa"
 env_short = "u"
 env       = "uat"
 
-deployment_name = "pagopa-s-weu-ec"
-elastic_deployment_env = "uat"
+deployment_name              = "pagopa-s-weu-ec"
+elastic_deployment_env       = "uat"
 elastic_deployment_env_short = "u"
 
 ilm = {
@@ -70,9 +70,14 @@ alert_channels = {
 }
 
 infra_alert_channels = {
-  log    = true
   slack  = true
   email  = false
   jsm    = false
-  cloudo = true
+  cloudo = false
+}
+
+system_overlog_alert_configuration = {
+  lookback_comparison_hours = 24
+  threshold                 = 40
+  window_size_hours         = 1
 }

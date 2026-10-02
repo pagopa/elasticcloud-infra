@@ -12,7 +12,7 @@ module "app_resources" {
   configuration = each.value.conf
   target_env    = var.env
   space_id      = elasticstack_kibana_space.kibana_space[each.value.space_name].space_id
-  space_name = each.value.space_name
+  space_name    = each.value.space_name
 
   ilm_name = var.ilm[each.key]
 
@@ -57,16 +57,16 @@ module "app_resources" {
       recipients = var.email_recipients
     }
     slack = {
-      enabled = var.infra_alert_channels.slack
-      connectors = var.infra_alert_channels.slack ? {(local.system_connector_names.slack): elasticstack_kibana_action_connector.infra_connector_slack[each.value.space_name].connector_id} : {}
+      enabled    = var.infra_alert_channels.slack
+      connectors = var.infra_alert_channels.slack ? { (local.system_connector_names.slack) : elasticstack_kibana_action_connector.infra_connector_slack[each.value.space_name].connector_id } : {}
     }
     jsm = {
-      enabled = var.infra_alert_channels.jsm
-      connectors = var.infra_alert_channels.jsm ? {(local.system_connector_names.jsm): elasticstack_kibana_action_connector.infra_connector_jsm[each.value.space_name].connector_id} : {}
+      enabled    = var.infra_alert_channels.jsm
+      connectors = var.infra_alert_channels.jsm ? { (local.system_connector_names.jsm) : elasticstack_kibana_action_connector.infra_connector_jsm[each.value.space_name].connector_id } : {}
     }
     cloudo = {
-      enabled = var.infra_alert_channels.cloudo
-      connectors = var.infra_alert_channels.cloudo ? {(local.system_connector_names.cloudo): elasticstack_kibana_action_connector.infra_connector_cloudo[each.value.space_name].connector_id} : {}
+      enabled    = var.infra_alert_channels.cloudo
+      connectors = var.infra_alert_channels.cloudo ? { (local.system_connector_names.cloudo) : elasticstack_kibana_action_connector.infra_connector_cloudo[each.value.space_name].connector_id } : {}
     }
   }
 
@@ -79,13 +79,17 @@ module "app_resources" {
 
   system_alert = {
     overlog = {
-      window_size_hours = 1
-      threshold_percentage = 10
-      lookback_comparison_hours = 24
+      window_size_hours         = var.system_overlog_alert_configuration.window_size_hours
+      threshold_percentage      = var.system_overlog_alert_configuration.threshold
+      lookback_comparison_hours = var.system_overlog_alert_configuration.lookback_comparison_hours
     }
     notification_channels = {
       slack = {
         connector_name = local.system_connector_names.slack
+      },
+      jsm = {
+        connector_name = local.system_connector_names.jsm
+        priority       = "P2"
       }
     }
   }

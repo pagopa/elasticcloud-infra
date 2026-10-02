@@ -67,8 +67,8 @@ locals {
   }
 
   system_connector_names = {
-    slack = "infra-slack"
-    jsm   = "infra-jsm"
+    slack  = "infra-slack"
+    jsm    = "infra-jsm"
     cloudo = "infra-cloudo"
   }
 
