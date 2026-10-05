@@ -6,7 +6,7 @@ locals {
       name                  = k
       primary_shard_count   = v.primary_shard_count
       total_shards_per_node = v.total_shards_per_node
-      refresh_interval       = v.refresh_interval
+      refresh_interval      = v.refresh_interval
       }
   )) }
 }

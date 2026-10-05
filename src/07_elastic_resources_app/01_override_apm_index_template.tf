@@ -5,6 +5,7 @@ locals {
       lifecycle           = "${local.prefix_env}-${v}-ilm",
       name                = k
       primary_shard_count = var.primary_shard_count
+      refresh_interval    = var.refresh_interval
       }
   )) }
 

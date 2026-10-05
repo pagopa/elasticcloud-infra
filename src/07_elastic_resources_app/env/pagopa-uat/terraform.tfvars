@@ -81,3 +81,5 @@ system_overlog_alert_configuration = {
   threshold                 = 40
   window_size_hours         = 1
 }
+
+refresh_interval = "60s"
