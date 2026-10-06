@@ -185,4 +185,10 @@ variable "system_overlog_alert_configuration" {
   }
 }
 
+variable "refresh_interval" {
+  type        = string
+  description = "Refresh interval for the index template"
+  default     = "5s"
+}
+
 
