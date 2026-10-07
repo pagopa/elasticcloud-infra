@@ -6,7 +6,12 @@ resource "elasticstack_kibana_space" "kibana_space" {
   disabled_features = []
 }
 
-
+resource "elasticstack_kibana_space" "kibana_system_space" {
+  space_id          = "system-${var.env}"
+  name              = "system-${var.env}"
+  description       = "Space for system-${var.env}"
+  disabled_features = []
+}
 
 resource "elasticstack_kibana_action_connector" "app_connector" {
   for_each          = local.space_connectors
