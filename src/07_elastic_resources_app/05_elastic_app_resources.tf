@@ -9,13 +9,13 @@ module "app_resources" {
   source   = "./.terraform/modules/__v4__/elastic_app_resources"
   for_each = local.configurations
 
-  target_name   = var.prefix
-  configuration = each.value.conf
-  target_env    = var.env
-  space_id      = elasticstack_kibana_space.kibana_space[each.value.space_name].space_id
-  space_name    = each.value.space_name
+  target_name     = var.prefix
+  configuration   = each.value.conf
+  target_env      = var.env
+  space_id        = elasticstack_kibana_space.kibana_space[each.value.space_name].space_id
+  space_name      = each.value.space_name
   system_space_id = elasticstack_kibana_space.kibana_system_space.space_id
-  ilm_name = var.ilm[each.key]
+  ilm_name        = var.ilm[each.key]
 
   library_index_custom_path    = "${path.module}/default_library/index_component"
   library_index_package_path   = "${path.module}/default_library/index_component"
