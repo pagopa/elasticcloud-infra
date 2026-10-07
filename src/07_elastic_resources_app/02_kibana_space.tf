@@ -6,7 +6,12 @@ resource "elasticstack_kibana_space" "kibana_space" {
   disabled_features = []
 }
 
-
+resource "elasticstack_kibana_space" "kibana_system_space" {
+  space_id          = "system-${var.env}"
+  name              = "system-${var.env}"
+  description       = "Space for system-${var.env}"
+  disabled_features = []
+}
 
 resource "elasticstack_kibana_action_connector" "app_connector" {
   for_each          = local.space_connectors
@@ -34,7 +39,7 @@ resource "elasticstack_kibana_action_connector" "infra_connector_slack" {
   for_each          = var.infra_alert_channels.slack ? local.spaces : []
   name              = local.system_connector_names.slack
   connector_type_id = ".slack"
-  space_id          = elasticstack_kibana_space.kibana_space[each.value].space_id
+  space_id          = elasticstack_kibana_space.kibana_system_space.space_id
 
   secrets = jsonencode({
     webhookUrl = data.azurerm_key_vault_secret.infra_slack_webhook_url.value
@@ -45,7 +50,7 @@ resource "elasticstack_kibana_action_connector" "infra_connector_jsm" {
   for_each          = var.infra_alert_channels.jsm ? local.spaces : []
   name              = local.system_connector_names.jsm
   connector_type_id = ".jira-service-management"
-  space_id          = elasticstack_kibana_space.kibana_space[each.value].space_id
+  space_id          = elasticstack_kibana_space.kibana_system_space.space_id
 
   secrets = jsonencode({
     apiKey = data.azurerm_key_vault_secret.infra_jsm_api_key.value
@@ -59,7 +64,7 @@ resource "elasticstack_kibana_action_connector" "infra_connector_cloudo" {
   for_each          = var.infra_alert_channels.cloudo ? local.spaces : []
   name              = local.system_connector_names.cloudo
   connector_type_id = ".webhook"
-  space_id          = elasticstack_kibana_space.kibana_space[each.value].space_id
+  space_id          = elasticstack_kibana_space.kibana_system_space.space_id
 
   secrets = jsonencode({})
   config = jsonencode(

@@ -41,7 +41,7 @@ for details on how to configure a new space/application, please refer to the `co
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module___v4__"></a> [\_\_v4\_\_](#module\_\_\_v4\_\_) | git::https://github.com/pagopa/terraform-azurerm-v4 | c4daddca8cc15d8fab5aef2bdb0f0a62c93ac610 |
+| <a name="module___v4__"></a> [\_\_v4\_\_](#module\_\_\_v4\_\_) | git::https://github.com/pagopa/terraform-azurerm-v4 | e6b294b1ce5058ea7d02146a3b516b666d13dbdc |
 | <a name="module_app_resources"></a> [app\_resources](#module\_app\_resources) | ./.terraform/modules/__v4__/elastic_app_resources | n/a |
 
 ## Resources
@@ -58,6 +58,7 @@ for details on how to configure a new space/application, please refer to the `co
 | [elasticstack_kibana_action_connector.infra_connector_jsm](https://registry.terraform.io/providers/elastic/elasticstack/0.16.5/docs/resources/kibana_action_connector) | resource |
 | [elasticstack_kibana_action_connector.infra_connector_slack](https://registry.terraform.io/providers/elastic/elasticstack/0.16.5/docs/resources/kibana_action_connector) | resource |
 | [elasticstack_kibana_space.kibana_space](https://registry.terraform.io/providers/elastic/elasticstack/0.16.5/docs/resources/kibana_space) | resource |
+| [elasticstack_kibana_space.kibana_system_space](https://registry.terraform.io/providers/elastic/elasticstack/0.16.5/docs/resources/kibana_space) | resource |
 | [azurerm_key_vault.key_vault_org](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault) | data source |
 | [azurerm_key_vault.target_key_vault](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault) | data source |
 | [azurerm_key_vault_secret.app_connector_secret_headers](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault_secret) | data source |
