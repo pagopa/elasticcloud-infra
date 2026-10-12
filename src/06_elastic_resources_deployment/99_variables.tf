@@ -28,12 +28,14 @@ variable "deployment_name" {
   description = "(Required) EC deployment name"
 }
 
+
 variable "default_idx_tpl_customization" {
   type = map(object({
     lifecycle             = optional(string, "")
     primary_shard_count   = optional(number)
     component             = string,
     total_shards_per_node = optional(number)
+    refresh_interval      = optional(string, "60s")
   }))
   description = "(Required) Map of <index type> - <index component template parameters> to be used for default index templates customization. The key is the index type, the value is an object containing the lifecycle name, primary shard count, component name and total shards per node. The index type can be logs, traces, metrics, elastic, metricbeat or elastic_monitoring."
 }

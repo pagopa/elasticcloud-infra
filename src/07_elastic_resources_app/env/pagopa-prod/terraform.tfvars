@@ -2,7 +2,9 @@ prefix    = "pagopa"
 env_short = "p"
 env       = "prod"
 
-deployment_name = "pagopa-p-weu-ec"
+deployment_name              = "pagopa-p-weu-ec"
+elastic_deployment_env       = "prod"
+elastic_deployment_env_short = "p"
 
 ilm = {
   nodo                 = "w1-d7-shrink"
@@ -32,6 +34,8 @@ ilm = {
   anonymizer           = "w1-d7-shrink"
   backoffice           = "w1-d7-shrink"
   payopt               = "w1-d7-shrink"
+  ebollo               = "w1-d7-shrink"
+  posgw                = "w1-d7-shrink"
 }
 
 apm_logs_metrics_ilm = {
@@ -48,7 +52,7 @@ apm_logs_metrics_ilm = {
 }
 
 ilm_delete_wait_for_snapshot = true
-primary_shard_count          = 3
+primary_shard_count          = 1
 total_shards_per_node        = 3
 
 
@@ -84,6 +88,9 @@ email_recipients = {
   ]
   "team-touchpoint-emails" = [
   ]
+  "team-infra-emails" = [
+    "payments-cloud@pagopa.it"
+  ]
 }
 
 alert_channels = {
@@ -92,3 +99,18 @@ alert_channels = {
   jsm    = true
   cloudo = true
 }
+
+infra_alert_channels = {
+  slack  = true
+  email  = true
+  jsm    = false
+  cloudo = false
+}
+
+system_overlog_alert_configuration = {
+  lookback_comparison_hours = 24
+  threshold                 = 30
+  window_size_hours         = 1
+}
+
+refresh_interval = "30s"

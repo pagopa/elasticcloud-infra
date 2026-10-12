@@ -126,9 +126,17 @@ k8s_application_log_instance_names = {
     "pagopacruscottosertbackend-microservice-chart"
   ]
   anonymizer = ["pagopa-anonymizer"]
+  ebollo = [
+    "pagopa-mbd-service",
+    "pagopa-gps-mbd-service"
+  ]
+  posgw = [
+    "pagopa-posgw-debtposition-handler",
+    "pagopa-posgw-transactions-handler"
+  ]
 }
 
-sampling_configuration = {
+tail_sampling_configuration = {
   enabled                    = true
   probes_sampling_percentage = 10
   sampling_percentage        = 50

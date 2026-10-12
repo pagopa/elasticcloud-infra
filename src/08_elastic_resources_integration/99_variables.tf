@@ -88,11 +88,11 @@ variable "k8s_application_log_instance_names" {
 variable "opentelemetry_operator_helm_version" {
   type        = string
   description = "Open telemetry operator version"
-  default     = "0.109.0"
+  default     = "0.123.1"
 }
 
 
-variable "sampling_configuration" {
+variable "tail_sampling_configuration" {
   type = object({
     enabled                    = bool
     probes_sampling_percentage = optional(number, 1)
@@ -105,6 +105,18 @@ variable "sampling_configuration" {
     probes_sampling_percentage = 1
     sampling_percentage        = 50
     probe_paths                = []
+  }
+}
+
+variable "head_sampling_configuration" {
+  type = object({
+    enabled             = bool
+    sampling_percentage = optional(number, 75)
+  })
+  description = "Head Sampling configuration for the OpenTelemetry collector traces"
+  default = {
+    enabled             = false
+    sampling_percentage = 75
   }
 }
 
@@ -124,15 +136,16 @@ variable "elastic_agent_metric_collection" {
 
 variable "otel_exporter_config" {
   type = object({
-    queue_size       = optional(number, 1000)
-    consumers        = optional(number, 10)
-    memory_limit_mib = optional(number, 2000)
+    queue_size     = optional(number, 1000)
+    consumers      = optional(number, 10)
+    batch_timeout  = optional(string, "1s")
+    batch_size     = optional(number, 1024)
+    batch_max_size = optional(number, 2048)
   })
   description = "(Optional) Size of the OTEL exporter queue"
   default = {
-    queue_size       = 1000
-    consumers        = 10
-    memory_limit_mib = 2000
+    queue_size = 1000
+    consumers  = 10
   }
 }
 
@@ -150,3 +163,29 @@ variable "elastic_agent_configuration" {
   }
 }
 
+variable "otel_collector_memory_limiter" {
+  type = object({
+    memory_limit_mib = number
+    spike_limit_mib  = number
+    check_interval   = string
+  })
+  description = "(Optional) Configuration for the memory limiter"
+  default = {
+    memory_limit_mib = 2000
+    spike_limit_mib  = 1024
+    check_interval   = "1s"
+  }
+}
+
+variable "otel_collector_resources" {
+  type = object({
+    limits = object({
+      cpu = string
+    })
+    requests = object({
+      cpu = string
+    })
+  })
+  description = "(Optional) Resource configuration for the OTEL collector"
+  default     = null
+}

@@ -10,8 +10,11 @@ module "otel_cluster_1" {
   deployment_env                      = var.env
   elastic_namespace                   = "${var.prefix}.${var.env}"
 
-  sampling             = var.sampling_configuration
+  tail_sampling        = var.tail_sampling_configuration
+  head_sampling        = var.head_sampling_configuration
   otlp_exporter_config = var.otel_exporter_config
+  memory_limiter       = var.otel_collector_memory_limiter
+  resources            = var.otel_collector_resources
 
   affinity_selector = var.aks_config[0].otel.affinity_selector
 
@@ -36,8 +39,11 @@ module "otel_cluster_2" {
 
   affinity_selector = var.aks_config[1].otel.affinity_selector
 
-  sampling             = var.sampling_configuration
+  tail_sampling        = var.tail_sampling_configuration
+  head_sampling        = var.head_sampling_configuration
   otlp_exporter_config = var.otel_exporter_config
+  memory_limiter       = var.otel_collector_memory_limiter
+  resources            = var.otel_collector_resources
 
   providers = {
     kubectl = kubectl.cluster_2
