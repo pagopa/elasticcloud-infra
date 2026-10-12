@@ -132,6 +132,10 @@ k8s_application_log_instance_names = {
     "pagopa-mbd-service",
     "pagopa-gps-mbd-service"
   ]
+  posgw = [
+    "pagopa-posgw-debtposition-handler",
+    "pagopa-posgw-transactions-handler"
+  ]
 }
 
 tail_sampling_configuration = {
