@@ -81,9 +81,10 @@ module "app_resources" {
 
   system_alert = {
     overlog = {
-      window_size_hours         = var.system_overlog_alert_configuration.window_size_hours
-      threshold_percentage      = var.system_overlog_alert_configuration.threshold
-      lookback_comparison_hours = var.system_overlog_alert_configuration.lookback_comparison_hours
+      window_size_hours              = var.system_overlog_alert_configuration.window_size_hours
+      threshold_percentage           = var.system_overlog_alert_configuration.threshold
+      lookback_comparison_hours      = var.system_overlog_alert_configuration.lookback_comparison_hours
+      trigger_after_consecutive_runs = var.system_overlog_alert_configuration.trigger_after_consecutive_runs
     }
     notification_channels = {
       slack = {
