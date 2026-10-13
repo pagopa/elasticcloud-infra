@@ -174,14 +174,16 @@ variable "infra_alert_channels" {
 variable "system_overlog_alert_configuration" {
   description = "Configuration for system overlog alerting"
   type = object({
-    lookback_comparison_hours = number
-    threshold                 = number
-    window_size_hours         = number
+    lookback_comparison_hours      = number
+    threshold                      = number
+    window_size_hours              = number
+    trigger_after_consecutive_runs = optional(number, 3)
   })
   default = {
-    lookback_comparison_hours = 24
-    threshold                 = 20
-    window_size_hours         = 1
+    lookback_comparison_hours      = 24
+    threshold                      = 20
+    window_size_hours              = 1
+    trigger_after_consecutive_runs = 3
   }
 }
 
