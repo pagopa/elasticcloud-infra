@@ -1,6 +1,6 @@
 resource "elasticstack_elasticsearch_security_role" "admin_role" {
   name    = "${local.prefix_env}-admin-role"
-  cluster = ["manage_ingest_pipelines"]
+  cluster = ["manage_ingest_pipelines", "read_ilm"]
 
   indices {
     names = ["*-${local.elastic_namespace}"]
@@ -19,7 +19,7 @@ resource "elasticstack_elasticsearch_security_role" "admin_role" {
           "feature_visualize.all", "feature_discover.all", "feature_dashboard.all",
           "feature_canvas.all", "feature_ml.all", "feature_graph.all", "feature_maps.all",
           "feature_logs.all", "feature_infrastructure.all", "feature_apm.all", "feature_uptime.all",
-        "feature_slo.all", "feature_dev_tools.all", "feature_indexPatterns.read", "feature_savedObjectsManagement.read"],
+        "feature_slo.all", "feature_dev_tools.all", "feature_indexPatterns.read", "feature_savedObjectsManagement.read", "feature_streams.read"],
       resources = ["space:default", "space:*-${var.env}"] }
     ])
     content {
@@ -34,7 +34,7 @@ resource "elasticstack_elasticsearch_security_role" "admin_role" {
 
 resource "elasticstack_elasticsearch_security_role" "editor_role" {
   name    = "${local.prefix_env}-editor-role"
-  cluster = null
+  cluster = ["read_ilm"]
 
   indices {
     names = ["*-${replace(local.prefix_env, "-", ".")}"]
