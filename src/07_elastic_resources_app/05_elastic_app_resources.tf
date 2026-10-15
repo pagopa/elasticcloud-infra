@@ -85,6 +85,9 @@ module "app_resources" {
       threshold_percentage           = var.system_overlog_alert_configuration.threshold
       lookback_comparison_hours      = var.system_overlog_alert_configuration.lookback_comparison_hours
       trigger_after_consecutive_runs = var.system_overlog_alert_configuration.trigger_after_consecutive_runs
+      flapping = {
+        enabled = false
+      }
     }
     notification_channels = {
       slack = {
