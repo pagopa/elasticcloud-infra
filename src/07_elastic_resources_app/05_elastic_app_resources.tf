@@ -27,6 +27,9 @@ module "app_resources" {
   dashboard_folder = each.value.dashboard_folder
   alert_folder     = each.value.alert_folder
 
+  system_dashboard_folder = "${path.module}/system_objects/dashboard"
+  system_alert_folder     = "${path.module}/system_objects/alert"
+
   alert_channels = {
     email = {
       enabled    = var.alert_channels.email
