@@ -1,0 +1,10 @@
+{
+  "processors" : [
+    {
+        "set" : {
+            "field" : "test_field",
+            "value" : "test_value"
+        }
+    }
+  ]
+}

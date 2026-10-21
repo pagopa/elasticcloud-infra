@@ -112,6 +112,45 @@ where:
 - `apmDataView`: **optional, with default**, stucture defining how to create the APM data view for this application
   - `indexIdentifiers`: **required**, list of index identifiers used to create the data view; they will be appended to the default identifiers with a trailing `*`: eg: `traces-apm*print-payment*,apm-*print-payment*`
   By default it's `"traces-apm*,apm-*,traces-*.otel-*,logs-apm*,apm-*,logs-*.otel-*,metrics-apm*,apm-*,metrics-*.otel-*"`
+- `log_filtering`: **optional, with default** structure defining which documents are dropped at ingestion time, by adding `drop` processors to the ingest pipelines of the application. If not defined, the defaults of the `log_filtering_defaults` variable are used (both filters enabled, as shown below). Overriding the default is highly discouraged
+  - `field_filtering`: **optional, with default** drops every document whose `field` value is one of `filtered_values`
+    - `enabled`: **optional, with default** set to `false` to disable the filter
+    - `field`: **optional, with default** document field to evaluate (default `log.level`)
+    - `field_structure`: **optional, with default** `flat` if the field is a single key containing dots (`ctx['log.level']`), `object` if it is a nested object path (`ctx?.log?.level`). Use `object` when logs are not flattened by the ingest pipeline, otherwise the filter will not match (default `flat`)
+    - `values`: **optional, with default** list of values that cause the document to be dropped (default `["DEBUG", "TRACE"]`)
+  - `sampling`: **optional, with default** randomly drops about `percentage`% of the documents (evaluated after `field_filtering`)
+    - `enabled`: **optional, with default** set to `false` to disable the sampling
+    - `percentage`: **optional, with default** percentage of documents to sample (default `50`)
+    - `keep`: **optional, with default** documents whose `keep.field` value is in `keep.values` are never dropped by the sampling
+      - `field`: **optional, with default** field used to exclude documents from sampling (default `log.level`)
+      - `values`: **optional, with default** list of values always retained (default `["ERROR", "WARN"]`)
+      - `field_structure`: **optional, with default** `flat` or `object`, same meaning as in `field_filtering` (default `flat`)
+
+Example, keeping only ERROR logs from sampling and dropping `DEBUG` and `TRACE` logs:
+
+```json
+{
+  "log_filtering": {
+    "sampling": {
+      "enabled": true,
+      "percentage": 99,
+      "keep": {
+        "field": "log.level",
+        "field_structure": "flat",
+        "values": ["ERROR"]
+      }
+    },
+    "field_filtering": {
+      "enabled": true,
+      "field": "log.level",
+      "field_structure": "flat",
+      "filtered_values": ["DEBUG", "TRACE"]
+    }
+  }
+}
+```
+
+To disable all filtering for an application, set `enabled` to `false` in both `sampling` and `field_filtering`.
 
 
 ## How to configure `k8s_application_log_instance_names`

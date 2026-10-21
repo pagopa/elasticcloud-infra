@@ -193,4 +193,40 @@ variable "refresh_interval" {
   default     = "5s"
 }
 
-
+variable "log_filtering_defaults" {
+  type = object({
+    sampling = object({
+      enabled    = bool
+      percentage = number
+      keep = object({
+        field           = string
+        values          = list(string)
+        field_structure = string
+      })
+    })
+    field_filtering = object({
+      enabled         = bool
+      field           = string
+      field_structure = string
+      values          = list(string)
+    })
+  })
+  description = "(Optional) Default log filtering configuration to be used for all applications. If not provided, the default will be used"
+  default = {
+    sampling = {
+      enabled    = true
+      percentage = 50
+      keep = {
+        field           = "log.level"
+        values          = ["ERROR", "WARN"]
+        field_structure = "flat"
+      }
+    }
+    field_filtering = {
+      enabled         = true
+      field           = "log.level"
+      field_structure = "flat"
+      values          = ["DEBUG", "TRACE"]
+    }
+  }
+}

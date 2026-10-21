@@ -114,3 +114,21 @@ system_overlog_alert_configuration = {
 }
 
 refresh_interval = "30s"
+
+log_filtering_defaults = {
+  sampling = {
+    enabled    = true
+    percentage = 50
+    keep = {
+      field           = "log.level"
+      values          = ["ERROR", "WARN"]
+      field_structure = "flat"
+    }
+  }
+  field_filtering = {
+    enabled         = true
+    field           = "log.level"
+    field_structure = "flat"
+    values          = ["DEBUG", "TRACE"]
+  }
+}
