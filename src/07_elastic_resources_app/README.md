@@ -41,7 +41,7 @@ for details on how to configure a new space/application, please refer to the `co
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module___v4__"></a> [\_\_v4\_\_](#module\_\_\_v4\_\_) | git::https://github.com/pagopa/terraform-azurerm-v4 | 0297f6136d253a6099cc372347a360a6396e1c56 |
+| <a name="module___v4__"></a> [\_\_v4\_\_](#module\_\_\_v4\_\_) | git::https://github.com/pagopa/terraform-azurerm-v4 | 485e70fae3c0df30f8c771b1717ac4de9fe55584 |
 | <a name="module_app_resources"></a> [app\_resources](#module\_app\_resources) | ./.terraform/modules/__v4__/elastic_app_resources | n/a |
 
 ## Resources
@@ -90,6 +90,7 @@ for details on how to configure a new space/application, please refer to the `co
 | <a name="input_ilm_delete_wait_for_snapshot"></a> [ilm\_delete\_wait\_for\_snapshot](#input\_ilm\_delete\_wait\_for\_snapshot) | Wheather or not the delete phase of every lifecycle policy for this environment needs to wait for snapshot policy to run or not | `bool` | n/a | yes |
 | <a name="input_infra_alert_channels"></a> [infra\_alert\_channels](#input\_infra\_alert\_channels) | Channels used to notify alerts to infra team | <pre>object({<br/>    jsm    = bool<br/>    email  = bool<br/>    slack  = bool<br/>    cloudo = bool<br/>  })</pre> | <pre>{<br/>  "cloudo": false,<br/>  "email": false,<br/>  "jsm": false,<br/>  "slack": true<br/>}</pre> | no |
 | <a name="input_lifecycle_policy_wait_for_snapshot"></a> [lifecycle\_policy\_wait\_for\_snapshot](#input\_lifecycle\_policy\_wait\_for\_snapshot) | (Optional) True if the index lifecycle policy has to wait for snapshots before deletion | `bool` | `true` | no |
+| <a name="input_log_filtering_defaults"></a> [log\_filtering\_defaults](#input\_log\_filtering\_defaults) | (Optional) Default log filtering configuration to be used for all applications. If not provided, the default will be used | <pre>object({<br/>    sampling = object({<br/>      enabled    = bool<br/>      percentage = number<br/>      keep = object({<br/>        field           = string<br/>        values          = list(string)<br/>        field_structure = string<br/>      })<br/>    })<br/>    field_filtering = object({<br/>      enabled         = bool<br/>      field           = string<br/>      field_structure = string<br/>      values          = list(string)<br/>    })<br/>  })</pre> | <pre>{<br/>  "field_filtering": {<br/>    "enabled": true,<br/>    "field": "log.level",<br/>    "field_structure": "flat",<br/>    "values": [<br/>      "DEBUG",<br/>      "TRACE"<br/>    ]<br/>  },<br/>  "sampling": {<br/>    "enabled": true,<br/>    "keep": {<br/>      "field": "log.level",<br/>      "field_structure": "flat",<br/>      "values": [<br/>        "ERROR",<br/>        "WARN"<br/>      ]<br/>    },<br/>    "percentage": 50<br/>  }<br/>}</pre> | no |
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | n/a | `string` | n/a | yes |
 | <a name="input_primary_shard_count"></a> [primary\_shard\_count](#input\_primary\_shard\_count) | (Optional) Number of primary shards to be used for the index template. Default is 1. keep in mind to tune this value accordingly to the available number of nodes | `number` | `1` | no |
 | <a name="input_refresh_interval"></a> [refresh\_interval](#input\_refresh\_interval) | Refresh interval for the index template | `string` | `"5s"` | no |

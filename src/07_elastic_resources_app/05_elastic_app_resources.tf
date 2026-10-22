@@ -4,7 +4,6 @@ locals {
   webhook_connector_names = [for connector_name, connector in var.app_connectors : connector_name if connector.type == "webhook"]
 }
 
-
 module "app_resources" {
   source   = "./.terraform/modules/__v4__/elastic_app_resources"
   for_each = local.configurations
@@ -103,6 +102,9 @@ module "app_resources" {
     }
   }
 
+  default_log_filtering = var.log_filtering_defaults
 
-  depends_on = [elasticstack_elasticsearch_index_lifecycle.index_lifecycle]
+  depends_on = [
+    elasticstack_elasticsearch_index_lifecycle.index_lifecycle
+  ]
 }

@@ -36,6 +36,7 @@ ilm = {
   payopt               = "w5-d5-lowsize"
   ebollo               = "w5-d5-lowsize"
   posgw                = "w5-d5-lowsize"
+  test                 = "w5-d5-lowsize"
 }
 
 apm_logs_metrics_ilm = {
@@ -85,3 +86,21 @@ system_overlog_alert_configuration = {
 }
 
 refresh_interval = "60s"
+
+log_filtering_defaults = {
+  sampling = {
+    enabled    = false
+    percentage = 50
+    keep = {
+      field           = "log.level"
+      values          = ["ERROR", "WARN"]
+      field_structure = "flat"
+    }
+  }
+  field_filtering = {
+    enabled         = false
+    field           = "log.level"
+    field_structure = "flat"
+    values          = ["DEBUG", "TRACE"]
+  }
+}
