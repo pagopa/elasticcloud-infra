@@ -87,7 +87,7 @@ refresh_interval = "60s"
 
 log_filtering_defaults = {
   sampling = {
-    enabled    = true
+    enabled    = false
     percentage = 50
     keep = {
       field           = "log.level"
@@ -96,7 +96,7 @@ log_filtering_defaults = {
     }
   }
   field_filtering = {
-    enabled         = true
+    enabled         = false
     field           = "log.level"
     field_structure = "flat"
     values          = ["DEBUG", "TRACE"]
