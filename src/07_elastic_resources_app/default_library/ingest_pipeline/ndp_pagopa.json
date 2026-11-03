@@ -140,9 +140,23 @@
           "log.file.inode",
           "log.file.device_id",
           "log.file.fingerprint",
-          "log.offset"
+          "log.offset",
+          "app.akkaSource",
+          "app.akkaAddress",
+          "app.akkaTimestamp",
+          "app.level_value",
+          "app.logger_name"
         ],
         "ignore_missing": true
+      }
+    },
+    {
+      "convert": {
+        "field": "app.actorClassId",
+        "type": "string",
+        "target_field": "app.primitive",
+        "ignore_missing": true,
+        "ignore_failure": true
       }
     }
   ]
