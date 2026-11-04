@@ -9,7 +9,9 @@ module "otel_cluster_1" {
   grpc_receiver_port                  = var.aks_config[0].otel.receiver_port
   deployment_env                      = var.env
   elastic_namespace                   = "${var.prefix}.${var.env}"
-
+  labels = {
+    domain = "core" # Icinga Business Process domain (continuos-platform-monitoring-app)
+  }
   tail_sampling        = var.tail_sampling_configuration
   head_sampling        = var.head_sampling_configuration
   otlp_exporter_config = var.otel_exporter_config
@@ -36,6 +38,10 @@ module "otel_cluster_2" {
   grpc_receiver_port                  = var.aks_config[1].otel.receiver_port
   deployment_env                      = var.env
   elastic_namespace                   = "${var.prefix}.${var.env}"
+  labels = {
+    domain = "core" # Icinga Business Process domain (continuos-platform-monitoring-app)
+
+  }
 
   affinity_selector = var.aks_config[1].otel.affinity_selector
 
@@ -53,7 +59,8 @@ module "otel_cluster_2" {
 
 
 ############
-
+# OpenTelemetry Load Balancer module
+############
 module "otel_lb_cluster_1" {
   source = "./.terraform/modules/__v4__/open_telemetry_scalable"
 
@@ -65,37 +72,62 @@ module "otel_lb_cluster_1" {
   grpc_receiver_port                  = var.aks_config[0].otel.receiver_port
   deployment_env                      = var.env
   elastic_namespace                   = "${var.prefix}.${var.env}"
-
-  # object of migration from old otel module to new scalable module
-  install_operator = false
-  create_namespace                    = false
-
+  labels = {
+    domain = "core" # Icinga Business Process domain (continuos-platform-monitoring-app)
+  }
   tail_sampling        = var.tail_sampling_configuration
   head_sampling        = var.head_sampling_configuration
   otlp_exporter_config = var.otel_exporter_config
-
-  affinity_selector = var.aks_config[0].otel.affinity_selector
-
-  load_balancer = {
-    replicas = 2
-    resources = {
-      requests = { cpu = "100m", memory = "100Mi" }
-      limits   = { cpu = "200m", memory = "200Mi" }
-    }
-  }
-
+  affinity_selector    = var.aks_config[0].otel.affinity_selector
+  load_balancer        = var.otel_lb_load_balancer
   sampling = {
-    replicas = 3
-    resources = {
-      requests = { cpu = "100m", memory = "200Mi" }
-      limits   = { cpu = "200m", memory = "200Mi" }
-    }
+    replicas       = var.otel_lb_sampling.replicas
+    resources      = var.otel_lb_sampling.resources
     memory_limiter = var.otel_collector_memory_limiter
   }
 
+  # object of migration from old otel module to new scalable module
+  install_operator = false
+  create_namespace = false
 
   providers = {
     kubectl = kubectl.cluster_1
     helm    = helm.cluster_1
+  }
+}
+
+module "otel_lb_cluster_2" {
+  source = "./.terraform/modules/__v4__/open_telemetry_scalable"
+  count  = length(var.aks_config) > 1 ? 1 : 0
+
+  elasticsearch_api_key               = data.azurerm_key_vault_secret.elasticsearch_api_key.value
+  elasticsearch_apm_host              = data.ec_deployment.deployment.integrations_server[0].https_endpoint
+  opentelemetry_operator_helm_version = var.opentelemetry_operator_helm_version
+  operator_helm_release_name          = "opentelemetry-cloud-operator"
+  otel_kube_namespace                 = var.aks_config[1].otel.namespace
+  grpc_receiver_port                  = var.aks_config[1].otel.receiver_port
+  deployment_env                      = var.env
+  elastic_namespace                   = "${var.prefix}.${var.env}"
+  labels = {
+    domain = "core" # Icinga Business Process domain (continuos-platform-monitoring-app)
+  }
+  tail_sampling        = var.tail_sampling_configuration
+  head_sampling        = var.head_sampling_configuration
+  otlp_exporter_config = var.otel_exporter_config
+  affinity_selector    = var.aks_config[1].otel.affinity_selector
+  load_balancer        = var.otel_lb_load_balancer
+  sampling = {
+    replicas       = var.otel_lb_sampling.replicas
+    resources      = var.otel_lb_sampling.resources
+    memory_limiter = var.otel_collector_memory_limiter
+  }
+
+  # object of migration from old otel module to new scalable module
+  install_operator = var.otel_lb_install_operator
+  create_namespace = var.otel_lb_create_namespace
+
+  providers = {
+    kubectl = kubectl.cluster_2
+    helm    = helm.cluster_2
   }
 }

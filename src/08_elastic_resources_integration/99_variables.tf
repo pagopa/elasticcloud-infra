@@ -189,3 +189,51 @@ variable "otel_collector_resources" {
   description = "(Optional) Resource configuration for the OTEL collector"
   default     = null
 }
+
+variable "otel_lb_install_operator" {
+  type        = bool
+  default     = false
+  description = "(Optional) If true installs the OpenTelemetry operator Helm release in the otel_lb_cluster_1 module. Keep false when the operator is already installed by the legacy module"
+}
+
+variable "otel_lb_create_namespace" {
+  type        = bool
+  default     = false
+  description = "(Optional) If true creates the otel namespace in the otel_lb_cluster_1 module. Keep false when the namespace already exists"
+}
+
+variable "otel_lb_load_balancer" {
+  type = object({
+    replicas = optional(number, 2)
+    resources = optional(object({
+      requests = optional(map(string))
+      limits   = optional(map(string))
+    }))
+  })
+  description = "(Optional) Load balancer tier configuration of the otel_lb_cluster_1 module"
+  default = {
+    replicas = 2
+    resources = {
+      requests = { cpu = "100m", memory = "100Mi" }
+      limits   = { cpu = "200m", memory = "200Mi" }
+    }
+  }
+}
+
+variable "otel_lb_sampling" {
+  type = object({
+    replicas = optional(number, 3)
+    resources = optional(object({
+      requests = optional(map(string))
+      limits   = optional(map(string))
+    }))
+  })
+  description = "(Optional) Sampling tier configuration of the otel_lb_cluster_1 module. The memory limiter is set by 'otel_collector_memory_limiter'"
+  default = {
+    replicas = 3
+    resources = {
+      requests = { cpu = "100m", memory = "200Mi" }
+      limits   = { cpu = "200m", memory = "200Mi" }
+    }
+  }
+}

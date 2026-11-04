@@ -179,3 +179,22 @@ elastic_agent_metric_collection = {
   system        = false
   elastic_agent = false
 }
+
+otel_lb_install_operator = false
+otel_lb_create_namespace = false
+
+otel_lb_load_balancer = {
+  replicas = 2
+  resources = {
+    requests = { cpu = "100m", memory = "100Mi" }
+    limits   = { cpu = "200m", memory = "200Mi" }
+  }
+}
+
+otel_lb_sampling = {
+  replicas = 3
+  resources = {
+    requests = { cpu = "100m", memory = "200Mi" }
+    limits   = { cpu = "200m", memory = "200Mi" }
+  }
+}
