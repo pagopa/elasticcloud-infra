@@ -40,7 +40,6 @@ module "otel_cluster_2" {
   elastic_namespace                   = "${var.prefix}.${var.env}"
   labels = {
     domain = "core" # Icinga Business Process domain (continuos-platform-monitoring-app)
-
   }
 
   affinity_selector = var.aks_config[1].otel.affinity_selector
@@ -61,14 +60,24 @@ module "otel_cluster_2" {
 ############
 # OpenTelemetry Load Balancer module
 ############
+
+
+# FIXME temporary locals, revert to var.aks_config[0].otel when migration completed
+locals {
+  otel_lb_namespace_aks1        = "otel"
+  otel_lb_create_namespace_aks1 = true
+}
+
 module "otel_lb_cluster_1" {
   source = "./.terraform/modules/__v4__/open_telemetry_scalable"
+
+  count = var.otel_lb_enabled ? 1 : 0
 
   elasticsearch_api_key               = data.azurerm_key_vault_secret.elasticsearch_api_key.value
   elasticsearch_apm_host              = data.ec_deployment.deployment.integrations_server[0].https_endpoint
   opentelemetry_operator_helm_version = var.opentelemetry_operator_helm_version
   operator_helm_release_name          = "opentelemetry-cloud-operator"
-  otel_kube_namespace                 = var.aks_config[0].otel.namespace
+  otel_kube_namespace                 = local.otel_lb_namespace_aks1 # FIXME var.aks_config[0].otel.namespace
   grpc_receiver_port                  = var.aks_config[0].otel.receiver_port
   deployment_env                      = var.env
   elastic_namespace                   = "${var.prefix}.${var.env}"
@@ -87,8 +96,8 @@ module "otel_lb_cluster_1" {
   }
 
   # object of migration from old otel module to new scalable module
-  install_operator = false
-  create_namespace = false
+  install_operator = false                               # FIXME true
+  create_namespace = local.otel_lb_create_namespace_aks1 # FIXME var.aks_config[0].otel.create_ns
 
   providers = {
     kubectl = kubectl.cluster_1
@@ -98,7 +107,7 @@ module "otel_lb_cluster_1" {
 
 module "otel_lb_cluster_2" {
   source = "./.terraform/modules/__v4__/open_telemetry_scalable"
-  count  = length(var.aks_config) > 1 ? 1 : 0
+  count  = length(var.aks_config) > 1 && var.otel_lb_enabled ? 1 : 0
 
   elasticsearch_api_key               = data.azurerm_key_vault_secret.elasticsearch_api_key.value
   elasticsearch_apm_host              = data.ec_deployment.deployment.integrations_server[0].https_endpoint
@@ -123,8 +132,8 @@ module "otel_lb_cluster_2" {
   }
 
   # object of migration from old otel module to new scalable module
-  install_operator = var.otel_lb_install_operator
-  create_namespace = var.otel_lb_create_namespace
+  install_operator = var.otel_lb_install_operator # FIXME true
+  create_namespace = false                        # FIXME var.aks_config[1].otel.create_ns
 
   providers = {
     kubectl = kubectl.cluster_2

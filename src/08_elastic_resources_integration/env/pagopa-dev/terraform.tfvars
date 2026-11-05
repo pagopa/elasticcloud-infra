@@ -151,7 +151,6 @@ elastic_agent_metric_collection = {
 }
 
 otel_lb_install_operator = false
-otel_lb_create_namespace = false
 
 otel_lb_load_balancer = {
   replicas = 2
@@ -168,3 +167,6 @@ otel_lb_sampling = {
     limits   = { cpu = "200m", memory = "200Mi" }
   }
 }
+
+
+otel_lb_enabled = true

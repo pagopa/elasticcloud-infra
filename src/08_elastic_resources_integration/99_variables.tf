@@ -196,11 +196,6 @@ variable "otel_lb_install_operator" {
   description = "(Optional) If true installs the OpenTelemetry operator Helm release in the otel_lb_cluster_1 module. Keep false when the operator is already installed by the legacy module"
 }
 
-variable "otel_lb_create_namespace" {
-  type        = bool
-  default     = false
-  description = "(Optional) If true creates the otel namespace in the otel_lb_cluster_1 module. Keep false when the namespace already exists"
-}
 
 variable "otel_lb_load_balancer" {
   type = object({
@@ -236,4 +231,11 @@ variable "otel_lb_sampling" {
       limits   = { cpu = "200m", memory = "200Mi" }
     }
   }
+}
+
+
+variable "otel_lb_enabled" {
+  type        = bool
+  default     = false
+  description = "(Optional) If true enables the otel load balanced deployment"
 }
