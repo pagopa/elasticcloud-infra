@@ -109,7 +109,7 @@ infra_alert_channels = {
 
 system_overlog_alert_configuration = {
   lookback_comparison_hours = 24
-  threshold                 = 30
+  threshold                 = 40
   window_size_hours         = 1
 }
 
