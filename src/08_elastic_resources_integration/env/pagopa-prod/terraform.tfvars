@@ -200,7 +200,7 @@ otel_lb_cl1_sampling = {
 }
 # ITN cluster
 otel_lb_cl2_load_balancer = {
-  replicas = 2
+  replicas = 3
   resources = {
     requests = { cpu = "100m", memory = "384Mi" }
     limits   = { cpu = "200m", memory = "384Mi" }
