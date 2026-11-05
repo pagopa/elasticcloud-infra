@@ -53,11 +53,13 @@ Please, refer to [products readme](../07_elastic_resources_app/products/README.m
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module___v4__"></a> [\_\_v4\_\_](#module\_\_\_v4\_\_) | git::https://github.com/pagopa/terraform-azurerm-v4 | 6037fbd6badf8087d73bf8ce5d64f18833b7e060 |
+| <a name="module___v4__"></a> [\_\_v4\_\_](#module\_\_\_v4\_\_) | git::https://github.com/pagopa/terraform-azurerm-v4 | 6ad3bb87a11dcaea4df69a15f3528653794ffb15 |
 | <a name="module_install_agent_cluster_1"></a> [install\_agent\_cluster\_1](#module\_install\_agent\_cluster\_1) | ./.terraform/modules/__v4__/elastic_cloud_agent | n/a |
 | <a name="module_install_agent_cluster_2"></a> [install\_agent\_cluster\_2](#module\_install\_agent\_cluster\_2) | ./.terraform/modules/__v4__/elastic_cloud_agent | n/a |
 | <a name="module_otel_cluster_1"></a> [otel\_cluster\_1](#module\_otel\_cluster\_1) | ./.terraform/modules/__v4__/open_telemetry | n/a |
 | <a name="module_otel_cluster_2"></a> [otel\_cluster\_2](#module\_otel\_cluster\_2) | ./.terraform/modules/__v4__/open_telemetry | n/a |
+| <a name="module_otel_lb_cluster_1"></a> [otel\_lb\_cluster\_1](#module\_otel\_lb\_cluster\_1) | ./.terraform/modules/__v4__/open_telemetry_scalable | n/a |
+| <a name="module_otel_lb_cluster_2"></a> [otel\_lb\_cluster\_2](#module\_otel\_lb\_cluster\_2) | ./.terraform/modules/__v4__/open_telemetry_scalable | n/a |
 
 ## Resources
 
@@ -80,6 +82,7 @@ Please, refer to [products readme](../07_elastic_resources_app/products/README.m
 | [kubernetes_role_binding.deployer_binding_azdo_1](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role_binding) | resource |
 | [kubernetes_role_binding.deployer_binding_azdo_2](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role_binding) | resource |
 | [kubernetes_role_binding.deployer_binding_otel_1](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role_binding) | resource |
+| [kubernetes_role_binding.deployer_binding_otel_1_tmp](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role_binding) | resource |
 | [kubernetes_role_binding.deployer_binding_otel_2](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role_binding) | resource |
 | [kubernetes_secret_v1.default_secret_1](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1) | resource |
 | [kubernetes_secret_v1.default_secret_2](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1) | resource |
@@ -114,6 +117,10 @@ Please, refer to [products readme](../07_elastic_resources_app/products/README.m
 | <a name="input_otel_collector_memory_limiter"></a> [otel\_collector\_memory\_limiter](#input\_otel\_collector\_memory\_limiter) | (Optional) Configuration for the memory limiter | <pre>object({<br/>    memory_limit_mib = number<br/>    spike_limit_mib  = number<br/>    check_interval   = string<br/>  })</pre> | <pre>{<br/>  "check_interval": "1s",<br/>  "memory_limit_mib": 2000,<br/>  "spike_limit_mib": 1024<br/>}</pre> | no |
 | <a name="input_otel_collector_resources"></a> [otel\_collector\_resources](#input\_otel\_collector\_resources) | (Optional) Resource configuration for the OTEL collector | <pre>object({<br/>    limits = object({<br/>      cpu = string<br/>    })<br/>    requests = object({<br/>      cpu = string<br/>    })<br/>  })</pre> | `null` | no |
 | <a name="input_otel_exporter_config"></a> [otel\_exporter\_config](#input\_otel\_exporter\_config) | (Optional) Size of the OTEL exporter queue | <pre>object({<br/>    queue_size     = optional(number, 1000)<br/>    consumers      = optional(number, 10)<br/>    batch_timeout  = optional(string, "1s")<br/>    batch_size     = optional(number, 1024)<br/>    batch_max_size = optional(number, 2048)<br/>  })</pre> | <pre>{<br/>  "consumers": 10,<br/>  "queue_size": 1000<br/>}</pre> | no |
+| <a name="input_otel_lb_enabled"></a> [otel\_lb\_enabled](#input\_otel\_lb\_enabled) | (Optional) If true enables the otel load balanced deployment | `bool` | `false` | no |
+| <a name="input_otel_lb_install_operator"></a> [otel\_lb\_install\_operator](#input\_otel\_lb\_install\_operator) | (Optional) If true installs the OpenTelemetry operator Helm release in the otel\_lb\_cluster\_1 module. Keep false when the operator is already installed by the legacy module | `bool` | `false` | no |
+| <a name="input_otel_lb_load_balancer"></a> [otel\_lb\_load\_balancer](#input\_otel\_lb\_load\_balancer) | (Optional) Load balancer tier configuration of the otel\_lb\_cluster\_1 module | <pre>object({<br/>    replicas = optional(number, 2)<br/>    resources = optional(object({<br/>      requests = optional(map(string))<br/>      limits   = optional(map(string))<br/>    }))<br/>  })</pre> | <pre>{<br/>  "replicas": 2,<br/>  "resources": {<br/>    "limits": {<br/>      "cpu": "200m",<br/>      "memory": "200Mi"<br/>    },<br/>    "requests": {<br/>      "cpu": "100m",<br/>      "memory": "100Mi"<br/>    }<br/>  }<br/>}</pre> | no |
+| <a name="input_otel_lb_sampling"></a> [otel\_lb\_sampling](#input\_otel\_lb\_sampling) | (Optional) Sampling tier configuration of the otel\_lb\_cluster\_1 module. The memory limiter is set by 'otel\_collector\_memory\_limiter' | <pre>object({<br/>    replicas = optional(number, 3)<br/>    resources = optional(object({<br/>      requests = optional(map(string))<br/>      limits   = optional(map(string))<br/>    }))<br/>  })</pre> | <pre>{<br/>  "replicas": 3,<br/>  "resources": {<br/>    "limits": {<br/>      "cpu": "200m",<br/>      "memory": "200Mi"<br/>    },<br/>    "requests": {<br/>      "cpu": "100m",<br/>      "memory": "200Mi"<br/>    }<br/>  }<br/>}</pre> | no |
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | n/a | `string` | n/a | yes |
 | <a name="input_tail_sampling_configuration"></a> [tail\_sampling\_configuration](#input\_tail\_sampling\_configuration) | Sampling configuration for the OpenTelemetry collector traces | <pre>object({<br/>    enabled                    = bool<br/>    probes_sampling_percentage = optional(number, 1)<br/>    sampling_percentage        = optional(number, 50)<br/>    probe_paths                = optional(list(string), [])<br/>  })</pre> | <pre>{<br/>  "enabled": false,<br/>  "probe_paths": [],<br/>  "probes_sampling_percentage": 1,<br/>  "sampling_percentage": 50<br/>}</pre> | no |
 

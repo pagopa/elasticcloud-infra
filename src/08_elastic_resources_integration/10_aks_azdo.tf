@@ -97,6 +97,26 @@ resource "kubernetes_role_binding" "deployer_binding_otel_1" {
   }
 }
 
+# fixme remove after otel migration
+resource "kubernetes_role_binding" "deployer_binding_otel_1_tmp" {
+  count    = var.otel_lb_enabled ? 1 : 0
+  provider = kubernetes.cluster_1
+  metadata {
+    name      = "deployer-binding"
+    namespace = "otel"
+  }
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "cluster-deployer"
+  }
+  subject {
+    kind      = "ServiceAccount"
+    name      = "azure-devops"
+    namespace = kubernetes_namespace.azdo_1.metadata[0].name
+  }
+}
+
 resource "kubernetes_cluster_role_binding" "system_deployer_binding_1" {
   provider = kubernetes.cluster_1
 
