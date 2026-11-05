@@ -182,18 +182,35 @@ elastic_agent_metric_collection = {
 
 otel_lb_install_operator = false
 
-otel_lb_load_balancer = {
-  replicas = 2
+# WEU cluster
+otel_lb_cl1_load_balancer = {
+  replicas = 3
   resources = {
-    requests = { cpu = "100m", memory = "100Mi" }
-    limits   = { cpu = "200m", memory = "200Mi" }
+    requests = { cpu = "100m", memory = "256Mi" }
+    limits   = { cpu = "200m", memory = "512Mi" }
   }
 }
 
-otel_lb_sampling = {
+otel_lb_cl1_sampling = {
   replicas = 3
   resources = {
-    requests = { cpu = "100m", memory = "200Mi" }
-    limits   = { cpu = "200m", memory = "200Mi" }
+    requests = { cpu = "100m", memory = "1536Mi" }
+    limits   = { cpu = "200m", memory = "2816Mi" }
+  }
+}
+# ITN cluster
+otel_lb_cl2_load_balancer = {
+  replicas = 2
+  resources = {
+    requests = { cpu = "100m", memory = "384Mi" }
+    limits   = { cpu = "200m", memory = "384Mi" }
+  }
+}
+
+otel_lb_cl2_sampling = {
+  replicas = 3
+  resources = {
+    requests = { cpu = "100m", memory = "384Mi" }
+    limits   = { cpu = "200m", memory = "384Mi" }
   }
 }
