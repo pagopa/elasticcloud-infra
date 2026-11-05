@@ -151,4 +151,4 @@ elastic_agent_metric_collection = {
 }
 
 otel_lb_install_operator = false
-otel_lb_enabled = true
+otel_lb_enabled          = true
