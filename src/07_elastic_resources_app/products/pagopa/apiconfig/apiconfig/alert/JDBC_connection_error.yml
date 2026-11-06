@@ -1,4 +1,4 @@
-name: Cache postgres error
+name: JDBC Connection error
 schedule: 5m
 window:
   size: 5

@@ -1,4 +1,4 @@
-name: Cache postgres error
+name: FULL Cache refresh error
 schedule: 5m
 window:
   size: 5
