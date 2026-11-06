@@ -1,0 +1,33 @@
+name: JDBC Connection error
+schedule: 5m
+window:
+  size: 5
+  unit: m
+custom_threshold:
+  data_view: logs
+  query: "service.name: \"pagopa-api-config-cache\" AND (message: \"Successful API operation*\" OR message: \"Unable to acquire JDBC Connection\")"
+  aggregations:
+    - name: A
+      aggregation: count
+      filter: "message: \"Successful API operation*\""
+    - name: B
+      aggregation: count
+      filter: "message: \"Unable to acquire JDBC Connection\""
+  equation: "(B/A)*100"
+  label: "Error Rate"
+  threshold:
+    values:
+      - 5
+    comparator: ">"
+  alert_on_no_data: false
+trigger_after_consecutive_runs: 1
+enabled: true #optional, default true. overrides global value
+notification_channels:
+  jsm:
+    connector_name: team-core-jsm
+    priority: P1
+  email:
+    recipient_list_name: team-core-emails
+investigation: # optional, visualized in the alert detail page in Kibana
+  message: |
+    The service is experiencing a high rate of JDBC connection errors. This may indicate that the database is under heavy load or that there are issues with the connection pool configuration. Please investigate the database performance and connection pool settings to resolve the issue.
