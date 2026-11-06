@@ -1,0 +1,26 @@
+name: Send refresh event on Event Hub error
+schedule: 5m
+window:
+  size: 5
+  unit: m
+log_query:
+  aggregation:
+    type: count
+  query: "service.name: \"pagopa-api-config-cache\" AND log.level: ERROR AND message: \"[ALERT] Error sending cache refresh event*\""
+  data_view: logs
+  exclude_hits_from_previous_run: true
+  threshold:
+    values:
+      - 1
+    comparator: ">="
+trigger_after_consecutive_runs: 1
+enabled: true #optional, default true. overrides global value
+notification_channels:
+  jsm:
+    connector_name: team-core-jsm
+    priority: P1
+  email:
+    recipient_list_name: team-core-emails
+investigation: # optional, visualized in the alert detail page in Kibana
+  message: |
+    The service is experiencing a failure in sending cache refresh events to Event Hub. This may indicate that the cache refresh events are not being sent properly, which could lead to stale data being served. Please investigate the cache refresh event sending process to resolve the issue.
