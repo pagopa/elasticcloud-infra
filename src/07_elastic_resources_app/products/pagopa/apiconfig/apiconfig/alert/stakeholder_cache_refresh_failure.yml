@@ -1,0 +1,26 @@
+name: Cache postgres error
+schedule: 5m
+window:
+  size: 5
+  unit: m
+log_query:
+  aggregation:
+    type: count
+  query: "service.name: \"pagopa-api-config-cache\" AND log.level: ERROR AND message: \"[ALERT] Stakeholder cache generation or save failed\""
+  data_view: logs
+  exclude_hits_from_previous_run: true
+  threshold:
+    values:
+      - 1
+    comparator: ">="
+trigger_after_consecutive_runs: 1
+enabled: true #optional, default true. overrides global value
+notification_channels:
+  jsm:
+    connector_name: team-core-jsm
+    priority: P2
+  email:
+    recipient_list_name: team-core-emails
+investigation: # optional, visualized in the alert detail page in Kibana
+  message: |
+    The service is experiencing a failure in stakeholder cache generation or save. This may indicate that the stakeholder cache is not being refreshed properly, which could lead to stale data being served to users. Please investigate the stakeholder cache generation and save processes to resolve the issue.
