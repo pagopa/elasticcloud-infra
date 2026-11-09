@@ -149,15 +149,6 @@
         ],
         "ignore_missing": true
       }
-    },
-    {
-      "convert": {
-        "field": "app.actorClassId",
-        "type": "string",
-        "target_field": "app.primitive",
-        "ignore_missing": true,
-        "ignore_failure": true
-      }
     }
   ]
 }
