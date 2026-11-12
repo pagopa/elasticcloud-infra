@@ -88,10 +88,10 @@ module "otel_lb_cluster_1" {
   head_sampling        = var.head_sampling_configuration
   otlp_exporter_config = var.otel_exporter_config
   affinity_selector    = var.aks_config[0].otel.affinity_selector
-  load_balancer        = var.otel_lb_load_balancer
+  load_balancer        = var.otel_lb_cl1_load_balancer
   sampling = {
-    replicas       = var.otel_lb_sampling.replicas
-    resources      = var.otel_lb_sampling.resources
+    replicas       = var.otel_lb_cl1_sampling.replicas
+    resources      = var.otel_lb_cl1_sampling.resources
     memory_limiter = var.otel_collector_memory_limiter
   }
 
@@ -124,10 +124,10 @@ module "otel_lb_cluster_2" {
   head_sampling        = var.head_sampling_configuration
   otlp_exporter_config = var.otel_exporter_config
   affinity_selector    = var.aks_config[1].otel.affinity_selector
-  load_balancer        = var.otel_lb_load_balancer
+  load_balancer        = var.otel_lb_cl2_load_balancer
   sampling = {
-    replicas       = var.otel_lb_sampling.replicas
-    resources      = var.otel_lb_sampling.resources
+    replicas       = var.otel_lb_cl2_sampling.replicas
+    resources      = var.otel_lb_cl2_sampling.resources
     memory_limiter = var.otel_collector_memory_limiter
   }
 
