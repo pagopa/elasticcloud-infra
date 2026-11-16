@@ -8,7 +8,7 @@ elastic_deployment_env_short = "p"
 
 ilm = {
   nodo                 = "w1-d7-shrink"
-  nodocron              = "w1-d7-shrink"
+  ndpcron              = "w1-d7-shrink"
   nodoreplica          = "w1-d7-shrink"
   nodocronreplica      = "w1-d7-shrink"
   pagopastandinmanager = "w1-d7-shrink"

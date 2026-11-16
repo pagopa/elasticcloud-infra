@@ -8,7 +8,8 @@ elastic_deployment_env_short = "u"   # deployment is shared between dev and uat 
 
 ilm = {
   nodo                 = "w5-d5-lowsize"
-  nodocron              = "w5-d5-lowsize"
+  ndpcron              = "w5-d5-lowsize"
+  nodocron             = "w5-d5-lowsize"
   nodoreplica          = "w5-d5-lowsize"
   nodocronreplica      = "w5-d5-lowsize"
   pagopastandinmanager = "w5-d5-lowsize"
