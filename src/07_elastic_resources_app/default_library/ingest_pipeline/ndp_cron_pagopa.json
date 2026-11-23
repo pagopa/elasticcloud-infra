@@ -129,25 +129,21 @@
       }
     },
     {
-      "remove": {
-        "field": [
-          "elastic_agent",
-          "agent",
-          "input.type",
-          "ecs",
-          "stream",
-          "host",
-          "log.file.inode",
-          "log.file.device_id",
-          "log.file.fingerprint",
-          "log.offset",
-          "app.akkaSource",
-          "app.akkaAddress",
-          "app.akkaTimestamp",
-          "app.level_value",
-          "app.logger_name"
+      "grok": {
+        "if": "ctx.app?.reJsonLog == 'true' && ctx.re?.internalMessage != null && ctx.re.internalMessage.startsWith('Cambio stato in [')",
+        "field": "re.internalMessage",
+        "target_field": "re.statusChange",
+        "patterns": [
+          "^Cambio stato in \\[(?<entity>receipt_recipient|payment|position)_(?<status>[^\\]]+)\\]$"
         ],
-        "ignore_missing": true
+        "on_failure": [
+          {
+            "set": {
+              "field": "re.statusChange.inError",
+              "value": true
+            }
+          }
+        ]
       }
     }
   ]
