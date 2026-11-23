@@ -132,9 +132,8 @@
       "grok": {
         "if": "ctx.app?.reJsonLog == 'true' && ctx.re?.internalMessage != null && ctx.re.internalMessage.startsWith('Cambio stato in [')",
         "field": "re.internalMessage",
-        "target_field": "re.statusChange",
         "patterns": [
-          "^Cambio stato in \\[(?<entity>receipt_recipient|payment|position)_(?<status>[^\\]]+)\\]$"
+          "^Cambio stato in \\[(?<status_change_entity>receipt_recipient|payment|position)_(?<status_change_status>[^\\]]+)\\]$"
         ],
         "on_failure": [
           {
@@ -144,6 +143,22 @@
             }
           }
         ]
+      }
+    },
+    {
+      "rename": {
+        "if": "ctx.status_change_entity != null",
+        "field": "status_change_entity",
+        "target_field": "re.statusChange.entity",
+        "ignore_missing": true
+      }
+    },
+    {
+      "rename": {
+        "if": "ctx.status_change_value != null",
+        "field": "status_change_value",
+        "target_field": "re.statusChange.status",
+        "ignore_missing": true
       }
     }
   ]
