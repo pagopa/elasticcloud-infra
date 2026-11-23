@@ -133,7 +133,7 @@
         "if": "ctx.app?.reJsonLog == 'true' && ctx.re?.internalMessage != null && ctx.re.internalMessage.startsWith('Cambio stato in [')",
         "field": "re.internalMessage",
         "patterns": [
-          "^Cambio stato in \\[(?<status_change_entity>receipt_recipient|payment|position)_(?<status_change_status>[^\\]]+)\\]$"
+          "^Cambio stato in \\[(?<status_change_entity>receipt_recipient|payment|position)_(?<status_change_value>[^\\]]+)\\]$"
         ],
         "on_failure": [
           {
