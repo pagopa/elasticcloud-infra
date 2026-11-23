@@ -96,7 +96,7 @@ k8s_application_log_instance_names = {
     "pagopa-gpd-ingestion-manager"
     # "pagopa-gpd-rtp"
   ]
-  nodo     = ["nodopagamenti"]
+  nodo     = ["nodopagamenti","nodocron",]
   ndpcron = ["ndpcron"]
   pagopawispconverter = [
     "wispsoapconverter",
