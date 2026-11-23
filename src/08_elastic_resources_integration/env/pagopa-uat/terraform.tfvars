@@ -94,8 +94,8 @@ k8s_application_log_instance_names = {
     "pagopa-gpd-ingestion-manager",
     "pagopa-gpd-rtp"
   ]
-  nodo     = ["nodopagamenti"]
-  ndpcron  = ["nodocron"]
+  nodo    = ["nodopagamenti"]
+  ndpcron = ["nodocron"]
   pagopawispconverter = [
     "wispsoapconverter",
     "pagopawispconverter-microservice-chart",
